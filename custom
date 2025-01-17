@@ -13,6 +13,7 @@ sudo yum install gnome-tweaks liberation-fonts mesa-vulkan-drivers zlib-devel
 brave-browser-stable --disable-features=GlobalMediaControls
 yum.conf:exclude=nautilus nautilus-extensions brave-browser
 user-dirs.dirs:user-dirs.defaults
+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
 git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBrJ4p9XaAgVxjJGcP24qGz4Ln47F30338
 ============================================================================================================
 export HISTSIZE=100000
