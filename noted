@@ -2,8 +2,7 @@ A common programming pattern is producer and consumer: a producer creates dataâ€
 
 The act of creating a reference is called borrowing.
 
+A GATEWAY is a device (usually a router) on the network used by a SUBNET to communicate to other devices on a different network. The Default Gateway is the IP Address of a device (router) on a network through which a SUBNET will communicate with other devices across the network.
 
-zig mm
-rust lifetime
-arena
-is gc really bad
+
+A subnet, or subnetwork, is a network inside a network. Subnets make networks more efficient. Through subnetting, network traffic can travel a shorter distance without passing through unnecessary routers to reach its destination.
