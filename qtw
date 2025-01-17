@@ -1,0 +1,113 @@
+#!/usr/bin/python3
+
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+import requests
+import sys
+
+class QWidget_1(QWidget):
+	def __init__(self):
+		super().__init__()
+		self.layout = QHBoxLayout()
+		self.layout.addWidget(QPushButton("A"), 0)
+		self.layout.addWidget(QPushButton("B"), 1)
+		self.layout.addWidget(QPushButton("C"), 2)
+		self.setLayout(self.layout)
+		self.rect = QRect(10, 10, 100, 200)
+
+
+class QWidget_2(QWidget):
+	def __init__(self):
+		super().__init__()
+		self.spinBox = QSpinBox()
+		self.spinBox.setValue(30)
+		self.spinBox.setRange(0, 130)
+		self.slider = QSlider(Qt.Orientation.Horizontal)
+		self.slider.setRange(0, 130)
+		self.slider.setValue(100)
+		self.layout = QHBoxLayout()
+		self.layout.addWidget(self.spinBox)
+		self.layout.addWidget(self.slider)
+		self.setLayout(self.layout)
+		self.slider.valueChanged.connect(self.spinBox.setValue)
+		self.spinBox.valueChanged.connect(self.slider.setValue)
+		
+
+class QWidget_3(QWidget):
+	def __init__(self):
+		super().__init__()
+		self.slider = QSlider(Qt.Orientation.Horizontal)
+		self.slider.setRange(0, 130)
+		self.slider.setValue(100)
+		self.progressBar = QProgressBar()
+		self.progressBar.setRange(0, 130)
+		self.progressBar.setValue(100)
+		self.layout = QVBoxLayout()
+		self.layout.addWidget(self.slider)
+		self.layout.addWidget(self.progressBar)
+		self.setLayout(self.layout)
+		self.slider.valueChanged.connect(self.progressBar.setValue)
+		self.progressBar.valueChanged.connect(self.slider.setValue)		
+
+
+class QWidget_4(QWidget):
+	def __init__(self):
+		super().__init__()
+		self.url = QLineEdit()
+		self.button = QPushButton("Send")
+		self.layout0 = QHBoxLayout()
+		self.layout0.addWidget(self.url)
+		self.layout0.addWidget(self.button)
+		self.request = QTextEdit()
+		self.response = QTextEdit()
+		self.layout1 = QHBoxLayout()
+		self.layout1.addWidget(self.request)
+		self.layout1.addWidget(self.response)
+		self.mainLayout = QVBoxLayout()
+		self.mainLayout.addLayout(self.layout0)
+		self.mainLayout.addLayout(self.layout1)
+		self.setLayout(self.mainLayout)
+		self.button.clicked.connect(self.handleSend)
+
+	def handleSend(self):
+		text = requests.get(self.url.text()).text
+		self.response.setText(text)
+
+class QWidget_5(QWidget):
+	def __init__(self):
+		super().__init__()
+		self.username = QLineEdit()
+		self.password = QLineEdit()
+		self.layout = QFormLayout()
+		self.layout.addRow("Username: ", self.username)
+		self.layout.addRow("Password: ", self.password)
+		self.setLayout(self.layout)
+
+
+class QWidget_6(QWidget):
+	def __init__(self):
+		super().__init__()
+		self.slider = QSlider(Qt.Orientation.Horizontal)
+		self.slider.setRange(0, 1000)
+		self.slider.setValue(100)
+		self.lcd = QLCDNumber()
+		self.layout = QVBoxLayout()
+		self.layout.addWidget(self.slider)
+		self.layout.addWidget(self.lcd)
+		self.setLayout(self.layout)
+		self.slider.valueChanged.connect(self.lcd.display)
+
+class QWidget_7(QWidget):
+	def __init__(self):
+		super().__init__()
+		self.button = QPushButton(self)
+		self.button.clicked.connect(self.handleClicked)
+
+app = QApplication(sys.argv)
+window = QMainWindow()
+widget = QWidget_6()
+window.setFixedSize(1300, 800)
+window.setCentralWidget(widget)
+window.show()
+sys.exit(app.exec())

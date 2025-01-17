@@ -1,0 +1,9 @@
+A common programming pattern is producer and consumer: a producer creates data—say, error messages to be read or networking packets to be processed—while a consumer, in turn, reads, processes, or otherwise consumes the data. Often the easiest way to implement this pattern is with a queue. The producer pushes data onto the queue and the consumer pulls data off the queue. The consumer retrieves the data in the order it was enqueued.That is, the first data on the queue is the first data off the queue. For this reason, queues are also called FIFOs, short for first-in, first-out.
+
+The act of creating a reference is called borrowing.
+
+
+zig mm
+rust lifetime
+arena
+is gc really bad

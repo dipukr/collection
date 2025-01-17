@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Problem</title>
+	<style>
+		table {
+			width: 50%;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 20px;
+			font-size: 20px;
+			font-family: "Inconsolata";
+			background: rgb(250, 250, 250);
+		}
+
+		table tr td {
+			border: 1px solid pink;
+			font-weight: 400;
+		}
+
+		table tr td:first-child {
+			width: 25%;
+			color: green;
+			text-align: right;
+			padding: 5px 7px 5px 7px;
+		}
+
+		table tr td:nth-child(2) {
+			color: green;
+			padding: 5px 7px 5px 7px;
+		}
+		i {
+			font-style: normal;
+		}
+	</style>
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td>int</td>
+			<td>digitCount(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>digitSum(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>digital(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>mod(<i>int</i> a, <i>int</i> b)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>gcd(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>reverse(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>factorial(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>fibonacci(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>sqrt(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>atoi(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>atof(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>power(<i>int</i> x, <i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>swap(<i>int</i> a, <i>int</i> b)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>lonely(<i>int</i> nums[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>max(<i>int</i> nums[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>secondMax(<i>int</i> nums[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>nthMax(<i>int</i> nums[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>primeCount(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>conversion(<i>int</i> n, <i>int</i> from, <i>int</i> to)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>decimal(<i>char</i> hexchar)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>decimal(<i>String</i> binary)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>decimal(<i>String</i> octal)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>decimal(<i>String</i> hex)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>decimal(<i>int</i> binary)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>decimal(<i>int</i> octal)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>binary(<i>int</i> decimal)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>octal(<i>int</i> decimal)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>hex(<i>int</i> decimal)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>addBinary(<i>int</i> a, <i>int</i> b)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>mulBinary(<i>int</i> a, <i>int</i> b)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>addBinary(<i>String</i> a, <i>String</i> b)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>subBinary(<i>String</i> a, <i>String</i> b)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>mulBinary(<i>String</i> a, <i>String</i> b)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>divBinary(<i>String</i> a, <i>String</i> b)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>modBinary(<i>String</i> a, <i>String</i> b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>addBinary(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>subBinary(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>mulBinary(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>divBinary(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>modBinary(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>addDecimal(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>subDecimal(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>mulDecimal(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>divDecimal(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>modDecimal(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>void</td>
+			<td>timer(<i>int</i> interval)</td>
+		</tr>
+		<tr>
+			<td>void</td>
+			<td>printDec(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>void</td>
+			<td>printInc(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>void</td>
+			<td>printArray(<i>int</i> arr[])</td>
+		</tr>
+		<tr>
+			<td>void</td>
+			<td>printDigit(<i>int</i> n, <i>int</i> b)</td>
+		</tr>
+		<tr>
+			<td>bool</td>
+			<td>odd(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>bool</td>
+			<td>even(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>bool</td>
+			<td>prime(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>bool</td>
+			<td>triplet(<i>int</i> x, <i>int</i> y, <i>int</i> z)</td>
+		</tr>
+		<tr>
+			<td>bool</td>
+			<td>balancedParen(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>bool</td>
+			<td>containsDuplicates(<i>int</i> arr[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>evaluateInfix(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>evaluatePrefix(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>evaluatePostfix(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>factors(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>parseInt(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>parseInt(<i>String</i> s, <i>int</i> from, <i>int</i> to, <i>int</i> radix)</td>
+		</tr>
+		<tr>
+			<td>float</td>
+			<td>parseFloat(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>upper(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>lower(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>reverse(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>largestWord(<i>String</i> sentence)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>largestWordLength(<i>String</i> sentence)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>merge(List&lt;<i>int</i>&gt; a, List&lt;<i>int</i>&gt; b)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>fibonacciDP(<i>int</i> n)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>maxSumSubarrayDP(<i>int</i> nums[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>maxSubarray(<i>int</i> data[], <i>int</i> k)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>maxSubarraySW(<i>int</i> data[], <i>int</i> k)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>merge(List&lt;int&gt; a, List&lt;int&gt; b)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>partition(<i>int</i> data[], <i>int</i> pivot)</td>
+		</tr>
+		<tr>
+			<td>List&lt;String&gt;</td>
+			<td>permutation(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>List&lt;String&gt;</td>
+			<td>subset(<i>String</i> s)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>subsets(<i>int</i> data[])</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>subarrays(<i>int</i> data[])</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>subsuquences(<i>int</i> data[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>longestIncreasingSubarray(<i>int</i>)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>longestIncreasingSubsequence(<i>int</i> data[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>longestCommonSubstring(<i>String</i> a, <i>String</i> b)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>longestCommonSubsequence(<i>String</i> a, <i>String</i> b)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>hanoi(<i>int</i> low, <i>int</i> high, <i>int</i> mid)</td>
+		</tr>
+		<tr>
+			<td>String</td>
+			<td>pretty(<i>String</i> json)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>max(<i>int</i> a, <i>int</i> b)</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>max(<i>int</i> a, <i>int</i> b, <i>int</i> c)</td>
+		</tr>
+		<tr>
+			<td>void</td>
+			<td>print(<i>int</i> a[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>max(<i>int</i> a[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>min(<i>int</i> a[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>sum(<i>int</i> a[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>avg(<i>int</i> a[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>subArray(<i>int</i>[] a, <i>int</i> from, <i>int</i> to)</td>
+		</tr>
+		<tr>
+			<td>List&lt;int&gt;</td>
+			<td>subArrays(<i>int</i> data[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>sumSubarray(<i>int</i> a[])</td>
+		</tr>
+		<tr>
+			<td>int</td>
+			<td>maxSubarraySum(<i>int</i> a[])</td>
+		</tr>
+		<tr>
+			<td>Find</td>
+			<td>all subsets of a set.</td>
+		</tr>
+		<tr>
+			<td>Find</td>
+			<td>all permutations of a string.</td>
+		</tr>
+		<tr>
+			<td>Find</td>
+			<td>median of two sorted arrays.</td>
+		</tr>
+	</table>
+</body>
+
+</html>

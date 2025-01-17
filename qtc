@@ -1,0 +1,9 @@
+#!/usr/bin/python3
+
+from PyQt6.QtCore import *
+import os
+import sys
+import requests
+import numpy
+
+print(os.name)

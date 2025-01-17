@@ -1,0 +1,116 @@
+gsettings set org.gnome.mutter center-new-windows true
+gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
+gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar true
+gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+git config --global user.name "koomar_dipu"
+git config --global user.email "koomar.dipu@gmail.com"
+git config --global core.editor "vim"
+git config --global credential.helper "/bin/bash /home/server/.config/.git-credentials"
+org.eclipse.ui.editors.prefs:wordwrap.enabled=true
+create user 'new_user'@'localhost' identified by 'password';
+wget https://brave-browser-rpm-release.s3.brave.com/x86_64/brave-browser-1.43.88-1.x86_64.rpm
+sudo yum install gnome-tweaks liberation-fonts mesa-vulkan-drivers zlib-devel
+brave-browser-stable --disable-features=GlobalMediaControls
+yum.conf:exclude=nautilus nautilus-extensions brave-browser
+user-dirs.dirs:user-dirs.defaults
+git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBrJ4p9XaAgVxjJGcP24qGz4Ln47F30338
+============================================================================================================
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+export JAVA_HOME=/opt/graalvm
+export PATH=.:$PATH
+export PATH=/usr/local/bin/:$PATH
+export PATH=$JAVA_HOME/bin:$PATH
+export PATH=/opt/maven-3.9.9/bin:$PATH
+alias cls=clear
+alias gis="git status"
+alias stow="cd /home/rootshell/research"
+alias push='pushd .'
+alias pop='popd'
+alias open=xdg-open
+alias py=python3.9
+alias python=python3.9
+alias pip=pip3.9
+alias qmake=qmake-qt5
+alias ls='ls --color -h --group-directories-first'
+===================================================
+font-family=Cousine Nerd Font
+font-size=16.5
+keybind=performable:ctrl+c=copy_to_clipboard
+keybind=ctrl+v=paste_from_clipboard
+===================================
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Spring Tool Suite
+Icon=/opt/sts-4.7.0.RELEASE/icon.xpm
+Exec="/opt/sts-4.7.0.RELEASE/SpringToolSuite4" %f
+Comment=Capable and Ergonomic IDE for JVM
+Categories=Development;IDE;
+Terminal=false
+StartupNotify=true
+StartupWMClass=Spring Tool Suite
+===============================================
+"color_scheme": "Sixteen.sublime-color-scheme",
+"theme": "Default.sublime-theme",
+"font_face": "Inconsolata",
+"font_size": 16,
+"font_options": ["no_italic"],
+"draw_indent_guides": false,
+"file_tab_style": "angled",
+"open_files_in_new_window": "never",
+"word_wrap": true,
+"hot_exit": false,
+"line_numbers": false,
+"caret_style": "smooth",
+"close_windows_when_empty": true,
+"enable_tab_scrolling": false,
+"hide_new_tab_button": true,
+"highlight_gutter": false,
+"match_brackets": false,
+"fold_buttons": false,
+"caret_extra_top": 0,
+"caret_extra_bottom": 0,
+"overlay_scroll_bars": "enabled"
+=========================================
+"extensions.ignoreRecommendations": true,
+"editor.minimap.enabled": false,
+"editor.fontFamily": "SF Mono",
+"editor.wordWrap": "on",
+"editor.cursorWidth": 3,
+"breadcrumbs.enabled": false,
+"editor.matchBrackets": "never",
+"editor.lightbulb.enabled": "off",
+"editor.renderLineHighlight": "none",
+"workbench.editor.closeOnFileDelete": true,
+"window.closeWhenEmpty": false,
+"window.restoreWindows": "none",
+"security.workspace.trust.banner": "never",
+"editor.scrollbar.vertical": "auto",
+"workbench.startupEditor": "none",
+"security.workspace.trust.untrustedFiles": "open",
+"security.workspace.trust.startupPrompt": "never",
+"terminal.integrated.cursorStyle": "line",
+"terminal.integrated.cursorWidth": 2,
+"terminal.integrated.cursorBlinking": true,
+"editor.folding": false,
+"editor.lineNumbers": "off",
+"editor.tabCompletion": "on",
+"editor.insertSpaces": false,
+"editor.tabSize": 4,
+"security.workspace.trust.enabled": false,
+"explorer.confirmDelete": false,
+"update.mode": "none",
+"enable-crash-reporter": false,
+"extensions.autoUpdate": false,
+"workbench.enableExperiments": false,
+"workbench.iconTheme": "vs-minimal",
+"workbench.statusBar.visible": false,
+"workbench.colorTheme": "Default Light+",
+"editor.guides.indentation": false,
+"window.zoomLevel": 1,
+"editor.stickyScroll.enabled": false,
+"editor.lineHeight": 20,
+"editor.inlayHints.enabled": "off",
+"workbench.editor.enablePreview": false,
+"workbench.activityBar.location": "hidden"

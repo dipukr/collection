@@ -1,0 +1,28 @@
+// Settings in here override those in "Default/Preferences.sublime-settings",
+// and are overridden in turn by syntax-specific settings.
+{
+	"color_scheme": "Sixteen.sublime-color-scheme",
+"theme": "Default.sublime-theme",
+"font_face": "Inconsolata",
+"font_size": 26,
+"font_options": ["no_italic","dlig"],
+"draw_indent_guides": false,
+"file_tab_style": "angled",
+"open_files_in_new_window": "never",
+"word_wrap": true,
+"hot_exit": false,
+"line_numbers": false,
+"caret_style": "smooth",
+"close_windows_when_empty": true,
+"enable_tab_scrolling": false,
+"hide_new_tab_button": true,
+"highlight_gutter": false,
+"match_brackets": false,
+"fold_buttons": false,
+"caret_extra_top": 0,
+"caret_extra_bottom": 0,
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+}

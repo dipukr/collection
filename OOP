@@ -1,0 +1,2 @@
+Interface defines what set of functionality classes that implements them will have.
+Interface helps to hide implementation details.
