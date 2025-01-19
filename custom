@@ -9,7 +9,7 @@ git config --global credential.helper "/bin/bash /home/server/.config/.git-crede
 org.eclipse.ui.editors.prefs:wordwrap.enabled=true
 create user 'new_user'@'localhost' identified by 'password';
 wget https://brave-browser-rpm-release.s3.brave.com/x86_64/brave-browser-1.43.88-1.x86_64.rpm
-sudo yum install gnome-tweaks liberation-fonts mesa-vulkan-drivers zlib-devel
+sudo yum install gnome-tweaks liberation-fonts gdk-pixbuf2-modules-extra zlib-devel
 brave-browser-stable --disable-features=GlobalMediaControls
 yum.conf:exclude=nautilus nautilus-extensions brave-browser
 user-dirs.dirs:user-dirs.defaults
