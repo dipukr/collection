@@ -8,7 +8,8 @@ public class Main {
 	public static void main(final String[] args) throws Exception {
 		Files.lines(Path.of("Main.java"))
 			.forEach(System.out::println);
-		IntStream.of(10,20,30,40,50).filter(elem -> elem > 20)
+		IntStream.of(10, 20, 30, 40, 50)
+			.filter(elem -> elem > 20)
 			.forEach(System.out::println);
 	}
 }

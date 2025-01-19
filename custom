@@ -13,19 +13,19 @@ sudo yum install gnome-tweaks liberation-fonts mesa-vulkan-drivers zlib-devel
 brave-browser-stable --disable-features=GlobalMediaControls
 yum.conf:exclude=nautilus nautilus-extensions brave-browser
 user-dirs.dirs:user-dirs.defaults
-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
-git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBrJ4p9XaAgVxjJGcP24qGz4Ln47F30338
-============================================================================================================
+git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
+git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822
+========================================================================================================
 export HISTSIZE=100000
 export HISTFILESIZE=100000
-export JAVA_HOME=/opt/graalvm
+export JAVA_HOME=/opt/GraalVM
 export PATH=.:$PATH
 export PATH=/usr/local/bin/:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/opt/maven-3.9.9/bin:$PATH
 alias cls=clear
 alias gis="git status"
-alias stow="cd /home/rootshell/research"
+alias stow="cd /home/server/RESEARCH"
 alias push='pushd .'
 alias pop='popd'
 alias open=xdg-open
@@ -37,7 +37,7 @@ alias ls='ls --color -h --group-directories-first'
 ===================================================
 font-family=Cousine Nerd Font
 font-size=16.5
-keybind=performable:ctrl+c=copy_to_clipboard
+keybind=ctrl+c=copy_to_clipboard
 keybind=ctrl+v=paste_from_clipboard
 ===================================
 [Desktop Entry]
