@@ -20,6 +20,8 @@ int add_binary(int a, int b)
 	return v;
 }
 
+void hex(U32 val) {printf("%x\n", val);}
+
 void binary_print(uint32_t value)
 {
 	uint32_t mask = 0xff000000; // start with a mask for the highest byte.

@@ -14,8 +14,8 @@ public class Fetch {
 	public static void main(final String[] args) {
 		if (args.length != 1) return;
 		String fileName = args[0];
-		List<String> dirs = List.of("/home/dkumar/RESEARCH",
-			"/home/dkumar/sources", "/home/dkumar/DSA");
+		List<String> dirs = List.of("/home/server/RESEARCH",
+			"/home/server/sources", "/home/server/SAMAST");
 		Search search = new Search(dirs);
 		List<String> paths = search.search(fileName);
 		if (paths == null) {

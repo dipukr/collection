@@ -5,7 +5,6 @@ import java.util.TreeSet;
 public class List {
 	public static void main(final String[] args) throws Exception {
 		File root = null;
-		var root2 = root.getAbsolutePath();
 		if (args.length == 0) root = new File(".");
 		else if (args.length == 1) root = new File(args[0]);
 		else return;
