@@ -14,7 +14,7 @@ brave-browser-stable --disable-features=GlobalMediaControls
 yum.conf:exclude=nautilus nautilus-extensions brave-browser
 user-dirs.dirs:user-dirs.defaults
 .plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
-git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
+git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
 git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822
 ========================================================================================================
 export HISTSIZE=100000
