@@ -1,9 +1,9 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.function.*;
 
 public class Count {
@@ -11,7 +11,7 @@ public class Count {
 	public static long count(String filePath) {
 		try {
 			return Files.lines(Path.of(filePath)).count();
-		} catch (Exception e) {
+		} catch (IOException e) {
 			return 0L;
 		}
 	}

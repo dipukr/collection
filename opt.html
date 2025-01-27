@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Computer</title>
+    <style>
+      * {
+        margin: 0;
+      }
+      body {
+        background-color: white;
+      }
+      li {
+        list-style: square;
+        font-size: 15px;
+        font-family: "DM Mono";
+      }
+      .main {
+        color: #28282B;
+        background-color: rgba(0,0,0,0.01);
+        box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+        width: 64%;
+		    margin-top: 20px;
+        padding-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 20px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <ul>
+    <li>Declare methods as final when possible, final methods are handled better by JVM.</li>
+    <li>Avoid the use of vectors whenever possible when an array will suffice.</li>
+    <li>Add and delete items from the end of the vector.</li>
+    <li>Avoid allocating objects within loops.</li>
+    <li>Avoid creating an object only used for accessing a method.</li>
+    <li>Use buffer IO and tune the buffer size.</li>
+    <li>Minimize the contention for shared resources.</li>
+    <li>Keep synchronized methods out of loops.</li>
+    <li>Minimize the creation of short-lived objects.</li>
+    <li>Use the <em>int</em> type instead of the <em>long</em> type whenever possible.</li>
+    <li>Avoid remote method calls.</li>
+    <li>Use callbacks to avoid blocking remote method calls.</li>
+    <li>Avoid invoking the garbage collector unless necessary.</li>
+    <li>You should invoke GC only during idle time or some noncritical phase.</li>
+    <li>Group native operations to reduce the number of JNI calls when possible.</li>
+    <li>Reorder classpath so that the most frequently used libraries occur first.</li>
+    <li>Store string and char data as unicode in the database.</li>
+    <li>Use connection pools and cached-prepared statements for database access.</li>
+    <li>Avoid the costs of object creation and manipulation by using primitive variables.</li>
+    <li>Avoid unnecessary <em>casts</em> and <em>instanceof</em> references as casting is done at runtime.</li>
+    <li>Use synchronized methods only when necessary to limit the multitasking in JVM.</li>
+    <li>Use the static final when creating constants to reduce repeated vars initialization.</li>
+    <li>Use the <em>StringBuffer</em> instead of <em>String</em> when doing excessive string manipulations.</li>
+    <li>Priority is used to control the size of the time slice given to a thread on a CPU.</li>
+    <li>Thread with higher priority will get more CPU time compared with thread with lower priority.</li>
+    <li>Algorighm is finite ordered sequence of instructions.</li>
+    <li>Main operations performed on a data structure is insert, delete and search.</li>
+    <li>Wildcard character in java represents an unknown type.</li>
+		<li>A persistence unit consists of the metadata that describes the relationship of entity class objects to a relational DB.</li>
+    <li>Persistance context defines a scope under which particular entity instances are created, persisted and removed.</li>
+    <li>A persistance context is like a cache which contains a set of persistant entities.</li>
+		<li>The entity manager interface is an API that manages the lifecycle of an entity instance.</li>
+		<li>Entity manager factory is used to create an entity manager for database interactions.</li>
+		<li>Entities cannot persist themselves on the relational database.</li>
+    <li>Entities are managed by entity manager instance using persistance context.</li>
+		<li>The persistence context is the set of active instances that the application is handling.</li>
+		<li>When an entity is attached to an entity manager, the manager monitors any changes to the entity.</li>
+    <li>Web services makes a microservice accessible through web.</li>
+    <li>URI contains two subsets, URN (which tells name) and URL (which tells the location).</li>
+    <li>URL is the subset of URI, which tells the only location of the resource.</li>
+    <li>Interface is used to expose API of a software components.</li>
+    <li>Interface specifies what funtionality a class or set of classes must have.</li>
+    <li>Dependent objects are bound to each other at runtime rather app development time.</li>
+    <li>Sinleton is design pattern that ensures that a class can have maximum of one instance.</li>
+    <li>Call stack is a stack data structure that stores information about the active subroutines of a java program.</li>
+    <li>JVM can be implemented in both hardware and software because JVM is an abstract machine.</li>
+    <li>JIT refers to a translator from the instruction set of the JVM to the instruction set of a specific CPU.</li>
+    <li>Collison occurs when the hash function returns a slot that is already occupied.</li>
+    <li>Collison occurs when two distinct keys have the same hash code value.</li>
+    <li>Controller annotation defines controllers of Spring MVC which is plugged into MVC system to handle HTTP requests.</li>
+    <li>Map is a collection of key-value pairs that maps a unique key to a value.</li>
+    <li>Instance methods represent behaviors that are to be performed on the particular object.</li>
+    <li>Class methods represent behaviors that are performed on a class without a particular object in mind.</li>
+      </ul>
+    </div>
+  </body>
+</html>

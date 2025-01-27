@@ -1,4 +1,4 @@
-fn scanner(File file, CharStream charStream) => List<Token> {
+fn scanner(File file, CharStream charStream) -> List<Token> {
 	
 	match (ch) {
 	case 'A' => Console.out("Character A.");
