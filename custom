@@ -7,11 +7,11 @@ git config --global user.email "koomar.dipu@gmail.com"
 git config --global core.editor "vim"
 git config --global credential.helper "/bin/bash /home/server/.config/.git-credentials"
 org.eclipse.ui.editors.prefs:wordwrap.enabled=true
-create user 'new_user'@'localhost' identified by 'password';
+alter user 'root'@'localhost' identified by 'Root@123';
 wget https://brave-browser-rpm-release.s3.brave.com/x86_64/brave-browser-1.43.88-1.x86_64.rpm
-sudo yum install gnome-tweaks liberation-fonts gdk-pixbuf2-modules-extra zlib-devel
+yum install gnome-tweaks liberation-fonts gdk-pixbuf2-modules-extra pcb-rnd-hid-gtk2-gdk zlib-devel
 brave-browser-stable --disable-features=GlobalMediaControls
-yum.conf:exclude=nautilus nautilus-extensions brave-browser
+dnf.conf:exclude=nautilus nautilus-extensions brave-browser:install_weak_deps=False
 user-dirs.dirs:user-dirs.defaults
 .plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
 git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
