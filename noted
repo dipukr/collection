@@ -6,3 +6,5 @@ A GATEWAY is a device (usually a router) on the network used by a SUBNET to comm
 
 
 A subnet, or subnetwork, is a network inside a network. Subnets make networks more efficient. Through subnetting, network traffic can travel a shorter distance without passing through unnecessary routers to reach its destination.
+
+Classes should depend on interface rather than implementations at compile time.
