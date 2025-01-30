@@ -10,3 +10,10 @@ A subnet, or subnetwork, is a network inside a network. Subnets make networks mo
 Method = Method header + method body. Method header is an abstraction of a block of code.
 Framework: set of tools and guidelines for building applications.
 Client of an API are applications. Client of an UI are humans. Both are interfaces.
+
+Classes should depend on interface rather than implementations at compile time.
+Hibernate features: automatic schema generation, lazy loading of data, and support for transactions and caching.
+
+Caching is a technique that allows frequently accessed data to be stored in memory so that it can be quickly retrieved without having to go back to the database every time.
+
+Persistent classes are those whose objects are stored in a database table.
