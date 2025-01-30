@@ -1,1 +1,0 @@
-dd bs=4M if=CentOS-Stream-10-latest-x86_64-dvd1.iso of=/dev/sda1 conv=fsync oflag=direct status=progress
