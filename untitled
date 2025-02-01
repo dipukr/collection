@@ -1,0 +1,4 @@
+double frequency = ArithmeticUtils.getCustomDecimalPoint(dsmConDayWiseChargeCalcul.getFrequency().doubleValue(), 2);
+ExcelHelper.createCell(row, columnNumber, cellStyleQuant, ArithmeticUtils.getCustomDecimalPoint(expVal, 5));
+ExcelHelper.createCell(row, columnNumber, cellStyleQuant, ArithmeticUtils.getCustomDecimalPoint(impVal, 5));
+ExcelHelper.createCell(row, ACT_QTM_COL_NUM_END, cellStyleQuant, ArithmeticUtils.roundUp(CommonUtils.getSafe(actualInjection / 4), 5));
