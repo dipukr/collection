@@ -7,6 +7,10 @@ A GATEWAY is a device (usually a router) on the network used by a SUBNET to comm
 
 A subnet, or subnetwork, is a network inside a network. Subnets make networks more efficient. Through subnetting, network traffic can travel a shorter distance without passing through unnecessary routers to reach its destination.
 
+Method = Method header + method body. Method header is an abstraction of a block of code.
+Framework: set of tools and guidelines for building applications.
+Client of an API are applications. Client of an UI are humans. Both are interfaces.
+
 Classes should depend on interface rather than implementations at compile time.
 Hibernate features: automatic schema generation, lazy loading of data, and support for transactions and caching.
 
