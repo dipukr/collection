@@ -51,7 +51,7 @@ Comment=Capable and Ergonomic IDE for JVM
 Categories=Development;IDE;
 Terminal=false
 StartupNotify=true
-StartupWMClass=Spring Tool Suite
+StartupWMClass=SpringToolSuite4
 ===============================================
 "color_scheme": "Sixteen.sublime-color-scheme",
 "theme": "Default.sublime-theme",
