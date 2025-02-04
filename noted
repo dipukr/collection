@@ -17,3 +17,9 @@ Hibernate features: automatic schema generation, lazy loading of data, and suppo
 Caching is a technique that allows frequently accessed data to be stored in memory so that it can be quickly retrieved without having to go back to the database every time.
 
 Persistent classes are those whose objects are stored in a database table.
+The design pattern is a reusable solution to a common problem that occurs in software design.
+Creational patterns, which deal with object creation; structural patterns, which focus on object composition and organization; and behavioral patterns, which deal with the communication between objects and classes.
+
+Singleton is a creational design pattern that lets us ensure that a class has only one instance while providing a global access point to this instance.
+Singleton works on the concept of one and only one instance of the object, which results in the global control of a resource. In simple words, the Singleton design pattern ensures that only one instance of the class will be created and that instance will have global access within the application.
+

@@ -2,3 +2,18 @@ double frequency = ArithmeticUtils.getCustomDecimalPoint(dsmConDayWiseChargeCalc
 ExcelHelper.createCell(row, columnNumber, cellStyleQuant, ArithmeticUtils.getCustomDecimalPoint(expVal, 5));
 ExcelHelper.createCell(row, columnNumber, cellStyleQuant, ArithmeticUtils.getCustomDecimalPoint(impVal, 5));
 ExcelHelper.createCell(row, ACT_QTM_COL_NUM_END, cellStyleQuant, ArithmeticUtils.roundUp(CommonUtils.getSafe(actualInjection / 4), 5));
+
+
+
+
+List<DateIdBlockQuantum> blockWiseResultOfDCWithLR = new ArrayList<>();
+		Date date = financialYearStartDate;
+		while (date.before(toDate)) {
+			Date endDate = DateUtils.addDays(date, 30);
+			if (endDate.after(toDate)) {
+				endDate = toDate;
+			}
+			List<DateIdBlockQuantum> dateIdBlockQuantums = declareCapacityDetailsDAO.getBlockWiseResultOfDCWithLR(utgList, date, endDate, entityType.equals(EACommonConstants.HYDRO) ? Status.APPROVED : null, approvalDate);
+			blockWiseResultOfDCWithLR.addAll(dateIdBlockQuantums);
+			date = DateUtils.addDays(date, 30);
+		}
