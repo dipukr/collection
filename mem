@@ -2,7 +2,7 @@ wlan0: 28a06bc1093a
 brave: 105.1.43.88
 firex: 131.0.2
 2401:4900:8843:d723:4d1f:e048:11ac:602f
-
+2401:4900:8843:392a:fdac:ecb3:5bbb:8c77
 <build>
 		<plugins>
 			<plugin>
