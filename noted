@@ -24,3 +24,4 @@ Singleton is a creational design pattern that lets us ensure that a class has on
 Singleton works on the concept of one and only one instance of the object, which results in the global control of a resource. In simple words, the Singleton design pattern ensures that only one instance of the class will be created and that instance will have global access within the application.
 
 Maven provides project structure and helps manage dependencies.
+Abstract method is independent of implementation which can have many implementations.
