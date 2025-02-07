@@ -25,3 +25,6 @@ Singleton works on the concept of one and only one instance of the object, which
 
 Maven provides project structure and helps manage dependencies.
 Abstract method is independent of implementation which can have many implementations.
+
+Apache Kafka is a real-time data streaming technology capable of handling trillions of events per day.
+A daemon is a computer program that runs as a background process, rather than being under the direct control of an interactive user.
