@@ -12,24 +12,14 @@ sudo ufw allow from 172.16.4.134 to any port 22
 sudo ufw allow from 172.16.4.134 to any port 1729
 sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
 ====================================================================================================
-sh bin/zookeeper-server-start.sh config/zookeeper.properties
-sh bin/kafka-server-start.sh config/server.properties
-sh bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic NewTopic --partitions 3 --replication-factor 1
-sh bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
-sh bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic NewTopic
-sh bin/kafka-console-producer.sh --broker-list localhost:9092 --topic NewTopic
-sh bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic NewTopic --from-beginning
-====================================================================================================
-zookeeper-server-start etc/kafka/zookeeper.properties
-kafka-server-start etc/kafka/server.properties
-kafka-topics --bootstrap-server localhost:9092 --create --topic NewTopic1 --partitions 3 --replication-factor 1
+zookeeper-server-start /opt/confluent-7.7.2/etc/kafka/zookeeper.properties
+kafka-server-start /opt/confluent-7.7.2/etc/kafka/server.properties
+kafka-topics --bootstrap-server localhost:9092 --create --topic topic0 --partitions 3 --replication-factor 1
 kafka-topics --bootstrap-server localhost:9092 --list
-kafka-topics --bootstrap-server localhost:9092 --describe --topic NewTopic1
-kafka-console-producer --broker-list localhost:9092 --topic NewTopic1
-kafka-console-producer --broker-list localhost:9092 --topic NewTopic1 <bin/customers.csv
-kafka-console-consumer --bootstrap-server localhost:9092 --topic NewTopic1 --from-beginning
-===========================================================================================
-
-
+kafka-topics --bootstrap-server localhost:9092 --describe --topic topic0
+kafka-console-producer --broker-list localhost:9092 --topic topic0
+kafka-console-producer --broker-list localhost:9092 --topic topic0 < bin/customers.csv
+kafka-console-consumer --bootstrap-server localhost:9092 --topic topic0 --from-beginning
+========================================================================================
 
 
