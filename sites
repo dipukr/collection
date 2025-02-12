@@ -1,6 +1,5 @@
 www.docs.oracle.com/javase/specs/jvms/se6/html/VMSpecTOC.doc.html
 www.state-machine.com/oop
-www.llvm.org/docs/tutorial/MyFirstLanguageFrontend/LangImpl03.html
 www.programiz.com/dsa/b-tree
 www.baeldung.com/java-check-two-date-ranges-overlap
 www.docs.oracle.com/en/java/javase/21/core/preface.html
@@ -10,6 +9,7 @@ www.medium.com/illumination/convolutional-neural-network-4f815228e643
 www.baeldung.com/java-fail-safe-vs-fail-fast-iterator
 www.martinfowler.com/articles/injection.html
 www.docs.spring.io/spring-framework/docs/5.1.8.RELEASE/spring-framework-reference/index.html
+www.docs.spring.io/spring-batch/reference/index.html
 www.docs.jboss.org/hibernate/orm/6.6/quickstart/html_single
 www.mongodb.com/resources/basics/databases/nosql-explained/when-to-use-nosql
 www.mongodb.com/resources/products/capabilities/database-sharding-explained
@@ -24,3 +24,5 @@ www.hazelcast.com/foundations/distributed-computing/sharding
 www.atlassian.com/microservices/cloud-computing/containers-vs-vms
 www.gomomento.com/blog/6-common-caching-design-patterns-to-execute-your-caching-strategy
 www.mongodb.com/docs/manual/sharding
+www.aws.amazon.com/caching/
+www.scylladb.com/learn/distributed-sql-guide/

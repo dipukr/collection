@@ -41,6 +41,11 @@ An API gateway accepts API requests from a client, processes them based on defin
 Sharding divides your data across multiple servers for scalability and better performance.
 Partitioning divides a table into smaller parts (partitions) within a single database, improving query performance and manageability.
 Indexing creates data structures to speed up data retrieval for certain columns, improving query performance but at the cost of additional storage and write overhead.
+
+Latency measured in milliseconds (ms) represents the time taken for a single query to execute. . 
+Throughput measured in operations per second (OPS) or transactions per second (TPS) represents the volume of data processed per unit time.
+Latency focuses on the speed of individual operations while throughput focuses on the volume of operations that can be handled per unit time.
+Cache reduces latency and load on the database.
 ======================================================================================================================================================================
 Designing is an art and it comes with the experience. But there are some set of solutions already written by some of the advanced
 and experienced developers while facing and solving similar designing problems. These solutions are known as Design Patterns.
@@ -56,6 +61,8 @@ Shared Vocabulary: Shared vocabulary makes it easy to share your code and though
 understanding between the team members related to the code.
 Capture best practices: Design patterns capture solutions which have been successfully applied to problems. By learning these
 patterns and the related problem, an inexperienced developer learns a lot about software design.
+
+
 ===============================================================================================
 [Flyweight]
 Sometimes the objects in an application might have great similarities and be of a similar kind (a similar kind here means that
