@@ -62,6 +62,9 @@ understanding between the team members related to the code.
 Capture best practices: Design patterns capture solutions which have been successfully applied to problems. By learning these
 patterns and the related problem, an inexperienced developer learns a lot about software design.
 
+A typical batch program generally reads a large number of records from a database, file, or queue: processes the data in some fashion: writes back data in a modified form.
+
+
 
 ===============================================================================================
 [Flyweight]
