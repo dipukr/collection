@@ -17,3 +17,81 @@ Hibernate features: automatic schema generation, lazy loading of data, and suppo
 Caching is a technique that allows frequently accessed data to be stored in memory so that it can be quickly retrieved without having to go back to the database every time.
 
 Persistent classes are those whose objects are stored in a database table.
+The design pattern is a reusable solution to a common problem that occurs in software design.
+Creational patterns, which deal with object creation; structural patterns, which focus on object composition and organization; and behavioral patterns, which deal with the communication between objects and classes.
+
+Singleton is a creational design pattern that lets us ensure that a class has only one instance while providing a global access point to this instance.
+Singleton works on the concept of one and only one instance of the object, which results in the global control of a resource. In simple words, the Singleton design pattern ensures that only one instance of the class will be created and that instance will have global access within the application.
+
+Maven provides project structure and helps manage dependencies.
+Abstract method is independent of implementation which can have many implementations.
+
+Apache Kafka is a real-time data streaming technology capable of handling trillions of events per day.
+A daemon is a computer program that runs as a background process, rather than being under the direct control of an interactive user.
+
+Authentication verifies the identity of a user or service and authorization determines their access rights.
+Authentication is the process of verifying a user's identity while authorization is the process of determining what actions a user can perform.
+
+Session data is stored on the server.
+Cookie data is stored on the client’s computer.
+Cookies can be set to expire after a specific time period or when the browser is closed.
+
+An API gateway accepts API requests from a client, processes them based on defined policies, directs them to the appropriate services, and combines the responses for a simplified user experience. Typically, it handles a request by invoking multiple microservices and aggregating the results. It can also translate between protocols in legacy deployments.
+
+Sharding divides your data across multiple servers for scalability and better performance.
+Partitioning divides a table into smaller parts (partitions) within a single database, improving query performance and manageability.
+Indexing creates data structures to speed up data retrieval for certain columns, improving query performance but at the cost of additional storage and write overhead.
+
+Latency measured in milliseconds (ms) represents the time taken for a single query to execute. . 
+Throughput measured in operations per second (OPS) or transactions per second (TPS) represents the volume of data processed per unit time.
+Latency focuses on the speed of individual operations while throughput focuses on the volume of operations that can be handled per unit time.
+Cache reduces latency and load on the database.
+======================================================================================================================================================================
+Designing is an art and it comes with the experience. But there are some set of solutions already written by some of the advanced
+and experienced developers while facing and solving similar designing problems. These solutions are known as Design Patterns.
+The Design Patterns is the experience in designing the object oriented code.
+Design Patterns are general reusable solution to commonly occurring problems.
+Patterns are not complete code, but it can use as a template which can be applied to a problem.
+[Why use them]
+Flexibility: Using design patterns your code becomes flexible. It helps to provide the correct level of abstraction due to which
+objects become loosely coupled to each other which makes your code easy to change.
+Reusability: Loosely coupled and cohesive objects and classes can make your code more reusable. This kind of code becomes
+easy to be tested as compared to the highly coupled code.
+Shared Vocabulary: Shared vocabulary makes it easy to share your code and thought with other team members. It creates more
+understanding between the team members related to the code.
+Capture best practices: Design patterns capture solutions which have been successfully applied to problems. By learning these
+patterns and the related problem, an inexperienced developer learns a lot about software design.
+
+A typical batch program generally reads a large number of records from a database, file, or queue: processes the data in some fashion: writes back data in a modified form.
+
+
+
+===============================================================================================
+[Flyweight]
+Sometimes the objects in an application might have great similarities and be of a similar kind (a similar kind here means that
+most of their properties have similar values and only a few of them vary in value).
+The Flyweight Pattern is designed to control such object creation and provides basic caching mechanism.
+When an object is needed with the same property (already created) then it will return the same object instead of creating a new one.
+When to use flyweight pattern.
+	An application uses a large number of objects.
+	Storage costs are high because of the sheer quantity of objects.
+
+[Prototype]
+The Prototype Design Pattern is a creational pattern that enables the creation of new objects by copying an existing object.
+[Mediator]
+The Mediator Design Pattern simplifies communication between multiple objects in a system by centralizing their interactions through a mediator. Instead of objects interacting directly, they communicate via a mediator, reducing dependencies and making the system easier to manage.
+The mediator pattern focuses on providing a mediator between objects for communication and helps in implementing loose coupling between objects.
+
+Real-Life Analogy of the Mediator Design Pattern:
+	Colleagues (Students): Each student in the class is like a colleague. They have their tasks but need to work together on a project.
+	Mediator (Teacher): The teacher is like the mediator. Instead of students talking directly to each other, they talk to the teacher.
+	Communication Flow:
+		If a student needs information from another, they tell the teacher.
+		The teacher figures out how to get the needed information from the other students.
+		The teacher then relays the information back to the requesting student.
+		Students communicate indirectly through the teacher, keeping things organized and preventing chaos in the classroom.
+
+
+
+
+
