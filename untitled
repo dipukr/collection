@@ -1,19 +1,72 @@
-double frequency = ArithmeticUtils.getCustomDecimalPoint(dsmConDayWiseChargeCalcul.getFrequency().doubleValue(), 2);
-ExcelHelper.createCell(row, columnNumber, cellStyleQuant, ArithmeticUtils.getCustomDecimalPoint(expVal, 5));
-ExcelHelper.createCell(row, columnNumber, cellStyleQuant, ArithmeticUtils.getCustomDecimalPoint(impVal, 5));
-ExcelHelper.createCell(row, ACT_QTM_COL_NUM_END, cellStyleQuant, ArithmeticUtils.roundUp(CommonUtils.getSafe(actualInjection / 4), 5));
-
-
-
-
-List<DateIdBlockQuantum> blockWiseResultOfDCWithLR = new ArrayList<>();
-		Date date = financialYearStartDate;
-		while (date.before(toDate)) {
-			Date endDate = DateUtils.addDays(date, 30);
-			if (endDate.after(toDate)) {
-				endDate = toDate;
-			}
-			List<DateIdBlockQuantum> dateIdBlockQuantums = declareCapacityDetailsDAO.getBlockWiseResultOfDCWithLR(utgList, date, endDate, entityType.equals(EACommonConstants.HYDRO) ? Status.APPROVED : null, approvalDate);
-			blockWiseResultOfDCWithLR.addAll(dateIdBlockQuantums);
-			date = DateUtils.addDays(date, 30);
+@Setter
+	@Getter
+	public static class ShareBO {
+		public String seller;
+		public String buyer;
+		public String from;
+		public String to;
+		public static ShareBO of(String seller, String buyer, String from, String to) {
+			ShareBO shareBO = new ShareBO();
+			shareBO.seller = seller;
+			shareBO.buyer = buyer;
+			shareBO.from = from;
+			shareBO.to = to;
+			return shareBO;
 		}
+		public static List<ShareBO> getData() {
+			List<ShareBO> data = new ArrayList<>();
+			data.add(ShareBO.of("Neyveli Lignite Corporation Limited", "RJ_AVVNL", "10-03-2025", "15-06-2025"));
+			data.add(ShareBO.of("Adani Enterprises Ltd.", "Costomized Energy Solutions India Pvt. Ltd.", "10-01-2025", "15-04-2025"));
+			return data;
+		}
+	}
+	
+	public static void main(final String[] args) throws Exception {
+		List<ShareBO> data = ShareBO.getData();
+		System.out.println(makeTable(data));
+	}
+	
+	public static String makeTable(List<ShareBO> shareBOs) {
+		StringBuilder data = new StringBuilder();
+		int maxLen = 0;
+		for (ShareBO shareBO: shareBOs) {
+			String seller = shareBO.seller;
+			String buyer = shareBO.buyer;
+			maxLen = Math.max(maxLen, Math.max(seller.length(), buyer.length()));
+		}
+		final int NAME_COL_WIDTH = maxLen + 2;
+		final int DATE_COL_WIDTH = 12;
+		final int TABLE_WIDTH = NAME_COL_WIDTH * 2 + DATE_COL_WIDTH * 2 + 3;
+		final String NAME_FMT = " %-"+String.format("%d", maxLen)+"s";
+		final String DATE_FMT = " %-10s ";
+		for (int i = 0; i < TABLE_WIDTH; i++) {
+			data.append('-');
+		}
+		data.append('\n');
+		data.append('|');
+		data.append(String.format(NAME_FMT, "Utility")).append('|');
+		data.append(String.format(NAME_FMT, "Beneficiary")).append('|');
+		data.append(String.format(DATE_FMT, "From")).append('|');
+		data.append(String.format(DATE_FMT, "To")).append('|');
+		data.append('\n');
+		for (int i = 0; i < TABLE_WIDTH; i++) {
+			data.append('-');
+		}
+		for (ShareBO shareBO: shareBOs) {
+			String seller = shareBO.getSeller();
+			String buyer = shareBO.getBuyer();
+			String from = shareBO.getFrom();
+			String to = shareBO.getTo();
+			data.append('\n');
+			data.append('|');
+			data.append(String.format(NAME_FMT, seller)).append('|');
+			data.append(String.format(NAME_FMT, buyer)).append('|');
+			data.append(String.format(DATE_FMT, from)).append('|');
+			data.append(String.format(DATE_FMT, to)).append('|');
+			data.append('\n');
+			for (int i = 0; i < TABLE_WIDTH; i++) {
+				data.append('-');
+			}
+		}
+		return data.toString();
+	}
