@@ -1,0 +1,30 @@
+import numpy as np
+
+class BasicNN:
+	def __init__(self, sizes):
+		self.sizes = sizes
+		self.w1 = None
+		self.w2 = None
+		if len(sizes) != 3:
+			print("Invalid network topology.")
+
+	def forward(self, X):
+		pass
+
+	
+	def backprop(self):
+		self.dc_da2 = np.subtract(a2, y)
+		self.da2_dz2 = self.sigmoidP(z2)
+		self.dz2_dw2 = a1
+		self.dc_dw2 = dc_da2 * da2_dz2 * dz2_dw2
+			
+
+	def sigmoid(self, z):
+		return 1 / ( 1 + np.exp(-z))
+
+	def sigmoidP(self, z):
+		return np.exp(-z) / ((1 + np.exp(-z)) ** 2)
+
+
+print(10 ** 2)
+			

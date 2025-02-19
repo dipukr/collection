@@ -63,7 +63,11 @@ Capture best practices: Design patterns capture solutions which have been succes
 patterns and the related problem, an inexperienced developer learns a lot about software design.
 
 A typical batch program generally reads a large number of records from a database, file, or queue: processes the data in some fashion: writes back data in a modified form.
-
+===========================================================================================================================================================================
+A cost function is a mathematical function that measures how well a neural network is performing on a specific task.
+The cost function's purpose is to calculate the error we get from our prediction. Our goal is to minimize the cost function.
+FeedforwardNN: neural networks where the output from one layer is used as input to the next layer.
+FeedforwardNN: there are no loops in the network - information is always fed forward and never fed back.
 
 
 ===============================================================================================
