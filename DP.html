@@ -67,6 +67,14 @@
 			font-size: 22px;
 			background-color: #f8f8f8;
 		}
+		table tbody tr td ul {
+			padding-left: 40px;
+			padding-top: 2px;
+			padding-bottom: 5px;
+			list-style: square;
+			font-size: 22px;
+		}
+		em {color: brown;}
 	</style>
 </head>
 <body>
@@ -156,7 +164,8 @@
 					Facade defines a higher-level interface that makes the subsystem easier to use.
 					The Facade unifies the complex low-level interfaces of a subsystem in-order to provide a simple way to access that interface.
 					Facade just provides a layer to the complex interfaces of the sub-system which makes it easier to use.
-					The Facade do not encapsulate the subsystem classes or interfaces. Facade just provides a simplified interface to their functionality
+					The Facade do not encapsulate the subsystem classes or interfaces. Facade just provides a simplified interface to their functionality. <br><br>
+					
 				</td>
 			</tr>
 		</tbody>
@@ -172,7 +181,15 @@
 				<td>
 					Adapter is a structural design pattern that allows objects with incompatible interfaces to collaborate.
 					The Adapter acts as a wrapper between two objects. It catches calls for one object and transforms them to 
-					format and interface recognizable by the second object.
+					format and interface recognizable by the second object. 
+					The adapter pattern convert the interface of a class into another interface clients expect. 
+					Adapter lets classes work together that couldn’t otherwise because of incompatible interfaces.
+					<br> <br>
+					Adapter pattern should be used when:
+					<ul>
+						<li>There is an existing class and its interface does not match the one you need.</li>
+						<li>We need to connect systems or components that were not built to work together.</li>
+					</ul>
 				</td>
 			</tr>
 		</tbody>
@@ -200,7 +217,7 @@
 		<tbody>
 			<tr>
 				<td>
-					
+					Composite is a structural design pattern that lets you compose objects into tree structures and then work with these structures as if they were individual objects.
 				</td>
 			</tr>
 		</tbody>
