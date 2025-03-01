@@ -2,26 +2,43 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Server {
-	public static void main(String[] argv) throws Exception  {
-		ServerSocket socket = new ServerSocket(6789);
-		while (true) {
-			System.out.printf("Listening at port %d\n", 6789);
-			Socket connection = socket.accept();
-			InputStream inputStream = connection.getInputStream();
-			OutputStream outputStream = connection.getOutputStream();
-			InputStreamReader isr = new InputStreamReader(inputStream);
-			BufferedReader in = new BufferedReader(isr);
-			DataOutputStream out = new DataOutputStream(outputStream);
-			String message = in.readLine();
-			System.out.printf("Received message: %s\n", message);
-			message = message.toUpperCase()+'\n';
-			out.writeBytes(message);
-			System.out.printf("Sent message: %s", message);
+
+	private int port;
+
+	public Server(int port) {
+		this.port = port;
+	}
+
+	public void start() {
+		try {
+			ServerSocket socket = new ServerSocket(port);
+			while (true) {
+				System.out.printf("Listening at port %d.\n", 6789);
+				Socket clientSocket = socket.accept();
+				Scanner inFromClient = new Scanner(clientSocket.getInputStream());
+				DataOutputStream outToClient = new DataOutputStream(clientSocket.getOutputStream());
+				String message = inFromClient.next();
+				String response = message.toUpperCase();
+				System.out.printf("Received message: %s\n", message);
+				outToClient.writeBytes(response+"\n");
+				System.out.printf("Sent message: %s\n", response);
+			}
+		} catch (Exception e) {
+			System.out.printf("ERROR: %s.\n", e.getMessage());
+			System.exit(0);
 		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		Server server = new Server(6789);
+		server.start();
 	}
 }
