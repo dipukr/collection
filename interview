@@ -20,3 +20,10 @@ Knowledge of System Design Concepts
 Linux Operating System
 Kafka: 
 Others: Redis, Docker, Unit Testing, Jenkins
+
+
+Database optimization:
+	Optimize query
+	Perform indexing
+	Replication
+	Sharding

@@ -99,3 +99,8 @@ Real-Life Analogy of the Mediator Design Pattern:
 
 
 
+=========================================================================================================================
+Called kafka because it is optimized for writing.
+Kafka stream API can be used to transform or aggregate topics before reaching to consumers.
+Kafka can handle more throughput than RabbitMQ.
+

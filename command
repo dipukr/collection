@@ -11,6 +11,7 @@ nmap -n -PN -sT -p- localhost
 sudo ufw allow from 172.16.4.134 to any port 22
 sudo ufw allow from 172.16.4.134 to any port 1729
 sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
+sudo yum erase $(rpm -qa | grep mongodb-org)
 ====================================================================================================
 zookeeper-server-start /opt/confluent-7.7.2/etc/kafka/zookeeper.properties
 kafka-server-start /opt/confluent-7.7.2/etc/kafka/server.properties
