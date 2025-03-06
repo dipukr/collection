@@ -16,7 +16,8 @@ user-dirs.dirs:user-dirs.defaults
 .plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
 git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
 git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822
-========================================================================================================
+====================================================================================================================================
+PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\][\u@localhost\[\033[00m\]:\[\033[01;34m\]\W] \[\033[00m\]'
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 export JAVA_HOME=/opt/GraalVM
