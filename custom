@@ -14,10 +14,9 @@ brave-browser-stable --disable-features=GlobalMediaControls
 dnf.conf:exclude=nautilus nautilus-extensions brave-browser:install_weak_deps=False
 user-dirs.dirs:user-dirs.defaults
 .plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
-git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
+git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
 git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822
-====================================================================================================================================
-PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\][\u@localhost\[\033[00m\]:\[\033[01;34m\]\W] \[\033[00m\]'
+========================================================================================================
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 export JAVA_HOME=/opt/GraalVM
@@ -31,12 +30,16 @@ alias stow="cd /home/server/RESEARCH"
 alias push='pushd .'
 alias pop='popd'
 alias open=xdg-open
-alias py=python3.9
-alias python=python3.9
-alias pip=pip3.9
+alias py=python3.12
+alias python=python3.12
+alias pip=pip3.12
 alias qmake=qmake-qt5
 alias ls='ls --color -h --group-directories-first'
-===================================================
+PS1='[\u@localhost:\W] '
+export TF_ENABLE_ONEDNN_OPTS=0
+export TF_CPP_MIN_LOG_LEVEL=3
+PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[00;32m\][\u@localhost\[\033[00m\]:\[\033[00;34m\]\W] \[\033[00m\]'
+====================================================================================================================================
 font-family=Liberation Mono
 font-size=16.5
 keybind=ctrl+c=copy_to_clipboard
