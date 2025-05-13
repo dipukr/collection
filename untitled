@@ -1,72 +1,85 @@
-@Setter
-	@Getter
-	public static class ShareBO {
-		public String seller;
-		public String buyer;
-		public String from;
-		public String to;
-		public static ShareBO of(String seller, String buyer, String from, String to) {
-			ShareBO shareBO = new ShareBO();
-			shareBO.seller = seller;
-			shareBO.buyer = buyer;
-			shareBO.from = from;
-			shareBO.to = to;
-			return shareBO;
-		}
-		public static List<ShareBO> getData() {
-			List<ShareBO> data = new ArrayList<>();
-			data.add(ShareBO.of("Neyveli Lignite Corporation Limited", "RJ_AVVNL", "10-03-2025", "15-06-2025"));
-			data.add(ShareBO.of("Adani Enterprises Ltd.", "Costomized Energy Solutions India Pvt. Ltd.", "10-01-2025", "15-04-2025"));
-			return data;
-		}
-	}
+public void writeToExcels(Workbook workbook, Date date, Map<String, String> meters, List<DSMConventionalDayWiseChargeCalculationDTO> blockWiseDSMCharges,
+		CellStyle headerCellStyle, CellStyle cellStyleQuant, CellStyle cellStyleRs, CellStyle cellStyle, String customerName,
+		String filePath, String entityType, String entityCategory, Boolean isMeterDetails, Boolean isNr, String sheetName) throws BusinessException {
+	DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+	CaptiveCharge captiveCharge = getCaptiveCharge(date);
+	Map<Integer, Double> normalRateMap = this.getNormalRate(date);
+	Sheet sheet = workbook.createSheet(sheetName);
+	sheet.setDefaultColumnWidth(17);
+	List<DSMConventionalDayWiseChargeCalculationDTO> dateWiseFilteredList = blockWiseDSMCharges.stream()
+			.filter(elem -> elem.getForDate().equals(date)).collect(Collectors.toList());
+	ExcelHelper.mergeRegion(sheet, 0, 4, 2, 14);
+
+	ExcelHelper.mergeRegion(sheet, 0, 1, 0, 0);
+	ExcelHelper.mergeRegion(sheet, 0, 1, 1, 1);
+	ExcelHelper.mergeRegion(sheet, 2, 4, 0, 0);
+	ExcelHelper.mergeRegion(sheet, 2, 4, 1, 1);
+
+	sheet.setColumnWidth(0, 25 * 256);
+	sheet.setColumnWidth(1, 25 * 256);
+
+	Row firstRow = sheet.createRow(0);
+	ExcelHelper.createCell(firstRow, 0, headerCellStyle, "Name of Customer");
+	ExcelHelper.createCell(firstRow, 1, cellStyle, customerName);
+	firstRow = sheet.createRow(2);
+	ExcelHelper.createCell(firstRow, 0, headerCellStyle, "Date");
+	ExcelHelper.createCell(firstRow, 1, cellStyle, sdf.format(date));
 	
-	public static void main(final String[] args) throws Exception {
-		List<ShareBO> data = ShareBO.getData();
-		System.out.println(makeTable(data));
-	}
-	
-	public static String makeTable(List<ShareBO> shareBOs) {
-		StringBuilder data = new StringBuilder();
-		int maxLen = 0;
-		for (ShareBO shareBO: shareBOs) {
-			String seller = shareBO.seller;
-			String buyer = shareBO.buyer;
-			maxLen = Math.max(maxLen, Math.max(seller.length(), buyer.length()));
-		}
-		final int NAME_COL_WIDTH = maxLen + 2;
-		final int DATE_COL_WIDTH = 12;
-		final int TABLE_WIDTH = NAME_COL_WIDTH * 2 + DATE_COL_WIDTH * 2 + 3;
-		final String NAME_FMT = " %-"+String.format("%d", maxLen)+"s";
-		final String DATE_FMT = " %-10s ";
-		for (int i = 0; i < TABLE_WIDTH; i++) {
-			data.append('-');
-		}
-		data.append('\n');
-		data.append('|');
-		data.append(String.format(NAME_FMT, "Utility")).append('|');
-		data.append(String.format(NAME_FMT, "Beneficiary")).append('|');
-		data.append(String.format(DATE_FMT, "From")).append('|');
-		data.append(String.format(DATE_FMT, "To")).append('|');
-		data.append('\n');
-		for (int i = 0; i < TABLE_WIDTH; i++) {
-			data.append('-');
-		}
-		for (ShareBO shareBO: shareBOs) {
-			String seller = shareBO.getSeller();
-			String buyer = shareBO.getBuyer();
-			String from = shareBO.getFrom();
-			String to = shareBO.getTo();
-			data.append('\n');
-			data.append('|');
-			data.append(String.format(NAME_FMT, seller)).append('|');
-			data.append(String.format(NAME_FMT, buyer)).append('|');
-			data.append(String.format(DATE_FMT, from)).append('|');
-			data.append(String.format(DATE_FMT, to)).append('|');
-			data.append('\n');
-			for (int i = 0; i < TABLE_WIDTH; i++) {
-				data.append('-');
+	Boolean isDiscom = DSMEntityCategory.BUYER_GEN.equals(entityCategory) && entityType.equals("Distribution-Licensee");
+
+	exportHeaderImageToExcel(workbook, sheet, 0, 4, 3, 9, filePath);
+	Map<String, Integer> meterWiseColNo = generateTBWiseHeader(sheet, headerCellStyle, 5, meters, isMeterDetails, isNr, isDiscom);
+	generateTBWiseDataBody(workbook, sheet, cellStyle, cellStyleQuant, cellStyleRs, dateWiseFilteredList, 12,
+			meters, captiveCharge, normalRateMap, isMeterDetails, isNr, isDiscom, meterWiseColNo);
+	ExcelHelper.setBorderOnMergeCell(sheet);
+}
+
+public void generateForDiscom(Workbook workbook, CellStyle headerCellStyle, String customerName,
+		DSMBillingRequestDTO billingRequestDTO,
+		List<DSMConventionalDayWiseChargeCalculationDTO> blockWiseDSMCharges, CellStyle cellStyle,
+		CellStyle cellStyleQuant, CellStyle cellStyleRs, String sheetName, Boolean isMeterDetails, Boolean isNr)
+		throws BusinessException {
+	Date fromDate = billingRequestDTO.getFromDate();
+	Date toDate = billingRequestDTO.getToDate();
+	String filePath = billingRequestDTO.getFilePath();
+	String entityType = billingRequestDTO.getEntityType();
+	String entityCategory = billingRequestDTO.getEntityCategory();
+	boolean isDiscom = DSMEntityCategory.BUYER_GEN.equals(entityCategory) && entityType.equals("Distribution-Licensee");
+
+	Map<String, String> meters = getMeters(billingRequestDTO.getEntityUtgId());
+	List<Thread> threads = new ArrayList<>();
+	for (Date date = fromDate; date.before(toDate) || date.equals(toDate); date = DateUtils.addDays(date, 1)) {
+		final Date fdate = date;
+		Thread thread1 = new Thread(() -> {
+			try {
+				writeToExcels(workbook, fdate, meters, blockWiseDSMCharges, 
+						headerCellStyle, cellStyleQuant, cellStyleRs, cellStyle, customerName, filePath, entityType, 
+						entityCategory, isMeterDetails, isNr, "TBwise with meter_"+sdf.format(fdate));
+			} catch (BusinessException e) {
+				e.printStackTrace();
 			}
-		}
-		return data.toString();
+		});
+		Thread thread2 = new Thread(() -> {
+			try {
+				writeToExcels(workbook, fdate, meters, blockWiseDSMCharges, 
+						headerCellStyle, cellStyleQuant, cellStyleRs, cellStyle, customerName, filePath, entityType, 
+						entityCategory, isMeterDetails, isNr, "TBwise with meter_"+sdf.format(fdate));
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+		});
+		threads.add(thread1);
+		threads.add(thread2);
+		thread1.start();
+		thread2.start();
 	}
+	for (Thread thread: threads) {
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+}
+=========================================================================================================================================================================================
+

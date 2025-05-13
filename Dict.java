@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class Dict {
 	public static void tryOne(String password, PrintWriter wr) throws Exception {
 		Runtime runtime = Runtime.getRuntime();
-		Process process = runtime.exec("/home/dkumar/auth");
+		Process process = runtime.exec("/home/dkumar/RESEARCH/auth");
 		InputStream inputStream = process.getInputStream();
 		OutputStream outputStream = process.getOutputStream();
 		outputStream.write(password.getBytes());
@@ -33,7 +33,7 @@ public class Dict {
 			wr.println(password + ": " + data.toString());
 	}
 	public static void main(String[] args) throws Exception {
-		List<String> lines = Files.lines(Paths.get("/home/dkumar/dict"))
+		List<String> lines = Files.lines(Paths.get("/home/dkumar/RESEARCH/word1"))
 			.collect(Collectors.toList());
 		PrintWriter wr = new PrintWriter("/home/dkumar/dumps");
 		for (String line: lines) {
