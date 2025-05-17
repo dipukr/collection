@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, const char **argv) {
-
+int main(int argc, const char **argv)
+{
 	char buf[100];
 	memset(buf, 0, 100);
 	printf("Enter password: ");
