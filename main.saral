@@ -1,15 +1,14 @@
-fn scanner(File file, CharStream charStream) -> List<Token> {
-	
+fn scanner(File file, CharStream charStream) => List<Token> {
 	match (ch) {
 	case 'A' => Console.out("Character A.");
 	case 'B' => Console.out("Character B.");
 	}
 }
 
-fn add(ulong a, ulong b) => ulong {
-	return a + b;
+interface Compiler {
+	fn scanner(File file, CharStream charStream) => List<Token>;
+	fn parser(TokenStream tokenStream) => List<Statement>;
 }
-
 
 fn main(String[] args) {
 	mut uint[] data = [10, 20, 30, 40, 50];
@@ -36,16 +35,5 @@ class Person {
 	}
 }
 
-class FileWriter {
-
-	File file;
-	uint curr;
-	uint size;
-
-	pub Self(File file, uint curr, uint size) {
-		self.file = file;
-		self.curr = curr;
-	}
-}
 
 

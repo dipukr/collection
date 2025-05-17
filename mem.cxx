@@ -3,7 +3,7 @@
 #include <string.h>
 #include <iostream>
 
-int main(const int argc, const char **argv)
+void mem_error0()
 {
 	std::vector<int> vec;
 	vec.push_back(100);
@@ -19,4 +19,9 @@ int main(const int argc, const char **argv)
 	vec.push_back(900);
 	std::cout << a << std::endl;
 	std::cout << KEY << std::endl;
+}
+
+int main(const int argc, const char **argv)
+{
+	
 }
