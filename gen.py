@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 FIRST = ["Ajay", "Ayush", "Aryan", ""]
 LAST = ["Kumar", "Gupta", "Modi", "Mishra", "Raj", "Diwedi", "Trivedi", "Sharma", "Kohli", ""]
 
@@ -13,7 +15,6 @@ COLOR = ["Red", "Blue", "Yellow", "Green", "Magenta", "Voilet", ]
 
 def rand(upper):
 	return upper
-
 
 def email(firstName, lastName):
 	return tolower(firstName)+tolower(lastName)+"@email.com"

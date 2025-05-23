@@ -56,4 +56,5 @@ void file_write0()
 void main(const int argc, char const **argv)
 {
 	eval(file_read1());
+	eval(file_read2());
 }
