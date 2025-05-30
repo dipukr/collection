@@ -27,6 +27,9 @@ def color():
 
 def password(sz):
 	pword = ""
-	for a in range(siz):
+	for a in range(sz):
 		pword += KEYS[rand(len(KEYS))]
+
+def username_and_password():
+	return ("username", "password")
 

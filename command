@@ -10,6 +10,7 @@ firewall-cmd --reload
 nmap -n -PN -sT -p- localhost
 sudo ufw allow from 172.16.4.134 to any port 22
 sudo ufw allow from 172.16.4.134 to any port 1729
+python3.12 -m pip install --upgrade pip
 sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
 sudo yum erase $(rpm -qa | grep mongodb-org)
 ====================================================================================================
@@ -22,5 +23,4 @@ kafka-console-producer --broker-list localhost:9092 --topic topic0
 kafka-console-producer --broker-list localhost:9092 --topic topic0 < bin/customers.csv
 kafka-console-consumer --bootstrap-server localhost:9092 --topic topic0 --from-beginning
 ========================================================================================
-
-
+https://dl.fedoraproject.org/pub/fedora/linux/releases/40/Workstation/x86_64/iso/

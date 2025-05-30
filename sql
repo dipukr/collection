@@ -16,14 +16,10 @@ CREATE TABLE department (
 	location VARCHAR(50),
 	PRIMARY KEY (department_id)
 );
-=================================================================================================================================================
 
-
-
-
-
-
-
-
-
-
+CREATE TABLE user (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(100),
+	email VARCHAR(100) UNIQUE,
+	password VARCHAR(100)
+);
