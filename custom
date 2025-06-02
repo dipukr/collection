@@ -40,10 +40,11 @@ export TF_ENABLE_ONEDNN_OPTS=0
 export TF_CPP_MIN_LOG_LEVEL=3
 PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[00;32m\][\u@localhost\[\033[00m\]:\[\033[00;34m\]\W] \[\033[00m\]'
 ====================================================================================================================================
-font-family=Liberation Mono
-font-size=16.5
+font-family=SF Mono
+font-size=11
 keybind=ctrl+c=copy_to_clipboard
 keybind=ctrl+v=paste_from_clipboard
+theme=Espresso
 ===================================
 [Desktop Entry]
 Version=1.0
