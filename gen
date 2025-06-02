@@ -1,7 +1,31 @@
 #!/usr/bin/python3
 
-FIRST = ["Ajay", "Ayush", "Aryan", ""]
-LAST = ["Kumar", "Gupta", "Modi", "Mishra", "Raj", "Diwedi", "Trivedi", "Sharma", "Kohli", ""]
+FIRST_FEMALE = ["Ananya", "Aishwarya", "Priya", "Priyanka", "Priety", "Sneha", "Kavya", "Meera", "Nisha", "Riya", "Shruti", "Pooja",
+				"Shobha", "Radha", "Savita"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FIRST_MALE = ["Ajay", "Ayush", "Aryan", "Aarav", "Arjun", "Aditya", "Rohan", "Rahul", "Karan", "Dev", "Siddharth", "Raj", "Aman","Bhaskar","Harish","Mukesh","Venkatesh","Sanjay"]
+LAST = ["Kumar", "Gupta", "Modi", "Mishra", "Raj", "Diwedi", "Trivedi", "Sharma", "Kohli", "Iyer"]
 
 KEYS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789~!@#$%^&*()-_+={}[]|\':;?/>.<,"
 ALPHA = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"

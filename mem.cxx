@@ -3,7 +3,7 @@
 #include <string.h>
 #include <iostream>
 
-void mem_error0()
+void error0()
 {
 	std::vector<int> vec;
 	vec.push_back(100);
@@ -21,7 +21,10 @@ void mem_error0()
 	std::cout << KEY << std::endl;
 }
 
-int main(const int argc, const char **argv)
+void error1()
 {
-	
+	int *ints = new int[100];
+	memset(ints, sizeof(int) * 100, 'a');
+	delete ints[];
+	std::cout << ints[0];
 }

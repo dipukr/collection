@@ -1,4 +1,4 @@
-git remote add origin  https://koomar_dipu@bitbucket.org/koomardipu/neem.git
+git remote add origin https://koomar_dipu@bitbucket.org/koomardipu/neem.git
 git push -u -f origin master
 g++ -c add.cpp:ar crf ..\lib\libadd.a add.o:g++ -o main main.cpp -L. -ladd
 g++ -c -O3 -std=c++11 -I"../include"

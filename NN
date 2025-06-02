@@ -2,6 +2,9 @@
 
 import numpy as np
 
+class Regression:
+	self.linear =
+
 class BasicNN:
 	def __init__(self, sizes):
 		self.sizes = sizes
@@ -26,7 +29,3 @@ class BasicNN:
 
 	def sigmoidP(self, z):
 		return np.exp(-z) / ((1 + np.exp(-z)) ** 2)
-
-
-print(10 ** 2)
-			
