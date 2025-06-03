@@ -1,0 +1,7 @@
+#!/usr/bin/python3.12
+
+import sys
+import requests
+resp = requests.get("https://auth.punjabsldc.org/SEL_UI/login?redirect= ")
+print(resp.status_code)
+print(resp.headers)

@@ -23,7 +23,7 @@ void draw(U8 data[][COLS])
 
 
 
-int main(const int argc, char const **argv)
+void main(const int argc, char const **argv)
 {
 	U8 data[ROWS][COLS] = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -46,10 +46,10 @@ int main(const int argc, char const **argv)
 			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,9,1},
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 		};
-	for (auto a = 0; a < 10; a++) {
-		system("clear");
+	//for (auto a = 0; a < 10; a++) {
+	//	system("clear");
 		draw(data);
-		sleep(0.2);
-	}
+	//	sleep(0.2);
+	//}
 	printf("Completed.\n");
 }
