@@ -24,3 +24,6 @@ kafka-console-producer --broker-list localhost:9092 --topic topic0 < bin/custome
 kafka-console-consumer --bootstrap-server localhost:9092 --topic topic0 --from-beginning
 ========================================================================================
 https://dl.fedoraproject.org/pub/fedora/linux/releases/40/Workstation/x86_64/iso/
+=================================================================================
+sudo python3.12 -m ensurepip
+sudo python3.12 -m pip list
