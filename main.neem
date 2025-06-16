@@ -1,0 +1,16 @@
+fn scanner(CharStream charStream) => TokenStream
+	var circle = Circle(20)
+	circle.draw()
+	var nums = [10, 20, 30, 40, 50, 60, 70]
+	foreach (val elem: nums) Console.write(elem) end
+	foreach elem of nums Console.write(elem) end
+
+end
+
+fn addBinary(List<int> a, List<int> b) => List<int>
+	val first = a.iter()
+	val second = b.iter()
+	while a.notEmpty() && b.notEmpty()
+
+	end
+end
