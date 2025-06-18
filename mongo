@@ -2,15 +2,31 @@
 
 from pymongo import MongoClient
 from datetime import datetime
-
-client = MongoClient("mongodb://samast_user:Samast%401212@216.48.181.146:27017/samast")
+#mongodb://samast_user:Samast%401212@192.168.101.24:27017/?authSource=samast
+client = MongoClient("mongodb://samast_user:Samast%401212@192.168.101.24:27017/samast")
 db = client["samast"]
-coll = db.get_collection("SCADA_DATA_NEW")
-query = {"UTG_ID": "1512", "TIME_STAMP": {"$gte": datetime(2024, 11, 25, 18, 30, 0), 
-"$lt": datetime(2024, 11, 26, 18, 30, 0)} }
+coll = db.get_collection("SecureMeterDetails")
+pnprColl = db.get_collection("pnPR_VEELoadSuveyData")
+#query = {"UTG_ID": "1512", "TIME_STAMP": {"$gte": datetime(2024, 11, 25, 18, 30, 0), 
+#"$lt": datetime(2024, 11, 26, 18, 30, 0)} }
 select = {"_id": False, "_class": False}
+query = {}
 records = coll.find(query, select)
-count = 0
+meterNos = []
 for record in records:
-	count += 1
-print(count)
+	meterNos.append(record['meterNo'])
+missingData = []
+#print(meterNos)
+dataQry = {"meterNo": {"$in": meterNos}, "forDate": {"$gte": datetime(2025, 5, 25, 18, 30, 0), "$lt": datetime(2025, 5, 31, 18, 30, 0)}}
+#print(dataQry)
+data = pnprColl.find(dataQry, {"meterNo": True})
+total = 0
+foundMeterNos = set()
+for elem in data:
+	mn = elem['meterNo']
+	foundMeterNos.add(mn)
+print(len(meterNos))
+print(len(foundMeterNos))
+for e in foundMeterNos:
+	meterNos.remove(e)
+print(meterNos)
