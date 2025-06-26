@@ -30,3 +30,7 @@ print(len(foundMeterNos))
 for e in foundMeterNos:
 	meterNos.remove(e)
 print(meterNos)
+for elem in data:
+	print("hello")
+	kwh_exp = elem['kwh_exp']
+	print(len(kwh_exp))
