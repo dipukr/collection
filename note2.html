@@ -86,9 +86,6 @@
         margin-left: 20px;
         margin-top: 2px;
       }
-      #noteText font[size="1"] {
-        font-size: 18px;
-      }
     </style>
   </head>
   <body>
@@ -115,16 +112,31 @@
         <button onclick="openDrawingTool()">Draw</button>
       </div>
     </div>
-    <div id="drawModal" style="
-  display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%);
-  background: white; padding: 16px; border: 1px solid #ccc; z-index: 999;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-">
-  <canvas id="drawCanvas" width="300" height="200" style="border: 1px solid #000;"></canvas>
-  <br>
-  <button onclick="insertDrawing()">Insert</button>
-  <button onclick="closeDrawingTool()">Cancel</button>
-</div>
+    <div
+      id="drawModal"
+      style="
+        display: none;
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 16px;
+        border: 1px solid #ccc;
+        z-index: 999;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      "
+    >
+      <canvas
+        id="drawCanvas"
+        width="300"
+        height="200"
+        style="border: 1px solid #000"
+      ></canvas>
+      <br />
+      <button onclick="insertDrawing()">Insert</button>
+      <button onclick="closeDrawingTool()">Cancel</button>
+    </div>
 
     <script>
       let notes = JSON.parse(localStorage.getItem("notes")) || [];
@@ -135,7 +147,8 @@
       background: #f4f4f4;
       padding: 10px;
       border-left: 4px solid #ccc;
-      font-family: monospace;
+      font-family: Source Code Pro;
+      font-size: 20px;
       white-space: pre-wrap;
     "><code><br></code></pre><br>`;
 
@@ -146,29 +159,32 @@
         const list = document.getElementById("noteList");
         list.innerHTML = "";
 
-        // Show notes in reverse order (latest first)
-        notes.forEach((note, i) => {
-          const index = notes.length - 1 - i;
-          const content = notes[index];
-          const tmp = document.createElement("div");
-          tmp.innerHTML = content;
-
+        notes.forEach(([title, _], index) => {
           const li = document.createElement("li");
-          li.textContent =
-            tmp.textContent.trim().substring(0, 20) || "Untitled Note";
-          li.onclick = () => loadNote(index);
+          li.contentEditable = false;
+          li.textContent = title || "Untitled Note";
+
+          li.onclick = (e) => {
+            if (document.activeElement !== li) {
+              loadNote(index);
+            }
+          };
+
           list.appendChild(li);
         });
       }
 
       function saveNote() {
-        const htmlContent = document.getElementById("noteText").innerHTML;
+        const content = document.getElementById("noteText").innerHTML;
+        const title = prompt("Enter title:", "");
+
         if (currentNoteIndex !== null) {
-          notes[currentNoteIndex] = htmlContent;
+          notes[currentNoteIndex] = [title, content];
         } else {
-          notes.push(htmlContent);
+          notes.push([title, content]);
           currentNoteIndex = notes.length - 1;
         }
+
         localStorage.setItem("notes", JSON.stringify(notes));
         updateSidebar();
       }
@@ -179,8 +195,9 @@
       }
 
       function loadNote(index) {
+        const [title, content] = notes[index];
+        document.getElementById("noteText").innerHTML = content;
         currentNoteIndex = index;
-        document.getElementById("noteText").innerHTML = notes[index];
       }
 
       function deleteNote() {
@@ -203,7 +220,7 @@
 
         const a = document.createElement("a");
         a.href = url;
-        a.download = "my_notes.json";
+        a.download = "notes.json";
         a.click();
 
         URL.revokeObjectURL(url);
@@ -234,7 +251,7 @@
             html += `<td style="
         border: 1px solid #ccc;
         padding: 8px;
-        text-align: left;
+        text-align: center;
         background-color: ${i === 0 ? "#f0f0f0" : "#fff"};
         font-weight: ${i === 0 ? "bold" : "normal"};
       ">${i === 0 ? "Header" : "Cell"}</td>`;
