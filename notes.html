@@ -124,31 +124,6 @@
         <button onclick="exportNotes()">Export</button>
       </div>
     </div>
-    <div
-      id="drawModal"
-      style="
-        display: none;
-        position: fixed;
-        top: 10%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: white;
-        padding: 16px;
-        border: 1px solid #ccc;
-        z-index: 999;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      "
-    >
-      <canvas
-        id="drawCanvas"
-        width="300"
-        height="200"
-        style="border: 1px solid #000"
-      ></canvas>
-      <br />
-      <button onclick="insertDrawing()">Insert</button>
-      <button onclick="closeDrawingTool()">Cancel</button>
-    </div>
 
     <script>
       let notes = JSON.parse(localStorage.getItem("notes")) || [];
