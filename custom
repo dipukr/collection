@@ -50,9 +50,9 @@ theme=Espresso
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Spring Tool Suite
-Icon=/opt/sts-4.7.0.RELEASE/icon.xpm
-Exec="/opt/sts-4.7.0.RELEASE/SpringToolSuite4" %f
+Name=STS
+Icon=/opt/sts-4.21.0.RELEASE/icon.xpm
+Exec=/opt/sts-4.21.0.RELEASE/SpringToolSuite4
 Comment=Capable and Ergonomic IDE for JVM
 Categories=Development;IDE;
 Terminal=false
