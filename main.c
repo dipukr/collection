@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <nonstd.h>
-#define N 11
+#define N 10000
 
-void main(const int argc, char const **argv)
+void main(const int argc, const char **argv)
 {
-	char a[] = "helloworld";
-	printf("%s\n", a);
+	register int v = 10;
+	int *p = &v;
+	printf("%d\n", v);
 }
 
 
@@ -16,7 +17,7 @@ void main(const int argc, char const **argv)
 
 
 
-
+getData(database, "2025-04-28T18:30:00.000Z", "PBB48440");
 
 
 

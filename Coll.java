@@ -22,8 +22,8 @@ public class Coll {
 		return max;
 	}
 
-	public int maxSumSubarray(int[] data) {
-		int maxSum = MIN_VALUE;
+	public int maxSumSubarrayA(int[] data) {
+		int maxSum = Integer.MIN_VALUE;
 		int start = 0;
 		while (start < data.length) {
 			int end = start;
@@ -39,7 +39,7 @@ public class Coll {
 		return maxSum;
 	}
 
-	public int maxSumSubarray(int[] data) {
+	public int maxSumSubarrayB(int[] data) {
 		int maxSum = Integer.MIN_VALUE;
 		for (int start = 0; start < data.length; start++) {
 			for (int end = start; end < data.length; end++) {
@@ -54,6 +54,6 @@ public class Coll {
 
 	public static void main(final String[] args) {
 		Coll coll = new Coll();		
-		System.out.println("Java.");
+		System.out.println("Java");
 	}
 }

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notes</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        display: flex;
+        height: 100vh;
+        width: 80%;
+      }
+
+      .sidebar {
+        width: 250px;
+        background: #f4f4f4;
+        border-right: 1px solid #ccc;
+        padding: 10px;
+        overflow-y: auto;
+      }
+
+      .sidebar h2 {
+        margin-top: 0;
+      }
+
+      .note-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .note-list li {
+        cursor: pointer;
+        padding: 5px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .note-list li:hover {
+        background: #ddd;
+      }
+
+      .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+      }
+
+      .formatting {
+        margin-bottom: 10px;
+      }
+
+      .formatting button {
+        margin-right: 5px;
+        padding: 5px 10px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      #noteText {
+        flex: 1;
+        border: 1px solid #ccc;
+        padding: 10px;
+        overflow: auto;
+        white-space: pre-wrap; /* preserves whitespace and line breaks */
+        font-family: "CMU Serif";
+        font-size: 20px;
+      }
+
+      .buttons {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      #noteText ul {
+        list-style-type: square;
+        padding-left: 20px; /* indent bullets */
+        margin-left: 20px;
+        margin-top: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>Notes</h2>
+      <ul class="note-list" id="noteList"></ul>
+    </div>
+
+    <div class="main">
+      <div id="noteText" contenteditable="true" style="background: white"></div>
+
+      <div class="buttons">
+        <button onclick="saveNote()">Save</button>
+        <button onclick="newNote()">New</button>
+        <button onclick="deleteNote()">Delete</button>
+        <button onclick="exportNotes()">Export</button>
+        <button onclick="importNotes()">Import</button>
+        <button onclick="insertTable()">Table</button>
+        <button onclick="format('bold')">B</button>
+        <button onclick="format('italic')">I</button>
+        <button onclick="format('underline')">U</button>
+        <button onclick="format('insertUnorderedList')">List</button>
+        <button onclick="insertCodeBlock()">Code</button>
+        <button onclick="openDrawingTool()">Draw</button>
+      </div>
+    </div>
+    <div
+      id="drawModal"
+      style="
+        display: none;
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 16px;
+        border: 1px solid #ccc;
+        z-index: 999;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      "
+    >
+      <canvas
+        id="drawCanvas"
+        width="300"
+        height="200"
+        style="border: 1px solid #000"
+      ></canvas>
+      <br />
+      <button onclick="insertDrawing()">Insert</button>
+      <button onclick="closeDrawingTool()">Cancel</button>
+    </div>
+
+    <script>
+      let notes = JSON.parse(localStorage.getItem("notes")) || [];
+      let currentNoteIndex = null;
+
+      function insertCodeBlock() {
+        const html = `<pre contenteditable="true" style="
+      background: #f4f4f4;
+      padding: 10px;
+      border-left: 4px solid #ccc;
+      font-family: Source Code Pro;
+      font-size: 20px;
+      white-space: pre-wrap;
+    "><code><br></code></pre><br>`;
+
+        document.execCommand("insertHTML", false, html);
+      }
+
+      function updateSidebar() {
+        const list = document.getElementById("noteList");
+        list.innerHTML = "";
+
+        notes.forEach(([title, _], index) => {
+          const li = document.createElement("li");
+          li.contentEditable = false;
+          li.textContent = title || "Untitled Note";
+
+          li.onclick = (e) => {
+            if (document.activeElement !== li) {
+              loadNote(index);
+            }
+          };
+
+          list.appendChild(li);
+        });
+      }
+
+      function saveNote() {
+        const content = document.getElementById("noteText").innerHTML;
+        const title = prompt("Enter title:", "");
+
+        if (currentNoteIndex !== null) {
+          notes[currentNoteIndex] = [title, content];
+        } else {
+          notes.push([title, content]);
+          currentNoteIndex = notes.length - 1;
+        }
+
+        localStorage.setItem("notes", JSON.stringify(notes));
+        updateSidebar();
+      }
+
+      function newNote() {
+        document.getElementById("noteText").innerHTML = "";
+        currentNoteIndex = null;
+      }
+
+      function loadNote(index) {
+        const [title, content] = notes[index];
+        document.getElementById("noteText").innerHTML = content;
+        currentNoteIndex = index;
+      }
+
+      function deleteNote() {
+        if (currentNoteIndex !== null) {
+          notes.splice(currentNoteIndex, 1);
+          localStorage.setItem("notes", JSON.stringify(notes));
+          newNote();
+          updateSidebar();
+        }
+      }
+
+      function format(command) {
+        document.execCommand(command, false, null);
+      }
+
+      function exportNotes() {
+        const data = JSON.stringify(notes, null, 2);
+        const blob = new Blob([data], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "notes.json";
+        a.click();
+
+        URL.revokeObjectURL(url);
+      }
+
+      function insertTable() {
+        const rows = prompt("Enter number of rows:", "2");
+        const cols = prompt("Enter number of columns:", "2");
+
+        const r = parseInt(rows, 10);
+        const c = parseInt(cols, 10);
+
+        if (isNaN(r) || isNaN(c) || r <= 0 || c <= 0) {
+          alert("Invalid table size.");
+          return;
+        }
+
+        let html = `<table style="
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+  ">`;
+
+        for (let i = 0; i < r; i++) {
+          html += "<tr>";
+          for (let j = 0; j < c; j++) {
+            html += `<td style="
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+        background-color: ${i === 0 ? "#f0f0f0" : "#fff"};
+        font-weight: ${i === 0 ? "bold" : "normal"};
+      ">${i === 0 ? "Header" : "Cell"}</td>`;
+          }
+          html += "</tr>";
+        }
+        html += "</table><br>";
+
+        document.execCommand("insertHTML", false, html);
+      }
+
+      function importNotes() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/json";
+
+        input.onchange = (event) => {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+
+          reader.onload = (e) => {
+            try {
+              const importedNotes = JSON.parse(e.target.result);
+              if (Array.isArray(importedNotes)) {
+                notes = importedNotes;
+                localStorage.setItem("notes", JSON.stringify(notes));
+                updateSidebar();
+                alert("Notes imported successfully!");
+              } else {
+                alert("Invalid notes file.");
+              }
+            } catch (error) {
+              alert("Failed to import notes.");
+            }
+          };
+
+          reader.readAsText(file);
+        };
+
+        input.click();
+      }
+
+      updateSidebar();
+      document
+        .getElementById("noteText")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Tab") {
+            e.preventDefault(); // stop default tab behavior
+
+            const sel = window.getSelection();
+            const range = sel.getRangeAt(0);
+
+            // Create a text node with tab character (use "\t" or spaces)
+            const tabNode = document.createTextNode("\t"); // or "\t"
+
+            range.insertNode(tabNode);
+
+            // Move caret after inserted tab
+            range.setStartAfter(tabNode);
+            range.setEndAfter(tabNode);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
+        });
+      let isDrawing = false;
+      let ctx;
+
+      function openDrawingTool() {
+        document.getElementById("drawModal").style.display = "block";
+        const canvas = document.getElementById("drawCanvas");
+        ctx = canvas.getContext("2d");
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 2;
+
+        canvas.onmousedown = (e) => {
+          isDrawing = true;
+          ctx.beginPath();
+          ctx.moveTo(e.offsetX, e.offsetY);
+        };
+
+        canvas.onmousemove = (e) => {
+          if (isDrawing) {
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+          }
+        };
+
+        canvas.onmouseup = () => (isDrawing = false);
+        canvas.onmouseleave = () => (isDrawing = false);
+      }
+
+      function closeDrawingTool() {
+        document.getElementById("drawModal").style.display = "none";
+      }
+
+      function insertDrawing() {
+        const canvas = document.getElementById("drawCanvas");
+        const dataURL = canvas.toDataURL("image/png");
+
+        const img = document.createElement("img");
+        img.src = dataURL;
+        img.style.maxWidth = "100%";
+        img.style.display = "block";
+        img.style.margin = "10px 0";
+
+        const range = window.getSelection().getRangeAt(0);
+        range.insertNode(img);
+        range.setStartAfter(img);
+        range.setEndAfter(img);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+
+        closeDrawingTool();
+      }
+    </script>
+  </body>
+</html>
