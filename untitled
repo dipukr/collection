@@ -1,3 +1,48 @@
 Distributed computing is a field of computer science that studies distributed systems, defined as computer systems whose inter-communicating components are located on different networked computers.
 
 The components of a distributed system communicate and coordinate their actions by passing messages to one another in order to achieve a common goal. Three significant challenges of distributed systems are: maintaining concurrency of components, overcoming the lack of a global clock, and managing the independent failure of components. When a component of one system fails, the entire system does not fail. Examples of distributed systems vary from SOA-based systems to microservices to massively multiplayer online games to peer-to-peer applications. Distributed systems cost significantly more than monolithic architectures, primarily due to increased needs for additional hardware, servers, gateways, firewalls, new subnets, proxies, and so on. Also, distributed systems are prone to fallacies of distributed computing. On the other hand, a well designed distributed system is more scalable, more durable, more changeable and more fine-tuned than a monolithic application deployed on a single machine.
+
+
+function saveNote() {
+        const content = document.getElementById("noteText").innerHTML;
+        if (currentNoteIndex !== null) {
+          let [title, _] = notes[currentNoteIndex];
+          notes[currentNoteIndex] = [title, content];
+        } else {
+          notes.push(["untitled", content]);
+          currentNoteIndex = notes.length - 1;
+        }
+
+        localStorage.setItem("notes", JSON.stringify(notes));
+        const noteText = document.getElementById("noteText");
+        noteText.contentEditable = false;
+      }
+
+      function saveNote2() {
+        const content = document.getElementById("noteText").innerHTML;
+        if (currentNoteId !== null) {
+          const tx = db.transaction(STORE_NAME, "readwrite");
+          const store = tx.objectStore(STORE_NAME);
+          const note = store.get(currentNoteId).result;
+          store.put({id: currentNoteId, title: note.title, content: note.content });
+          alert("Saved.");
+        } else {
+          savesNote(); // fallback to save with title
+        }
+        const noteText = document.getElementById("noteText");
+        noteText.contentEditable = false;
+      }
+
+      function savesNote() {
+        const content = document.getElementById("noteText").innerHTML;
+        const title = prompt("Enter title:", "");
+
+        const tx = db.transaction(STORE_NAME, "readwrite");
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.add({ title, content });
+
+        req.onsuccess = (e) => {
+          currentNoteIndex = e.target.result;
+          updateSidebar();
+        };
+      }
