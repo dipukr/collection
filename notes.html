@@ -62,9 +62,16 @@
         border: 1px solid #ccc;
         padding: 10px;
         overflow: auto;
+        text-align: justify;
         white-space: pre-wrap; /* preserves whitespace and line breaks */
         font-family: "CMU Serif";
         font-size: 20px;
+        overflow-y: scroll;
+        scrollbar-width: none;
+      }
+
+      #noteText::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge */
       }
 
       .buttons {
@@ -95,21 +102,26 @@
     </div>
 
     <div class="main">
-      <div id="noteText" contenteditable="true" spellcheck="false" style="background: white"></div>
+      <div id="noteText" contenteditable="false" spellcheck="false" style="background: white"></div>
 
       <div class="buttons">
         <button onclick="saveNote()">Save</button>
+        <button onclick="toggleEdit()">Edit</button>
         <button onclick="newNote()">New</button>
         <button onclick="deleteNote()">Delete</button>
-        <button onclick="exportNotes()">Export</button>
-        <button onclick="importNotes()">Import</button>
-        <button onclick="insertTable()">Table</button>
         <button onclick="format('bold')">B</button>
         <button onclick="format('italic')">I</button>
         <button onclick="format('underline')">U</button>
+        <button onclick="changeColor('red')" style="color:red">R</button>
+        <button onclick="changeColor('green')" style="color:green">G</button>
+        <button onclick="changeColor('blue')" style="color:blue">B</button>
         <button onclick="format('insertUnorderedList')">List</button>
+        <button onclick="changeFontSize(8)">Head</button>
+        <button onclick="insertImage()">Image</button>
+        <button onclick="insertTable()">Table</button>
         <button onclick="insertCodeBlock()">Code</button>
-        <button onclick="openDrawingTool()">Draw</button>
+        <button onclick="importNotes()">Import</button>
+        <button onclick="exportNotes()">Export</button>
       </div>
     </div>
     <div
@@ -141,6 +153,14 @@
     <script>
       let notes = JSON.parse(localStorage.getItem("notes")) || [];
       let currentNoteIndex = null;
+      let isEditable = false;
+
+      function toggleEdit() {
+        const noteText = document.getElementById("noteText");
+        isEditable = !isEditable;
+        noteText.contentEditable = isEditable;
+        
+      }
 
       function insertCodeBlock() {
         const html = `<pre contenteditable="true" style="
@@ -155,19 +175,92 @@
         document.execCommand("insertHTML", false, html);
       }
 
+      function changeColor(color) {
+        document.execCommand("styleWithCSS", false, true);
+        document.execCommand("foreColor", false, color);
+      }
+
+      function insertImage() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+
+        input.onchange = () => {
+          const file = input.files[0];
+          if (!file) return;
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.maxWidth = "100%";
+            img.style.display = "block";
+            img.style.margin = "10px 0";
+
+            const range = window.getSelection().getRangeAt(0);
+            range.insertNode(img);
+
+            // Move cursor after image
+            range.setStartAfter(img);
+            range.setEndAfter(img);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+          };
+          reader.readAsDataURL(file);
+        };
+
+        input.click();
+      }
+
+      function changeFontSize(delta) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount) return;
+
+        const range = selection.getRangeAt(0);
+
+        // Extract selected content
+        const selectedContent = range.extractContents();
+        const span = document.createElement("span");
+
+        // Try to get current font size from first node
+        let currentSize = 20; // default
+        if (selection.focusNode && selection.focusNode.nodeType === 1) {
+          const computed = window.getComputedStyle(selection.focusNode);
+          currentSize = parseFloat(computed.fontSize);
+        }
+
+        const newSize = Math.max(currentSize + delta, 8); // minimum 8px
+        span.style.fontSize = newSize + "px";
+        span.appendChild(selectedContent);
+        range.insertNode(span);
+
+        // Move cursor after inserted span
+        range.setStartAfter(span);
+        range.setEndAfter(span);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+
       function updateSidebar() {
         const list = document.getElementById("noteList");
         list.innerHTML = "";
 
-        notes.forEach(([title, _], index) => {
+        // Sort notes by title (case-insensitive)
+        const sortedWithIndex = notes
+          .map((note, index) => ({ note, index }))
+          .sort((a, b) =>
+            (a.note[0] || "").toLowerCase().localeCompare((b.note[0] || "").toLowerCase())
+          );
+
+        sortedWithIndex.forEach(({ note, index }) => {
+          const title = note[0] || "untitled";
           const li = document.createElement("li");
           li.contentEditable = false;
-          li.textContent = title || "Untitled Note";
+          li.textContent = title;
+          li.dataset.index = index; // save original index
 
-          li.onclick = (e) => {
-            if (document.activeElement !== li) {
-              loadNote(index);
-            }
+          li.onclick = () => {
+            loadNote(index);
           };
 
           list.appendChild(li);
@@ -176,22 +269,27 @@
 
       function saveNote() {
         const content = document.getElementById("noteText").innerHTML;
-        const title = prompt("Enter title:", "");
-
         if (currentNoteIndex !== null) {
+          let [title, _] = notes[currentNoteIndex];
           notes[currentNoteIndex] = [title, content];
         } else {
-          notes.push([title, content]);
+          notes.push(["untitled", content]);
           currentNoteIndex = notes.length - 1;
         }
 
         localStorage.setItem("notes", JSON.stringify(notes));
-        updateSidebar();
+        const noteText = document.getElementById("noteText");
+        noteText.contentEditable = false;
       }
 
       function newNote() {
-        document.getElementById("noteText").innerHTML = "";
-        currentNoteIndex = null;
+        const title = prompt("Enter title:", "");
+        notes.push([title, ""]);
+        currentNoteIndex = notes.length - 1;
+        document.getElementById("noteText").innerHTML = "Write...";
+        const noteText = document.getElementById("noteText");
+        noteText.contentEditable = true;
+        updateSidebar();
       }
 
       function loadNote(index) {
@@ -204,7 +302,6 @@
         if (currentNoteIndex !== null) {
           notes.splice(currentNoteIndex, 1);
           localStorage.setItem("notes", JSON.stringify(notes));
-          newNote();
           updateSidebar();
         }
       }
@@ -227,11 +324,8 @@
       }
 
       function insertTable() {
-        const rows = prompt("Enter number of rows:", "2");
-        const cols = prompt("Enter number of columns:", "2");
-
-        const r = parseInt(rows, 10);
-        const c = parseInt(cols, 10);
+        const input = prompt("Enter rows,cols:", "")
+        const [r, c] = input.split(',').map(str => parseInt(str.trim(), 10));
 
         if (isNaN(r) || isNaN(c) || r <= 0 || c <= 0) {
           alert("Invalid table size.");
@@ -295,8 +389,7 @@
       }
 
       updateSidebar();
-      document
-        .getElementById("noteText")
+      document.getElementById("noteText")
         .addEventListener("keydown", function (e) {
           if (e.key === "Tab") {
             e.preventDefault(); // stop default tab behavior
@@ -316,56 +409,17 @@
             sel.addRange(range);
           }
         });
-      let isDrawing = false;
-      let ctx;
 
-      function openDrawingTool() {
-        document.getElementById("drawModal").style.display = "block";
-        const canvas = document.getElementById("drawCanvas");
-        ctx = canvas.getContext("2d");
-        ctx.strokeStyle = "#000";
-        ctx.lineWidth = 2;
+      document.getElementById("noteText")
+        .addEventListener("paste", function (e) {
+          e.preventDefault();
 
-        canvas.onmousedown = (e) => {
-          isDrawing = true;
-          ctx.beginPath();
-          ctx.moveTo(e.offsetX, e.offsetY);
-        };
+          // Get plain text from clipboard
+          const text = e.clipboardData.getData("text/plain");
 
-        canvas.onmousemove = (e) => {
-          if (isDrawing) {
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
-          }
-        };
-
-        canvas.onmouseup = () => (isDrawing = false);
-        canvas.onmouseleave = () => (isDrawing = false);
-      }
-
-      function closeDrawingTool() {
-        document.getElementById("drawModal").style.display = "none";
-      }
-
-      function insertDrawing() {
-        const canvas = document.getElementById("drawCanvas");
-        const dataURL = canvas.toDataURL("image/png");
-
-        const img = document.createElement("img");
-        img.src = dataURL;
-        img.style.maxWidth = "100%";
-        img.style.display = "block";
-        img.style.margin = "10px 0";
-
-        const range = window.getSelection().getRangeAt(0);
-        range.insertNode(img);
-        range.setStartAfter(img);
-        range.setEndAfter(img);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-
-        closeDrawingTool();
-      }
+          // Insert the text at the current caret position
+          document.execCommand("insertText", false, text);
+        });
     </script>
   </body>
 </html>
