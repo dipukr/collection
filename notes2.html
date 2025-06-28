@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Notes</title>
+    <title>Notes2</title>
     <style>
       body {
         margin: 0;
@@ -63,7 +63,7 @@
         padding: 10px;
         overflow: auto;
         text-align: justify;
-        white-space: pre-wrap; /* preserves whitespace and line breaks */
+        white-space: pre-wrap;
         font-family: "CMU Serif";
         font-size: 20px;
         overflow-y: scroll;
@@ -71,7 +71,7 @@
       }
 
       #noteText::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Edge */
+        display: none;
       }
 
       .buttons {
@@ -97,7 +97,7 @@
   </head>
   <body>
     <div class="sidebar">
-      <h2>Notes</h2>
+      <h2>Notes2</h2>
       <ul class="note-list" id="noteList"></ul>
     </div>
 
@@ -117,9 +117,9 @@
         <button onclick="changeColor('blue')" style="color:blue">B</button>
         <button onclick="format('insertUnorderedList')">List</button>
         <button onclick="changeFontSize(8)">Head</button>
-        <button onclick="insertImage()">Image</button>
         <button onclick="insertTable()">Table</button>
         <button onclick="insertCodeBlock()">Code</button>
+        <button onclick="insertImage()">Image</button>
         <button onclick="importNotes()">Import</button>
         <button onclick="exportNotes()">Export</button>
       </div>
@@ -151,8 +151,16 @@
       function toggleEdit() {
         const noteText = document.getElementById("noteText");
         isEditable = !isEditable;
-        noteText.contentEditable = isEditable;
-        
+        noteText.contentEditable = isEditable; 
+      }
+
+      function format(command) {
+        document.execCommand(command, false, null);
+      }
+
+      function changeColor(color) {
+        document.execCommand("styleWithCSS", false, true);
+        document.execCommand("foreColor", false, color);
       }
 
       function updateSidebar() {
@@ -174,66 +182,44 @@
 
           notes.forEach((note) => {
             const li = document.createElement("li");
-            li.textContent = note.title || "untitled";
-            li.dataset.id = note.id;
+            li.textContent = note.title;
+            li.dataset.index = note.id;
             li.onclick = () => loadNote(note.id);
             list.appendChild(li);
           });
         };
-      }
-
-      function saveNote() {
-        const content = document.getElementById("noteText").innerHTML;
-        if (currentNoteIndex !== null) {
-          let [title, _] = notes[currentNoteIndex];
-          notes[currentNoteIndex] = [title, content];
-        } else {
-          notes.push(["untitled", content]);
-          currentNoteIndex = notes.length - 1;
-        }
-
-        localStorage.setItem("notes", JSON.stringify(notes));
-        const noteText = document.getElementById("noteText");
-        noteText.contentEditable = false;
-      }
-
-      function saveNote() {
-        const content = document.getElementById("noteText").innerHTML;
-        if (currentNoteId !== null) {
-          const tx = db.transaction(STORE_NAME, "readwrite");
-          const store = tx.objectStore(STORE_NAME);
-          const note = store.get(currentNoteId).result;
-          store.put({id: currentNoteId, title: note.title, content: });
-          alert("Saved.");
-        } else {
-          savesNote(); // fallback to save with title
-        }
-        const noteText = document.getElementById("noteText");
-        noteText.contentEditable = false;
-      }
-
-      function savesNote() {
-        const content = document.getElementById("noteText").innerHTML;
-        const title = prompt("Enter title:", "");
-
-        const tx = db.transaction(STORE_NAME, "readwrite");
-        const store = tx.objectStore(STORE_NAME);
-        const req = store.add({ title, content });
-
-        req.onsuccess = (e) => {
-          currentNoteIndex = e.target.result;
-          updateSidebar();
+        req.onerror = () => {
+          console.error("Unable to updateSidebar.");
         };
       }
 
+      function saveNote() {
+        const content_ = document.getElementById("noteText").innerHTML;
+        if (currentNoteId !== null) {
+          const tx = db.transaction(STORE_NAME, "readwrite");
+          const store = tx.objectStore(STORE_NAME);
+          const getReq = store.get(currentNoteId);
+          getReq.onsuccess = () => {
+            const note = getReq.result;
+            store.put({id: currentNoteId, title: note.title, content: content_ });
+            const noteText = document.getElementById("noteText");
+            noteText.contentEditable = false;
+          };
+        }
+      }
+
       function newNote() {
-        const title = prompt("Enter title:", "");
-        notes.push([title, ""]);
-        currentNoteId = notes.length - 1;
-        document.getElementById("noteText").innerHTML = "Write...";
-        const noteText = document.getElementById("noteText");
-        noteText.contentEditable = true;
-        updateSidebar();
+        const title_ = prompt("Enter title:", "");
+        const tx = db.transaction(STORE_NAME, "readwrite");
+        const store = tx.objectStore(STORE_NAME);
+        const addRequest = store.add({ title: title_, content: "" });
+        addRequest.onsuccess = () => {
+          currentNoteId = addRequest.result;
+          document.getElementById("noteText").innerHTML = "Write...";
+          const noteText = document.getElementById("noteText");
+          noteText.contentEditable = true;
+          updateSidebar();
+        };
       }
 
       function loadNote(id) {
@@ -259,22 +245,85 @@
         }
       }
 
-      function insertCodeBlock() {
-        const html = `<pre contenteditable="true" style="
-      background: #f4f4f4;
-      padding: 10px;
-      border-left: 4px solid #ccc;
-      font-family: Source Code Pro;
-      font-size: 20px;
-      white-space: pre-wrap;
-    "><code><br></code></pre><br>`;
-
-        document.execCommand("insertHTML", false, html);
+      function getAllNotes(callback) {
+        const tx = db.transaction(STORE_NAME, "readonly");
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.getAll();
+        request.onsuccess = () => callback(request.result);
       }
 
-      function changeColor(color) {
-        document.execCommand("styleWithCSS", false, true);
-        document.execCommand("foreColor", false, color);
+      function exportNotes() {
+        getAllNotes((allNotes) => {
+          const data = JSON.stringify(allNotes, null, 2);
+          const blob = new Blob([data], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "notes.json";
+          a.click();
+
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      function importNotes() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/json";
+        input.onchange = (event) => {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const importedNotes = JSON.parse(e.target.result);
+              if (Array.isArray(importedNotes)) {
+                const tx = db.transaction(STORE_NAME, "readwrite");
+                const store = tx.objectStore(STORE_NAME);
+                importedNotes.forEach((note) => store.put(note));
+                tx.oncomplete = () => {
+                  alert("Notes imported successfully!");
+                  updateSidebar();
+                };
+              } else {
+                alert("Invalid notes file.");
+              }
+            } catch {
+              alert("Failed to import notes.");
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      }
+
+      function changeFontSize(delta) {
+        const selection = window.getSelection();
+        if (!selection.rangeCount) return;
+
+        const range = selection.getRangeAt(0);
+
+        // Extract selected content
+        const selectedContent = range.extractContents();
+        const span = document.createElement("span");
+
+        // Try to get current font size from first node
+        let currentSize = 20; // default
+        if (selection.focusNode && selection.focusNode.nodeType === 1) {
+          const computed = window.getComputedStyle(selection.focusNode);
+          currentSize = parseFloat(computed.fontSize);
+        }
+
+        const newSize = Math.max(currentSize + delta, 8); // minimum 8px
+        span.style.fontSize = newSize + "px";
+        span.appendChild(selectedContent);
+        range.insertNode(span);
+
+        // Move cursor after inserted span
+        range.setStartAfter(span);
+        range.setEndAfter(span);
+        selection.removeAllRanges();
+        selection.addRange(range);
       }
 
       function insertImage() {
@@ -309,51 +358,16 @@
         input.click();
       }
 
-      function changeFontSize(delta) {
-        const selection = window.getSelection();
-        if (!selection.rangeCount) return;
-
-        const range = selection.getRangeAt(0);
-
-        // Extract selected content
-        const selectedContent = range.extractContents();
-        const span = document.createElement("span");
-
-        // Try to get current font size from first node
-        let currentSize = 20; // default
-        if (selection.focusNode && selection.focusNode.nodeType === 1) {
-          const computed = window.getComputedStyle(selection.focusNode);
-          currentSize = parseFloat(computed.fontSize);
-        }
-
-        const newSize = Math.max(currentSize + delta, 8); // minimum 8px
-        span.style.fontSize = newSize + "px";
-        span.appendChild(selectedContent);
-        range.insertNode(span);
-
-        // Move cursor after inserted span
-        range.setStartAfter(span);
-        range.setEndAfter(span);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      }
-
-
-      function format(command) {
-        document.execCommand(command, false, null);
-      }
-
-      function exportNotes() {
-        const data = JSON.stringify(notes, null, 2);
-        const blob = new Blob([data], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "notes.json";
-        a.click();
-
-        URL.revokeObjectURL(url);
+      function insertCodeBlock() {
+        const html = `<pre contenteditable="true" style="
+            background: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #ccc;
+            font-family: Source Code Pro;
+            font-size: 20px;
+            white-space: pre-wrap;
+          "><code><br></code></pre><br>`;
+        document.execCommand("insertHTML", false, html);
       }
 
       function insertTable() {
@@ -364,78 +378,38 @@
           alert("Invalid table size.");
           return;
         }
-
         let html = `<table style="
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ccc;
-    margin: 10px 0;
-  ">`;
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+          ">`;
 
         for (let i = 0; i < r; i++) {
           html += "<tr>";
           for (let j = 0; j < c; j++) {
             html += `<td style="
-        border: 1px solid #ccc;
-        padding: 8px;
-        text-align: center;
-        background-color: ${i === 0 ? "#f0f0f0" : "#fff"};
-        font-weight: ${i === 0 ? "bold" : "normal"};
-      ">${i === 0 ? "Header" : "Cell"}</td>`;
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+            background-color: ${i === 0 ? "#f0f0f0" : "#fff"};
+            font-weight: ${i === 0 ? "bold" : "normal"};
+          ">${i === 0 ? "Header" : "Cell"}</td>`;
           }
           html += "</tr>";
         }
         html += "</table><br>";
-
         document.execCommand("insertHTML", false, html);
       }
 
-      function importNotes() {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "application/json";
-
-        input.onchange = (event) => {
-          const file = event.target.files[0];
-          const reader = new FileReader();
-
-          reader.onload = (e) => {
-            try {
-              const importedNotes = JSON.parse(e.target.result);
-              if (Array.isArray(importedNotes)) {
-                notes = importedNotes;
-                localStorage.setItem("notes", JSON.stringify(notes));
-                updateSidebar();
-                alert("Notes imported successfully!");
-              } else {
-                alert("Invalid notes file.");
-              }
-            } catch (error) {
-              alert("Failed to import notes.");
-            }
-          };
-
-          reader.readAsText(file);
-        };
-
-        input.click();
-      }
-
-      updateSidebar();
       document.getElementById("noteText")
-        .addEventListener("keydown", function (e) {
-          if (e.key === "Tab") {
-            e.preventDefault(); // stop default tab behavior
-
+        .addEventListener("keydown", function (evt) {
+          if (evt.key === "Tab") {
+            evt.preventDefault();
             const sel = window.getSelection();
             const range = sel.getRangeAt(0);
-
-            // Create a text node with tab character (use "\t" or spaces)
-            const tabNode = document.createTextNode("\t"); // or "\t"
-
+            const tabNode = document.createTextNode("\t");
             range.insertNode(tabNode);
-
-            // Move caret after inserted tab
             range.setStartAfter(tabNode);
             range.setEndAfter(tabNode);
             sel.removeAllRanges();
@@ -444,13 +418,9 @@
         });
 
       document.getElementById("noteText")
-        .addEventListener("paste", function (e) {
-          e.preventDefault();
-
-          // Get plain text from clipboard
-          const text = e.clipboardData.getData("text/plain");
-
-          // Insert the text at the current caret position
+        .addEventListener("paste", function (evt) {
+          evt.preventDefault();
+          const text = evt.clipboardData.getData("text/plain");
           document.execCommand("insertText", false, text);
         });
     </script>
