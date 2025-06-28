@@ -13,6 +13,7 @@ yum install gnome-tweaks liberation-fonts gdk-pixbuf2-modules-extra pcb-rnd-hid-
 brave-browser-stable --disable-features=GlobalMediaControls
 dnf.conf:exclude=nautilus nautilus-extensions brave-browser:install_weak_deps=False
 user-dirs.dirs:user-dirs.defaults
+python3.12 -m ensurepip:python3.12 -m pip list
 .plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
 git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
 git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822
