@@ -92,13 +92,3 @@ Real-Life Analogy of the Mediator Design Pattern:
 		The teacher figures out how to get the needed information from the other students.
 		The teacher then relays the information back to the requesting student.
 		Students communicate indirectly through the teacher, keeping things organized and preventing chaos in the classroom.
-
-
-
-
-
-=========================================================================================================================
-Called kafka because it is optimized for writing.
-Kafka stream API can be used to transform or aggregate topics before reaching to consumers.
-Kafka can handle more throughput than RabbitMQ.
-
