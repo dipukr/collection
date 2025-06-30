@@ -65,7 +65,7 @@
         text-align: justify;
         white-space: pre-wrap;
         font-family: "CMU Serif";
-        font-size: 20px;
+        font-size: 21px;
         overflow-y: scroll;
         scrollbar-width: none;
       }
@@ -94,6 +94,10 @@
         margin-top: 2px;
       }
     </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
   </head>
   <body>
     <div class="sidebar">
@@ -115,6 +119,7 @@
         <button onclick="changeColor('blue')" style="color:blue">B</button>
         <button onclick="format('insertUnorderedList')">List</button>
         <button onclick="changeFontSize(4)">A+</button>
+        <button onclick="insertFormula()">Formula</button>
         <button onclick="insertTable()">Table</button>
         <button onclick="insertCodeBlock()">Code</button>
         <button onclick="insertImage()">Image</button>
@@ -293,6 +298,23 @@
           reader.readAsText(file);
         };
         input.click();
+      }
+
+      function insertFormula() {
+        const latex = prompt("Enter LaTeX formula (e.g., \\frac{a}{b}):");
+        if (!latex) return;
+
+        const formulaSpan = document.createElement("span");
+        formulaSpan.textContent = `\\(${latex}\\)`;
+        formulaSpan.classList.add("mathjax");
+
+        const range = window.getSelection().getRangeAt(0);
+        range.insertNode(formulaSpan);
+        
+        // Refresh MathJax rendering
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          MathJax.typesetPromise();
+        }
       }
 
       function changeFontSize(delta) {

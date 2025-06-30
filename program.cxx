@@ -1,5 +1,3 @@
-
-
 int lis(int a[], int n)
 {
 	int lis[n];
