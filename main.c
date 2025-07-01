@@ -13,11 +13,3 @@ void main(const int argc, const char **argv)
 
 
 
-
-
-
-
-getData(database, "2025-04-28T18:30:00.000Z", "PBB48440");
-
-
-

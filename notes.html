@@ -60,19 +60,19 @@
       #noteText {
         flex: 1;
         border: 1px solid #ccc;
-        padding: 10px;
+        padding: 25px;
         overflow: auto;
         text-align: justify;
-        white-space: pre-wrap; /* preserves whitespace and line breaks */
+        white-space: pre-wrap;
         font-family: "CMU Serif";
         font-size: 20px;
-        overflow-y: scroll;
-        scrollbar-width: none;
+        font-weight: 500;
+        background-color: #f8f8f8;
+        /*overflow-y: scroll;*/
+        /*scrollbar-width: none;*/
       }
 
-      #noteText::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Edge */
-      }
+      /*#noteText::-webkit-scrollbar {display: none;}*/
 
       .buttons {
         margin-top: 10px;
@@ -94,6 +94,10 @@
         margin-top: 2px;
       }
     </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
   </head>
   <body>
     <div class="sidebar">
@@ -113,46 +117,185 @@
         <button onclick="format('italic')">I</button>
         <button onclick="format('underline')">U</button>
         <button onclick="changeColor('red')" style="color:red">R</button>
-        <button onclick="changeColor('green')" style="color:green">G</button>
-        <button onclick="changeColor('blue')" style="color:blue">B</button>
         <button onclick="format('insertUnorderedList')">List</button>
-        <button onclick="changeFontSize(8)">Head</button>
-        <button onclick="insertImage()">Image</button>
         <button onclick="insertTable()">Table</button>
         <button onclick="insertCodeBlock()">Code</button>
+        <button onclick="insertImage()">Image</button>
         <button onclick="importNotes()">Import</button>
         <button onclick="exportNotes()">Export</button>
       </div>
     </div>
 
     <script>
-      let notes = JSON.parse(localStorage.getItem("notes")) || [];
-      let currentNoteIndex = null;
+      let currentNoteId = null;
       let isEditable = false;
+
+      let db;
+      const DB_NAME = "NotesDB";
+      const STORE_NAME = "notes";
+
+      const request = indexedDB.open(DB_NAME, 1);
+      request.onerror = (event) => {
+        console.error("IndexedDB error:", event.target.errorCode);
+      };
+      request.onsuccess = (event) => {
+        db = event.target.result;
+        updateSidebar();
+      };
+      request.onupgradeneeded = (event) => {
+        db = event.target.result;
+        if (!db.objectStoreNames.contains(STORE_NAME)) {
+          db.createObjectStore(STORE_NAME, { keyPath: "id", autoIncrement: true });
+        }
+      };
 
       function toggleEdit() {
         const noteText = document.getElementById("noteText");
         isEditable = !isEditable;
-        noteText.contentEditable = isEditable;
-        
+        noteText.contentEditable = isEditable; 
       }
 
-      function insertCodeBlock() {
-        const html = `<pre contenteditable="true" style="
-      background: #f4f4f4;
-      padding: 10px;
-      border-left: 4px solid #ccc;
-      font-family: Source Code Pro;
-      font-size: 20px;
-      white-space: pre-wrap;
-    "><code><br></code></pre><br>`;
-
-        document.execCommand("insertHTML", false, html);
+      function format(command) {
+        document.execCommand(command, false, null);
       }
 
       function changeColor(color) {
         document.execCommand("styleWithCSS", false, true);
         document.execCommand("foreColor", false, color);
+      }
+
+      function updateSidebar() {
+        const list = document.getElementById("noteList");
+        list.innerHTML = "";
+        notes = [];
+
+        const tx = db.transaction(STORE_NAME, "readonly");
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.getAll();
+
+        req.onsuccess = () => {
+          notes = req.result;
+
+          // Sort alphabetically
+          notes.sort((a, b) =>
+            (a.title || "").toLowerCase().localeCompare((b.title || "").toLowerCase())
+          );
+
+          notes.forEach((note) => {
+            const li = document.createElement("li");
+            li.textContent = note.title;
+            li.dataset.index = note.id;
+            li.onclick = () => loadNote(note.id);
+            list.appendChild(li);
+          });
+        };
+        req.onerror = () => {
+          console.error("Unable to updateSidebar.");
+        };
+      }
+
+      function saveNote() {
+        const content_ = document.getElementById("noteText").innerHTML;
+        if (currentNoteId !== null) {
+          const tx = db.transaction(STORE_NAME, "readwrite");
+          const store = tx.objectStore(STORE_NAME);
+          const getReq = store.get(currentNoteId);
+          getReq.onsuccess = () => {
+            const note = getReq.result;
+            store.put({id: currentNoteId, title: note.title, content: content_ });
+            const noteText = document.getElementById("noteText");
+            noteText.contentEditable = false;
+          };
+        }
+      }
+
+      function newNote() {
+        const title_ = prompt("Enter title:", "");
+        const tx = db.transaction(STORE_NAME, "readwrite");
+        const store = tx.objectStore(STORE_NAME);
+        const addRequest = store.add({ title: title_, content: "" });
+        addRequest.onsuccess = () => {
+          currentNoteId = addRequest.result;
+          document.getElementById("noteText").innerHTML = "Write...";
+          const noteText = document.getElementById("noteText");
+          noteText.contentEditable = true;
+          updateSidebar();
+        };
+      }
+
+      function loadNote(id) {
+        const tx = db.transaction(STORE_NAME, "readonly");
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.get(id);
+
+        req.onsuccess = () => {
+          const note = req.result;
+          document.getElementById("noteText").innerHTML = note.content;
+          currentNoteId = id;
+        };
+      }
+
+      function deleteNote() {
+        if (currentNoteId !== null) {
+          const tx = db.transaction(STORE_NAME, "readwrite");
+          const store = tx.objectStore(STORE_NAME);
+          store.delete(currentNoteId);
+          currentNoteId = null;
+          document.getElementById("noteText").innerHTML = "";
+          updateSidebar();
+        }
+      }
+
+      function getAllNotes(callback) {
+        const tx = db.transaction(STORE_NAME, "readonly");
+        const store = tx.objectStore(STORE_NAME);
+        const request = store.getAll();
+        request.onsuccess = () => callback(request.result);
+      }
+
+      function exportNotes() {
+        getAllNotes((allNotes) => {
+          const data = JSON.stringify(allNotes, null, 2);
+          const blob = new Blob([data], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "notes.json";
+          a.click();
+
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      function importNotes() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "application/json";
+        input.onchange = (event) => {
+          const file = event.target.files[0];
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            try {
+              const importedNotes = JSON.parse(e.target.result);
+              if (Array.isArray(importedNotes)) {
+                const tx = db.transaction(STORE_NAME, "readwrite");
+                const store = tx.objectStore(STORE_NAME);
+                importedNotes.forEach((note) => store.put(note));
+                tx.oncomplete = () => {
+                  alert("Notes imported successfully!");
+                  updateSidebar();
+                };
+              } else {
+                alert("Invalid notes file.");
+              }
+            } catch {
+              alert("Failed to import notes.");
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
       }
 
       function insertImage() {
@@ -187,115 +330,14 @@
         input.click();
       }
 
-      function changeFontSize(delta) {
-        const selection = window.getSelection();
-        if (!selection.rangeCount) return;
-
-        const range = selection.getRangeAt(0);
-
-        // Extract selected content
-        const selectedContent = range.extractContents();
-        const span = document.createElement("span");
-
-        // Try to get current font size from first node
-        let currentSize = 20; // default
-        if (selection.focusNode && selection.focusNode.nodeType === 1) {
-          const computed = window.getComputedStyle(selection.focusNode);
-          currentSize = parseFloat(computed.fontSize);
-        }
-
-        const newSize = Math.max(currentSize + delta, 8); // minimum 8px
-        span.style.fontSize = newSize + "px";
-        span.appendChild(selectedContent);
-        range.insertNode(span);
-
-        // Move cursor after inserted span
-        range.setStartAfter(span);
-        range.setEndAfter(span);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      }
-
-      function updateSidebar() {
-        const list = document.getElementById("noteList");
-        list.innerHTML = "";
-
-        // Sort notes by title (case-insensitive)
-        const sortedWithIndex = notes
-          .map((note, index) => ({ note, index }))
-          .sort((a, b) =>
-            (a.note[0] || "").toLowerCase().localeCompare((b.note[0] || "").toLowerCase())
-          );
-
-        sortedWithIndex.forEach(({ note, index }) => {
-          const title = note[0] || "untitled";
-          const li = document.createElement("li");
-          li.contentEditable = false;
-          li.textContent = title;
-          li.dataset.index = index; // save original index
-
-          li.onclick = () => {
-            loadNote(index);
-          };
-
-          list.appendChild(li);
-        });
-      }
-
-      function saveNote() {
-        const content = document.getElementById("noteText").innerHTML;
-        if (currentNoteIndex !== null) {
-          let [title, _] = notes[currentNoteIndex];
-          notes[currentNoteIndex] = [title, content];
-        } else {
-          notes.push(["untitled", content]);
-          currentNoteIndex = notes.length - 1;
-        }
-
-        localStorage.setItem("notes", JSON.stringify(notes));
-        const noteText = document.getElementById("noteText");
-        noteText.contentEditable = false;
-      }
-
-      function newNote() {
-        const title = prompt("Enter title:", "");
-        notes.push([title, ""]);
-        currentNoteIndex = notes.length - 1;
-        document.getElementById("noteText").innerHTML = "Write...";
-        const noteText = document.getElementById("noteText");
-        noteText.contentEditable = true;
-        updateSidebar();
-      }
-
-      function loadNote(index) {
-        const [title, content] = notes[index];
-        document.getElementById("noteText").innerHTML = content;
-        currentNoteIndex = index;
-      }
-
-      function deleteNote() {
-        if (currentNoteIndex !== null) {
-          notes.splice(currentNoteIndex, 1);
-          localStorage.setItem("notes", JSON.stringify(notes));
-          updateSidebar();
-        }
-      }
-
-      function format(command) {
-        document.execCommand(command, false, null);
-      }
-
-      function exportNotes() {
-        const data = JSON.stringify(notes, null, 2);
-        const blob = new Blob([data], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "notes.json";
-        a.click();
-
-        URL.revokeObjectURL(url);
+      function insertCodeBlock() {
+        const html = `<pre contenteditable="true" style="
+            background: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #ccc;
+            white-space: pre;
+          "><code style="font-family: Consolas;font-size: 16px; font-weight: 500;"><br></code></pre><br>`;
+        document.execCommand("insertHTML", false, html);
       }
 
       function insertTable() {
@@ -306,78 +348,38 @@
           alert("Invalid table size.");
           return;
         }
-
         let html = `<table style="
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ccc;
-    margin: 10px 0;
-  ">`;
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+          ">`;
 
         for (let i = 0; i < r; i++) {
           html += "<tr>";
           for (let j = 0; j < c; j++) {
             html += `<td style="
-        border: 1px solid #ccc;
-        padding: 8px;
-        text-align: center;
-        background-color: ${i === 0 ? "#f0f0f0" : "#fff"};
-        font-weight: ${i === 0 ? "bold" : "normal"};
-      ">${i === 0 ? "Header" : "Cell"}</td>`;
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+            background-color: ${i === 0 ? "#f0f0f0" : "#fff"};
+            font-weight: ${i === 0 ? "bold" : "normal"};
+          ">${i === 0 ? "Header" : "Cell"}</td>`;
           }
           html += "</tr>";
         }
         html += "</table><br>";
-
         document.execCommand("insertHTML", false, html);
       }
 
-      function importNotes() {
-        const input = document.createElement("input");
-        input.type = "file";
-        input.accept = "application/json";
-
-        input.onchange = (event) => {
-          const file = event.target.files[0];
-          const reader = new FileReader();
-
-          reader.onload = (e) => {
-            try {
-              const importedNotes = JSON.parse(e.target.result);
-              if (Array.isArray(importedNotes)) {
-                notes = importedNotes;
-                localStorage.setItem("notes", JSON.stringify(notes));
-                updateSidebar();
-                alert("Notes imported successfully!");
-              } else {
-                alert("Invalid notes file.");
-              }
-            } catch (error) {
-              alert("Failed to import notes.");
-            }
-          };
-
-          reader.readAsText(file);
-        };
-
-        input.click();
-      }
-
-      updateSidebar();
       document.getElementById("noteText")
-        .addEventListener("keydown", function (e) {
-          if (e.key === "Tab") {
-            e.preventDefault(); // stop default tab behavior
-
+        .addEventListener("keydown", function (evt) {
+          if (evt.key === "Tab") {
+            evt.preventDefault();
             const sel = window.getSelection();
             const range = sel.getRangeAt(0);
-
-            // Create a text node with tab character (use "\t" or spaces)
-            const tabNode = document.createTextNode("\t"); // or "\t"
-
+            const tabNode = document.createTextNode("    ");
             range.insertNode(tabNode);
-
-            // Move caret after inserted tab
             range.setStartAfter(tabNode);
             range.setEndAfter(tabNode);
             sel.removeAllRanges();
@@ -386,13 +388,9 @@
         });
 
       document.getElementById("noteText")
-        .addEventListener("paste", function (e) {
-          e.preventDefault();
-
-          // Get plain text from clipboard
-          const text = e.clipboardData.getData("text/plain");
-
-          // Insert the text at the current caret position
+        .addEventListener("paste", function (evt) {
+          evt.preventDefault();
+          const text = evt.clipboardData.getData("text/plain");
           document.execCommand("insertText", false, text);
         });
     </script>
