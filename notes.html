@@ -94,10 +94,6 @@
         margin-top: 2px;
       }
     </style>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
   </head>
   <body>
     <div class="sidebar">
@@ -117,9 +113,10 @@
         <button onclick="format('italic')">I</button>
         <button onclick="format('underline')">U</button>
         <button onclick="changeColor('red')" style="color:red">R</button>
+        <button onclick="decreaseFontSize()">A−</button>
+        <button onclick="increaseFontSize()">A+</button>
         <button onclick="format('insertUnorderedList')">List</button>
         <button onclick="insertTable()">Table</button>
-        <button onclick="insertCodeBlock()">Code</button>
         <button onclick="insertImage()">Image</button>
         <button onclick="importNotes()">Import</button>
         <button onclick="exportNotes()">Export</button>
@@ -330,16 +327,6 @@
         input.click();
       }
 
-      function insertCodeBlock() {
-        const html = `<pre contenteditable="true" style="
-            background: #f4f4f4;
-            padding: 10px;
-            border-left: 4px solid #ccc;
-            white-space: pre;
-          "><code style="font-family: Consolas;font-size: 16px; font-weight: 500;"><br></code></pre><br>`;
-        document.execCommand("insertHTML", false, html);
-      }
-
       function insertTable() {
         const input = prompt("Enter rows,cols:", "")
         const [r, c] = input.split(',').map(str => parseInt(str.trim(), 10));
@@ -372,6 +359,80 @@
         document.execCommand("insertHTML", false, html);
       }
 
+      function decreaseFontSize() {
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return;
+
+        const range = sel.getRangeAt(0);
+        const selectedText = sel.toString();
+        if (!selectedText) return;
+
+        // Create a temporary span to get computed font size
+        const span = document.createElement('span');
+        span.textContent = selectedText;
+        range.deleteContents();
+        range.insertNode(span);
+
+        const computedSize = window.getComputedStyle(span).fontSize;
+        let currentPt = parseFloat(computedSize); // usually in px
+        const isPx = computedSize.endsWith("px");
+
+        // Convert px to pt if needed (1pt = 1.333px)
+        if (isPx) currentPt = currentPt / 1.333;
+
+        const newPt = Math.max(6, Math.round(currentPt - 1)); // prevent too small
+
+        // Replace span with styled span
+        const newSpan = document.createElement('span');
+        newSpan.textContent = span.textContent;
+        newSpan.style.fontSize = `${newPt}pt`;
+
+        span.replaceWith(newSpan);
+
+        // Restore cursor after the inserted span
+        const newRange = document.createRange();
+        newRange.setStartAfter(newSpan);
+        newRange.setEndAfter(newSpan);
+        sel.removeAllRanges();
+        sel.addRange(newRange);
+      }
+
+      function increaseFontSize() {
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return;
+
+        const range = sel.getRangeAt(0);
+        const selectedText = sel.toString();
+        if (!selectedText) return;
+
+        // Create a temp span to determine current font size
+        const span = document.createElement('span');
+        span.textContent = selectedText;
+        range.deleteContents();
+        range.insertNode(span);
+
+        const computedSize = window.getComputedStyle(span).fontSize;
+        let currentPt = parseFloat(computedSize);
+        const isPx = computedSize.endsWith("px");
+
+        // Convert px to pt (1pt = 1.333px)
+        if (isPx) currentPt = currentPt / 1.333;
+
+        const newPt = Math.min(72, Math.round(currentPt + 1)); // max size cap
+
+        const newSpan = document.createElement('span');
+        newSpan.textContent = span.textContent;
+        newSpan.style.fontSize = `${newPt}pt`;
+
+        span.replaceWith(newSpan);
+
+        const newRange = document.createRange();
+        newRange.setStartAfter(newSpan);
+        newRange.setEndAfter(newSpan);
+        sel.removeAllRanges();
+        sel.addRange(newRange);
+      }
+      
       document.getElementById("noteText")
         .addEventListener("keydown", function (evt) {
           if (evt.key === "Tab") {
@@ -385,7 +446,7 @@
             sel.removeAllRanges();
             sel.addRange(range);
           }
-        });
+      });
 
       document.getElementById("noteText")
         .addEventListener("paste", function (evt) {
