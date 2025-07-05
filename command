@@ -13,9 +13,10 @@ sudo ufw allow from 172.16.4.134 to any port 1729
 python3.12 -m pip install --upgrade pip
 sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
 sudo yum erase $(rpm -qa | grep mongodb-org)
-====================================================================================================
-zookeeper-server-start /opt/confluent-7.7.2/etc/kafka/zookeeper.properties
-kafka-server-start /opt/confluent-7.7.2/etc/kafka/server.properties
+ss -tulnp|grep :8780
+==========================================================================
+zookeeper-server-start /opt/confluent/etc/kafka/zookeeper.properties
+kafka-server-start /opt/confluent/etc/kafka/server.properties
 kafka-topics --bootstrap-server localhost:9092 --create --topic topic0 --partitions 3 --replication-factor 1
 kafka-topics --bootstrap-server localhost:9092 --list
 kafka-topics --bootstrap-server localhost:9092 --describe --topic topic0
@@ -23,5 +24,8 @@ kafka-console-producer --broker-list localhost:9092 --topic topic0
 kafka-console-producer --broker-list localhost:9092 --topic topic0 < bin/customers.csv
 kafka-console-consumer --bootstrap-server localhost:9092 --topic topic0 --from-beginning
 ========================================================================================
-https://dl.fedoraproject.org/pub/fedora/linux/releases/40/Workstation/x86_64/iso/
-=================================================================================
+docker ps
+docker images
+docker build -t docker-sch-srv:0.1.RELEASE .
+docker run -p 8780:8780 docker-sch-srv:0.1.RELEASE
+==================================================
