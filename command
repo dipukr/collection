@@ -29,3 +29,8 @@ docker images
 docker build -t docker-sch-srv:0.1.RELEASE .
 docker run -p 8780:8780 docker-sch-srv:0.1.RELEASE
 ==================================================
+minikube start
+minikube stop
+minikube pause
+minikube unpause
+minikube delete --all
