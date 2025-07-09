@@ -1,0 +1,7 @@
+User Service – Manages user registration/login and KYC.
+Account Service – Manages account details and balance.
+Transaction Service – Handles deposits, withdrawals, and transfers.
+Audit Service – Stores transaction logs.
+Notification Service (Optional) – Sends email/SMS alerts.
+=========================================================
+

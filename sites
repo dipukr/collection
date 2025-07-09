@@ -33,7 +33,6 @@ www.kafka.apache.org/quickstart
 www.developer.confluent.io/courses/kafka-streams/get-started
 www.docs.confluent.io/platform/6.2/streams/quickstart.html
 www.kafka.apache.org/23/documentation/streams/developer-guide
-www.developer.confluent.io/courses/apache-kafka/events
 www.daljit-singh.medium.com/executor-framework-all-you-need-to-know-13ecd0d270da
 www.hazelcast.com/foundations/distributed-computing/sharding
 www.atlassian.com/microservices/cloud-computing/containers-vs-vms
@@ -49,3 +48,5 @@ www.endgrate.com/blog/adapter-pattern-use-cases-payment-gateway-integration
 www.medium.com/@sandeep4.verma/system-design-scalable-url-shortener-service-like-tinyurl-106f30f23a82
 www.artima.com/insidejvm/ed2/threadsynch.html
 www.aws.amazon.com/what-is/load-balancing
+www.developer.confluent.io/courses/apache-kafka/events
+www.developer.confluent.io/what-is-apache-kafka
