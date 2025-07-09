@@ -5,8 +5,14 @@ SMTP
 POP
 VPN
 Firewall
+Linux namespaces
 =============================
 Convolutional neural networks
 Principal component analysis
 Feedforward neural networks
 Autoencoders and decoders
+==========================
+HTTP Server impl
+Sym-ED impl
+DES impl
+RSA impl

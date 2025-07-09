@@ -1,3 +1,4 @@
+sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
 git remote add origin https://koomar_dipu@bitbucket.org/koomardipu/neem.git
 git push -u -f origin master
 g++ -c add.cpp:ar crf ..\lib\libadd.a add.o:g++ -o main main.cpp -L. -ladd
@@ -11,10 +12,9 @@ nmap -n -PN -sT -p- localhost
 sudo ufw allow from 172.16.4.134 to any port 22
 sudo ufw allow from 172.16.4.134 to any port 1729
 python3.12 -m pip install --upgrade pip
-sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
 sudo yum erase $(rpm -qa | grep mongodb-org)
 ss -tulnp|grep :8780
-==========================================================================
+====================================================================
 zookeeper-server-start /opt/confluent/etc/kafka/zookeeper.properties
 kafka-server-start /opt/confluent/etc/kafka/server.properties
 kafka-topics --bootstrap-server localhost:9092 --create --topic topic0 --partitions 3 --replication-factor 1
