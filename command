@@ -34,3 +34,15 @@ minikube stop
 minikube pause
 minikube unpause
 minikube delete --all
+=======================
+set x 100
+set x EX 60
+setex name 300 DeePoo
+expire x 60
+get x
+ttl x
+exists x
+keys *
+lpush friends name1
+lrange friends 0 -1
+lrange friends 0 2

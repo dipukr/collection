@@ -1,11 +1,21 @@
-Load balancer
-API Gateway
-===========
 SMTP
 POP
 VPN
+JWT
 Firewall
-Linux namespaces
+Namespaces
+Load balancer
+API gateway
+Caching
+Centralized caching
+Distributed caching
+Distributed locks
+Distributed hashtable
+Statefull architecture
+Stateless architecture
+Client-server module
+Event-driven system
+Service mesh
 =============================
 Convolutional neural networks
 Principal component analysis
@@ -16,3 +26,6 @@ HTTP Server impl
 Sym-ED impl
 DES impl
 RSA impl
+============================
+ask chat gpt each dp real world impl
+ask chat gpt what to write i have sound skills in java dsa dp system design oop.
