@@ -2,18 +2,32 @@
 
 import sys
 import requests
-resp = requests.get("https://auth.punjabsldc.org/SEL_UI/login?redirect= ")
-print(resp.status_code)
-print(resp.headers)
-#!/usr/bin/python3
+#import mysql.connector as db
+#from faker import Faker
 
-import mysql.connector as db
-from faker import Faker
+#fake = Faker('en_IN')
+#conn = db.connect(host="localhost", user="root", password="Root@123", database="test")
+#cursor = conn.cursor()
+#for elem in range(0, 1000):
+#	cursor.execute(f'insert into user(name, email, password) values("{fake.name()}", "{fake.email()}", "{fake.password()}")')
 
-fake = Faker('en_IN')
+import io
+import json
+import pycurl
 
-conn = db.connect(host="localhost", user="root", password="Root@123", database="test")
-cursor = conn.cursor()
+def curl_demo():
+	buffer = io.BytesIO()
+	headers = ["User-Agent: Python-PycURL", "Accept: application/json"]
+	data = {"field1": "value1", "field2": "value2"}
+	post_data = "&".join([f"{k}={v}" for k, v in data.items()])
+	curl = pycurl.Curl()
+	curl.setopt(curl.URL, "https://httpbin.org/post")
+	curl.setopt(curl.POSTFIELDS, json.dumps(data))
+	curl.setopt(curl.WRITEDATA, buffer)
+	curl.setopt(curl.HTTPHEADER, headers)
+	curl.perform()
+	curl.close()
+	response = buffer.getvalue()
+	print(response.decode("utf-8"))
 
-for elem in range(0, 1000):
-	cursor.execute(f'insert into user(name, email, password) values("{fake.name()}", "{fake.email()}", "{fake.password()}")')
+curl_demo()

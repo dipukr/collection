@@ -27,8 +27,21 @@ The Definitive ANTLR Reference: Terence Parr
 Unix Network Programming
 A Profile of Mathematical Logic: Howard Delong
 ==============================================
-Graphite: HB, B, 2B, 4B, 6B, 8B, 12B
-Charcoal: HB
-Tombow Mono Eraser
-Pencil Eraser
-Spounge
+Jenkov
+TechPrep
+TheTechCave
+TechPrimers
+BlackboardAI
+ConnectedCookies
+SystemDesignSchool
+=============================================
+Question: what is x?
+Answer: x is the process of .......;
+=======================================================
+Two microservers one frontend used to upload images and
+other microservices used to take image as input and
+process that image and produce enhanced image.
+Here two microservices should communicate with
+each other asynchoronously (RabbitMQ).
+=======================================================
+

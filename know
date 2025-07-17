@@ -1,12 +1,43 @@
+Protocols
+DHCP
+ICMP
+NAT
+ARP
+BGP
+DNS
+TCP
+UDP
+IP
+HTTP
+FTP
 SMTP
+IMAP
 POP
+VOIP
+P2P
+SNNP (Java API)
+AMQP
+WebSockets
+WebHooks
+TCP/IP model
+Subnet mask
+Default gateway
+Ethernet
+Switch
+Hub
+Router
+==================
+Rate limiter
 VPN
 JWT
 Firewall
+TCP Handshake
+Checksum
 Namespaces
 Load balancer
 API gateway
 Caching
+Cache invalidation
 Centralized caching
 Distributed caching
 Distributed locks
@@ -16,16 +47,30 @@ Stateless architecture
 Client-server module
 Event-driven system
 Service mesh
+Message broker
+Message queue
+Sync vs async comm
+Kafka
+RabbitMQ
+CAP Theorem
+RPC
+REST
+REST API Caching
+Fault tolerance
+Zero-downtime deployment
 =============================
 Convolutional neural networks
 Principal component analysis
 Feedforward neural networks
 Autoencoders and decoders
+=========================
+Linux system calls
 ==========================
 HTTP Server impl
 Sym-ED impl
 DES impl
 RSA impl
-============================
+==========================================================================================
 ask chat gpt each dp real world impl
 ask chat gpt what to write i have sound skills in java dsa dp system design oop.
+ask chat gpt if my applications is not running smoothly where i will look for the problem.

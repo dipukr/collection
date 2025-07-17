@@ -5,3 +5,54 @@ Caching is a techniques of storing frequently accessed data in a temporary stora
 Caching helps to reduce the time and resources required to fetch the data from the original source by serving it quicky from the cache.
 Web browser caches web pages to load them faster on subsequent visits.
 Database server caches frequently accessed query results to avoid expensive database queries.
+
+A distributed system design involves creating a system where multiple independent computers work together to achieve a common goal, appearing as a single coherent system to the user. This design approach is crucial for scalability, availability, and fault tolerance, addressing potential bottlenecks and single points of failure in centralized systems. 
+Key Concepts in Distributed System Design:
+Nodes/Components:
+These are the individual computers or processes that make up the distributed system, each responsible for specific tasks or data. 
+Network:
+A network connects these nodes, enabling communication and data exchange. 
+Communication:
+Different protocols and mechanisms (like message queues, RPC) are used for communication between nodes. 
+Transparency:
+Ideally, users should not be aware of the underlying complexity of the distributed nature of the system. 
+Scalability:
+The system should be able to handle increasing load and data volume by adding more nodes. 
+Availability:
+The system should remain operational and accessible even if some nodes fail. 
+Consistency:
+Ensuring data consistency across multiple nodes is a significant challenge. 
+Fault Tolerance:
+The system should be designed to handle failures gracefully and continue functioning. 
+Common Distributed System Design Patterns:
+Client-Server: A central server provides services to multiple clients. 
+Peer-to-Peer: All nodes have equal capabilities and interact directly with each other. 
+Microservices: An application is composed of small, independent services that communicate over a network. 
+Pub/Sub (Publish/Subscribe): Nodes can publish messages to a topic, and other nodes can subscribe to receive those messages. 
+Leader Election: In some systems, one node is elected as the leader to manage certain operations. 
+Saga Pattern: Used for managing transactions that involve multiple services. 
+Design Principles:
+Scalability: Ability to handle increasing load.
+Availability: Ensuring the system is always accessible.
+Fault Tolerance: Handling failures of individual components.
+Performance: Optimizing for speed and efficiency.
+Security: Protecting the system from unauthorized access. 
+Examples of Distributed Systems: 
+Online games: Multiple players interact with each other through a network. 
+Web applications: Websites and applications that handle a large number of users. 
+Cloud computing: Services provided over the internet through a network of servers. 
+Distributed databases: Data is stored across multiple servers. 
+Social media platforms: Users interact with each other and share information. 
+
+CDN: Set of servers that are geographically located across globe.
+CDN Cache: reduces latency and server load.
+CDN brings content closer to the system.
+Scalability is the ability of a system to handle an increased workload without loosing performance.
+Message queue allows asynchoronous communication between microservices.
+
+[Cron job]
+A cron job is a scheduled task that allows you to run scripts or commands at specified intervals.
+Cron jobs automate repetitive tasks, ensuring they run at scheduled times without manual intervention.
+Ex. Backing up files, running system maintainance or sending email reports.
+Cron uses a daemon (background process) called crond to execute scheduled tasks.
+The configuration for these tasks is stored in a file called crontab.

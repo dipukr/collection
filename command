@@ -14,6 +14,7 @@ sudo ufw allow from 172.16.4.134 to any port 1729
 python3.12 -m pip install --upgrade pip
 sudo yum erase $(rpm -qa | grep mongodb-org)
 ss -tulnp|grep :8780
+journalctl -u server -f --no-pager
 ====================================================================
 zookeeper-server-start /opt/confluent/etc/kafka/zookeeper.properties
 kafka-server-start /opt/confluent/etc/kafka/server.properties

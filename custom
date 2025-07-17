@@ -122,3 +122,19 @@ StartupWMClass=SpringToolSuite4
 "editor.inlayHints.enabled": "off",
 "workbench.editor.enablePreview": false,
 "workbench.activityBar.location": "hidden"
+==========================================
+[Unit]
+Description=DemoHTTPServer
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/dkumar/RESEARCH/server
+Restart=always
+RestartSec=1
+User=dkumar
+StandardOutput=append:/var/log/simple-http-server.log
+StandardError=append:/var/log/simple-http-server.err
+[Install]
+WantedBy=multi-user.target
+==========================

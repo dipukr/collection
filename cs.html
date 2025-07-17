@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Notes</title>
+    <title>CS</title>
     <style>
       body {
         margin: 0;
@@ -65,7 +65,7 @@
         text-align: justify;
         white-space: pre-wrap;
         font-family: "CMU Serif";
-        font-size: 21px;
+        font-size: 20px;
         font-weight: 500;
         background-color: #f8f8f8;
         overflow-y: scroll;
@@ -97,7 +97,7 @@
   </head>
   <body>
     <div class="sidebar">
-      <h2>Design Patterns</h2>
+      <h2>Notes</h2>
       <ul class="note-list" id="noteList"></ul>
     </div>
 
@@ -112,7 +112,7 @@
         <button onclick="format('bold')">B</button>
         <button onclick="format('italic')">I</button>
         <button onclick="format('underline')">U</button>
-        <button onclick="changeColor('blue')" style="color:red">C</button>
+        <button onclick="changeColor('red')" style="color:red">R</button>
         <button onclick="decreaseFontSize()">A−</button>
         <button onclick="increaseFontSize()">A+</button>
         <button onclick="format('insertUnorderedList')">List</button>
@@ -128,7 +128,7 @@
       let isEditable = false;
 
       let db;
-      const DB_NAME = "DPDB";
+      const DB_NAME = "NotesCS";
       const STORE_NAME = "notes";
 
       const request = indexedDB.open(DB_NAME, 1);
@@ -174,9 +174,9 @@
           notes = req.result;
 
           // Sort alphabetically
-          //notes.sort((a, b) =>
-          //  (a.title || "").toLowerCase().localeCompare((b.title || "").toLowerCase())
-          //);
+          notes.sort((a, b) =>
+            (a.title || "").toLowerCase().localeCompare((b.title || "").toLowerCase())
+          );
 
           notes.forEach((note) => {
             const li = document.createElement("li");
@@ -258,7 +258,7 @@
 
           const a = document.createElement("a");
           a.href = url;
-          a.download = "dp.json";
+          a.download = "cs.json";
           a.click();
 
           URL.revokeObjectURL(url);
