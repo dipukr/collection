@@ -85,3 +85,6 @@ Cache eviction policies determine which data is removed from a cache when it bec
 
 [Caching strategy]
 Amazon elastic cache
+
+
+When threads becomes non-blocking, your task is waiting but threads can take on next one.
