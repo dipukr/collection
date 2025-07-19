@@ -56,3 +56,9 @@ Cron jobs automate repetitive tasks, ensuring they run at scheduled times withou
 Ex. Backing up files, running system maintainance or sending email reports.
 Cron uses a daemon (background process) called crond to execute scheduled tasks.
 The configuration for these tasks is stored in a file called crontab.
+
+[Cache eviction policy]
+Cache eviction policies determine which data is removed from a cache when it becomes full, making space for new data. These policies are crucial for maintaining cache performance and ensuring that the most relevant data remains readily accessible.
+
+[Caching strategy]
+Amazon elastic cache

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>DS</title>
+    <title>Web</title>
     <style>
       body {
         margin: 0;
@@ -128,7 +128,7 @@
       let isEditable = false;
 
       let db;
-      const DB_NAME = "NotesDS";
+      const DB_NAME = "NotesWeb";
       const STORE_NAME = "notes";
 
       const request = indexedDB.open(DB_NAME, 1);
@@ -258,7 +258,7 @@
 
           const a = document.createElement("a");
           a.href = url;
-          a.download = "ds.json";
+          a.download = "web.json";
           a.click();
 
           URL.revokeObjectURL(url);
