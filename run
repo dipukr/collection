@@ -11,23 +11,26 @@ import requests
 #for elem in range(0, 1000):
 #	cursor.execute(f'insert into user(name, email, password) values("{fake.name()}", "{fake.email()}", "{fake.password()}")')
 
-import io
-import json
-import pycurl
+# import io
+# import json
+# import pycurl
 
-def curl_demo():
-	buffer = io.BytesIO()
-	headers = ["User-Agent: Python-PycURL", "Accept: application/json"]
-	data = {"field1": "value1", "field2": "value2"}
-	post_data = "&".join([f"{k}={v}" for k, v in data.items()])
-	curl = pycurl.Curl()
-	curl.setopt(curl.URL, "https://httpbin.org/post")
-	curl.setopt(curl.POSTFIELDS, json.dumps(data))
-	curl.setopt(curl.WRITEDATA, buffer)
-	curl.setopt(curl.HTTPHEADER, headers)
-	curl.perform()
-	curl.close()
-	response = buffer.getvalue()
-	print(response.decode("utf-8"))
+# def curl_demo():
+# 	buffer = io.BytesIO()
+# 	headers = ["User-Agent: Python-PycURL", "Accept: application/json"]
+# 	data = {"field1": "value1", "field2": "value2"}
+# 	post_data = "&".join([f"{k}={v}" for k, v in data.items()])
+# 	curl = pycurl.Curl()
+# 	curl.setopt(curl.URL, "https://httpbin.org/post")
+# 	curl.setopt(curl.POSTFIELDS, json.dumps(data))
+# 	curl.setopt(curl.WRITEDATA, buffer)
+# 	curl.setopt(curl.HTTPHEADER, headers)
+# 	curl.perform()
+# 	curl.close()
+# 	response = buffer.getvalue()
+# 	print(response.decode("utf-8"))
 
-curl_demo()
+x = 100
+print(type(x))
+if str(type(x) == "<class 'int'>":
+	print("hello")
