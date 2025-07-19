@@ -56,3 +56,25 @@ Cron jobs automate repetitive tasks, ensuring they run at scheduled times withou
 Ex. Backing up files, running system maintainance or sending email reports.
 Cron uses a daemon (background process) called crond to execute scheduled tasks.
 The configuration for these tasks is stored in a file called crontab.
+
+[Eventual consistency]
+	There is delay between a write and when all the readers can see that write.
+
+[Cache]
+	Embedded cache
+	Client-server cache: cache is between the application and the database. Also called shared cache or standalone cache.
+	Distributed cache: 
+	Cloud cache
+	Reverse-proxy cache
+
+Scalability
+Transactionality
+Resiliency
+Availability
+Fault-tolerance
+===================
+Event-driven design
+Domain-driven design
+Service mesh
+
+
