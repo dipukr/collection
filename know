@@ -28,6 +28,7 @@ Hub
 Router
 ==================
 Rate limiter
+Idempotence
 VPN
 JWT
 Firewall

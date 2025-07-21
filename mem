@@ -44,4 +44,3 @@ process that image and produce enhanced image.
 Here two microservices should communicate with
 each other asynchoronously (RabbitMQ).
 =======================================================
-

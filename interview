@@ -19,7 +19,7 @@ Sound Knowledge of Software Design Patterns
 Knowledge of System Design Concepts
 Linux Operating System
 Kafka: 
-Others: Redis, Docker, Unit Testing, Jenkins
+Others: Redis, Docker, Unit Testing, Jenkins, AWS, Hadoop, HDFS, Zookeeper
 
 Design and Developement of Distributed system
 Knowledge of computer networks protocols
@@ -35,4 +35,16 @@ I agree to the above terms and conditions.
 As per the terms and conditions, I hope my last working day is 02-SEP-2025.
 Kindly confirm the same.
 ==========================================================================
+Why replication
+	[Too much]
 
+	[Too little]
+	Prolong downtime
+	Data loss
+
+	Data ingester
+
+
+[Monolith]
+In monolith we have single unit of deployment.
+	
