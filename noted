@@ -106,6 +106,6 @@ These should be worded in the format of "The system should be...", such as "The 
 Non-functional requirements can often expose the trade-offs that define your design choices. For example, if you optimize for low-latency reads, how does that impact your write operations? If the system is highly available, how will you handle potential data consistency issues?
 
 The goal here is to demonstrate that your design can scale, perform reliably, and handle real-world demands. Handling these non-functional requirements well sets apart a good system design from a great one.
-=======
 
 When threads becomes non-blocking, your task is waiting but threads can take on next one.
+==========================================================================================================================================================================
