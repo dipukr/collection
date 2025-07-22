@@ -19,7 +19,8 @@ Sound Knowledge of Software Design Patterns
 Knowledge of System Design Concepts
 Linux Operating System
 Kafka: 
-Others: Redis, Docker, Unit Testing, Jenkins, AWS, Hadoop, HDFS, Zookeeper
+Others: Redis, Docker, Kubernetes, Unit Testing, Jenkins, AWS, Hadoop, HDFS, Zookeeper
+AWS (EC2, ECS, Cloudfront, EKS, Route 53, S3, EBS, EFS) and Bare metal
 
 Design and Developement of Distributed system
 Knowledge of computer networks protocols
@@ -47,4 +48,7 @@ Why replication
 
 [Monolith]
 In monolith we have single unit of deployment.
+
+Roles and responsibilities:
+	Used design patterns to optimize and decouple code.
 	
