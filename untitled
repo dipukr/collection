@@ -4,4 +4,4 @@ Transaction Service – Handles deposits, withdrawals, and transfers.
 Audit Service – Stores transaction logs.
 Notification Service (Optional) – Sends email/SMS alerts.
 =========================================================
-
+boolean sellerOA = contractDefinitionDAO.existsSellerContract(billingRequestDTO.getEntityUtgId(), fromDate, toDate, false);
