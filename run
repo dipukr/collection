@@ -1,36 +1,37 @@
 #!/usr/bin/python3.12
 
-import sys
-import requests
-#import mysql.connector as db
-#from faker import Faker
+import tensorflow as tf
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Flatten
+from tensorflow.keras.utils import to_categorical
 
-#fake = Faker('en_IN')
-#conn = db.connect(host="localhost", user="root", password="Root@123", database="test")
-#cursor = conn.cursor()
-#for elem in range(0, 1000):
-#	cursor.execute(f'insert into user(name, email, password) values("{fake.name()}", "{fake.email()}", "{fake.password()}")')
+import struct
 
-# import io
-# import json
-# import pycurl
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
 
-# def curl_demo():
-# 	buffer = io.BytesIO()
-# 	headers = ["User-Agent: Python-PycURL", "Accept: application/json"]
-# 	data = {"field1": "value1", "field2": "value2"}
-# 	post_data = "&".join([f"{k}={v}" for k, v in data.items()])
-# 	curl = pycurl.Curl()
-# 	curl.setopt(curl.URL, "https://httpbin.org/post")
-# 	curl.setopt(curl.POSTFIELDS, json.dumps(data))
-# 	curl.setopt(curl.WRITEDATA, buffer)
-# 	curl.setopt(curl.HTTPHEADER, headers)
-# 	curl.perform()
-# 	curl.close()
-# 	response = buffer.getvalue()
-# 	print(response.decode("utf-8"))
+x_train = x_train / 255.0
+x_test = x_test / 255.0
 
-x = 100
-print(type(x))
-if str(type(x) == "<class 'int'>":
-	print("hello")
+#y_train = to_categorical(y_train, 10)
+#y_test = to_categorical(y_test, 10)
+
+with open("mnist_train.bin", "wb") as file:
+	count, row, col = x_train.shape
+	file.write(struct.pack('>i', count))
+	for mat in x_train:
+		for row in mat:
+			for val in row:
+				file.write(struct.pack('>d', val))
+	for val in y_train:
+		file.write(struct.pack('>i', val))
+
+with open("mnist_test.bin", "wb") as file:
+	count, row, col = x_test.shape
+	file.write(struct.pack('>i', count))
+	for mat in x_test:
+		for row in mat:
+			for val in row:
+				file.write(struct.pack('>d', val))
+	for val in y_test:
+		file.write(struct.pack('>i', val))					
