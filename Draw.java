@@ -34,8 +34,8 @@ public class Draw {
 		};
 		for (int row = 0; row < data.length; row++) {
 			for (int col = 0; col < data[0].length; col++) {
-				int code = data[row][col] == 0 ? 9608: 32;
-				System.out.printf("%s%c%c", GREEN, code,code);
+				int code = data[row][col] == 0 ? 32: 9608;
+				System.out.printf("%s%c%c", BLACK, code, code);
 			}
 			System.out.println();
 		}

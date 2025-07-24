@@ -38,7 +38,7 @@ public class Mat {
 		for (int row = 0; row < data.length; row++) {
 			for (int col = 0; col < data[0].length; col++) {
 				int code = data[row][col] == 0.0 ? 32 : 9608;
-				System.out.printf("%s%c%c", "\u001B[32m", code,code);
+				System.out.printf("%s%c%c", "\u001B[30m", code,code);
 			}
 			System.out.println();
 		}

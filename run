@@ -16,22 +16,16 @@ x_test = x_test / 255.0
 #y_train = to_categorical(y_train, 10)
 #y_test = to_categorical(y_test, 10)
 
-with open("mnist_train.bin", "wb") as file:
-	count, row, col = x_train.shape
-	file.write(struct.pack('>i', count))
+with open("mnist.bin", "wb") as file:
 	for mat in x_train:
+		for row in mat:
+			for val in row:
+				file.write(struct.pack('>d', val))
+	for mat in x_test:
 		for row in mat:
 			for val in row:
 				file.write(struct.pack('>d', val))
 	for val in y_train:
 		file.write(struct.pack('>i', val))
-
-with open("mnist_test.bin", "wb") as file:
-	count, row, col = x_test.shape
-	file.write(struct.pack('>i', count))
-	for mat in x_test:
-		for row in mat:
-			for val in row:
-				file.write(struct.pack('>d', val))
 	for val in y_test:
-		file.write(struct.pack('>i', val))					
+		file.write(struct.pack('>i', val))
