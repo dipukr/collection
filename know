@@ -64,6 +64,9 @@ Convolutional neural networks
 Principal component analysis
 Feedforward neural networks
 Autoencoders and decoders
+Adam optimizer
+Dimensionality reduction
+
 =========================
 Linux system calls
 ==========================
