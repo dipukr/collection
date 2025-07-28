@@ -10,22 +10,22 @@ import struct
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
-x_train = x_train / 255.0
-x_test = x_test / 255.0
+x_train = x_train
+x_test = x_test
 
 #y_train = to_categorical(y_train, 10)
 #y_test = to_categorical(y_test, 10)
 
-with open("mnist.bin", "wb") as file:
+with open("mnist.bytes", "wb") as file:
 	for mat in x_train:
 		for row in mat:
 			for val in row:
-				file.write(struct.pack('>d', val))
+				file.write(struct.pack('B', val))
 	for mat in x_test:
 		for row in mat:
 			for val in row:
-				file.write(struct.pack('>d', val))
+				file.write(struct.pack('B', val))
 	for val in y_train:
-		file.write(struct.pack('>i', val))
+		file.write(struct.pack('B', val))
 	for val in y_test:
-		file.write(struct.pack('>i', val))
+		file.write(struct.pack('B', val))
