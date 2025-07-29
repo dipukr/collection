@@ -27,6 +27,12 @@ Switch
 Hub
 Router
 ==================
+Circuit breaker
+Orchestration
+Choreography
+Aggregator
+Sidecar
+CQRS
 Rate limiter
 Idempotence
 VPN
