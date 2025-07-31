@@ -1,4 +1,3 @@
-Protocols
 DHCP
 ICMP
 NAT
@@ -27,6 +26,14 @@ Switch
 Hub
 Router
 ==================
+Circuit breaker
+Orchestration
+Choreography
+Aggregator
+Bulkhead
+Sidecar
+CQRS
+
 Rate limiter
 Idempotence
 VPN
@@ -66,7 +73,6 @@ Feedforward neural networks
 Autoencoders and decoders
 Adam optimizer
 Dimensionality reduction
-
 =========================
 Linux system calls
 ==========================

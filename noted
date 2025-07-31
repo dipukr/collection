@@ -109,3 +109,4 @@ The goal here is to demonstrate that your design can scale, perform reliably, an
 
 When threads becomes non-blocking, your task is waiting but threads can take on next one.
 ==========================================================================================================================================================================
+Distributed transaction span across the multiple microservices.
