@@ -44,3 +44,12 @@ process that image and produce enhanced image.
 Here two microservices should communicate with
 each other asynchoronously (RabbitMQ).
 =======================================================
+[Database optimization]
+Optimize query
+Perform indexing
+Replication
+Sharding
+[Monolith]
+In monolith we have single unit of deployment.
+[Roles]
+Used design patterns to optimize and decouple code.
