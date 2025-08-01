@@ -8,4 +8,76 @@ Experienced software developer with 3 years of experience in Java, Spring Boot, 
 Led the development of a new API integration that improved data processing speed by 25%. Actively involved in code reviews and mentoring junior developers.
 Seeking a challenging role where I can utilize my technical expertise and contribute to a high-performing team.
 ===============================================================================================================
-"category": "",
+<table>
+		<thead>
+			<tr>
+				<th>Class</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A class is a blueprint which defines the attributes (fields) and behaviours (methods) common to a number of objects. A class is a user defined blueprint based on which objects are created. Class is the unit of modularization in object oriented program.
+A class is defined using class keyword. A class body contains contains specification
+of a set of fields which defines attributes of the objects and a set of methods which defines behaviours of the objects. <br> <br>
+<pre style="width: 40%; float: left;">
+
+    class Snake {
+        Size size;
+        Color color;
+        Point position;
+        void move(Dir dir) {}
+        void eat(Food food) {}
+    }
+            </pre>
+					<pre style="width: 58%; float: right;">
+
+  Defines attributes and behaviours of snakes.
+  Behaviours are used to change states.
+  State is combination of attributes values.
+
+     Attributes = {size, color, position}
+     Behaviours = {move, eat}
+     Attributes = Form
+            </pre> 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+============================================================================================================================================
+<table>
+	<thead>
+		<tr>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
