@@ -241,6 +241,20 @@
       </tbody>
     </table>
     <table>
+	<thead>
+		<tr>
+			<th>Bridge</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				
+			</td>
+		</tr>
+	</tbody>
+</table>
+    <table>
       <thead>
         <tr>
           <th>Proxy</th>
@@ -281,10 +295,10 @@
       private static final Map<String, RealImage> cache = new HashMap<>();
       private String filename;
 
-      public ImageProxy(String filename) {
-          this.filename = filename;
+      ImageProxy(String filename) {
+          this.filename = filename
       }
-      public void display() {
+      void display() {
           RealImage image = cache.computeIfAbsent(filename, RealImage::new)
           image.display()
       }
@@ -313,8 +327,79 @@
 	<tbody>
 		<tr>
 			<td>
-				Observer pattern is a behavioral design pattern that defines a one-to-many dependency between objects. In this pattern an object known as subject maintains a list of its dependent objects known as observers. When the subject's state changes, subject automatically notifies all its observers.<br> <br><b>Structures:</b><ul><li>Subject – The core object being observed. Maintains a list of observers.</li><li>Observer – Interface that defines the update method.</li><li>ConcreteSubject – Implements subject and notifies observers.</li><li>ConcreteObserver – Implements observer and responds to state changes.</li></ul><br><b>When-to use:</b><ul><li>Use Observer when you want to automatically notify multiple objects of state changes.</li><li>Great for event-driven systems, GUIs, distributed messaging, and real-time updates.</li><li>Think of it as a push-based notification system for objects.</li></ul><br><b>Pros and Cons:</b><ul><li>Loose coupling between subject and observers.</li><li>Easy to add or remove observers dynamically.</li><li>Promotes separation of concerns.</li><li>If many observers exist, notification may become slow.</li><li>Observers are not guaranteed to be in a specific order.</li><li>Difficult to debug due to indirect communication.</li></ul><br><b>Real-world examples:</b><ul><li>GUI Toolkits (JavaFX or Swing) - Buttons and events use observer pattern internally.</li><li>YouTube-Instagram: Subscribers are notified when new content is posted.</li><li>News Feeds - Users follow a source, and get notified when updates happen.</li><li>Chat Applications - Clients are notified when new messages arrive.</li><li>Stock Market App: Investor apps observe stock changes.</li></ul>
+				Observer pattern is a behavioral design pattern that defines a one-to-many dependency between objects. In this pattern an object known as subject maintains a list of its dependent objects known as observers. When the subject's state changes, subject automatically notifies all its observers.
+        The observer pattern defines a one-to-many dependency where, when one object's state changes, all objects that depend on it are notified and updated automatically.
+        <br> <br><b>Structures:</b><ul><li>Subject – The core object being observed. Maintains a list of observers.</li><li>Observer – Interface that defines the update method.</li><li>ConcreteSubject – Implements subject and notifies observers.</li><li>ConcreteObserver – Implements observer and responds to state changes.</li></ul><br><b>When-to use:</b><ul><li>Use Observer when you want to automatically notify multiple objects of state changes.</li><li>Great for event-driven systems, GUIs, distributed messaging, and real-time updates.</li><li>Think of it as a push-based notification system for objects.</li></ul><br><b>Pros and Cons:</b><ul><li>Loose coupling between subject and observers.</li><li>Easy to add or remove observers dynamically.</li><li>Promotes separation of concerns.</li><li>If many observers exist, notification may become slow.</li><li>Observers are not guaranteed to be in a specific order.</li><li>Difficult to debug due to indirect communication.</li></ul><br><b>Real-world examples:</b><ul><li>GUI Toolkits (JavaFX or Swing) - Buttons and events use observer pattern internally.</li><li>YouTube-Instagram: Subscribers are notified when new content is posted.</li><li>News Feeds - Users follow a source, and get notified when updates happen.</li><li>Chat Applications - Clients are notified when new messages arrive.</li><li>Stock Market App: Investor apps observe stock changes.</li></ul> <br>
+        <pre style="width: 49%; float: left;">
+    
+    interface Subject {
+        void attach(Observer observer);
+        void detach(Observer observer);
+        void notifyObservers();
+    }
 
+    interface Observer {
+        void update(String news);
+    }
+
+    class NewsAgency implements Subject {
+       List&lt;Observer> observers;
+       String latestNews;
+
+       void attach(Observer observer) {
+           observers.add(observer);
+       }
+
+       void detach(Observer observer) {
+           observers.remove(observer);
+       }
+
+       void notifyObservers() {
+          for (Observer observer: observers)
+              observer.update();
+       }
+
+       void publishNews(String news) {
+           this.latestNews = latestNews;
+           notifyObservers();
+       }
+    }
+        </pre>
+        <pre style="width: 49%; float: right;">
+
+    class MobileApp implements Observer {
+        String name;
+
+        MobileApp(String name) {
+            this.name = name;
+        }
+        void update(String news) {
+            println(name + " App Notification: " + news);
+        }
+    }
+    class TVChannel implements Observer {
+        String channelName;
+
+        TVChannel(String name) {
+            this.channelName = name;
+        }
+        void update(String news) {
+            println(channelName + " TV Breaking News: " + news);
+        }
+    }
+    void main(String[] args) {
+        Subject agency = new NewsAgency();
+
+        Observer mobileApp = new MobileApp("NewsFlash");
+        Observer tvChannel = new TVChannel("NDTV");
+
+        agency.registerObserver(mobileApp);
+        agency.registerObserver(tvChannel);
+
+        agency.publishNews("India wins gold in hockey.");
+        agency.publishNews("Elections 2025: Dates announced.");
+    }
+        </pre>
 			</td>
 		</tr>
 	</tbody>
@@ -328,8 +413,87 @@
 	<tbody>
 		<tr>
 			<td>
-				Visitor Pattern is a behavioral design pattern that lets you add new operations to existing object structures without modifying their classes. It helps separate algorithms from the objects on which they operate. Visitor pattern is useful in scenario when an object structure is stable but we frequently need to extend its behaviours with new operations. This pattern aligns with open-closed concepts.<br><br><b>Structures:</b><ul><li>Visitor – Interface or abstract class for visiting elements.</li><li>ConcreteVisitor – Implements operations on concrete elements.</li><li>Element – Interface that defines accept(visitor)</li><li>ConcreteElement – Implements accept(visitor)</li><li>Client – Traverses object structure and applies visitor.</li></ul><br><b>Real-world examples:</b><ul><li>AST Traversal in Compilers – Different visitors (semantic analyzer, code generator) operate on the same tree nodes.</li><li>Filesystem utilities – Backup, search, indexing tools can visit folders and files.</li><li>Document converters – HTML, PDF, Markdown converters can visit document elements (paragraphs, images, links).</li><li>Game engines – Collision detection or rendering can be implemented as visitors over game entities.</li></ul><br><b>Pros and Cons:</b><ul><li>Add new operations without changing existing object structures.</li><li>Encourages separation of concerns (data vs behavior).</li><li>Makes operations extensible and easy to manage.</li><li>Adding a new element (type) requires updating all visitors.</li><li>Involves double dispatch – one call from client to element, one from element to visitor.</li></ul>
+				Visitor Pattern is a behavioral design pattern that lets you add new operations to existing object structures without modifying their classes. It helps separate algorithms from the objects on which they operate. Visitor pattern is useful in scenario when an object structure is stable but we frequently need to extend its behaviours with new operations. This pattern aligns with open-closed concepts.<br><br><b>Structures:</b><ul><li>Visitor – Interface or abstract class for visiting elements.</li><li>ConcreteVisitor – Implements operations on concrete elements.</li><li>Element – Interface that defines accept(visitor)</li><li>ConcreteElement – Implements accept(visitor)</li><li>Client – Traverses object structure and applies visitor.</li></ul><br><b>Real-world examples:</b><ul><li>AST Traversal in Compilers – Different visitors (semantic analyzer, code generator) operate on the same tree nodes.</li><li>Filesystem utilities – Backup, search, indexing tools can visit folders and files.</li><li>Document converters – HTML, PDF, Markdown converters can visit document elements (paragraphs, images, links).</li><li>Game engines – Collision detection or rendering can be implemented as visitors over game entities.</li></ul><br><b>Pros and Cons:</b><ul><li>Add new operations without changing existing object structures.</li><li>Encourages separation of concerns (data vs behavior).</li><li>Makes operations extensible and easy to manage.</li><li>Adding a new element (type) requires updating all visitors.</li><li>Involves double dispatch – one call from client to element, one from element to visitor.</li></ul> <br>
+        <pre style="width: 49%; float: left;">
 
+    interface Element {
+        void accept(Visitor visitor);
+    }
+    
+    interface Visitor {
+        void visit(Element text);
+        void visit(Element image);
+        void visit(Element link);
+    }
+
+    class TextElement implements Element {
+        String text;
+        TextElement(String text) {this.text = text;}
+
+        void accept(Visitor visitor) {
+            visitor.visit(this);
+        }
+    }
+
+    class ImageElement implements Element {
+        String imagePath;
+        ImageElement(String path) {this.imagePath = path;}
+
+        void accept(Visitor visitor) {
+            visitor.visit(this);
+        }
+    }
+
+    class HyperlinkElement implements Element {
+        String url;
+        HyperlinkElement(String url) {this.url = url;}
+
+        void accept(Visitor visitor) {
+            visitor.visit(this);
+        }
+    }
+    
+        </pre>
+        <pre style="width: 49%; float: right;">
+    class Renderer implements Visitor {
+        void visit(TextElement text) {
+            println("Rendering text: " + text.text);
+        }
+        void visit(ImageElement image) {
+            println("Rendering image from: " + image.imagePath);
+        }
+        void visit(HyperlinkElement link) {
+            println("Rendering link: " + link.url);
+        }
+    }
+
+    class ExportVisitor implements Visitor {
+        void visit(TextElement text) {
+            println("Exporting text: " + text.text);
+        }
+        void visit(ImageElement image) {
+            println("Exporting image path: " + image.imagePath);
+        }
+        void visit(HyperlinkElement link) {
+            println("Exporting hyperlink: " + link.url);
+        }
+    }
+    void main(String[] args) {
+        List<Element> elements = List.of(
+            new TextElement("Hello World"),
+            new ImageElement("/images/logo.png"),
+            new HyperlinkElement("https://example.com")
+        );
+
+        Visitor renderer = new Renderer();
+        Visitor exporter new Exporter();
+
+        for (Element element: elements)
+            el.accept(renderer);
+        for (Element element: elements)
+            el.accept(exporter);
+    }
+        </pre>
 			</td>
 		</tr>
 	</tbody>
@@ -358,8 +522,76 @@
 	<tbody>
 		<tr>
 			<td>
-				Mediator design pattern is a behavioral design pattern that promotes loose coupling between objects by centralizing communication between them. Instead of objects referring to each other directly, they communicate through a mediator object. This makes the system easier to maintain, modify, and scale, especially as the number of objects increases. Mediator pattern introduces a third-party object called the mediator to control the interation between two or more objects called colleagues. Mediator pattern focuses on simplifying communication between objects by managing and coordinating their interations through a mediator. When-to use: when you want to reduce complex dependencies between objects and promote decoupling.<br><br><b>Components:</b><ul><li>Mediator interface: Declares the communication contract used by components.</li><li>ConcreteMediator: Implements coordination logic and knows all components (colleagues).</li><li>Colleague: Individual objects that communicate via the mediator. Knows about the mediator but not other colleagues.</li></ul><br><b>Pros and Cons:</b><ul><li>Promotes low coupling between components.</li><li>Simplifies maintenance and enhances reusability.</li><li>Centralizes complex communications.</li><li>Mediator can become a God object if it gets too complex.</li><li>Too much logic inside the mediator can lead to poor scalability.</li></ul><br><b>Real-world examples:</b><ul><li>Chat Room App: Chat room server = Mediator, users = Colleagues.</li><li>UI Components (MVC) - Dialog boxes, buttons send events to a central controller.</li></ul>
+				Mediator design pattern is a behavioral design pattern that promotes loose coupling between objects by centralizing communication between them. Instead of objects referring to each other directly, they communicate through a mediator object. This makes the system easier to maintain, modify, and scale, especially as the number of objects increases. Mediator pattern introduces a third-party object called the mediator to control the interation between two or more objects called colleagues. Mediator pattern focuses on simplifying communication between objects by managing and coordinating their interations through a mediator. When-to use: when you want to reduce complex dependencies between objects and promote decoupling. Mediator pattern is used for coordinating communication while the proxy pattern is used for controlling access.
+        <br><br><b>Components:</b><ul><li>Mediator interface: Declares the communication contract used by components.</li><li>ConcreteMediator: Implements coordination logic and knows all components (colleagues).</li><li>Colleague: Individual objects that communicate via the mediator. Knows about the mediator but not other colleagues.</li></ul><br><b>Pros and Cons:</b><ul><li>Promotes low coupling between components.</li><li>Simplifies maintenance and enhances reusability.</li><li>Centralizes complex communications.</li><li>Mediator can become a God object if it gets too complex.</li><li>Too much logic inside the mediator can lead to poor scalability.</li></ul><br><b>Real-world examples:</b><ul><li>Chat Room App: Chat room server = Mediator, users = Colleagues.</li><li>UI Components (MVC) - Dialog boxes, buttons send events to a central controller.</li></ul> <br>
+<pre style="width: 49%; float: left;">
+ 
+    interface ChatMediator {
+        void addUser(User user);
+        void sendMessage(String message, User user);
+    }
+    
+    class ChatMediatorImpl implements ChatMediator {
+        List<User> users;
 
+        void addUser(User user) {
+            users.add(user);
+        }
+        
+        void sendMessage(String message, User user) {
+            for (User user: users)
+                if (user != this)
+                    user.receive("From {user.name}: {message}");
+        }
+    }
+
+    abstract class User {
+        ChatMediator mediator;
+        String name;
+
+        User(ChatMediator mediator, String name) {
+            this.mediator = mediator;
+            this.name = name;
+        }
+
+        abstract void send(String message);
+        abstract void receive(String message);
+    }
+</pre>
+<pre style="width: 49%; float: right;">
+
+    class UserImpl extend User {
+        UserImpl(ChatMediator mediator, String name) {
+            super(mediator, name);
+        }
+
+        void send(String message) {
+            println("{name} sends message: {message}");
+            mediator.sendMessage(message, this);
+        }
+
+        void receive(String message) {
+            println("{name} receives message: {message}");
+        }
+    }
+
+    void main(String[] args) {
+        ChatMediator mediator = new ChatMediatorImpl();
+        User user1 = new UserImpl(mediator, "user1");
+        User user2 = new UserImpl(mediator, "user2");
+        User user3 = new UserImpl(mediator, "user3");
+        User user4 = new UserImpl(mediator, "user4");
+        User user5 = new UserImpl(mediator, "user5");
+        mediator.addUser(user1);
+        mediator.addUser(user2);
+        mediator.addUser(user3);
+        mediator.addUser(user4);
+        mediator.addUser(user5);
+        user1.send("Hello everyone.");
+    }
+
+
+</pre>
 			</td>
 		</tr>
 	</tbody>
@@ -373,8 +605,65 @@
 	<tbody>
 		<tr>
 			<td>
-				Iterator pattern is a behavioral design pattern that provides a way to access the elements of a collection (like a list or tree) sequentially without exposing its underlying representation. Iterator pattern is used to traverse elements in a container. Iterator pattern decouples container traversal algorithms from containers. Intent is to provide a standard way to traverse through a collection of objects without exposing its internal structure.<br><br><b>Components:</b><ul><li>Iterator (Interface) – declares the interface for accessing elements.</li><li>ConcreteIterator – implements the Iterator interface and keeps track of the current position.</li><li>Aggregate (Interface) – declares a method to return an iterator.</li><li>ConcreteAggregate – implements the method to return an iterator instance.</li></ul><br><b>Advantages:</b><ul><li>Separates collection traversal logic from collection data structure.</li><li>Uniform traversal for various types of collections.</li><li>Supports multiple iterations simultaneously.</li></ul>
+				Iterator pattern is a behavioral design pattern that provides a way to access the elements of a collection (like a list or tree) sequentially without exposing its underlying representation. Iterator pattern is used to traverse elements in a container. Iterator pattern decouples container traversal algorithms from containers. Intent is to provide a standard way to traverse through a collection of objects without exposing its internal structure.<br><br><b>Components:</b><ul><li>Iterator (Interface) – declares the interface for accessing elements.</li><li>ConcreteIterator – implements the Iterator interface and keeps track of the current position.</li><li>Aggregate (Interface) – declares a method to return an iterator.</li><li>ConcreteAggregate – implements the method to return an iterator instance.</li></ul><br><b>Advantages:</b><ul><li>Separates collection traversal logic from collection data structure.</li><li>Uniform traversal for various types of collections.</li><li>Supports multiple iterations simultaneously.</li></ul> <br>
+        <pre style="width: 49%; float: left;">
 
+    interface Iterator {
+        boolean hasNext();
+        Book next();
+    }
+
+    interface Collection {
+        Iterator iterator();
+    }
+
+    class BookStore implements Collection {
+        List&lt;Book> books;
+
+        void addBook(Book book) {
+            books.add(book);
+        }
+
+        List<Book> getBooks() {
+            return books;
+        }
+
+        Iterator iterator() {
+            return new BookStoreIterator();
+        }
+    }
+
+
+        </pre>
+        <pre style="width: 49%; float: right;">
+    
+    class BookStoreIterator implements Iterator {
+        BookStore bookStore;
+        int current;
+        
+        BookStoreIterator(BookStore bookStore) {
+            this.bookStore = bookStore;
+            this.current = 0;
+        }
+        boolean hasNext() {
+            return current < bookStore.getBooks().size();
+        }
+        Book next() {
+            return hasNext() ? 
+            bookStore.getBooks().get(current++) : null;
+        }
+    }
+
+    void main(String[] args) {
+        BookStore bookStore = new BookStore();
+        bookStore.addBook("Book1");
+        bookStore.addBook("Book2");
+        bookStore.addBook("Book3");
+        Iterator iterator = bookStore.iterator();
+        while (iterator.hasNext())
+            println(iterator.next());
+    }
+        </pre>
 			</td>
 		</tr>
 	</tbody>
@@ -465,6 +754,144 @@
 			<td>
 				Composite pattern is a structural design pattern used when we want to treat individual objects and compositions of objects uniformly. Composite pattern is especially useful when you deal with hierarchical tree structures, such as file systems or UI components. Composite lets clients treat individual objects and compositions of objects uniformly.When-to use: when we want to compose objects into tree structures to represent part-whole hierarchies.<br><br><b>Components:</b><ul><li>Component: interface or abstract class for all objects in the hierarchy, both composite and leaf.</li><li>Leaf: represents individual objects (end nodes). Implements the base Component.</li><li>Composite:	a container that holds child Components. Can be other Composites or Leafs.</li><li>Client: uses the Component interface to interact with objects in the hierarchy uniformly.</li></ul><br><b>Use cases:</b><ul><li>GUI frameworks (Swing or HTML DOM trees)</li><li>Organization hierarchy (employees, managers)</li><li>File system (files and directories)</li><li>Document structures (paragraphs, sections, characters)</li></ul>
 
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th>State</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th>Strategy</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Strategy pattern is all about enabling flexibility in behavior by defining a family of algorithms, encapsulating each one, and making them interchangeable. Instead of hardcoding a behavior into a class, you delegate it to an object that implements a common interface. <br> <br>
+        <b>When to use this pattern:</b>
+        <ul>
+          <li>When have multiple algorithms (or behaviors) for a specific task.</li>
+          <li>When want to switch algorithms dynamically at runtime.</li>
+          <li>When want to avoid cluttering your code with long conditionals (like if-else or switch-case statements).</li>
+        </ul> <br>
+        <b>Components:</b>
+        <ul>
+          <li>Strategy Interface: Common interface for all supported behaviors.</li>
+          <li>Concrete Strategies: Different implementations of the strategy.</li>
+          <li>Context: Uses a Strategy object and delegates it to the strategy interface.</li>
+        </ul> <br>
+        <b>Advantages:</b>
+        <ul>
+          <li>Open-Closed Principle: Add new strategies without modifying existing code.</li>
+          <li>Cleaner Code: Eliminates repetitive conditionals.</li>
+          <li>Interchangeability: Strategies can be swapped out easily.</li>
+        </ul> <br>
+ <pre style="width: 49%; float: left;">
+
+    interface PaymentStrategy {
+        void pay(double amount);
+    }
+
+    class CreditCardStrategy implements PaymentStrategy {
+        String cardNumber;
+
+        CreditCardStrategy(String cardNumber) {
+            this.cardNumber = cardNumber;
+        }
+        void pay(double amount) {
+            println("Paid {amount} using Credit Card.");
+        }
+    }
+
+    class PaypalStrategy implements PaymentStrategy {
+        String email;
+
+        PaypalStrategy(String email) {
+            this.email = email;
+        }
+        void pay(double amount) {
+            println("Paid {amount} using Paypal.");
+        }
+    }
+
+    class UPIStrategy implements PaymentStrategy {
+        String upiId;
+        
+        UPIStrategy(String upiId) {
+            this.upiId = upiId;
+        }
+        void pay(double amount) {
+            println("Paid {amount} using UPI.");
+        }
+    }
+</pre>
+<pre style="width: 49%; float: right;">
+
+    class ShoppingCart {
+        List<Item> items;
+
+        void addItem(Item item) {
+            items.add(item);
+        }
+
+        void removeItem(Item item) {
+            items.remove(item);
+        }
+
+        double calculateTotal() {
+            return items.stream()
+            .mapToDouble(Item::getPrice).sum();
+        }
+
+        void pay(PaymentStrategy paymentStrategy) {
+            double amount = calculateTotal();
+            paymentStrategy.pay(amount);
+        }
+    }
+
+    void main(String[] args) {
+        ShoppingCart cart = new ShoppingCart();
+        Item item1 = new Item("Item1", 200);
+        Item item2 = new Item("Item2", 400);
+        Item item3 = new Item("Item3", 700);
+
+        cart.addItem(item1);
+        cart.addItem(item2);
+        cart.addItem(item3);
+        
+        cart.pay(new CreditCardStrategy("43GH-23BF-HGJF-B432"));
+        cart.pay(new PaypalStrategy("koomar.dipu@gmail.com"));
+        cart.pay(new UPIStrategy("6200035453@ibl"));
+    }
+</pre>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th>Template</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				
 			</td>
 		</tr>
 	</tbody>
