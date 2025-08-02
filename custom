@@ -79,7 +79,8 @@ StartupWMClass=SpringToolSuite4
 "fold_buttons": false,
 "caret_extra_top": 0,
 "caret_extra_bottom": 0,
-"overlay_scroll_bars": "enabled"
+"overlay_scroll_bars": "enabled",
+"mini_diff": false
 =========================================
 "extensions.ignoreRecommendations": true,
 "editor.minimap.enabled": false,
