@@ -34,6 +34,60 @@ Bulkhead
 Sidecar
 CQRS
 
+Binary tree
+Ternery tree
+Binary search tree
+AVL tree
+RedBlack tree
+Splay tree
+B-tree
+B+tree
+Backtracking
+Dynamic programming
+Prefix-sum array
+
+
+
+
+Bloom filters
+Consistent hashing
+Distributed cache
+Rate-limiting algorithms
+Event-driven architecture
+Event-sourcing pattern
+CQRS
+Choreography
+Orchestration
+
+
+
+
+Load balancer
+API Gateway
+Caching
+Scaling
+CDN
+Forward-proxy
+Reverse-proxy
+Audit log
+Activity log
+
+
+File system
+File storage
+Object storage
+
+
+
+Virtual memory
+Paging
+Process
+Thread
+Flash translation layer
+Write-ahead logging
+
+
+
 Rate limiter
 Idempotence
 VPN
@@ -84,7 +138,43 @@ RSA impl
 Caching algorithms
 Cache-eviction policy
 Rate-limiting algorithms
+========================
+ACID
+Primary key
+Foreign key
+Indexing
+Normalization
+Partition
+Sharding
+========
+=============
+Encapsulation
+Abstraction
+Inheritance
+Composition
+Polymorphism
+SOLID
+IoC
+Singleton
+Builder
+Prototype
+Adapter
+======================
+FNN
+CNN
+RNN
+LSTM
+Autoencoders
+Denoising autoencoders
+Varitational autoencoders
+GAN
+
+
+
+
 ==========================================================================================
 ask chat gpt each dp real world impl
 ask chat gpt what to write i have sound skills in java dsa dp system design oop.
 ask chat gpt if my applications is not running smoothly where i will look for the problem.
+==========================================================================================
+URL shortner

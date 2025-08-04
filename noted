@@ -110,3 +110,88 @@ The goal here is to demonstrate that your design can scale, perform reliably, an
 When threads becomes non-blocking, your task is waiting but threads can take on next one.
 ==========================================================================================================================================================================
 Distributed transaction span across the multiple microservices.
+==========================================================================================================================================================================
+
+Autoencoders have a wide range of applications in machine learning, primarily leveraging their ability to learn compressed, efficient data representations. They are used for dimensionality reduction, feature extraction, anomaly detection, denoising, and generative tasks. Variational Autoencoders (VAEs) and Adversarial Autoencoders (AAEs) extend these capabilities to data generation and more complex modeling.
+
+
+
+
+
+
+
+
+
+
+interface Observer {
+	String data
+	Node left;
+	Node right;
+
+	function notifyAll() => boolean;
+	function attach(Observer observer);
+	function detach(Observer observer);
+
+	function(Observer observer) as detach => boolean {
+
+	}
+}
+
+interface Observer {
+	String data:
+	Node left:
+	Node right:
+
+	construct(String data, Node left, Node right) {
+		this.data = data;
+		
+	}
+ 
+	void attach(Observer observer)
+	void detach(Observer observer)
+	method attach()
+
+}
+
+
+class Node {
+	var data => String;
+	var left => Node;
+	var right => Node;
+
+	String data;
+	Node left;
+	Node right;
+
+	boolean search(Node root, String data) {
+
+	}
+
+	function(Node root, String data) as search => boolean {
+
+	}
+
+
+	fn search(Node root, String data) => boolean {
+			
+	}
+
+	fn getNode(Node root, String data) => Node {
+
+	}
+
+	pub Node getNode(Node root, String data) {
+		
+	}
+}
+
+class Node {
+	String data;
+	Node left;
+	Node right;
+
+	fn search(Node root, String data) => boolean {
+
+	}
+}
+
