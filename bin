@@ -1,0 +1,77 @@
+#!/usr/bin/python3.12
+
+class Node(object):
+	def __init__(self, data):
+		self.data = data
+		self.left = None
+		self.right = None
+
+
+def treeSum(root):
+	if root is None:
+		return 0
+	return treeSum(root.left) + treeSum(root.right) + root.data
+
+def treeMax(root):
+	if root is None:
+		return float('-inf')
+	return max(treeMax(root.left), treeMax(root.right), root.data)
+
+def reverseTree(root):
+	if root is None:
+		return
+	reverseTree(root.left)
+	reverseTree(root.right)
+	root.left, root.right = root.right, root.left
+
+
+def DFS(root):
+	if root is None:
+		return
+	else:
+		print(root.data)
+		DFS(root.left, path)
+		DFS(root.right, path)
+	
+def DFS(root, path):
+	if root is None:
+		return
+	else:
+		print(root.data)
+		path.append(root)
+		DFS(root.left, path)
+		DFS(root.right, path)
+		path.pop()
+
+def DFS(root, key, path):
+	if root is None:
+		return
+	else:
+		path.append(root.data)
+		if root.data == key or DFS(root.left, key, path) or DFS(root.right, key, path):
+			return True
+		path.pop()
+		return False
+
+		
+
+
+root = Node(5)
+root.left = Node(11)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(8)
+root.right.left = Node(9)
+root.right.right = Node(12)
+root.right.right.right = Node(12)
+root.right.left.left = Node(6)
+root.right.left.right = Node(15)
+root.right.left.right.left = Node(2)
+
+
+#print(treeSum(root))
+#print(treeMax(root))
+path = []
+#dfs(root, path)
+print(hasPath(root, 15, path))
+print(path[-1:])
