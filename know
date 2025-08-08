@@ -58,7 +58,7 @@ Event-sourcing pattern
 CQRS
 Choreography
 Orchestration
-
+Eventual consisency
 
 
 
@@ -178,3 +178,4 @@ ask chat gpt what to write i have sound skills in java dsa dp system design oop.
 ask chat gpt if my applications is not running smoothly where i will look for the problem.
 ==========================================================================================
 URL shortner
+Web crawler

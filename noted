@@ -114,3 +114,16 @@ Distributed transaction span across the multiple microservices.
 Autoencoders have a wide range of applications in machine learning, primarily leveraging their ability to learn compressed, efficient data representations. They are used for dimensionality reduction, feature extraction, anomaly detection, denoising, and generative tasks. Variational Autoencoders (VAEs) and Adversarial Autoencoders (AAEs) extend these capabilities to data generation and more complex modeling.
 
 Database normalization is a systematic process used in relational database design to organize data, primarily to reduce data redundancy and improve data integrity. It involves structuring tables and establishing relationships between them according to a series of "normal forms," which are rules designed to eliminate redundant data and inconsistent dependencies.
+====================================================================================
+Yes, microservices are a type of distributed system. A microservices architecture is a way to design applications by breaking them down into a collection of small, independent, and loosely coupled services that communicate over a network. This aligns with the core definition of a distributed system, which is a system where multiple independent computers work together to achieve a common goal by communicating over a network. 
+Why is Distributed Tracing in Microservices needed? | SigNoz
+Here's a more detailed explanation:
+Distributed System:
+A distributed system is a collection of independent computers that work together as a single system. These computers communicate and coordinate their actions by passing messages over a network. 
+Microservices:
+Microservices are a specific architectural style within the broader concept of distributed systems. They are characterized by: 
+Small, focused services: Each microservice is designed to perform a specific business function. 
+Independent deployment: Microservices can be deployed and scaled independently of each other. 
+Loose coupling: Microservices are designed to minimize dependencies between them, making them more resilient and easier to change. 
+Relationship:
+Microservices architecture is a way to implement a distributed system. It's a specific approach to building distributed systems, emphasizing modularity and independent deployability.
