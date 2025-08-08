@@ -1,35 +1,23 @@
 class Person {
     
-    mut String name;
-    mut int age;
-    mut int sal;
-
-    object(String name, int age, int sal) {
-        this.name = name;
-        this.age = age;
-        this.sal;
-    }
-}
-
-class Person {
-    
     String name;
     int age;
     int sal;
 
-    object(String name, int age, int sal) {
+    Self(String name, int age, int sal) {
         this.name = name;
         this.age = age;
-        this.sal;
+        this.sal = sal;
     }
 }
 
 void main(String[] args) {
-	val data = [10, 20, 30, 40, 50, 60, 70];
-	bool marked[data.length];
-	foreach (int i: 0...data.length)
+    int[] data = [10, 20, 30, 40, 50, 60, 70];
+    bool[] marked = [data.length: false];
+	Person a = Person("Neem", 20, 32000);
+    foreach (int i: 0...data.length)
 		console(data[i]);
-	mut int iter = 0;
+    mut int iter = 0;
 	while (iter < data.length) {
 		console(data[iter]);
 		iter += 1;
