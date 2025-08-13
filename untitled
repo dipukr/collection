@@ -3,20 +3,86 @@ Account Service – Manages account details and balance.
 Transaction Service – Handles deposits, withdrawals, and transfers.
 Audit Service – Stores transaction logs.
 Notification Service (Optional) – Sends email/SMS alerts.
-=========================================================================================================================================================================
-class Person(object)
-	String name
-	int age
-	int sal
+====================================================================================================
+public Statement.VarDecl parseVarDecl2() {
+	int pos = tokens.currPos();
+	Type type = TypeUtils.getType(tokens.matchSym(), false);
+	String name = tokens.matchSym();
+	Symbol sym = new VarSymbol(name, type);
+	return new Statement.VarDecl(sym, null, false, pos);
+}
+public Expression getWhileCondition(Expression left, Expression right) {
+	return new Expression.LessThan(left, right, tokens.currPos());
+}
+
+public Statement parseForeachStatement() {
+	int pos = tokens.currPos();
+	tokens.match(Token.FOREACH);
+	tokens.match(Token.LPAREN);
+	Statement decl = null;
+	Expression init = null;
+	Expression target = null;
+	Statement statement = null;
 	
-	construct(String name, int age, int sal)
-		self.name = name
-		self.age = age
-		self.sal = sal
-	end
+	tokens.match(Token.COLON);
+	Expression expression = parseExpression();
+	if (tokens.currToken() == Token.DOTS) {
+		init = expression;
+		tokens.match(Token.DOTS);
+		target = parseExpression();
+		tokens.match(Token.RPAREN);
+		statement = parseStatement();
+	} else {
+		target = expression;
+		tokens.match(Token.RPAREN);
+		statement = parseStatement();
+	}
+	return new Statement.Foreach(decl, target, statement, pos);
+}
+
+public Statement parseForeachStatement(List<Statement> statements) {
+	int pos = tokens.currPos();
+	tokens.match(Token.FOREACH);
+	tokens.match(Token.LPAREN);
+	Statement.VarDecl decl = parseVarDecl2();
+	Expression init = null;
+	Expression target = null;
+	Statement statement = null;
 	
-	void draw()
-		val x = 100
-		foreach (val x: )
-	end
-end
+	tokens.match(Token.COLON);
+	Expression expression = parseExpression();
+	if (tokens.currToken() == Token.DOTS) {
+		init = expression;
+		tokens.match(Token.DOTS);
+		target = parseExpression();
+		tokens.match(Token.RPAREN);
+		statement = parseStatement();
+	} else {
+		target = expression;
+		tokens.match(Token.RPAREN);
+		statement = parseStatement();
+	}
+	if (init == null)
+		return new Statement.Foreach(decl, target, statement, pos);
+	decl.initVal = init;
+	statements.add(decl);
+	Expression left = new Expression.Identifier(decl.sym, pos);
+	Expression condition = getWhileCondition(left, target);
+	Statement stat = null;
+	if (statement instanceof Statement.Block block) {
+		block.statements.add(stat);
+	} else {
+		List<Statement> stats = new ArrayList<>();
+		stats.add(statement);
+		stats.add(getWhileUpdateStatement(left, pos));
+		statement = new Statement.Block(stats, pos);
+	}
+	return new Statement.While(condition, statement, pos);
+}
+
+public Statement getWhileUpdateStatement(Expression left, int pos) {
+	Expression literal = new Expression.Literal(new Value(1), tokens.currPos());
+	Expression right = new Expression.Addition(left, literal, tokens.currPos());
+	Expression assign = new Expression.Assignment(left, right, tokens.currPos());
+	return new Statement.Expresion(assign, pos);
+}
