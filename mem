@@ -63,4 +63,5 @@ Software design and developement:
 	Software design patterns
 	Object-oriented design and programming
 	Distibuted system desing and implementation
-	
+===============================================
+https://github.com/dlang/dmd/blob/master/compiler/src/dmd/expression.d
