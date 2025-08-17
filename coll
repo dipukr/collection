@@ -1367,3 +1367,680 @@ std::ostream& operator<<(std::ostream &lhs, const List<T> &rhs)
 	lhs << "]";
 	return lhs;
 }
+
+template<class T>
+class BinaryHeap
+{
+	Array<T> data;
+
+	void moveUP();
+	void moveDown();
+	void swap(int i, int j);
+	bool hasParent(int i) const;
+	bool hasLeft(int i) const;
+	bool hasRight(int i) const;
+	int left(int i) const;
+	int right(int i) const;
+	int parent(int i) const;
+public:
+	BinaryHeap();
+	virtual ~BinaryHeap();
+
+	void insert(const T &elem);
+	const T& getMin() const;
+	T deleteMin();
+	
+	int size() const;
+	bool empty() const;
+	bool notEmpty() const;
+};
+
+
+template<class T>
+BinaryHeap<T>::BinaryHeap() {}
+
+template<class T>
+BinaryHeap<T>::~BinaryHeap() {}
+
+template<class T>
+void BinaryHeap<T>::insert(const T &elem)
+{
+	data.add(elem);
+	moveUP();
+}
+
+template<class T>
+T BinaryHeap<T>::deleteMin()
+{
+	T result = getMin();
+	data[0] = data[data.size() - 1];
+	data.remove(data.size() - 1);
+	moveDown();
+	return result;
+}
+
+template<class T>
+const T& BinaryHeap<T>::getMin() const
+{
+	if (empty()) Error::fatal("Heap underflow.");
+	return data[0];
+}
+
+template<class T>
+void BinaryHeap<T>::moveUP()
+{
+	int index = data.size() - 1;
+	while (hasParent(index) && data[index] < data[parent(index)]) {
+		swap(index, parent(index));
+		index = parent(index);
+	}
+}
+
+template<class T>
+void BinaryHeap<T>::moveDown()
+{
+	int index = 0;
+	while (hasLeft(index)) {
+		int lhs = left(index);
+		int rhs = right(index);
+		int smaller = lhs;
+		if (hasRight(index) && data[rhs] < data[lhs])
+			smaller = rhs;
+		if (data[smaller] < data[index])
+			swap(smaller, index);
+		else break;
+		index = smaller;
+	}
+}
+
+template<class T>
+void BinaryHeap<T>::swap(int i, int j)
+{
+	T temp = data[i];
+	data[i] = data[j];
+	data[j] = temp;
+}
+
+template<class T>
+bool BinaryHeap<T>::hasParent(int i) const
+{
+	return i > 0;
+}
+
+template<class T>
+bool BinaryHeap<T>::hasLeft(int i) const
+{
+	return left(i) < data.size();
+}
+
+template<class T>
+bool BinaryHeap<T>::hasRight(int i) const
+{
+	return right(i) < data.size();
+}
+
+template<class T>
+int BinaryHeap<T>::left(int i) const
+{
+	return 2 * i + 1;
+}
+
+template<class T>
+int BinaryHeap<T>::right(int i) const
+{
+	return 2 * i + 2;
+}
+
+template<class T>
+int BinaryHeap<T>::parent(int i) const
+{
+	return (i - 1) / 2;
+}
+
+template<class T>
+int BinaryHeap<T>::size() const
+{
+	return data.size();
+}
+
+template<class T>
+bool BinaryHeap<T>::empty() const
+{
+	return data.size() == 0;
+}
+
+template<class T>
+bool BinaryHeap<T>::notEmpty() const
+{
+	return !empty();
+}
+
+int hash(int key) {return int(key);}
+int hash(float key) {return int(key);}
+int hash(double key) {return int(key);}
+int hash(const String &str) {
+	int h = 0;
+	for (int it = 0; it < str.size(); it++)
+		h = 31 * h + str[it];
+	return (h & 0x7fffffff);
+}
+
+template<class K, class V>
+class Map
+{
+	struct Node
+	{
+		K key;
+		V val;
+		Node *next;
+		Node(K key, V val) {
+			this->key = key;
+			this->val = val;
+			this->next = nullptr;
+		}
+	};
+	Node** lists = nullptr;
+	int listCount = 0;
+	int count = 0;
+public:
+	Map();
+	void put(const K &key, const V &val);
+	bool hasKey(const K &key);
+	void erase(const K &key);
+
+	V get(const K &key);
+	V getOrDefault(const K &key, const V &val);
+	
+	int size() const;
+	bool empty() const;
+	bool notEmpty() const;
+};
+
+template<class K, class V>
+Map<K, V>::Map()
+{
+	listCount = 8;
+	lists = new Node*[listCount];
+	for (int it(0); it < listCount; it++)
+		lists[it] = nullptr;
+}
+
+template<class K, class V>
+void Map<K, V>::put(const K &key, const V &val)
+{
+	int h = hash(key) % listCount;
+	Node *node = new Node(key, val);
+	if (lists[h] == nullptr) lists[h] = node;
+	else node->next = lists[h], lists[h] = node;
+	count++;
+}
+
+template<class K, class V>
+bool Map<K, V>::hasKey(const K &key)
+{
+	int h = hash(key) % listCount;
+	for (auto it = lists[h]; it != nullptr; it = it->next)
+		if (it->key == key) return true;
+	return false;
+}
+
+template<class K, class V>
+void Map<K, V>::erase(const K &key)
+{
+	int h = hash(key) % listCount;
+	if (lists[h] == nullptr) return;
+	if (lists[h]->next == nullptr) {
+		delete lists[h];
+		lists[h] = nullptr;
+		return;
+	}
+	Node *curr = lists[h], *prev = nullptr;
+	while (curr != nullptr) {
+		Node *next = curr->next;
+		if (curr->key == key) {
+			prev->next = curr->next;
+			delete curr;
+			count--;
+			break;
+		}
+		curr = next;
+		prev = curr;
+	}
+}
+
+template<class K, class V>
+V Map<K, V>::get(const K &key)
+{
+	int h = hash(key) % listCount;
+	for (auto it = lists[h]; it != nullptr; it = it->next)
+		if (it->key == key) return it->val;
+	return V();
+}
+
+template<class K, class V>
+V Map<K, V>::getOrDefault(const K &key, const V &val)
+{
+	int h = hash(key) % listCount;
+	for (auto it = lists[h]; it != nullptr; it = it->next)
+		if (it->key == key) return it->val;
+	return val;
+}
+
+template<class K, class V>
+int Map<K, V>::size() const
+{
+	return count;
+}
+
+template<class K, class V>
+bool Map<K, V>::empty() const
+{
+	return size() == 0;
+}
+
+template<class K, class V>
+bool Map<K, V>::notEmpty() const
+{
+	return !empty();
+}
+
+class file_reader
+{
+	FILE *stream = nullptr;
+	U64 size = 0;
+
+public:
+	file_reader(const char *file);
+	~file_reader();
+
+	void seek(U64 loc);
+	U64 file_size();
+	void close();
+	
+	void read(S8  &val);
+	void read(U8  &val);
+	void read(S16 &val);
+	void read(U16 &val);
+	void read(S32 &val);
+	void read(U32 &val);
+	void read(S64 &val);
+	void read(U64 &val);
+	void read(F32 &val);
+	void read(F64 &val);
+	void read(text* &v);
+	void read(value &v);
+	void read(code* &v);
+	void read(clas_s* &v);
+	void read(char *dest, U64 sz);	
+};
+
+file_reader::file_reader(const char *file)
+{
+	stream = fopen(file, "rb");
+	assert(stream !=  nullptr);
+	fseek(stream, 0, SEEK_END);
+	size = (U64) ftell(stream);
+	fseek(stream, 0, SEEK_SET);
+}
+
+file_reader::~file_reader()
+{
+	fclose(stream);
+}
+
+void file_reader::read(S8  &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(U8  &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(S16 &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(U16 &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(S32 &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(U32 &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(S64 &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(U64 &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(F32 &v) {read((char*) &v, sizeof(v));}
+void file_reader::read(F64 &v) {read((char*) &v, sizeof(v));}
+
+void file_reader::read(value &v)
+{
+	read(v.type);
+	switch (v.type) {
+	case Data::I64: read(v.i64); break;
+	case Data::F64: read(v.f64); break;
+	case Data::STR: read(v.str);  break;
+	case Data::FUN: read(v.fun); break;
+	case Data::CLS: read(v.cls); break;
+	default: assert(false);
+	}
+}
+
+void file_reader::read(text* &v)
+{
+	char str[1024];
+	U32 len(0);
+	read(len);
+	assert(len < 1024);
+	read(str, len);
+	str[len] = 0;
+	v = new text(str);
+}
+
+void file_reader::read(code* &v)
+{
+	v = (code*) malloc(sizeof(code));
+	v->is_native = 0;
+	read(v->id);
+	read(v->argc);
+	read(v->varc);
+	read(v->addr);
+}
+
+void file_reader::read(clas_s* &v)
+{
+	v = (clas_s*) malloc(sizeof(clas_s));
+	read(v->id);
+	read(v->data_count);
+}
+
+void file_reader::read(char *dest, U64 sz) 
+{
+	U64 rd = fread(dest, sz, 1, stream);
+	assert(rd == 1);
+}
+
+void file_reader::seek(U64 pos)
+{
+	assert(pos < size);
+	fseek(stream, pos, SEEK_SET);
+}
+
+int file_reader::file_size()
+{
+	return size;
+}
+
+void file_reader::close()
+{
+	fclose(stream);
+}
+
+mem_reader::mem_reader(U8 *src, U64 sz)
+{
+	mem = src;
+	loc = mem;
+	mem_total = sz;
+	assert(mem != nullptr);
+}
+
+void mem_reader::read(S8 &val)
+{
+	val = *(S8*) loc;
+	loc += sizeof(S8);
+}
+
+void mem_reader::read(U8 &val)
+{
+	val = *(U8*) loc;
+	loc += sizeof(U8);
+}
+
+void mem_reader::read(S16 &val)
+{
+	val = *(S16*) loc;
+	loc += sizeof(S16);
+}
+
+void mem_reader::read(U16 &val)
+{
+	val = *(U16*) loc;
+	loc += sizeof(U16);
+}
+
+void mem_reader::read(S32 &val)
+{
+	val = *(S32*) loc;
+	loc += sizeof(S32);
+}
+
+void mem_reader::read(U32 &val)
+{
+	val = *(U32*) loc;
+	loc += sizeof(U32);
+}
+
+void mem_reader::read(S64 &val)
+{
+	val = *(S64*) loc;
+	loc += sizeof(S64);
+}
+
+void mem_reader::read(U64 &val)
+{
+	val = *(U64*) loc;
+	loc += sizeof(U64);
+}
+
+void mem_reader::read(F32 &val)
+{
+	val = *(F32*) loc;
+	loc += sizeof(F32);
+}
+
+void mem_reader::read(F64 &val)
+{
+	val = *(F64*) loc;
+	loc += sizeof(F64);
+}
+
+void mem_reader::read(char* &s)
+{
+	U32 sz = 0;
+	read(sz);
+	s = (char*) malloc(sz + 1);
+	for (U32 a = 0; a < sz; a++)
+		*(s + a) = loc[a];
+	s[sz] = 0;
+	loc += sz;
+}
+
+class FileWriter
+{
+	FILE *stream = nullptr;
+
+public:
+	FileWriter(const char *file);
+	~FileWriter();
+	void close();
+	
+	void write(S8  val);
+	void write(U8  val);
+	void write(S16 val);
+	void write(U16 val);
+	void write(S32 val);
+	void write(U32 val);
+	void write(S64 val);
+	void write(U64 val);
+	void write(F32 val);
+	void write(F64 val);
+	void write(String &v);
+	void write(const char *src, U64 sz);
+};
+
+class MemoryWriter
+{
+	U8 *mem = nullptr;
+	U8 *loc = nullptr;
+	U64 mem_total = 0;
+
+public:
+	mem_writer(U64 sz);
+	~mem_writer();
+
+	U8* get_mem();
+	U64 size();
+	void reset();
+
+	void write(S8  val);
+	void write(U8  val);
+	void write(S16 val);
+	void write(U16 val);
+	void write(S32 val);
+	void write(U32 val);
+	void write(S64 val);
+	void write(U64 val);
+	void write(F32 val);
+	void write(F64 val);
+	void write(char* s);
+
+};
+
+FileWriter::FileWriter(const char *filename)
+{
+	stream = fopen(filename, "wb");
+	if (stream == nullptr)
+		fatal("file open error");
+}
+
+FileWriter::~FileWriter()
+{
+	fclose(stream);
+}
+
+
+
+void FileWriter::write(S8  v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(U8  v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(S16 v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(U16 v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(S32 v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(U32 v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(S64 v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(U64 v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(F32 v) {write((char*) &v, sizeof(v));}
+void FileWriter::write(F64 v) {write((char*) &v, sizeof(v));}
+
+void FileWriter::write(text &v)
+{
+	U32 sz = v.size();
+	write(sz);
+	write((char*) v.cstr(), sz);
+}
+
+void FileWriter::write(value &v)
+{
+
+}
+
+void FileWriter::write(code *v)
+{
+
+}
+
+void FileWriter::write(clas_s *v)
+{
+
+}
+
+void FileWriter::write(const char *src, U64 sz)
+{
+	U64 wr = fwrite(src, sz, 1, stream);
+	assert(wr == 1);
+}
+
+void FileWriter::close()
+{
+	fclose(stream); 
+}
+
+MemWriter::MemWriter(U64 sz)
+{
+	mem = (U8*) malloc(sz);
+	assert(mem != nullptr);
+	loc = mem;
+	mem_total = sz;
+}
+
+MemWriter::~MemWriter()
+{
+	free(mem);
+	loc = nullptr;
+	mem = nullptr;
+}
+
+U8* MemWriter::get_mem()
+{
+	return mem;
+}
+
+U64 MemWriter::size()
+{
+	return mem_total;
+}
+
+void MemWriter::write(S8 val)
+{
+	*(S8*) loc = val;
+	loc += sizeof(S8);
+}
+
+void MemWriter::write(U8 val)
+{
+	*(U8*) loc = val;
+	loc += sizeof(U8);
+}
+
+void MemWriter::write(S16 val)
+{
+	*(S16*) loc = val;
+	loc += sizeof(S16);
+}
+
+void MemWriter::write(U16 val)
+{
+	*(U16*) loc = val;
+	loc += sizeof(U16);
+}
+
+void MemWriter::write(S32 val)
+{
+	*(S32*) loc = val;
+	loc += sizeof(S32);
+}
+
+void MemWriter::write(U32 val)
+{
+	*(U32*) loc = val;
+	loc += sizeof(U32);
+}
+
+void MemWriter::write(S64 val)
+{
+	*(S64*) loc = val;
+	loc += sizeof(S64);
+}
+
+void MemWriter::write(U64 val)
+{
+	*(U64*) loc = val;
+	loc += sizeof(U64);
+}
+
+void MemWriter::write(F32 val)
+{
+	*(F32*) loc = val;
+	loc += sizeof(F32);
+}
+
+void MemWriter::write(F64 val)
+{
+	*(F64*) loc = val;
+	loc += sizeof(F64);
+}
+
+void MemWriter::write(char* s)
+{
+	if (s == nullptr) return;
+	U32 sz = strlen(s);
+	write(sz);
+	for (U32 a = 0; a < sz; a++)
+		*(loc + a) = s[a];
+	loc += sz;
+}
