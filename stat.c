@@ -7,6 +7,7 @@
 
 void file_write(const int argc, char const **argv)
 {
+	long x = 100;
 	FILE *file = fopen("test.db", "wb");
 	assert(file != null);
 	U8 *mem = (U8*) malloc(GB4);

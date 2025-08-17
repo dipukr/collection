@@ -178,3 +178,9 @@ void timer(uint32_t interval)
 		}
 	}
 }
+
+int main(int argc, const char **argv)
+{
+	std::cout << "Welcome to C++ Programming" << std::endl;
+	return EXIT_SUCCESS;
+}

@@ -129,3 +129,6 @@ Relationship:
 Microservices architecture is a way to implement a distributed system. It's a specific approach to building distributed systems, emphasizing modularity and independent deployability.
 ================================================================================================================
 The saga pattern is a design pattern used in distributed systems, particularly microservices, to manage data consistency across multiple services. It involves breaking down a long-running transaction into a series of smaller, local transactions. Each local transaction updates data within a single service and then triggers the next step in the saga through an event or message. If a local transaction fails, compensating transactions are executed to undo the changes made by previous successful transactions, ensuring data consistency.
+
+
+Storing result of recursion is called memoization.
