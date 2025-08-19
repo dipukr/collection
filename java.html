@@ -14,7 +14,7 @@
 		body {
 			background: whitesmoke;
 			margin-top: 20px;
-			width: 66%;
+			width: 60%;
 			padding-left: 3%;
 			padding-right: 3%;
 			min-height: 1000px;
@@ -91,18 +91,19 @@
 
 		em {
 			color: brown;
+			font-style: normal;
 		}
 
 		pre {
 			background: #f8f8f8;
 			border: 3px solid #eeeeee;
-			font-size: 20px;
+			font-size: 18px;
 			font-weight: 500;
 			line-height: normal;
 			padding-top: 0px;
 			overflow: auto;
 			max-width: 99.2%;
-			font-family: "Source Code Pro";
+			font-family: "Consolas";
 			width: 100%;
 			word-spacing: -2px;
 		}
@@ -155,16 +156,16 @@
 				<td>
 					Java development kit is collection of tools which is used to compile, debug and run a program
 					developed using the java technology. JDK is the superset of JRE which is superset of JVM.
-					JDK includes a JRE, a compiler, a debugger, an archiver and <br> other tools that
-					are used in java development.<br> <br>
-					<em>Javac: </em> compiler that read java source code and translates
-								them into bytecode which is executed by the JVM.
-								<em>Javadoc: </em>documentation generator that read java source code and
-								generates documentation.
-								<em>Javap: </em> disassembler that is used to disassemble java class file. 
-								<em>Jdb: </em>debugger command-line debugging tool used to find and
-								fix bugs in java programs.
-								<em>Jar: </em>archiver general purpose java archiver.
+					JDK includes a JRE, a compiler, a debugger, an archiver and other tools that
+					are used in Java development.<br> <br>
+					<em>javac: </em> Compiler that read Java source code and translates
+								them into bytecode which is executed by the JVM. <br>
+								<em>javadoc: </em>Documentation generator that read Java source code and
+								generates documentation. <br>
+								<em>javap: </em> Disassembler that is used to disassemble Java class file. <br>
+								<em>jdb: </em>Debugger command-line debugging tool used to find and
+								fix bugs in Java programs. <br>
+								<em>jar: </em>Archiver general purpose Java archiver.
 				</td>
 			</tr>
 		</tbody>
@@ -252,7 +253,7 @@
 				<td>
 					Constant pool is a part of .class file that contains constants needed to run the code of that class.
 					These constants include literals specified by the programmer and symbolic references generated
-					by compiler. <br> <br> Symbolic references are basically names of fields, methods and classes
+					by compiler. Symbolic references are basically names of fields, methods and classes
 					referenced from the code. These references are used by the linker to link our code.<br> <br>
 					<pre>
 
@@ -273,94 +274,43 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Local Variable</th>
+				<th>Variable</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>
-						Variable declared inside method is called local variable.
-						Local variables are stored on stack.
-						Local variables must be initialized before first use.
-						Local variables can only be accessed by the code inside the method.
-						Memory for local variable is allocated when corresponding method is called.
-						Local vars exist only while the method in which they are declared is executing.
-				
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table>
-		<thead>
-			<tr>
-				<th>Instance Variable</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-						Instance variables are created inside class and outside method.
-						Instance variables belongs to the objects of the class.
-						Each objects of a class have separate copy of the instance variables.
-						Instance variables are stored in the heap area of memory.
-						Instance variables are initialized to their default values.
-						Instance variables represents state of the object.
-						Instance variables are bound to the object.
-						Instance variables are accessed using object of the class.
-						Instance variables can not be accessed directly from static context.
-						Instance variables are created when an object of the class is created.
-						Instance variables are destroyed when the object is destroyed. <br> <br>
-						A reference can points to objects of the same class as well as its subclasses.
-						Classes, interfaces, arrays, enumerations and annotations are reference types
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table>
-		<thead>
-			<tr>
-				<th>Static Variable</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-						Static variables are created inside class and outside method with <em>static</em> keyword.
-						Static variables are those vars that are common to all the instances of the class.
-						Single copy of the static var is created and shared among all class instances.
-						Static variables are stored in the class area of the java virtual machine.
-						Static variables are initialized only once when the class is loaded.
-						Static variables belongs to the class and not to object.
-						Static variables can used without initializing.
-						Static variables can be accessed directly by the class name.
-						Single copy of the static variable is shared by all instances of the class.
-						Lifetime of an static variable is the same as the lifetime of the program.
-						Static variables can be accessed by both instance method and static method.
-						Memory allocation only happens once when the class is loaded in the memory.
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table>
-		<thead>
-			<tr>
-				<th>Var Keyword</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					Var keyword support local variable type inference. <em>Type inference</em> is a technique used
-					by the java compiler at compile time to determine type of a variable based on the type of
-					initialization
-					expression. <br> <br>
-					Restriction on var keyword:
+					<em>Local variables:</em>
 					<ul>
-						<li>We can not use <em>var</em> for instance variable or static variable.</li>
-						<li>We can use <em>var</em> keyword only for local variable.</li>
-						<li>We can not assign a var type variable to null.</li>
-						<li>We can not use <em>var</em> for method signature.</li>
-						<li>We can not use <em>var</em> in lambda expression.</li>
+						<li>Variable declared inside method is called local variable.</li>
+						<li>Local variables are stored on stack.</li>
+						<li>Local variables must be initialized before first use.</li>
+						<li>Local variables can only be accessed by the code inside the method.</li>
+						<li>Memory for local variable is allocated when corresponding method is called.</li>
+						<li>Local vars exist only while the method in which they are declared is executing.</li>
+					</ul> <br>
+					<em>Intance variables:</em>
+					<ul>
+						<li>Instance variables are declared inside class and outside method.</li>
+						<li>Instance variables are initialized to their default values.</li>
+						<li>Instance variables are stored in the heap area of memory.</li>
+						<li>Instance variables represents state of the object.</li>
+						<li>Instance variables are accessed using object of the class.</li>
+						<li>Instance variables can not be accessed directly from static context.</li>
+						<li>Instance variables are created when an object of the class is created.</li>
+						<li>Instance variables are destroyed when the object is destroyed.</li>
+						<li>Each objects of a class have separate copy of the instance variables.</li>
+					</ul> <br>
+					<em>Static variables:</em>
+					<ul>
+						<li>Static variables are created inside class and outside method with <em>static</em> keyword.</li>
+						<li>Static variables are stored in the class area of the java virtual machine.</li>
+						<li>Static variables are initialized only once when the class is loaded.</li>
+						<li>Static variables belongs to the class and not to object.</li>
+						<li>Static variables can be accessed directly by the class name.</li>
+						<li>Lifetime of an static variable is the same as the lifetime of the program.</li>
+						<li>Static variables can be accessed by both instance method and static method.</li>
+						<li>Memory allocation only happens once when the class is loaded in the memory.</li>
 					</ul>
 				</td>
 			</tr>
@@ -489,128 +439,38 @@
 					<em>default:</em> Declarations are visible only within the package. <br>
 						<em>private:</em> Declarations are visible within the class only. <br>
 						<em>protected:</em> Declarations are visible within the package or all subclasses. <br>
-					<em>public:</em> Declarations are visible everywhere.
-						
+					<em>public:</em> Declarations are visible everywhere. <br> <br>
+					<em>Class modifiers:</em>
+					<ul>
+						<li><em>default:</em> class is only accessible by classes in the same package.</li>
+						<li><em>public:</em> class is accessible by any other class.</li>
+						<li><em>final:</em> class cannot be inherited by other classes.</li>
+						<li><em>abstract:</em> class cannot be used to create objects.</li>
+					</ul> <br>
+					<em>Method modifiers:</em>
+					<ul>
+						<li><em>default:</em> method is only accessible in the same package.</li>
+						<li><em>private:</em> method is only accessible within the declared class.</li>
+						<li><em>protected:</em> method is accessible in the same package and subclasses.</li>
+						<li><em>public:</em> method is accessible from all classes.</li>
+						<li><em>final:</em> method cannot be overridden or modified.</li>
+						<li><em>static:</em> method belongs to the class rather than an object.</li>
+						<li><em>abstract:</em> method does not have a body which is provided by the subclass.</li>
+						<li><em>synchronized:</em> method can only be accessed by one thread at a time.</li>
+					</ul> <br>
+					<em>Field modifiers:</em>
+					<ul>
+						<li><em>default:</em> field is only accessible in the same package. </li>
+						<li><em>private:</em> field is only accessible within the declared class. </li>
+						<li><em>protected: </em> field is accessible in the same package and subclasses. </li>
+						<li><em>public: </em> field is accessible for all classes. </li>
+						<li><em>final: </em> field cannot be modified. </li>
+						<li><em>static: </em> field belongs to the class rather than an object. </li>
+						<li><em>transient: </em> fields are skipped when serializing the object containing them. </li>
+						<li><em>volatile: </em> field value is not cached thread-locally and is always read from the memory. </li>
+					</ul>	
 				</td>
 			</tr>
-		</tbody>
-	</table>
-	<table>
-		<thead>
-			<tr>
-				<th>Class Modifiers</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					<em>public:</em>
-				This class is accessible by any other class. <br>
-			
-			
-				<em>default:</em>
-				The class is only accessible by classes in the same package. <br>
-			
-			
-				<em>final:</em>
-				The class cannot be inherited by other classes. <br>
-			
-			
-				<em>abstract:</em>
-				The class cannot be used to create objects. To access an abstract class, it must be inherited
-					from another class.
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table>
-		<thead>
-			<tr>
-				<th>Method Modifiers</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					
-				<em>default:</em>
-				Method is only accessible in the same package. <br>
-			
-			
-				<em>private:</em>
-				Method is only accessible within the declared class.<br>
-			
-			
-				<em>protected:</em>
-				Method is accessible in the same package and subclasses.<br>
-			
-			
-				<em>public:</em>
-				Method is accessible from all classes.<br>
-			
-			
-				<em>final:</em>
-				Method cannot be overridden or modified.<br>
-			
-			
-				<em>static:</em>
-				Method belongs to the class rather than an object.<br>
-			
-			
-				<em>synchronized:</em>
-				Method can only be accessed by one thread at a time.<br>
-			
-			
-				<em>abstract:</em>
-				Method does not have a body which is provided by the subclass.
-				
-			
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table>
-		<thead>
-			<tr>
-				<th>Field Modifiers</th>
-			</tr>
-		</thead>
-			<tr>
-				<td>
-					<em>default:</em> 
-				Field is only accessible in the same package. <br>
-			
-			
-				<em>private:</em> 
-				Field is only accessible within the declared class. <br>
-			
-			
-				<em>protected: </em>
-				Field is accessible in the same package and subclasses. <br>
-			
-			
-				<em>public: </em>
-				Field is accessible for all classes. <br>
-			
-			
-				<em>final: </em>
-				Field cannot be modified. <br>
-			
-			
-				<em>static: </em>
-				Field belongs to the class rather than an object. <br>
-			
-			
-				<em>transient: </em>
-				Fields are skipped when serializing the object containing them. <br>
-			
-			
-				<em>volatile: </em>
-				Field value is not cached thread-locally and is always read from the memory. <br>
-			
-				</td>
-			</tr>
-		<tbody>
 		</tbody>
 	</table>
 	<table>
@@ -1599,149 +1459,5 @@ be used as the assignment target for a lambda expression or method reference.
 		  </tr>
 		</tbody>
 	  </table>
-	  <table>
-		<thead>
-		  <tr>
-			<th>Java Persistance API</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr>
-			<td>
-			  Java Persistence API is the java standard API for object-relational mapping.
-			  JPA is one of the many possible
-			  approach to ORM. The API is a set of concepts that defines which objects within the application
-			  should be persisted and how it should persist them. JPA is only an specification and that it needs
-			  an implementation to work. Most popular implementation of JPA is <em>Hibernate</em>. <br> <br>
-			  
-			  Java persistence API is concerned with persistence, which means any mechanism by which
-			  java objects outlive the application process that created them.
-			</td>
-		  </tr>
-		</tbody>
-	  </table>
-	  <table>
-		<thead>
-		  <tr>
-			<th>Entity</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr>
-			<td>
-				A persistance entity is a lightweight java class with its state typically persisted
-					to a <em>table</em> in a relational database.
-					Instances of such an entity correspond to individual rows in the table.
-					Entities typically have relationships with other entities and these relationships
-					are expressed through object-relational metadata.
-					Metadata is either specified directly into the entity class
-					file using annotations or in a separate XML descriptor file distributed with the application.
-			</td>
-		  </tr>
-		</tbody>
-	  </table>
-	  <table>
-		<thead>
-		  <tr>
-			<th>Features of ORM</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr>
-			<td>
-
-				  
-				<em>Mapping: </em> Maps the Java classes to relational database tables and Java data types to
-				SQL data type. <br> <br>
-			  
-			
-			
-			  
-				<em>Automatic table generation:</em> Hibernate provides the facility
-				to create the tables of the database automatically to 
-				avoid manual creation of the database tables. <br> <br>
-			  
-			
-			
-			  
-				<em>Autogenerates SQL code: </em> Allowing us to focus on generating business logic.<br>
-			  
-			
-			
-			  
-				<em>Simplifies complex join:</em> Fetching data from multiple tables is easy in Hibernate. <br> <br>
-			  
-			
-			
-			  
-				<em>Fast performance:</em> Performance of hibernate is fast because cache
-				(first leval and second level) is internally used in hibernate. <br> <br>
-			  
-			
-			
-			  
-				<em>DBMS independent query:</em> Hibernate
-				generates database independent queries so no need to write database specific queries.
-				Before hibernate, if database is changed for the project,
-				we need to change the SQL query as well that leads <br> to the maintenance problem. <br> <br>
-			  
-			
-			
-			  <em>Security: </em> Integrates SQL injection protection. <br>
-			
-			
-			  
-				<em>Increases productivity: </em> Auto generates the data access code. <br>
-			  
-			
-			
-			  
-				<em>Reduces testing: </em> We need to test only the business logic code. <br>
-			  
-			
-			
-			  
-				<em>Connection pooling</em> to share open connection to database. <br>
-			  
-			
-			
-			  
-				<em>Relieves</em> the developer from the manual object conversion of the result set. <br>
-			  
-			
-			
-			  Development cost and maintenance costs are reduced.
-			
-			</td>
-		  </tr>
-		</tbody>
-	  </table>
-	  <table>
-		<thead>
-		  <tr>
-			<th>Connection Pooling</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr>
-			<td>
-			  Connection pooling means that connections are reused rather than created
-			  each time a connection is requested. A connection pool is cache of database
-			  connections maintained so that connections can be reused when future requests
-			  to the database is required. <br> <br>
-			  Sequence of steps involved in a typical database connection life cycle:
-			  <ul>
-				<li>Opening a connection to the database using the database driver</li>
-				<li>Opening a TCP socket for reading-writing data</li>
-				<li>The user is authenticated</li>
-				<li>Reading-writing data over the socket</li>
-				<li>Close the connection</li>
-				<li>Close the socket</li>
-			  </ul>
-			</td>
-		  </tr>
-		</tbody>
-	  </table>
 </body>
-
 </html>
