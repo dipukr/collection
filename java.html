@@ -1393,12 +1393,14 @@ be used as the assignment target for a lambda expression or method reference.
 			  actual requests. <br> <br>
 			  Thread pool represents a group of worker threads that are waiting for the job and reused many times.
 			  A thread pool manages a set of unamed threads that perform work on request.
-					Threads do not terminate right away. When one of the threads completes a task,
-					the thread becomes idle, ready to be dispatched to another task.
-					The submitted tasks are processed in order, usually faster than could be done by
-					creating a thread per task.
-					The overhead of creating and destroying threads is limited to creating and destroying
-					just the number of active worker threads in the pool.
+				Threads do not terminate right away. When one of the threads completes a task,
+				the thread becomes idle, ready to be dispatched to another task.
+				The submitted tasks are processed in order, usually faster than could be done by
+				creating a thread per task.
+				The overhead of creating and destroying threads is limited to creating and destroying
+				just the number of active worker threads in the pool.
+
+				
 			</td>
 		  </tr>
 		</tbody>
@@ -1433,28 +1435,6 @@ be used as the assignment target for a lambda expression or method reference.
 		T invokeAny(Collection&lt;? extends Callable&lt;T>> tasks)
 		List&lt;Future&lt;T>> invokeAll(Collection&lt;? extends Callable&lt;T>> tasks)
 			  </pre>
-			</td>
-		  </tr>
-		</tbody>
-	  </table>
-	<table>
-		<thead>
-		  <tr>
-			<th>Object Relational Mapping</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr>
-			<td>
-			  Object-relational mapping (ORM) is the process of mapping java objects to
-			  relational tables of a relational database. Each row in the table correspond
-			  to the single object and each column in the table correspond to the each
-			  field of the object. <br> <br>
-			  ORM is an layer between object-oriented language and SQL language of relational database.
-			  ORM layer work like a adapter layer as it adapts the language of object graphs to the language
-			  of relational tables.
-			  Data is structured into object graphs in the object oriented program and relational
-					tables in the relational database.
 			</td>
 		  </tr>
 		</tbody>

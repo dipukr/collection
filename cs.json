@@ -133,5 +133,15 @@
     "id": 192,
     "title": "Docker",
     "content": "Docker is a technology which decouples application code from infrastructure."
+  },
+  {
+    "id": 194,
+    "title": "Parallelism",
+    "content": "A prgogram consists of a set of instructions. At any given time only one of the instruction is executing.<div>But in case of multi-threading multiple instructions are executed in parallel.</div><div><br></div><div>Mulithreading is even more challenging than multitasking. The threads are executing within the same program and are hence reading and writing the same memory simultaneously. This can result in errors not seen in a singlethreaded program. Some of these errors may not be seen on single CPU machines, because two threads never really execute <i>simultaneously</i>.</div><div><br></div><div>Code executed by multiple threads accessing shared data need special attention.</div>"
+  },
+  {
+    "id": 195,
+    "title": "Context switch",
+    "content": "Context switching in an operating system (OS) refers to the ability of the OS to rapidly switch between different processes or threads, allowing a single CPU to work on multiple tasks seemingly concurrently. This involves saving the state of the currently running process and loading the state of the next process to be executed, giving the illusion of parallel processing.<div><br><div>When the OS decides to switch from one process to another, it first saves the current state of the running process. This includes the values of the CPU registers, the program counter (which points to the next instruction to be executed), and other relevant information stored in the Process Control Block (PCB).</div></div>"
   }
 ]
