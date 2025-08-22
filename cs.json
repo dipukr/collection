@@ -143,5 +143,10 @@
     "id": 195,
     "title": "Context switch",
     "content": "Context switching in an operating system (OS) refers to the ability of the OS to rapidly switch between different processes or threads, allowing a single CPU to work on multiple tasks seemingly concurrently. This involves saving the state of the currently running process and loading the state of the next process to be executed, giving the illusion of parallel processing.<div><br><div>When the OS decides to switch from one process to another, it first saves the current state of the running process. This includes the values of the CPU registers, the program counter (which points to the next instruction to be executed), and other relevant information stored in the Process Control Block (PCB).</div></div>"
+  },
+  {
+    "id": 196,
+    "title": "SAGA",
+    "content": "The saga pattern is a design pattern used in microservices architecture to manage distributed transactions. It allows for a sequence of local transactions across multiple services, ensuring data consistency even when individual services might fail. It achieves this by defining a series of compensating transactions that can be executed to undo previous operations if a failure occurs. There are two main ways to implement a saga: Choreography vs. Orchestration.<div><br><div>Choreography: Services react to events published by other services, deciding whether to perform their local transaction or a compensating transaction based on the event. </div><div>Orchestration: A central coordinator service manages the saga, instructing each service when to perform its local or compensating transaction. </div><div><br></div><div>Compensating transactions: for each local transaction, a corresponding compensating transaction is defined. If a transaction fails, the saga executes these compensating transactions in reverse order to undo the changes made by the successful transactions. </div><div><br></div><div>Events-messages: Saga pattern relies on asynchronous communication (e.g., message queues) to trigger subsequent transactions and compensating actions, ensuring loose coupling between services. </div></div>"
   }
 ]
