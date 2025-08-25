@@ -1391,15 +1391,35 @@ be used as the assignment target for a lambda expression or method reference.
 			  A server that creates a new thread for every request would spend more time and 
 			  consume more system resources in creating and destroying threads than processing 
 			  actual requests. <br> <br>
-			  Thread pool represents a group of worker threads that are waiting for the job and reused many times.
+			  Thread pool represents a group of worker threads that are waiting for the task and reused many times.
 			  A thread pool manages a set of unamed threads that perform work on request.
 				Threads do not terminate right away. When one of the threads completes a task,
 				the thread becomes idle, ready to be dispatched to another task.
 				The submitted tasks are processed in order, usually faster than could be done by
 				creating a thread per task.
 				The overhead of creating and destroying threads is limited to creating and destroying
-				just the number of active worker threads in the pool.
-
+				just the number of active worker threads in the pool. <br> <br>
+				The <em>Executor</em> and more expansive <em>ExecutorService</em> interfaces
+			  define the contract for a component that can execute
+			  tasks. Users of these interfaces can get a wide variety of
+			  implementation behaviors behind a common interface. <br> <br>
+			  The most generic <em>Executor</em> interface accepts jobs only in the form of
+			  <em>Runnables:</em>
+			  <ul>
+				<li><em>void execute(Runnable command)</em></li>
+			  </ul> <br>
+			  The <em>ExecutorService</em> extends <em>Executor</em> to add methods
+			  that take both <em>Runnable</em> <br>
+			  and <em>Callable</em> task and collections of tasks.
+			  <br> <br>
+			  <pre>
+  
+		Future&lt;?> submit(Runnable task)
+		Future&lt;T> submit(Callable&lt;T> task)
+		Future&lt;T> submit(Runnable task, T result)
+		T invokeAny(Collection&lt;? extends Callable&lt;T>> tasks)
+		List&lt;Future&lt;T>> invokeAll(Collection&lt;? extends Callable&lt;T>> tasks)
+			  </pre>
 				
 			</td>
 		  </tr>
