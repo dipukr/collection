@@ -1,21 +1,3 @@
-Binary tree
-Ternery tree
-Binary search tree
-AVL tree
-RedBlack tree
-Splay tree
-B-tree
-B+tree
-Bloom filters
-Backtracking
-Prefix-sum array
-Sliding window
-Kadane algorithm
-Consistent hashing
-Dynamic programming
-Memoization
-Tabulation
-===================
 Encapsulation
 Abstraction
 Inheritance
@@ -28,12 +10,14 @@ Builder
 Prototype
 Adapter
 CQRS
+Event-sourcing
 Orchestration
 Choreography
 Aggregator
 Bulkhead
 Sidecar
-Circuit breaker
+Outbox
+Circuit-breaker
 ===============
 DHCP
 ICMP
@@ -89,6 +73,7 @@ Caching algorithms
 Cache-eviction policy
 REST API Caching
 Scaling
+Event log
 Audit log
 Activity log
 Write-ahead logging
@@ -100,14 +85,14 @@ Rate-limiting algorithms
 Service mesh
 Message broker
 Message queue
-Sync vs async comm
+Sync-async communication
 Kafka
 RabbitMQ
 CAP
 RPC
 REST
 Fault tolerance
-Zero-downtime deployment
+Zero-downtime
 ========================
 ACID
 PK

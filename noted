@@ -132,3 +132,10 @@ The saga pattern is a design pattern used in distributed systems, particularly m
 
 
 Storing result of recursion is called memoization.
+
+Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type.
+Advantages of generic programming are following:
+Provides compile-time type safety
+Avoids class cast exceptions
+Eliminate the need for most type conversions
+Supports generic class, interface, method and field
