@@ -6,10 +6,6 @@ Never complain instead surrender and have faith.
 When feeling low imagine about vastness of space and time.
 We live as if we were never going to die and die as though we have never lived.
 ===============================================================================
-Discrete Structure: Logic and Computability
-How to read and do proofs: Daniel Solow
-How Debuggers Work: Jonathan Rosenberg
-Computer Science: Robert Sedgewick
 Information: Vlatko Vedral
 Measurement: Paul Lockhart
 How to Solve It: G Polya
@@ -20,12 +16,6 @@ Inside the machine: Jon Stokes
 Machine Intelligence: John Ball
 Compiler Design in C: Allen Holub
 Introduction to Mathematics: Bevan Youse
-Software Architecture Patterns: Mark Richards
-How it works...computers: David carey
-How computers really works: Matthew Justice
-The Definitive ANTLR Reference: Terence Parr
-Unix Network Programming
-A Profile of Mathematical Logic: Howard Delong
 ==============================================
 Jenkov
 TechPrep
@@ -37,13 +27,13 @@ SystemDesignSchool
 =============================================
 Question: what is x?
 Answer: x is the process of .......;
-=======================================================
+============================================================================
 Two microservers one frontend used to upload images and
 other microservices used to take image as input and
 process that image and produce enhanced image.
 Here two microservices should communicate with
 each other asynchoronously (RabbitMQ).
-=======================================================
+================================================================================
 [Database optimization]
 Optimize query
 Perform indexing
@@ -53,15 +43,4 @@ Sharding
 In monolith we have single unit of deployment.
 [Roles]
 Used design patterns to optimize and decouple code.
-===================================================
-Proficient in design and developement:
-	Distributed system
-	Programming language
-	Neural network based AI model
-Software design and developement:
-	Data structures and algorithms
-	Software design patterns
-	Object-oriented design and programming
-	Distibuted system desing and implementation
-===============================================
-https://github.com/dlang/dmd/blob/master/compiler/src/dmd/expression.d
+====================================================================================
