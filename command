@@ -17,7 +17,7 @@ ss -tulnp|grep :8780
 journalctl -u server -f --no-pager
 ====================================================================
 zookeeper-server-start /opt/confluent/etc/kafka/zookeeper.properties
-kafka-server-start /opt/confluent/etc/kafka/server.properties
+kafka-server-start /opt/kafka/config/server.properties
 kafka-topics --bootstrap-server localhost:9092 --create --topic topic0 --partitions 3 --replication-factor 1
 kafka-topics --bootstrap-server localhost:9092 --list
 kafka-topics --bootstrap-server localhost:9092 --describe --topic topic0
@@ -30,4 +30,9 @@ docker images
 docker build -t docker-sch-srv:0.1.RELEASE .
 docker run -p 8780:8780 docker-sch-srv:0.1.RELEASE
 ==================================================
+# Remove old logs (optional, if you want clean start)
+rm -rf /tmp/kraft-combined-logs
+
+# Format storage (generates meta.properties)
+kafka-storage.sh format --ignore-formatted --cluster-id $(kafka-storage.sh random-uuid) -c config/kraft/server.properties
 

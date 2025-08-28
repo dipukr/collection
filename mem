@@ -5,42 +5,32 @@ Be an empty page untouched by words.
 Never complain instead surrender and have faith.
 When feeling low imagine about vastness of space and time.
 We live as if we were never going to die and die as though we have never lived.
-===============================================================================
+===========================================================================================================================================================================
 Information: Vlatko Vedral
 Measurement: Paul Lockhart
 How to Solve It: G Polya
 Hacker Delight
+Inside JVM
 How Mathematician Think
-Inside Java Virtul Machine
-Inside the machine: Jon Stokes
-Machine Intelligence: John Ball
-Compiler Design in C: Allen Holub
-Introduction to Mathematics: Bevan Youse
-==============================================
-Jenkov
-TechPrep
-TheTechCave
-TechPrimers
-BlackboardAI
-ConnectedCookies
-SystemDesignSchool
-=============================================
-Question: what is x?
-Answer: x is the process of .......;
-============================================================================
+Advanced compiler design and implementation
+===========================================================================================================================================================================
+Data structures
+Algorithms
+Design patterns
+Protocols
+Distributed system
+Operating system
+Database
+Compiler theory
+===========================================================================================================================================================================
 Two microservers one frontend used to upload images and
 other microservices used to take image as input and
 process that image and produce enhanced image.
 Here two microservices should communicate with
 each other asynchoronously (RabbitMQ).
-================================================================================
-[Database optimization]
-Optimize query
-Perform indexing
-Replication
-Sharding
-[Monolith]
-In monolith we have single unit of deployment.
-[Roles]
-Used design patterns to optimize and decouple code.
-====================================================================================
+===========================================================================================================================================================================
+[DBOPtimization: Optimize-query, Perform-indexing, Replication, Sharding]
+[Roles: Used design patterns to optimize and decouple code]
+===========================================================================================================================================================================
+Qualcomm, NTTData, PaloAltoNetworks, Zoho, Paytm, Google, Youtube, Scole
+===========================================================================================================================================================================
