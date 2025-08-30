@@ -143,3 +143,4 @@ Supports generic class, interface, method and field
 Distributed computing is a model of computing where a task is divided and executed across multiple computers (also called nodes) connected through a network. These computers work together to complete the task as if they were a single system.
 =============================================================================
 In monolith we have single unit of deployment.
+A Dockerfile is a script that uses the Docker platform to generate containers automatically.
