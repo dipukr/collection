@@ -1,4 +1,5 @@
 sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
+sqlite3 ~/.mozilla/firefox/*.default*/cookies.sqlite "SELECT host, name, value FROM moz_cookies;"
 git remote add origin https://koomar_dipu@bitbucket.org/koomardipu/neem.git
 git push -u -f origin master
 g++ -c add.cpp:ar crf ..\lib\libadd.a add.o:g++ -o main main.cpp -L. -ladd
@@ -15,7 +16,7 @@ python3.12 -m pip install --upgrade pip
 sudo yum erase $(rpm -qa | grep mongodb-org)
 ss -tulnp|grep :8780
 journalctl -u server -f --no-pager
-====================================================================
+===================================================================================================================
 zookeeper-server-start /opt/confluent/etc/kafka/zookeeper.properties
 kafka-server-start /opt/kafka/config/server.properties
 kafka-topics --bootstrap-server localhost:9092 --create --topic topic0 --partitions 3 --replication-factor 1
@@ -30,9 +31,3 @@ docker images
 docker build -t docker-sch-srv:0.1.RELEASE .
 docker run -p 8780:8780 docker-sch-srv:0.1.RELEASE
 ==================================================
-# Remove old logs (optional, if you want clean start)
-rm -rf /tmp/kraft-combined-logs
-
-# Format storage (generates meta.properties)
-kafka-storage.sh format --ignore-formatted --cluster-id $(kafka-storage.sh random-uuid) -c config/kraft/server.properties
-

@@ -139,7 +139,9 @@ Provides compile-time type safety
 Avoids class cast exceptions
 Eliminate the need for most type conversions
 Supports generic class, interface, method and field
-==========================================================================
+=============================================================================
 Distributed computing is a model of computing where a task is divided and executed across multiple computers (also called nodes) connected through a network. These computers work together to complete the task as if they were a single system.
 =============================================================================
 In monolith we have single unit of deployment.
+=============================================================================
+A machine coding round is a software development interview stage where candidates are tasked with designing and coding a small, working application to solve a given problem within a limited time, typically 90 minutes to a few hours. The goal is to assess a candidate's ability to write clean, modular, and extensible code
