@@ -3,8 +3,8 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 
 public class Main {
-	public static void main(final String[] args) throws Exception {
+	public static void main(final String[] args) throws Exception {		
+		LRUCache lruCache = new LRUCache();
 		
-		Files.lines(Path.of("Main.java")).forEach(System.out::println);
 	}
 }
