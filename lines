@@ -3,5 +3,7 @@ Solid principle help us break big problem into smaller easier to handle parts.
 Solid reduces dependencies on code so changes in one area won't break another.
 Solid reduces tight coupling, making code more flexible and easier to maintain.
 CQRS pattern help us scaly read and write operations independently.
-Cache performs well there is more cache-hits than cache-miss.
-Kafka Connect is a tool for scalably and reliably streaming data between Kafka and other data system.
+Cache performs well when there is more cache-hits than cache-miss.
+Kafka connect is a tool for scalably and reliably streaming data between Kafka and other data system.
+Distributed system where multiple independent nodes, running on different physical or logical machines, work together to achieve a common goal.
+Microservices: each service can be developed, deployed and scaled separately.
