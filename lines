@@ -7,3 +7,4 @@ Cache performs well when there is more cache-hits than cache-miss.
 Kafka connect is a tool for scalably and reliably streaming data between Kafka and other data system.
 Distributed system where multiple independent nodes, running on different physical or logical machines, work together to achieve a common goal.
 Microservices: each service can be developed, deployed and scaled separately.
+HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
