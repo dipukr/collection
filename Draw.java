@@ -10,7 +10,7 @@ public class UC {
 	private static final String RESET = "\u001B[0m";
 	private static final String RED = "\u001B[31m";
 
-	public static void drawMaze() {
+	public static void draw() {
 		int data[][] = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1},
@@ -41,8 +41,8 @@ public class UC {
 		}
 	}
 
-	public static void main(final String[] args) {
+	public static void main(String[] args) {
 		System.out.println("Hello");
-		drawMaze();		
+		draw();
 	}
 }
