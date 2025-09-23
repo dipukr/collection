@@ -8,3 +8,8 @@ Kafka connect is a tool for scalably and reliably streaming data between Kafka a
 Distributed system where multiple independent nodes, running on different physical or logical machines, work together to achieve a common goal.
 Microservices: each service can be developed, deployed and scaled separately.
 HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
+When two threads try to enter a synchronized block at the same time, one of the threads will be blocked and the other thread will allowed to enter the synchronized block. When the thread that entered the synchronized block exits the block again, a waiting thread will be allowed to enter the block. Entering a synchronized block is not that expensive when thread is allowed access. But if the thread is blocked because another thread is already executing inside the synchronized block then the blocking of the thread is expensive.
+There is no any guarantee about exactly when a blocked thread is unblocked when the synchronized block is free again.
+This is typically up to the OS or execution platform to coordinate the unblocking of blocked threads.
+Facade provides a unified, higher-level interface to a set of interfaces in a subsystem.
+Bridge pattern decouples an abstraction from its implementation so that the two can vary independently.

@@ -16,7 +16,7 @@ python3.12 -m pip install --upgrade pip
 sudo yum erase $(rpm -qa | grep mongodb-org)
 ss -tulnp|grep :8780
 journalctl -u server -f --no-pager
-===================================================================================================================
+====================================================================
 zookeeper-server-start /opt/confluent/etc/kafka/zookeeper.properties
 kafka-server-start /opt/kafka/config/server.properties
 kafka-topics --bootstrap-server localhost:9092 --create --topic topic0 --partitions 3 --replication-factor 1
