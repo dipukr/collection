@@ -1,12 +1,6 @@
 #include <iostream>
 #include <coll>
 
-int LongestIncreasingSubsequence(List<int> &data)
-{
-	return 0;
-}
-
-
 void Subsets(List<List<int>> &subsets, List<int> &subset, List<int> &data, int i)
 {
 	if (i == data.size()) {
@@ -21,7 +15,7 @@ void Subsets(List<List<int>> &subsets, List<int> &subset, List<int> &data, int i
 }
 
 int main(int argc, const char **argv)
-{
+{ 
 	List<int> list{1,2,3,4};
 	List<List<int>> subsets;
 	List<int> subset;

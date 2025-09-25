@@ -26,13 +26,13 @@ class Person(String name, int age, int sal) {
 
 class Server {
 
-    ServerSocket serverSocket = new ServerSocket();
-    int port;
-    int workerThreads;
+    pvt ServerSocket serverSocket = new ServerSocket();
+    pvt int port;
+    pvt int workerThreads;
 
-    Self(int port, int workerThreads) {
-        this.port = port;
-        this.workerThreads = workerThreads;
+    pub Self(int port, int workerThreads) {
+        self.port = port;
+        self.workerThreads = workerThreads;
     }
 }
 
@@ -41,8 +41,6 @@ class Server(int port, int workerThreads) {
     val int port = port;
     val int workerThreads = workerThreads;
     val ServerSocket serverSocket = null;
-
-
 
 }
 
@@ -56,10 +54,6 @@ class Person {
         self.name = name;
         self.age = age;
         self.sal;
-    }
-
-    pub void insert(int data) {
-
     }
 }
 
