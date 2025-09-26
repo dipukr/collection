@@ -130,3 +130,9 @@ Virtual memory
 Paging
 Process
 Thread
+=========================
+Dining-philosphor problem
+Producer-consumer problem
+Reader-writer problem
+Semaphores
+Monitor
