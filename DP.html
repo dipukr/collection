@@ -33,13 +33,13 @@
         margin-bottom: 30px;
         width: 100%;
         word-spacing: -1px;
-        font-family: "DejaVu Serif";
+        font-family: "CMU Serif";
         text-align: justify;
         text-justify: inter-word;
         cursor: pointer;
         overflow: hidden;
         border-radius: 4px;
-        color: #555555;
+        /* color: #555555; */
         border-bottom-left-radius: 2px;
         border-bottom-right-radius: 2px;
       }
@@ -95,6 +95,7 @@
         width: 100%;
         word-spacing: -2px;
         tab-size: 3;
+        color: #555555;
       }
 
       em {
@@ -126,9 +127,9 @@
 
 <b>Rapid Development:</b> Design patterns provide a standard way of solving common software design problems. This saves time and effort in the desing and development process, allowing developers to focus on other aspects of the software. <br> <br>
 
-<b>Creational Patterns:</b> Singleton, Builder, Factory Method, Abstract Factory and Prototype. <br>
-<b>Structural Patterns:</b> Adapter, Bridge, Composite, Decorator, Facade, Flyweight and Proxy. <br>
-<b>Behavioral Patterns:</b> CoR, Command, Iterator, Mediator, Memento, Observer, State, Strategy, Template and Visitor.
+<b>Creational:</b> Singleton, Builder, Factory Method, Abstract Factory and Prototype. <br>
+<b>Structural:</b> Adapter, Bridge, Composite, Decorator, Facade, Flyweight and Proxy. <br>
+<b>Behavioral:</b> CoR, Command, Iterator, Mediator, Memento, Observer, State, Strategy, Template and Visitor.
 			</td>
 		</tr>
 	</tbody>
@@ -240,17 +241,138 @@
         </tr>
       </tbody>
     </table>
-    <table>
+    
+<table>
 	<thead>
 		<tr>
-			<th>Bridge</th>
+			<th>Facade</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 			<td>
-				Sometime we need to add a layer between abstraction and implementation to achieve better decoupling.    
+				Facade pattern provides a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use. Facade pattern is a structural design pattern that provides a simplified interface to a complex subsystem. Facade pattern offers unified interface to complex system making the system easier to user. A complex interface to the client is considered as a fault in the design of a system. Facade pattern makes a complex interface easier to use using a Facade class. Facade pattern provides a unified interface to a set of interface in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use. Facade unifies the complex low-level interfaces of a subsystem in-order to provide a simple way to access that interface. Facade just provides a layer to the complex interfaces of the sub-system which makes them easier to use.<br><br><b>Components:</b><ul><li>Facade: The class that provides a simple interface.</li><li>Subsystem classes: Complex, detailed classes the facade simplifies.</li></ul><br><b>When-to use:</b><ul><li>When you want to simplify the usage of a complex system.</li><li>When there are multiple subsystems that need to be integrated.</li><li>To decouple clients from the internal components of a system.</li><li>When you want to create a layered architecture.</li></ul><br><b>Advantages:</b><ul><li>Simplifies complex interfaces.</li><li>Promotes loose coupling.</li><li>Makes the system easier to use.</li><li>Improves code readability.</li></ul><br><b>Real-world examples:</b><ul><li>Banking system: we interact with a banking mobile app or web UI (Facade) instead of all internal services like account service, fund transfer, loan service, etc.</li><li>Hotel reception: The receptionist (Facade) handles room booking, food service, taxis, etc., instead of the customer contacting each department.</li><li>Computer startup: A single button starts the CPU, RAM, hard disk, and monitor via a hidden interface.</li></ul>
+<pre style="width: 49%; float: left">
+
+    class CPU {
+        void freeze() {
+            println("CPU freezing...");
+        }
+        void jump(long position) {
+            println("CPU jumping to position " + position);
+        }
+        void execute() {
+            println("CPU executing instructions...");
+        }
+    }
+    class Memory {
+        void load(long position, String data) {
+            println("Loading data {data} at position {position}");
+        }
+    }
+    class HardDrive {
+        String read(long lba, int size) {
+            return "OS Boot Data";
+        }
+    }
+
+</pre>
+<pre style="width: 49%; float: right">
+
+    class Computer {
+        CPU cpu;
+        Memory memory;
+        HardDrive hardDrive;
+
+        Computer() {
+            this.cpu = new CPU();
+            this.memory = new Memory();
+            this.hardDrive = new HardDrive();
+        }
+
+        void startComputer() {
+            println("Starting computer...");
+            cpu.freeze();
+            String bootData = hardDrive.read(0, 1024);
+            memory.load(0, bootData);
+            cpu.jump(0);
+            cpu.execute();
+            println("Computer started successfully!");
+        }
+    }
+
+</pre>
 			</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th>Composite</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Composite pattern is a structural design pattern used when we want to treat individual objects and compositions of objects uniformly. Composite pattern is especially useful when you deal with hierarchical tree structures, such as file systems or UI components. Composite lets clients treat individual objects and compositions of objects uniformly.When-to use: when we want to compose objects into tree structures to represent part-whole hierarchies.<br><br><b>Components:</b><ul><li>Component: interface or abstract class for all objects in the hierarchy, both composite and leaf.</li><li>Leaf: represents individual objects (end nodes). Implements the base Component.</li><li>Composite:	a container that holds child Components. Can be other Composites or Leafs.</li><li>Client: uses the Component interface to interact with objects in the hierarchy uniformly.</li></ul><br><b>Use cases:</b><ul><li>GUI frameworks (Swing or HTML DOM trees)</li><li>Organization hierarchy (employees, managers)</li><li>File system (files and directories)</li><li>Document structures (paragraphs, sections, characters)</li></ul>
+<pre style="width: 49%; float: left;">
+
+    interface FileSystem { #Component
+        void showDetails();
+    }
+    class File implements FileSystem { #Leaf
+        String name;
+        File(String name) {
+            this.name = name;
+        }
+        void showDetails() {
+            println("File: {name}");
+        }
+    }
+    class Folder implements FileSystem { # Composite
+        String name;
+        List<FileSystem> childs;
+        Folder(String name) {
+            this.name = name;
+        }
+        void showDetails() {
+            println("Folder: {name}");
+            for (FileSystem fs: childs)
+                fs.showDetails();
+        }
+    }
+
+</pre>
+<pre style="width: 49%; float: right;">
+
+    # Client
+    void main(String[] args) {
+        File file1 = new File("notes.txt");
+        File file2 = new File("resume.docx");
+        File file3 = new File("photo.png");
+
+        Folder docs = new Folder("Documents");
+        docs.add(file1);
+        docs.add(file2);
+
+        Folder pics = new Folder("Pictures");
+        pics.add(file3);
+
+        Folder root = new Folder("Root");
+        root.add(docs);
+        root.add(pics);
+
+        root.showDetails();
+    }
+
+
+
+
+
+    
+</pre>
+</td>
 		</tr>
 	</tbody>
 </table>
@@ -263,7 +385,7 @@
       <tbody>
         <tr>
           <td>
-            Proxy pattern is a structural design pattern that provides a proxy for other objects to control access to them.The proxy implements the same interface as the real object and can add behavior like access control, logging, caching, lazy loading, etc.A proxy functions as an interface to something else. A proxy is a wrapper or agent object that the client calls to access the real serving     object behind the scenes. Using a proxy can simply forward requests to the actual object or provide additional logic.Extra functionalities can be provided into proxy such as caching the operations on the actual object or checking pre-conditions before     calling operations on the actual object. When-to use: when we need to perform additional operations when accessing an object. For examples, lazy loading, caching and access control.<br> <br><b>Structure:</b><ul><li>Subject (Interface) – Declares common interface for RealSubject and Proxy.</li><li>RealSubject – The actual object that does the work.</li><li>Proxy – Controls access to RealSubject, implements the same interface.</li></ul><br><b>Pros and Cons:</b><ul><li>Adds a layer of control over real objects.</li><li>Can do lazy loading, caching, access control.</li><li>Promotes separation of concerns.</li><li>Adds extra complexity and indirection.</li><li>Can introduce performance overhead.</li></ul><br><b>Real-world example:</b><ul><li>Java RMI – Uses proxy to call remote objects.</li><li>Spring AOP – Uses proxies for method interception.</li><li>Hibernate – Lazy-loaded entities are proxies.</li><li>Security managers – Proxy access to critical resources.</li><li>Credit card - Acts as a proxy for our bank account.</li></ul><br><b>Types:</b><ul><li>Virtual proxy - Lazy loading (e.g., loading an image only when needed)</li><li>Remote proxy - Representing objects in another address space (RMI, gRPC)</li><li>Protection proxy - Access control (authorization, role checking)</li><li>Smart-reference proxy - Adds extra behavior (like logging, ref counting)</li></ul> <br>
+            Proxy pattern is a structural design pattern that provides a proxy for other objects to control access to them. The proxy implements the same interface as the real object and can add behavior like access control, logging, caching, lazy loading, etc. A proxy functions as an interface to something else. A proxy is a wrapper or agent object that the client calls to access the real serving object behind the scenes. Using a proxy can simply forward requests to the actual object or provide additional logic. Extra functionalities can be provided into proxy such as caching the operations on the actual object or checking pre-conditions before calling operations on the actual object. When-to use: when we need to perform additional operations when accessing an object. For examples, lazy loading, caching and access control.<br> <br><b>Structure:</b><ul><li>Subject (Interface) – Declares common interface for RealSubject and Proxy.</li><li>RealSubject – The actual object that does the work.</li><li>Proxy – Controls access to RealSubject, implements the same interface.</li></ul><br><b>Pros and Cons:</b><ul><li>Adds a layer of control over real objects.</li><li>Can do lazy loading, caching, access control.</li><li>Promotes separation of concerns.</li><li>Adds extra complexity and indirection.</li><li>Can introduce performance overhead.</li></ul><br><b>Real-world example:</b><ul><li>Java RMI – Uses proxy to call remote objects.</li><li>Spring AOP – Uses proxies for method interception.</li><li>Hibernate – Lazy-loaded entities are proxies.</li><li>Security managers – Proxy access to critical resources.</li><li>Credit card - Acts as a proxy for our bank account.</li></ul><br><b>Types:</b><ul><li>Virtual proxy - Lazy loading (e.g., loading an image only when needed)</li><li>Remote proxy - Representing objects in another address space (RMI, gRPC)</li><li>Protection proxy - Access control (authorization, role checking)</li><li>Smart-reference proxy - Adds extra behavior (like logging, ref counting)</li></ul> <br>
             <pre style="width: 39%; float: left;">
 
   interface Image {
@@ -287,7 +409,6 @@
           println("Displaying " + filename);
       }
   }
-
             </pre>
             <pre style="width: 59%; float: right;">
 
@@ -312,12 +433,113 @@
       img2.display() # cached
       img3.display() # loads and displays
   }
-
             </pre>
           </td>
         </tr>
       </tbody>
     </table>
+    <table>
+	<thead>
+		<tr>
+			<th>Flyweight</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Flyweight pattern is a structural design pattern that reduces memory uses by sharing similar objects. Flyweight pattern uses a factory to manage these shared objects and ensures that each object is created only once. When we need large number of similar objects then creating and storing each object separately can take too much memory. Flyweight pattern offers solution by sharing similar objects to reduce memory uses and improve performance. Suppose we are building a text editor. Each character typed by a user is an object. If each character holds font, size, style and the character itself, then millions of characters would lead to high memory usage. Instead, we can store font, size, style (intrinsic state) in a shared Flyweight object and only keep position (x, y), selection, color (extrinsic state) in each instance.<br><br><b>Components:</b><ul><li>Flyweight interface – Declares methods that accept extrinsic state.</li><li>ConcreteFlyweight – Implements Flyweight and stores intrinsic state.</li><li>FlyweightFactory – Manages a pool of flyweight objects.</li><li>Client – Maintains or computes extrinsic state and passes it to the flyweight.</li></ul><br><b>Pros and Cons:</b><ul><li>Reduces memory usage by sharing objects.</li><li>Increases performance when creating many similar objects.</li><li>Makes code more complex.</li><li>Requires careful separation of intrinsic and extrinsic state.</li></ul><br><b>Real-world examples:</b><ul><li>TextEditors (Word, Docs) - Characters reuse glyph data (shape, font) and only store unique positioning data.</li><li>Game - Thousands of similar objects like trees, rocks, or bullets share model/texture data using flyweights.</li><li>Map apps - Like Google Maps use flyweights to draw common icons (restaurants, pins, markers).</li><li>Doc Formats (PDF) - Rendering systems often use flyweights for fonts, styles, and reusable UI components.</li></ul>
+<pre style="width: 30%; float: left;">
+ 
+  # Flyweight class
+  class Color {
+      String name;
+
+      Color(String name) {
+          this.name = name;
+      }
+  }
+  # Flyweight Factory
+  class ColorFactory {
+      final Map<String, Color> colors;
+
+      final Color getColor(String name) {
+          Color color = new Color(name);
+          colors.putIfAbsent(name, color);
+          return colors.get(name);
+      }
+  }
+
+</pre>
+<pre style="width: 35%; float: left;">
+ 
+  # Context class (Shape)
+  class Circle {
+      int x, y, r; # extrinsic state
+      Color color; # intrinsic state (shared)
+
+      Circle(int x, int y, int r, Color color) {
+          this.x = x;
+          this.y = y;
+          this.r = r;
+          this.color = color;
+      }
+
+      void draw() {
+        println("Drawing a {color.name} 
+                circle at ({x},{y})
+                with radius {r}");
+      }
+  }
+
+</pre>
+<pre style="width: 33%; float: left;">
+
+  # Client
+  void main(String[] args) {
+      Color red = ColorFactory.get("Red");
+      Color blue = ColorFactory.get("Blue");
+
+      Circle c1 = new Circle(10, 20, 5, red);
+      Circle c2 = new Circle(30, 40, 10, red);
+      Circle c3 = new Circle(50, 60, 15, blue);
+
+      c1.draw();
+      c2.draw();
+      c3.draw();
+  }
+
+
+
+
+
+
+</pre>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th>Decorator</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Decorator pattern is a structural design pattern that allows you to add new behavior or functionality to objects dynamically without altering their structure or modifying their source code. This is achieved by creating decorator classes that wrap the original object and add new behaviours or attributes. Decorator patterns attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality. Decorator design pattern allows behaviours to be added to individual objects, either statically or dynamically without affecting the behaviour of other objects from the same class.<br><br><b>When-to use:</b><ul><li>When we want to add responsibilities to individual objects, not an entire class.</li><li>When we want to keep classes open for extension but closed for modification.</li></ul><br><b>Components:</b><ul><li>Component: The interface or abstract class defining the operations.</li><li>Concrete component: The original object that we want to extend.</li><li>Decorator: Implements the same interface and has a reference to a Component object.</li><li>Concrete Decorators: Add new behaviors before or after delegating the request to the wrapped component.</li></ul><br><b>Pros and Cons:</b><ul><li>Adheres to SRP and OCP.</li><li>Greater flexibility than static inheritance.</li><li>Can add or remove responsibilities at runtime.</li><li>Many small objects, leading to complexity.</li><li>Harder to debug and maintain if overused.</li><li>Decorator logic may be spread out and hard to trace.</li></ul><br><b>Real-world examples:</b><ul><li>Java IO Streams.</li><li>Spring's Transactional, Cacheable can be seen as decorators.</li><li>Spring Framework - Middleware or Interceptors decorate request and response handling. </li></ul>
+                <br>
+                <pre>
+
+                    InputStream in = new FileInputStream("file.txt");  # Base Component
+                    in = new BufferedInputStream(in);                       # Decorator adds buffering
+                    in = new DataInputStream(in);                            # Decorator adds data handling
+                </pre>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
     <table>
 	<thead>
 		<tr>
@@ -413,7 +635,8 @@
 	<tbody>
 		<tr>
 			<td>
-				Visitor Pattern is a behavioral design pattern that lets you add new operations to existing object structures without modifying their classes. It helps separate algorithms from the objects on which they operate. Visitor pattern is useful in scenario when an object structure is stable but we frequently need to extend its behaviours with new operations. This pattern aligns with open-closed concepts.<br><br><b>Structures:</b><ul><li>Visitor – Interface or abstract class for visiting elements.</li><li>ConcreteVisitor – Implements operations on concrete elements.</li><li>Element – Interface that defines accept(visitor)</li><li>ConcreteElement – Implements accept(visitor)</li><li>Client – Traverses object structure and applies visitor.</li></ul><br><b>Real-world examples:</b><ul><li>AST Traversal in Compilers – Different visitors (semantic analyzer, code generator) operate on the same tree nodes.</li><li>Filesystem utilities – Backup, search, indexing tools can visit folders and files.</li><li>Document converters – HTML, PDF, Markdown converters can visit document elements (paragraphs, images, links).</li><li>Game engines – Collision detection or rendering can be implemented as visitors over game entities.</li></ul><br><b>Pros and Cons:</b><ul><li>Add new operations without changing existing object structures.</li><li>Encourages separation of concerns (data vs behavior).</li><li>Makes operations extensible and easy to manage.</li><li>Adding a new element (type) requires updating all visitors.</li><li>Involves double dispatch – one call from client to element, one from element to visitor.</li></ul> <br>
+				Visitor Pattern is a behavioral design pattern that lets you add new operations to existing object structures without modifying their classes. It helps separate algorithms from the objects on which they operate. Visitor pattern is useful in scenario when an object structure is stable but we frequently need to extend its behaviours with new operations. This pattern aligns with open-closed concepts.<br><br><b>Components:</b><ul><li>Visitor – Interface or abstract class for visiting elements.</li><li>ConcreteVisitor – Implements operations on concrete elements.</li><li>Element – Interface that defines accept(visitor)</li><li>ConcreteElement – Implements accept(visitor)</li><li>Client – Traverses object structure and applies visitor.</li></ul><br><b>Real-world examples:</b><ul><li>Filesystem utilities – Backup, search, indexing tools can visit folders and files.</li><li>Game engines – Collision detection or rendering can be implemented as visitors over game entities.</li><li>AST Traversal– Different visitors (semantic analyzer, code generator) operate on the same tree nodes.</li>
+                    <li>Document converters – HTML, PDF, MD converters can visit document elements (paragraphs, images, links).</li></ul><br><b>Pros and Cons:</b><ul><li>Add new operations without changing existing object structures.</li><li>Encourages separation of concerns (data vs behavior).</li><li>Makes operations extensible and easy to manage.</li><li>Adding a new element (type) requires updating all visitors.</li><li>Involves double dispatch – one call from client to element, one from element to visitor.</li></ul> <br>
         <pre style="width: 49%; float: left;">
 
     interface Element {
@@ -452,7 +675,6 @@
             visitor.visit(this);
         }
     }
-    
         </pre>
         <pre style="width: 49%; float: right;">
     class Renderer implements Visitor {
@@ -466,7 +688,6 @@
             println("Rendering link: " + link.url);
         }
     }
-
     class ExportVisitor implements Visitor {
         void visit(TextElement text) {
             println("Exporting text: " + text.text);
@@ -489,9 +710,9 @@
         Visitor exporter new Exporter();
 
         for (Element element: elements)
-            el.accept(renderer);
+            element.accept(renderer);
         for (Element element: elements)
-            el.accept(exporter);
+            element.accept(exporter);
     }
         </pre>
 			</td>
@@ -671,51 +892,6 @@
 <table>
 	<thead>
 		<tr>
-			<th>Flyweight</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>
-				Flyweight pattern is a structural design pattern that reduces memory uses by sharing similar objects. Flyweight pattern uses a factory to manage these shared objects and ensures that each object is created only once. When we need large number of similar objects then creating and storing each object separately can take too much memory. Flyweight pattern offers solution by sharing similar objects to reduce memory uses and improve performance. Suppose we are building a text editor. Each character typed by a user is an object. If each character holds font, size, style and the character itself, then millions of characters would lead to high memory usage. Instead, we can store font, size, style (intrinsic state) in a shared Flyweight object and only keep position (x, y), selection, color (extrinsic state) in each instance.<br><br><b>Components:</b><ul><li>Flyweight interface – Declares methods that accept extrinsic state.</li><li>ConcreteFlyweight – Implements Flyweight and stores intrinsic state.</li><li>FlyweightFactory – Manages a pool of flyweight objects.</li><li>Client – Maintains or computes extrinsic state and passes it to the flyweight.</li></ul><br><b>Pros and Cons:</b><ul><li>Reduces memory usage by sharing objects.</li><li>Increases performance when creating many similar objects.</li><li>Makes code more complex.</li><li>Requires careful separation of intrinsic and extrinsic state.</li></ul><br><b>Real-world examples:</b><ul><li>TextEditors (Word, Docs) - Characters reuse glyph data (shape, font info) and only store unique positioning data.</li><li>Game - Thousands of similar objects like trees, rocks, or bullets share model/texture data using flyweights.</li><li>Map apps - Like Google Maps use flyweights to draw common icons (restaurants, pins, markers).</li><li>Doc Formats (PDF, HTML) - Rendering systems often use flyweights for fonts, styles, and reusable UI components.</li></ul>
-
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table>
-	<thead>
-		<tr>
-			<th>Facade</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>
-				Facade pattern provides a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use. Facade pattern is a structural design pattern that provides a simplified interface to a complex subsystem. Facade pattern offers unified interface to complex system making the system easier to user. A complex interface to the client is considered as a fault in the design of a system. Facade pattern makes a complex interface easier to use using a Facade class. Facade pattern provides a unified interface to a set of interface in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use. Facade unifies the complex low-level interfaces of a subsystem in-order to provide a simple way to access that interface. Facade just provides a layer to the complex interfaces of the sub-system which makes them easier to use.<br><br><b>Components:</b><ul><li>Facade: The class that provides a simple interface.</li><li>Subsystem classes: Complex, detailed classes the facade simplifies.</li></ul><br><b>When-to use:</b><ul><li>When you want to simplify the usage of a complex system.</li><li>When there are multiple subsystems that need to be integrated.</li><li>To decouple clients from the internal components of a system.</li><li>When you want to create a layered architecture.</li></ul><br><b>Advantages:</b><ul><li>Simplifies complex interfaces.</li><li>Promotes loose coupling.</li><li>Makes the system easier to use.</li><li>Improves code readability.</li></ul><br><b>Real-world examples:</b><ul><li>Banking system: we interact with a banking mobile app or web UI (Facade) instead of all internal services like account service, fund transfer, loan service, etc.</li><li>Hotel reception: The receptionist (Facade) handles room booking, food service, taxis, etc., instead of the customer contacting each department.</li><li>Computer startup: A single button starts the CPU, RAM, hard disk, and monitor via a hidden interface.</li></ul>
-
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table>
-	<thead>
-		<tr>
-			<th>Decorator</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>
-				Decorator pattern is a structural design pattern that allows you to add new behavior or functionality to objects dynamically without altering their structure or modifying their source code. This is achieved by creating decorator classes that wrap the original object and add new behaviours or attributes. Decorator patterns attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality. Decorator pattern allows behaviours to be added to individual objects, either statically or dynamically without affecting the behaviour of other objects from the same class.<br><br><b>When-to use:</b><ul><li>When we want to add responsibilities to individual objects, not an entire class.</li><li>When we want to keep classes open for extension but closed for modification.</li></ul><br><b>Components:</b><ul><li>Component: The interface or abstract class defining the operations.</li><li>Concrete component: The original object that we want to extend.</li><li>Decorator: Implements the same interface and has a reference to a Component object.</li><li>Concrete Decorators: Add new behaviors before or after delegating the request to the wrapped component.</li></ul><br><b>Pros and Cons:</b><ul><li>Greater flexibility than static inheritance.</li><li>Can add or remove responsibilities at runtime.</li><li>Adheres to Single Responsibility Principle and Open-Closed Principle.</li><li>Many small objects, leading to complexity.</li><li>Harder to debug and maintain if overused.</li><li>Decorator logic may be spread out and hard to trace.</li></ul><br><b>Real-world examples:</b><ul><li>Java IO Streams.</li><li>Web Frameworks (Spring) - Middleware or Interceptors decorate request and response handling. </li><li>Spring's Transactional, Cacheable can be seen as decorators.</li></ul>
-
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table>
-	<thead>
-		<tr>
 			<th>Chain-of-responsibility</th>
 		</tr>
 	</thead>
@@ -738,21 +914,6 @@
 		<tr>
 			<td>
 				Command design pattern is a behavioral design pattern that turns a request into a stand-alone object containing all the information about the request. This object can then be passed, stored, queued, and executed at a later time. Command pattern: an object is used to encapsulate all the information needed to perform an action or trigger an event at a later time, this information includes method name, the object that owns the method and the parameter for the method. Command pattern is perfect for features like scheduling, logging, undo and redo operations. When we need to encapsulate operations as objects and control behaviour through the arrangement of these operations. Command pattern encapsulates requests as objects, allowing the system to support complex command, request and operation management. Command pattern offers flexible way to extend system functionality while maintianing decoupling between the invoker and the receiver.<br><br><b>Components:</b><ul><li>Command (Interface) – declares an interface for executing an operation.</li><li>ConcreteCommand – defines a binding between a receiver and an action.</li><li>Receiver – knows how to perform the operation associated with the command.</li><li>Invoker – asks the command to carry out the request.</li><li>Client – creates the command object and sets its receiver.</li></ul><br><b>Pros and Cons:</b><ul><li>Decouples objects invoking operations from those performing them.</li><li>Easy to add new commands without changing existing code.</li><li>Supports undo-redo, logging, and macro recording.</li><li>May result in lots of small classes ex. one per command.</li><li>Complexity may be overkill for simple operations.</li></ul><br><b>Concepts:</b><ul><li>Intent: Encapsulate a request as an object.</li><li>Useful-for: Decoupling sender and receiver, undo-redo, logging.</li><li>Real-world:	Remote control, game commands, smart home actions.</li></ul>
-
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table>
-	<thead>
-		<tr>
-			<th>Composite</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>
-				Composite pattern is a structural design pattern used when we want to treat individual objects and compositions of objects uniformly. Composite pattern is especially useful when you deal with hierarchical tree structures, such as file systems or UI components. Composite lets clients treat individual objects and compositions of objects uniformly.When-to use: when we want to compose objects into tree structures to represent part-whole hierarchies.<br><br><b>Components:</b><ul><li>Component: interface or abstract class for all objects in the hierarchy, both composite and leaf.</li><li>Leaf: represents individual objects (end nodes). Implements the base Component.</li><li>Composite:	a container that holds child Components. Can be other Composites or Leafs.</li><li>Client: uses the Component interface to interact with objects in the hierarchy uniformly.</li></ul><br><b>Use cases:</b><ul><li>GUI frameworks (Swing or HTML DOM trees)</li><li>Organization hierarchy (employees, managers)</li><li>File system (files and directories)</li><li>Document structures (paragraphs, sections, characters)</li></ul>
 
 			</td>
 		</tr>

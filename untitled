@@ -92,6 +92,18 @@ public Statement getWhileUpdateStatement(Expression left, int pos) {
     "title": "Distributed computing",
     "content": "Distributed computing involves multiple computers working together over a network to solve a problem, acting as a single, powerful system. It's a divide-and-conquer approach where tasks are broken down and processed concurrently on different nodes (computers), then the results are combined. This allows for greater scalability, performance, and resilience compared to using a single, centralized computer. Distributed computing defined as computer systems whose inter-communicating components are located on different networked computers.<div><br></div><div>The components of a distributed system communicate and coordinate their actions by passing messages to one another in order to achieve a common goal. Three significant challenges of distributed systems are: maintaining <i>concurrency</i> of components, overcoming the lack of a <i>global clock</i>, and managing the independent <i>failure of components</i>. When a component of one system fails, the entire system does not fail. Examples of distributed systems vary from SOA-based systems to microservices to massively multiplayer online games to peer-to-peer applications. Distributed systems cost significantly more than monolithic architectures, primarily due to increased needs for additional hardware, servers, gateways, firewalls, new subnets, proxies, and so on.</div><div><br></div><div>A computer program that runs within a distributed system is called a distributed program, and distributed programming is the process of writing such programs. There are many different types of implementations for the message passing mechanism, including pure HTTP, RPC-like connectors and message queues. Distributed computing also refers to the use of distributed systems to solve computational problems. In distributed computing, a problem is divided into many tasks, each of which is solved by one or more computers, which communicate with each other via message passing.</div><div><br></div><div><br></div><div><br></div><div><br></div>"
 }
-==========================================================================================================================================================================================
-boolean tryLock();
-boolean tryLock(long time, TimeUnit unit);
+========================================================================================================================================================================
+<table>
+	<thead>
+		<tr>
+			<th>Bridge</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Sometime we need to add a layer between abstraction and implementation to achieve better decoupling.
+			</td>
+		</tr>
+	</tbody>
+</table>
