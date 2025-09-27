@@ -15,7 +15,7 @@ dnf.conf:exclude=nautilus nautilus-extensions brave-browser:install_weak_deps=Fa
 user-dirs.dirs:user-dirs.defaults
 python3.12 -m ensurepip:python3.12 -m pip list
 .plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
-git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
+git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
 git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822
 ========================================================================================================
 export HISTSIZE=100000

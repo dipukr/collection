@@ -16,3 +16,5 @@ Consistent hashing is used in distributed systems, such as web caches, CDNs and 
 Consistent hashing is a distributed hashing technique used in load balancing.
 Goal of consistent hashing is to minimize the need for rehashing when the number of nodes in a system changes.
 Both Kafka and RabbitMQ systems pass messages between producers and consumers through queues or topics.
+Visibility ensures that read functionality is thread safe.
+Mutual exclusion or atomicity ensures that write functionality is thread safe.
