@@ -1,20 +1,7 @@
-Solid principle is a set of guidelines for writing code that makes it easier to manage, extend and debug.
-Solid principle help us break big problem into smaller easier to handle parts.
-Solid reduces dependencies on code so changes in one area won't break another.
-Solid reduces tight coupling, making code more flexible and easier to maintain.
-CQRS pattern help us scaly read and write operations independently.
-Cache performs well when there is more cache-hits than cache-miss.
-Kafka connect is a tool for scalably and reliably streaming data between Kafka and other data system.
-Distributed system where multiple independent nodes, running on different physical or logical machines, work together to achieve a common goal.
-Microservices: each service can be developed, deployed and scaled separately.
-HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
-There is no any guarantee about exactly when a blocked thread is unblocked when the synchronized block is free again.
-This is typically up to the OS or execution platform to coordinate the unblocking of blocked threads.
-Facade provides a unified, higher-level interface to a set of interfaces in a subsystem.
-Bridge pattern decouples an abstraction from its implementation so that the two can vary independently.
-Consistent hashing is used in distributed systems, such as web caches, CDNs and DBs to efficiently distribute data or load across a variable number of servers or nodes.
-Consistent hashing is a distributed hashing technique used in load balancing.
-Goal of consistent hashing is to minimize the need for rehashing when the number of nodes in a system changes.
-Both Kafka and RabbitMQ systems pass messages between producers and consumers through queues or topics.
-Visibility ensures that read functionality is thread safe.
-Mutual exclusion or atomicity ensures that write functionality is thread safe.
+
+
+
+
+
+
+

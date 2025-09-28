@@ -136,3 +136,8 @@ Producer-consumer problem
 Reader-writer problem
 Semaphores
 Monitor
+Starvation
+Mutual exclusion
+Busy waiting
+Thread synchronization
+Critical section

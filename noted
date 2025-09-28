@@ -127,25 +127,4 @@ Independent deployment: Microservices can be deployed and scaled independently o
 Loose coupling: Microservices are designed to minimize dependencies between them, making them more resilient and easier to change. 
 Relationship:
 Microservices architecture is a way to implement a distributed system. It's a specific approach to building distributed systems, emphasizing modularity and independent deployability.
-================================================================================================================
-The saga pattern is a design pattern used in distributed systems, particularly microservices, to manage data consistency across multiple services. It involves breaking down a long-running transaction into a series of smaller, local transactions. Each local transaction updates data within a single service and then triggers the next step in the saga through an event or message. If a local transaction fails, compensating transactions are executed to undo the changes made by previous successful transactions, ensuring data consistency.
-
-
-Storing result of recursion is called memoization.
-
-Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type.
-Advantages of generic programming are following:
-Provides compile-time type safety
-Avoids class cast exceptions
-Eliminate the need for most type conversions
-Supports generic class, interface, method and field
-=============================================================================
-Distributed computing is a model of computing where a task is divided and executed across multiple computers (also called nodes) connected through a network. These computers work together to complete the task as if they were a single system.
-=============================================================================
-In monolith we have single unit of deployment.
-<<<<<<< HEAD
-=============================================================================
-A machine coding round is a software development interview stage where candidates are tasked with designing and coding a small, working application to solve a given problem within a limited time, typically 90 minutes to a few hours. The goal is to assess a candidate's ability to write clean, modular, and extensible code
-=======
-A Dockerfile is a script that uses the Docker platform to generate containers automatically.
->>>>>>> 2b92813c7d88c05f07c5c344f753511803423d13
+===============================================================================================================

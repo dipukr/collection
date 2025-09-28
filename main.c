@@ -1,17 +1,22 @@
-#include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include <unistd.h>
+#include <signal.h>
+#include <stdio.h>
 
-typedef struct {
-    int length;
-    int data[];
-} IntArray;
-
-int main() {
-
-   
-   for (int i = 0; i < 10; i++)
-   	printf("hello\n");
-   for (int i = 0; i < 10; i++)
-   	printf("hello2\n");
-
+void handler() {
+	write(STDOUT_FILENO, "hello.world\n", 13);
 }
+
+int main(int argc, const char **argv) {
+	signal(SIGTERM, handler);
+	while (true) {
+		printf("Wasting your cycles: %d\n", getpid());
+		sleep(1);
+	}
+	return EXIT_SUCCESS;
+}
+
