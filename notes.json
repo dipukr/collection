@@ -1,0 +1,82 @@
+[
+  {
+    "id": 2,
+    "title": "OOP",
+    "content": "Solid principle is a set of guidelines for writing code that makes it easier to manage, extend and debug.<div>Solid principle help us break big problem into smaller easier to handle parts.</div><div>Solid reduces dependencies on code so changes in one area won't break another.</div><div>Solid reduces tight coupling, making code more flexible and easier to maintain.</div>"
+  },
+  {
+    "id": 4,
+    "title": "HLD",
+    "content": "CQRS pattern help us scaly read and write operations independently."
+  },
+  {
+    "id": 5,
+    "title": "Cache",
+    "content": "Cache performs well when there is more cache-hits than cache-miss.<div><br></div>"
+  },
+  {
+    "id": 6,
+    "title": "Protocols",
+    "content": "HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses."
+  },
+  {
+    "id": 7,
+    "title": "Kafka",
+    "content": "Kafka connect is a tool for scalably and reliably streaming data between Kafka and other data system.<div><br></div>"
+  },
+  {
+    "id": 8,
+    "title": "Distributed",
+    "content": "<div>Distributed computing is a model of computing where a task is divided and executed across multiple computers (also called nodes) connected through a network.</div><div>Distributed system where multiple independent nodes, running on different physical or logical machines, work together to achieve a common goal.</div>Consistent hashing is used in distributed systems, such as web caches, CDNs and DBs to efficiently distribute data or load across a variable number of servers or nodes.<div>Consistent hashing is a distributed hashing technique used in load balancing.</div><div>Goal of consistent hashing is to minimize the need for rehashing when the number of nodes in a system changes.</div><div>Both Kafka and RabbitMQ systems pass messages between producers and consumers through queues or topics.</div><div><br></div>"
+  },
+  {
+    "id": 9,
+    "title": "Thread",
+    "content": "<div>Synchronization is built around an internal entity known as the monitor.</div><div>Monitors are used to achieved mutual exclusion and threads cooperation. </div><div>A monitor is an entity that possesses a lock, a wait-queue and an entry-queue.</div><div>Every Java objects has a monitor associated with them.</div><div>Lock enforces mutual exclusive access to synchronized code block or method invoked on the associated object.<br></div><div>Wait set is the set of all the threads waiting on an monitor object that is used to provide coordination between multiple threads.</div><div>Entry set is the set of all the threads who has already requested for the lock and the lock is not acquired by them yet.</div><div>A lock is a tool for controlling access to a shared resource by multiple threads.</div><div>Every objects in java has an intrinsic lock associated with it.</div><div>Only one thread at a time can acquire the lock and all access to the shared resource requires that the lock be acquired first.</div><div>When a new thread tries to acquire the lock and if already a thread owns the lock then that thread will be waiting on the entry set to acquire the lock.</div><div>When the thread which is acquired the lock completes execution of its critical section then it will release the lock.</div><div>Next thread will acquire the lock but this next thread is taken from the entry set and will be determined by JVM based on some criteria like FIFO.<br></div><div>Visibility ensures that read functionality is thread safe.<br></div><div>Mutual exclusion or atomicity ensures that write functionality is thread safe.</div><div>Local primitive variables are thread-safe because each thread has separate stack memory.</div><div>Local reference variables are not thread-safe because each thread share heap memory.</div><div>Mutual exclusion is a property of concurrency control, which is instituted for the purpose of preventing race conditions.</div><div>A thread of execution is the smallest sequence of programmed instructions that can be managed independently by a OS scheduler.</div><div>Threads of a process share its executable code and the values of its dynamically allocated variables and non-thread-local global variables at any given time.</div><div>Deadlock which occurs when many processes are waiting for a shared resource (critical section) which is being held by some other process.</div><div>There is no any guarantee about exactly when a blocked thread is unblocked when the synchronized block is free again.</div><div>This is typically up to the OS or execution platform to coordinate the unblocking of blocked threads.</div><div>Race condition occures when a shared resource is accessed by different actors at the same time.</div><div>Both mutex and semaphore helps managing access to shared resources but they do it in different ways.</div><div>Mutex is suited for exclusive access whereas semaphore is suited for limited concurrency.</div>"
+  },
+  {
+    "id": 10,
+    "title": "DP",
+    "content": "Design patterns are solutions or techniques to avoid code design problem.<div>Design patterns help us write robust, clean, modular and extensible code.</div><div>Builder design pattern is a creational design pattern that separates the construction of a complex object from its representation.</div><div>Builder design pattern allows the same construction process to create different representations of the object.</div><div>Facade provides a unified, higher-level interface to a set of interfaces in a subsystem.<br></div><div>Bridge pattern decouples an abstraction from its implementation so that the two can vary independently.</div>"
+  },
+  {
+    "id": 12,
+    "title": "Solid",
+    "content": "Solid principle is a set of guidelines for writing code that makes it easier to manage, extend and debug.<div>Solid principle help us break big problem into smaller easier to handle parts.</div><div>Solid reduces dependencies on code so changes in one area won't break another.</div><div>Solid reduces tight coupling, making code more flexible and easier to maintain.</div>"
+  },
+  {
+    "id": 13,
+    "title": "Micros",
+    "content": "Microservices: each service can be developed, deployed and scaled separately.<div>In monolith we have single unit of deployment.</div>"
+  },
+  {
+    "id": 14,
+    "title": "Docker",
+    "content": "Dockerfile is a script that uses the Docker platform to generate containers automatically."
+  },
+  {
+    "title": "Kubernetes",
+    "content": "",
+    "id": 15
+  },
+  {
+    "id": 16,
+    "title": "Algorithms",
+    "content": "Storing result of recursion is called memoization."
+  },
+  {
+    "id": 17,
+    "title": "Java",
+    "content": "Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type.<div>Advantages of generic programming: compile-time type safety, avoids class cast exceptions and eliminate the need for most type conversions.</div><div><br></div>"
+  },
+  {
+    "id": 18,
+    "title": "Acid",
+    "content": "These four properties define the reliability and integrity of database transactions.<div>They ensure that transactions are processed reliably and that the database remains in a consistent state, even in the face of system failures.<div>Transactions are treated as a single, indivisible unit of work. </div><div>Either all operations within a transaction are completed successfully, or none of them are. </div><div>If any part of the transaction fails, the entire transaction is rolled back to its previous state, preventing partial updates. </div><div>A transaction must bring the database from one valid state to another. <br></div><div>This means that any transaction must respect all defined constraints, rules, and restrictions of the database.</div><div>Concurrent transactions should not interfere with each other.<br></div><div>Each transaction should be isolated from others, as if they were running sequentially.</div><div>This prevents issues like dirty reads (reading uncommitted data) or lost updates.</div><div>Once a transaction is committed, its changes are permanent and survive system failures. <br></div><div>The database must guarantee that the data will be written to persistent storage and will not be lost due to power outages or other crashes.</div></div>"
+  },
+  {
+    "id": 19,
+    "title": "CS",
+    "content": "Heap is a region of free memory that is allocated and deallocated at run time by the program."
+  }
+]
