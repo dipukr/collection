@@ -1,0 +1,38 @@
+record Person(name, age, sal)
+	var name = name
+	var age = age
+	var sal = sal
+end
+
+record BufferedWriter()
+	var fileWriter = FileWriter("hello")
+
+end
+
+ListFiles(root)
+	val files = root.listFiles()
+	if files == null logger("files is null")
+	foreach elem of files logger("hello")
+	while x == 100 do
+
+	end
+	foreach i of 0...N do
+
+	end
+	foreach elem of files do
+
+	end
+end
+
+
+Scanner(charStream)
+	
+end
+
+
+
+main(args)
+	logger("hello.world")
+	if x == 100 logger("hello")
+
+end

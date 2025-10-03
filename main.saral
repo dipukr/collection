@@ -43,6 +43,12 @@ class Person(String name, int age, int sal) {
 }
 
 class Person {
+    String name;
+    int age;
+    int sal;
+}
+
+class Person {
     mut String name;
     mut int age;
     mut int sal;
@@ -124,4 +130,33 @@ void main(String[] args) {
 	}
     foreach (val elem: data)
         logger(elem);
+}
+
+
+class TCPServer {
+    
+    pvt ServerSocket socket;
+    pvt int port;
+
+    pub This(Server server, int port) {
+        this.server = server;
+        this.port = port;
+    }
+
+    pub This operator+=(This other) {
+
+    }
+
+    # Starts the Server
+    # 
+    #
+    #
+    void start() {
+        try {
+            this.socket = new ServerSocket(100);
+
+        } catch (ConnectionFailed e) {
+            logger(e);
+        }
+    }
 }
