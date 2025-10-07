@@ -1,25 +1,37 @@
 #include <iostream>
-#include <coll>
+#define logger(a) std::cout << a << std::endl
 
-void Subsets(List<List<int>> &subsets, List<int> &subset, List<int> &data, int i)
-{
-	if (i == data.size()) {
-		List<int> list(subset);
-		subsets.add(list);
-		return;
+struct Address {
+	Address() {
+		logger("Address created");
 	}
-	subset.addLast(data[i]);
-	Subsets(subsets, subset, data, i + 1);
-	subset.removeLast();
-	Subsets(subsets, subset, data, i + 1);
+	~Address() {
+		logger("Address destroyed");
+	}
+};
+
+struct User {
+	Address addr;
+	User() {
+		logger("User created");
+	}
+	~User() {
+		logger("User destroyed");
+	}
+};
+
+User getUser() {
+	User u;
+	return u;
 }
 
-int main(int argc, const char **argv)
-{ 
-	List<int> list{1,2,3,4};
-	List<List<int>> subsets;
-	List<int> subset;
-	Subsets(subsets, subset, list, 0);
-	cout << subsets << endl;
-	cout << String::format("hello%d%s\n", 10, "world").cstr();
+
+void log(uint a) {
+	logger(a);
+}
+
+
+int main(int argc, const char **argv) { 
+	log(-100);
+	return EXIT_SUCCESS;
 }
