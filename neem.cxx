@@ -362,6 +362,777 @@ bool File::exists() const {
 	return (stat(path.getPath().cstr(), &st) == 0);
 }
 
+enum Data {NIL, BIN, INT, FLT, STR, ARR, OBJ, FUN, CLS, THG};
+
+struct Thing;
+struct Array;
+struct Class;
+struct Object;
+struct Function;
+
+struct Value
+{
+	static Value null;
+	static Value zero;
+	static Value one;
+	static Value two;
+	static Value three;
+	static Value four;
+	static Value five;
+	static Value one_0;
+	static Value two_0;
+	static Value three_0;
+	static Value four_0;
+	static Value five_0;
+	static Value true1;
+	static Value false0;
+
+	uint16_t type;
+	union {
+	bool bin;
+	long i64;
+	double f64;
+	long data;
+	Thing *thg;
+	String *st;
+	Array* arr;
+	Class *cls;
+	Object *obj;
+	Function *fun;
+	};
+
+	Value() 		   : type(Data::NIL) {data = 0;}
+	Value(bool v)      : type(Data::BIN) {data = 0; bin = v;}
+	Value(long v)      : type(Data::INT) {data = 0; i64 = v;}
+	Value(double v)    : type(Data::FLT) {data = 0; f64 = v;}
+	Value(Thing* v)    : type(Data::THG) {data = 0; thg = v;}
+	Value(String* v)   : type(Data::STR) {data = 0; st  = v;}
+	Value(Array* v)    : type(Data::ARR) {data = 0; arr = v;}
+	Value(Class* v)    : type(Data::CLS) {data = 0; cls = v;}
+	Value(Object* v)   : type(Data::OBJ) {data = 0; obj = v;}
+	Value(Function* v) : type(Data::FUN) {data = 0; fun = v;}
+};
+
+bool operator==(const Value &lhs, const Value &rhs);
+bool operator>(const Value &lhs, const Value &rhs);
+bool operator<(const Value &lhs, const Value &rhs);
+
+typedef void (native)(uint argc, Value *argv, Value &retval);
+
+Value Value::null = Value();
+Value Value::zero = Value(long(0));
+Value Value::one = Value(long(1));
+Value Value::two = Value(long(2));
+Value Value::three = Value(long(3));
+Value Value::four = Value(long(4));
+Value Value::five = Value(long(5));
+Value Value::one_0 = Value(double(0.0));
+Value Value::two_0 = Value(double(0.0));
+Value Value::three_0 = Value(double(0.0));
+Value Value::four_0 = Value(double(0.0));
+Value Value::five_0 = Value(double(0.0));
+Value Value::true1 = Value(true);
+Value Value::false0 = Value(false);
+
+bool operator==(const Value &lhs, const Value &rhs)
+{
+	if (lhs.type != rhs.type) return false;
+	if (lhs.data == rhs.data) return true;
+	if (lhs.type == Data::STR) return (*lhs.st) == (*rhs.st);
+	return false;
+}
+
+bool operator<(const Value &lhs, const Value &rhs)
+{
+	if (lhs.type != rhs.type) return false;
+	switch (lhs.type) {
+	case Data::INT: return lhs.i64 < rhs.i64;
+	case Data::FLT: return lhs.f64 < rhs.f64;
+	case Data::STR: return *lhs.st < *rhs.st;
+	case Data::ARR: return lhs.arr < rhs.arr;
+	case Data::OBJ: return lhs.obj < rhs.obj;
+	default: return false;
+	}
+}
+
+bool operator>(const Value &lhs, const Value &rhs)
+{
+	if (lhs.type != rhs.type) return false;
+	switch (lhs.type) {
+	case Data::INT: return lhs.i64 > rhs.i64;
+	case Data::FLT: return lhs.f64 > rhs.f64;
+	case Data::STR: return *lhs.st > *rhs.st;
+	case Data::ARR: return lhs.arr > rhs.arr;
+	case Data::OBJ: return lhs.obj > rhs.obj;	
+	default: return false;
+	}
+}
+
+struct ExpressionVisitor;
+
+struct Expression {
+	uint pos;
+	Expression(uint pos) : pos(pos) {}
+	virtual void accept(ExpressionVisitor *visitor) = 0;
+};
+
+class Literal: public Expression
+{
+	Value m_value;
+public:
+	Literal(Value value, uint pos);
+	Value value() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Identifier: public Expression
+{
+	String m_name;
+public:
+	Identifier(String name, uint pos);
+	String name() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Negation: public Expression
+{
+	Expression *m_expression;
+public:
+	Negation(Expression *expression, uint pos);
+	Expression* expression() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Addition: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Addition(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Subtract: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Subtract(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Multiply: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Multiply(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Division: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Division(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Modulus: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Modulus(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class ShiftLeft: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	ShiftLeft(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class ShiftRight: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	ShiftRight(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class BitwiseOR: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	BitwiseOR(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class BitwiseAND: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	BitwiseAND(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class BitwiseXOR: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	BitwiseXOR(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class BitwiseNOT: public Expression
+{
+	Expression *m_expression;
+public:
+	BitwiseNOT(Expression *expression, uint pos);
+	Expression* expression() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Equal: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Equal(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class NotEqual: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	NotEqual(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class LessThan: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	LessThan(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class LessEqual: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	LessEqual(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class GreaterThan: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	GreaterThan(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class GreaterEqual: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	GreaterEqual(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class LogicalOR: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	LogicalOR(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class LogicalAND: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	LogicalAND(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class LogicalNOT: public Expression
+{
+	Expression *m_expression;
+public:
+	LogicalNOT(Expression *expression, uint pos);
+	Expression* expression() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Conditional: public Expression
+{
+	Expression *m_condition;
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Conditional(Expression *condition, Expression *left, Expression *right, uint pos);
+	Expression* condition() const;
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Subscript: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Subscript(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Dot: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Dot(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Call: public Expression
+{
+	Expression *m_caller;
+	List<Expression*> *m_arguments;
+public:
+	Call(Expression *caller, List<Expression*> *arguments, uint pos);
+	Expression* caller() const;
+	List<Expression*>* arguments() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class AddAssign: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	AddAssign(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class SubAssign: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	SubAssign(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+class Assignment: public Expression
+{
+	Expression *m_left;
+	Expression *m_right;
+public:
+	Assignment(Expression *left, Expression *right, uint pos);
+	Expression* left() const;
+	Expression* right() const;
+	void accept(ExpressionVisitor *visitor);
+};
+
+struct ExpressionVisitor {
+	virtual void visit(Literal *expression) = 0;
+	virtual void visit(Identifier *expression) = 0;
+	virtual void visit(Negation *expression) = 0;
+	virtual void visit(Addition *expression) = 0;
+	virtual void visit(Subtract *expression) = 0;
+	virtual void visit(Multiply *expression) = 0;
+	virtual void visit(Division *expression) = 0;
+	virtual void visit(Modulus *expression) = 0;
+	virtual void visit(ShiftLeft *expression) = 0;
+	virtual void visit(ShiftRight *expression) = 0;
+	virtual void visit(BitwiseOR *expression) = 0;
+	virtual void visit(BitwiseAND *expression) = 0;
+	virtual void visit(BitwiseXOR *expression) = 0;
+	virtual void visit(BitwiseNOT *expression) = 0;
+	virtual void visit(Equal *expression) = 0;
+	virtual void visit(NotEqual *expression) = 0;
+	virtual void visit(LessThan *expression) = 0;
+	virtual void visit(LessEqual *expression) = 0;
+	virtual void visit(GreaterThan *expression) = 0;
+	virtual void visit(GreaterEqual *expression) = 0;
+	virtual void visit(LogicalOR *expression) = 0;
+	virtual void visit(LogicalAND *expression) = 0;
+	virtual void visit(LogicalNOT *expression) = 0;
+	virtual void visit(Conditional *expression) = 0;
+	virtual void visit(Subscript *expression) = 0;
+	virtual void visit(Dot *expression) = 0;
+	virtual void visit(Call *expression) = 0;
+	virtual void visit(AddAssign *expression) = 0;
+	virtual void visit(SubAssign *expression) = 0;
+	virtual void visit(Assignment *expression) = 0;
+};
+
+Literal::Literal(Value value, uint pos) : m_value(value), Expression(pos) {}
+Identifier::Identifier(String name, uint pos) : m_name(name), Expression(pos) {}
+Negation::Negation(Expression *expression, uint pos) : m_expression(expression), Expression(pos) {}
+Addition::Addition(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+Subtract::Subtract(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+Multiply::Multiply(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+Division::Division(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+Modulus::Modulus(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+ShiftLeft::ShiftLeft(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+ShiftRight::ShiftRight(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+BitwiseOR::BitwiseOR(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+BitwiseAND::BitwiseAND(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+BitwiseXOR::BitwiseXOR(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+BitwiseNOT::BitwiseNOT(Expression *expression, uint pos) : m_expression(expression), Expression(pos) {}
+Equal::Equal(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+NotEqual::NotEqual(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+LessThan::LessThan(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+LessEqual::LessEqual(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+GreaterThan::GreaterThan(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+GreaterEqual::GreaterEqual(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+LogicalOR::LogicalOR(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+LogicalAND::LogicalAND(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+LogicalNOT::LogicalNOT(Expression *expression, uint pos) : m_expression(expression), Expression(pos) {}
+Conditional::Conditional(Expression *condition, Expression *left, Expression *right, uint pos) : m_condition(condition), m_left(left), m_right(right), Expression(pos) {}
+Subscript::Subscript(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+Dot::Dot(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+Call::Call(Expression *caller, List<Expression*> *arguments, uint pos) : m_caller(caller), m_arguments(arguments), Expression(pos) {}
+AddAssign::AddAssign(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+SubAssign::SubAssign(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+Assignment::Assignment(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+
+Value Literal::value() const {return m_value;}
+String Identifier::name() const {return m_name;}
+Expression* Negation::expression() const {return m_expression;}
+Expression* Addition::left() const {return m_left;}
+Expression* Addition::right() const {return m_right;}
+Expression* Subtract::left() const {return m_left;}
+Expression* Subtract::right() const {return m_right;}
+Expression* Multiply::left() const {return m_left;}
+Expression* Multiply::right() const {return m_right;}
+Expression* Division::left() const {return m_left;}
+Expression* Division::right() const {return m_right;}
+Expression* Modulus::left() const {return m_left;}
+Expression* Modulus::right() const {return m_right;}
+Expression* ShiftLeft::left() const {return m_left;}
+Expression* ShiftLeft::right() const {return m_right;}
+Expression* ShiftRight::left() const {return m_left;}
+Expression* ShiftRight::right() const {return m_right;}
+Expression* BitwiseOR::left() const {return m_left;}
+Expression* BitwiseOR::right() const {return m_right;}
+Expression* BitwiseAND::left() const {return m_left;}
+Expression* BitwiseAND::right() const {return m_right;}
+Expression* BitwiseXOR::left() const {return m_left;}
+Expression* BitwiseXOR::right() const {return m_right;}
+Expression* BitwiseNOT::expression() const {return m_expression;}
+Expression* Equal::left() const {return m_left;}
+Expression* Equal::right() const {return m_right;}
+Expression* NotEqual::left() const {return m_left;}
+Expression* NotEqual::right() const {return m_right;}
+Expression* LessThan::left() const {return m_left;}
+Expression* LessThan::right() const {return m_right;}
+Expression* LessEqual::left() const {return m_left;}
+Expression* LessEqual::right() const {return m_right;}
+Expression* GreaterThan::left() const {return m_left;}
+Expression* GreaterThan::right() const {return m_right;}
+Expression* GreaterEqual::left() const {return m_left;}
+Expression* GreaterEqual::right() const {return m_right;}
+Expression* LogicalOR::left() const {return m_left;}
+Expression* LogicalOR::right() const {return m_right;}
+Expression* LogicalAND::left() const {return m_left;}
+Expression* LogicalAND::right() const {return m_right;}
+Expression* LogicalNOT::expression() const {return m_expression;}
+Expression* Conditional::condition() const {return m_condition;}
+Expression* Conditional::left() const {return m_left;}
+Expression* Conditional::right() const {return m_right;}
+Expression* Subscript::left() const {return m_left;}
+Expression* Subscript::right() const {return m_right;}
+Expression* Dot::left() const {return m_left;}
+Expression* Dot::right() const {return m_right;}
+Expression* Call::caller() const {return m_caller;}
+List<Expression*>* Call::arguments() const {return m_arguments;}
+Expression* AddAssign::left() const {return m_left;}
+Expression* AddAssign::right() const {return m_right;}
+Expression* SubAssign::left() const {return m_left;}
+Expression* SubAssign::right() const {return m_right;}
+Expression* Assignment::left() const {return m_left;}
+Expression* Assignment::right() const {return m_right;}
+
+void Literal::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Identifier::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Negation::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Addition::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Subtract::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Multiply::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Division::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Modulus::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void ShiftLeft::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void ShiftRight::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void BitwiseOR::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void BitwiseAND::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void BitwiseXOR::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void BitwiseNOT::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Equal::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void NotEqual::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void LessThan::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void LessEqual::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void GreaterThan::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void GreaterEqual::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void LogicalOR::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void LogicalAND::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void LogicalNOT::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Conditional::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Subscript::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Dot::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Call::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void AddAssign::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void SubAssign::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+void Assignment::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
+
+struct StatementVisitor;
+
+struct Statement {
+	uint pos;
+	Statement(uint pos) : pos(pos) {}
+	virtual void accept(StatementVisitor *visitor) = 0;
+};
+
+class ClassStatement: public Statement
+{
+	List<Statement*> *m_variables;
+	List<Statement*> *m_functions;
+public:
+	ClassStatement(List<Statement*> *variables, List<Statement*> *functions, uint pos);
+	List<Statement*>* variables() const;
+	List<Statement*>* functions() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class FunctionStatement: public Statement
+{
+	String m_name;
+	List<String> *m_params;
+	List<Statement*> *m_statements;
+public:
+	FunctionStatement(String name, List<String> *params, List<Statement*> *statements, uint pos);
+	String name() const;
+	List<String>* params() const;
+	List<Statement*>* statements() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class BlockStatement: public Statement
+{
+	List<Statement*> *m_statements;
+public:
+	BlockStatement(List<Statement*> *statements, uint pos);
+	List<Statement*>* statements() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class VarStatement: public Statement
+{
+	String m_name;
+	Expression *m_value;
+public:
+	VarStatement(String name, Expression *value, uint pos);
+	String name() const;
+	Expression* value() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class ValStatement: public Statement
+{
+	String m_name;
+	Expression *m_value;
+public:
+	ValStatement(String name, Expression *value, uint pos);
+	String name() const;
+	Expression* value() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class IfStatement: public Statement
+{
+	Expression *m_condition;
+	Statement *m_statement0;
+	Statement *m_statement1;
+public:
+	IfStatement(Expression *condition, Statement *statement0, Statement *statement1, uint pos);
+	Expression* condition() const;
+	Statement* statement0() const;
+	Statement* statement1() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class WhileStatement: public Statement
+{
+	Expression *m_condition;
+	Statement *m_statement;
+public:
+	WhileStatement(Expression *condition, Statement *statement, uint pos);
+	Expression* condition() const;
+	Statement* statement() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class ForeachStatement: public Statement
+{
+	String m_name;
+	String m_target;
+public:
+	ForeachStatement(String name, String target, uint pos);
+	String name() const;
+	String target() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class BreakStatement: public Statement
+{
+public:
+	BreakStatement(uint pos);
+	uint pos() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class ReturnStatement: public Statement
+{
+	Expression *m_value;
+public:
+	ReturnStatement(Expression *value, uint pos);
+	Expression* value() const;
+	void accept(StatementVisitor *visitor);
+};
+
+class ExpressionStatement: public Statement
+{
+	Expression *m_expression;
+public:
+	ExpressionStatement(Expression *expression, uint pos);
+	Expression* expression() const;
+	void accept(StatementVisitor *visitor);
+};
+
+struct StatementVisitor {
+	virtual void visit(ClassStatement *statement) = 0;
+	virtual void visit(FunctionStatement *statement) = 0;
+	virtual void visit(BlockStatement *statement) = 0;
+	virtual void visit(VarStatement *statement) = 0;
+	virtual void visit(ValStatement *statement) = 0;
+	virtual void visit(IfStatement *statement) = 0;
+	virtual void visit(WhileStatement *statement) = 0;
+	virtual void visit(ForeachStatement *statement) = 0;
+	virtual void visit(BreakStatement *statement) = 0;
+	virtual void visit(ReturnStatement *statement) = 0;
+	virtual void visit(ExpressionStatement *statement) = 0;
+};
+
+ClassStatement::ClassStatement(List<Statement*> *variables, List<Statement*> *functions, uint pos) : m_variables(variables), m_functions(functions), Statement(pos) {}
+FunctionStatement::FunctionStatement(String name, List<String> *params, List<Statement*> *statements, uint pos) : m_name(name), m_params(params), m_statements(statements), Statement(pos) {}
+BlockStatement::BlockStatement(List<Statement*> *statements, uint pos) : m_statements(statements), Statement(pos) {}
+VarStatement::VarStatement(String name, Expression *value, uint pos) : m_name(name), m_value(value), Statement(pos) {}
+ValStatement::ValStatement(String name, Expression *value, uint pos) : m_name(name), m_value(value), Statement(pos) {}
+IfStatement::IfStatement(Expression *condition, Statement *statement0, Statement *statement1, uint pos) : m_condition(condition), m_statement0(statement0), m_statement1(statement1), Statement(pos) {}
+WhileStatement::WhileStatement(Expression *condition, Statement *statement, uint pos) : m_condition(condition), m_statement(statement), Statement(pos) {}
+ForeachStatement::ForeachStatement(String name, String target, uint pos) : m_name(name), m_target(target), Statement(pos) {}
+BreakStatement::BreakStatement(uint pos) : Statement(pos) {}
+ReturnStatement::ReturnStatement(Expression *value, uint pos) : m_value(value), Statement(pos) {}
+ExpressionStatement::ExpressionStatement(Expression *expression, uint pos) : m_expression(expression), Statement(pos) {}
+
+List<Statement*>* ClassStatement::variables() const {return m_variables;}
+List<Statement*>* ClassStatement::functions() const {return m_functions;}
+String FunctionStatement::name() const {return m_name;}
+List<String>* FunctionStatement::params() const {return m_params;}
+List<Statement*>* FunctionStatement::statements() const {return m_statements;}
+List<Statement*>* BlockStatement::statements() const {return m_statements;}
+String VarStatement::name() const {return m_name;}
+Expression* VarStatement::value() const {return m_value;}
+String ValStatement::name() const {return m_name;}
+Expression* ValStatement::value() const {return m_value;}
+Expression* IfStatement::condition() const {return m_condition;}
+Statement* IfStatement::statement0() const {return m_statement0;}
+Statement* IfStatement::statement1() const {return m_statement1;}
+Expression* WhileStatement::condition() const {return m_condition;}
+Statement* WhileStatement::statement() const {return m_statement;}
+String ForeachStatement::name() const {return m_name;}
+String ForeachStatement::target() const {return m_target;}
+Expression* ReturnStatement::value() const {return m_value;}
+Expression* ExpressionStatement::expression() const {return m_expression;}
+
+void ClassStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void FunctionStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void BlockStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void VarStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void ValStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void IfStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void WhileStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void ForeachStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void BreakStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void ReturnStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void ExpressionStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+
+
 
 int main(int argc, const char **argv)
 {
