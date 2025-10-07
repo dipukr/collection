@@ -1,3 +1,11 @@
+import java.io.File;
+
+void log(int i) {
+	System.out.println(i);
+}
+
 void main(String[] args) {
-		System.out.println("hello");
+	File file = new File("file");
+	System.out.println(file);
+	log(200);
 }

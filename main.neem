@@ -17,18 +17,12 @@ record BufferedWriter()
 
 end
 
-ListFiles(root)
-	val files = root.listFiles()
-	if files == null logger("files is null")
-	foreach elem of files logger("hello")
+listFiles(root) do
+	val files = root.listFiles();
+	if files == null logger("files is null");
+	foreach elem of files logger("hello");
 	while x == 100 do
-
-	end
-	foreach i of 0...N do
-
-	end
-	foreach elem of files do
-
+		
 	end
 end
 
@@ -37,10 +31,107 @@ Scanner(charStream)
 	
 end
 
+class Circle(x, y, r) {
+
+	function(x, y, r) {
+		this.x = x;
+	}
+
+	var x = x;
+	var y = x;
+	var r = r;
+}
+
+class BufferedReader {
+	val reader = FileReader::new(100, 2000);
+	val engine = Engine::new(10, 200);
 
 
-main(args)
-	logger("hello.world")
-	if x == 100 logger("hello")
 
-end
+	ReadAllData() {
+
+	}	
+}
+
+val fileName = String("fileName");
+FileWriter writer(fileName);
+
+class FileWriter {
+	var fileName;
+
+	FileWriter(fileName) {
+		this.fileName = fileName;
+	}
+
+
+
+
+	function add(lllll)
+}
+
+class Person {
+	var name;
+	var age;
+	var sal;
+
+	Person(name, age, sal) {
+		this.name = name;
+		this.age = age;
+		this.sal = sal;
+	}
+
+	save(database) {
+
+	}
+}
+
+class Person(name, age, sal) {
+	var name = name;
+	var age = age;
+	var sal = sal;
+}
+
+class Queue {
+	var list = List::new();
+
+	enqueue() {
+
+	}
+
+	
+	empty() {return list.empty();}
+	size() {return list.size();}
+}
+
+class Server(port) {
+	
+	var port = port;
+
+	start() {
+
+	}
+}
+
+
+class Circle {
+	var x;
+	var y;
+	var r;
+	
+	Circle(x, y, r) {
+		this.x = x;
+		this.y = y;
+		this.r = r;
+	}
+}
+
+
+
+fun main(args) {
+	val circle = Circle::builder().x(10).y(20).r(20);
+
+	var server = Server::builder().port(100);
+
+	circle.draw();
+}
+
