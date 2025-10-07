@@ -1,3 +1,11 @@
+class Person(name, age, sal)
+	var name = name
+	var age = age
+	var sal = sal
+
+
+
+
 record Person(name, age, sal)
 	var name = name
 	var age = age
