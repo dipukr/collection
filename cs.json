@@ -148,5 +148,15 @@
     "id": 196,
     "title": "SAGA",
     "content": "The saga pattern is a design pattern used in microservices architecture to manage distributed transactions. It allows for a sequence of local transactions across multiple services, ensuring data consistency even when individual services might fail. It achieves this by defining a series of compensating transactions that can be executed to undo previous operations if a failure occurs. There are two main ways to implement a saga: Choreography vs. Orchestration.<div><br><div>Choreography: Services react to events published by other services, deciding whether to perform their local transaction or a compensating transaction based on the event. </div><div>Orchestration: A central coordinator service manages the saga, instructing each service when to perform its local or compensating transaction. </div><div><br></div><div>Compensating transactions: for each local transaction, a corresponding compensating transaction is defined. If a transaction fails, the saga executes these compensating transactions in reverse order to undo the changes made by the successful transactions. </div><div><br></div><div>Events-messages: Saga pattern relies on asynchronous communication (e.g., message queues) to trigger subsequent transactions and compensating actions, ensuring loose coupling between services. </div></div>"
+  },
+  {
+    "id": 198,
+    "title": "Synchronization",
+    "content": "Thread synchronization is a mechanism which ensures that two or more concurrent processes or threads do not simultaneously execute some particular program segment known as critical section. Processes' access to critical section is controlled by using synchronization techniques. When one thread starts executing the critical section (serialized segment of the program) the other thread should wait until the first thread finishes.<div><br></div>"
+  },
+  {
+    "title": null,
+    "content": "",
+    "id": 199
   }
 ]
