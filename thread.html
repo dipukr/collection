@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>System Design</title>
+	<style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: whitesmoke;
+        margin-top: 20px;
+        width: 64%;
+        padding-left: 3%;
+        padding-right: 3%;
+        min-height: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        padding-top: 40px;
+        background-color: white;
+        box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding-bottom: 100px;
+      }
+      table {
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        width: 100%;
+        word-spacing: -1px;
+        font-family: "DejaVu Serif";
+        text-align: justify;
+        text-justify: inter-word;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 4px;
+        color: #555555;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
+      table thead tr {
+        border-bottom: 4px solid #009879;
+        border-left: 4px solid #009879;
+        border-right: 4px solid #009879;
+      }
+      table thead tr th {
+        background-color: #009879;
+        padding: 8px 20px;
+        color: #ffffff;
+        text-align: center;
+        font-weight: 600;
+        font-style: italic;
+        font-size: 22px;
+      }
+      table tbody tr {
+        border-bottom: 4px solid #009879;
+        border-left: 4px solid #009879;
+        border-right: 4px solid #009879;
+      }
+      table tbody tr td {
+        padding: 15px 25px;
+        font-weight: 500;
+        font-style: normal;
+        font-size: 22px;
+        background-color: #f8f8f8;
+      }
+      table tbody tr td ul {
+        padding-left: 40px;
+        padding-top: 2px;
+        padding-bottom: 5px;
+        list-style: square;
+        font-size: 22px;
+      }
+      pre {
+        background: #f8f8f8;
+        border: 3px solid #eeeeee;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: normal;
+        padding-top: 0px;
+        overflow: auto;
+        max-width: 99.2%;
+        font-family: "Consolas";
+        width: 100%;
+        word-spacing: -2px;
+        tab-size: 3;
+      }
+      em {
+        color: brown;
+      }
+    </style>
+</head>
+
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Distributed computing</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Distributed computing involves multiple computers working together over a network to solve a problem, acting as a single, powerful system. It's a divide-and-conquer approach where tasks are broken down and processed concurrently on different nodes (computers), then the results are combined. This allows for greater scalability, performance, and resilience compared to using a single, centralized computer. 
+					The components of a distributed system communicate and coordinate their actions by passing messages to one another in order to achieve a common goal. Three significant challenges of distributed systems are: maintaining concurrency of components, overcoming the lack of a global clock, and managing the independent failure of components. When a component of one system fails, the entire system does not fail. Examples of distributed systems vary from SOA-based systems to microservices to massively multiplayer online games to peer-to-peer applications. Distributed systems cost significantly more than monolithic architectures, primarily due to increased needs for additional hardware, servers, gateways, firewalls, new subnets, proxies, and so on. There are many different types of implementations for the message passing mechanism, including pure HTTP, RPC-like connectors and message queues.
+				</td>
+			</tr>
+		</tbody>
+	</table>	
+	<table>
+		<thead>
+			<tr>
+				<th>Cache</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Caching is a techniques of storing frequently accessed data in a temporary storage location to improve the system performance.
+					Caching helps to reduce the time and resources required to fetch the data from the original source by serving it quicky from the cache.
+					Caching is a technique that allows frequently accessed data to be stored in memory so that it can be quickly retrieved without having to go back to the database every time. Cache reduces latency and load on the database.
+					Web browser caches web pages to load them faster on subsequent visits.
+					Database server caches frequently accessed query results to avoid expensive database queries. <br> <br>
+					<em>Cacheable data:</em> data that does not changes at all are the best candidate for caching and data that does not frequently changes can also be cached for certain period to time.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Connection pooling</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Connection pooling means that connections are reused rather than created each time a connection is requested. A connection pool is cache of database connections maintained so that connections can be reused when future requests to the database is required. <br> <br>
+					Sequence of steps involved in a typical database connection life cycle:
+					<ul>
+						<li>Opening a connection to the database using the database driver</li>
+						<li>Opening a TCP socket for reading-writing data</li>
+						<li>The user is authenticated</li>
+						<li>Reading-writing data over the socket</li>
+						<li>Close the connection</li>
+						<li>Close the socket</li>
+					</ul>					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Consistent hashing</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Consistent hashing is a distributed hashing algorithm designed to address the problem of data redistribution when nodes are added or removed. With traditional hashing algorithms adding or removing node often result in alot of data needing to be distributed which can lead to system instability and performance degradation.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Session and Cookies</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Cookie data is stored on the client’s computer.
+					Cookies can be set to expire after a specific time period or when the browser is closed.
+					In some cases, it is essential that all requests from a client are sent to the same server for the duration of a session, for example when a client is putting items in a shopping cart and then completing the purchase. Maintaining the connection between client and server is known as session persistence. Without session persistence, data has to be synchronized across servers and potentially fetched multiple times, creating performance inefficiencies. Session data is stored on the server.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>TCP</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					TCP is a low-level network protocol used by most Internet protocols including HTTP and FTP for data transfer.
+					TCP is a reliable, stream-oriented, connection-oriented transport protocol .
+					TCP is well suited for the continuous transmission of data.
+					TCP is a reliable connection and stream-oriented protocol: any amount of data can be sent and received.
+					TCP socket is responsible for breaking the data into chunks that are small enough to send and for reconstructing the data at the other end.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>System Design</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					System design is the process of defining the architecture, components, interfaces, and data of a system to meet specific requirements. It's a blueprint that guides the development and implementation of a system, ensuring it's functional, scalable, reliable, and maintainable. System design is a crucial process that ensures a system is well-structured, efficient, and can meet the evolving needs of its users. Key concepts include load balancing, caching, database sharding and understanding the CAP theorem. Core concepts in system design are following:
+
+					HLD: Outlines the overall architecture and structure of the system, including major components and their interactions. 
+					LLD: Focuses on the detailed design of individual components, incl. data structures, algorithms, and specific implementation details. 
+					Scalability: The ability of a system to handle increasing amounts of work or data. 
+					Load Balancing: Distributing network traffic across multiple servers to prevent any single server from becoming overwhelmed. 
+					Caching: Storing frequently accessed data in a faster storage location (cache) to reduce access time. 
+					Database Sharding: Dividing a large database into smaller, more manageable parts (shards) to improve performance and scalability. 
+					Replication: Creating multiple copies of data on different servers to ensure data availability and fault tolerance. 
+					CAP Theorem: A fundamental theorem in distributed systems that states it's impossible to have consistency, availability, and partition tolerance simultaneously. 
+
+					Microservices: A design approach where a system is built as a collection of small, independent services that communicate with each other. 
+					API Gateway: A server that acts as a single entry point for clients to access multiple microservices. 
+					Message Queues: A system that enables asynchronous communication between different parts of a system. 
+					Event-Driven Architecture: A system design paradigm where components react to events rather than relying on synchronous request-response patterns. 
+
+					Communication Protocols: Standardized rules and formats for data exchange between different parts of a system. 
+					DB Design: Choosing the right DB (SQL or NoSQL) and designing its schema to meet the system's data storage and retrieval needs. 
+					Software Design Patterns: Reusable solutions to common design problems that can be applied during system design. 
+					Modularity and Abstraction: Breaking down a system into smaller, independent modules and hiding complex implementation details.
+
+					Latency measured in milliseconds (ms) represents the time taken for a single query to execute.
+					Throughput measured in operations per second or transactions per second represents the volume of data processed per unit time.
+					Latency focuses on the speed of individual operations while throughput focuses on the volume of operations that can be handled per unit time.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>SAGA</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					The saga pattern is a design pattern used in microservices architecture to manage distributed transactions. It allows for a sequence of local transactions across multiple services, ensuring data consistency even when individual services might fail. It achieves this by defining a series of compensating transactions that can be executed to undo previous operations if a failure occurs. There are two main ways to implement a saga: choreography and orchestration.
+
+					Choreography: services react to events published by other services, deciding whether to perform their local transaction or a compensating transaction based on the event.
+					Orchestration: a central coordinator service manages the saga, instructing each service when to perform its local or compensating transaction. 
+
+					Compensating transactions: for each local transaction, a corresponding compensating transaction is defined. If a transaction fails, the saga executes these compensating transactions in reverse order to undo the changes made by the successful transactions. 
+
+					Events-messages: Saga pattern relies on asynchronous communication (e.g., message queues) to trigger subsequent transactions and compensating actions, ensuring loose coupling between services. 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Sharding</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Sharding is the process of dividing a database table (dataset) into smaller, more manageable pieces called shards, which are distributed across multiple machines or nodes. Sharding usually refers to splitting one large table’s data horizontally (row-wise) across multiple databases or servers. Each shard contains a subset of rows of the table. All shards have the same schema, just different data.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Load balancer</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Load balancing is the method of distributing network traffic equally across a pool of resources that support an application. Modern applications must process millions of users simultaneously and return the correct text, videos, images, and other data to each user in a fast and reliable manner. To handle such high volumes of traffic, most applications have many resource servers with duplicate data between them. A load balancer is a device that sits between the user and the server group and acts as an invisible facilitator, ensuring that all resource servers are used equally. Companies usually have their application running on multiple servers. Such a server arrangement is called a server farm. User requests to the application first go to the load balancer. The load balancer then routes each request to a single server in the server farm best suited to handle the request. Benefits of load balancer: load balancer improves an application’s availability, scalability, security and performance. <br><br>
+					<em>Application availability:</em> Server failure or maintenance can increase application downtime, making your application unavailable to visitors. Load balancers increase the fault tolerance of your systems by automatically detecting server problems and redirecting client traffic to available servers. You can use load balancing to make these tasks easier:
+					Run application server maintenance or upgrades without application downtime.
+					Provide automatic disaster recovery to backup sites.
+					Perform health checks and prevent issues that can cause downtime.<br><br>
+					<em>Application scalability:</em> We can use load balancers to direct network traffic intelligently among multiple servers. Our applications can handle thousands of client requests because load balancing does the following:
+					Prevents traffic bottlenecks at any one server.
+					Predicts application traffic so that you can add or remove different servers.
+					Adds redundancy to your system so that you can scale with confidence.<br><br>
+					<em>Application security:</em> Load balancers come with built-in security features to add another layer of security to your internet applications. They are a useful tool to deal with distributed denial of service attacks, in which attackers flood an application server with millions of concurrent requests that cause server failure. Load balancers can also do the following:
+					Monitor traffic and block malicious content.
+					Automatically redirect attack traffic to multiple backend servers to minimize impact.
+					Route traffic through a group of network firewalls for additional security.<br><br>
+					<em>Application performance:</em> Load balancers improve application performance by increasing response time and reducing network latency. They perform several critical tasks such as the following:
+					Distribute the load evenly between servers to improve application performance.
+					Redirect client requests to a geographically closer server to reduce latency.
+					Ensure the reliability and performance of physical and virtual computing resources.
+				</td>
+			</tr>
+		</tbody>
+	</table>		
+</body>
+</html>

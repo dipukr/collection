@@ -468,12 +468,12 @@ bool operator>(const Value &lhs, const Value &rhs)
 	}
 }
 
-struct ExpressionVisitor;
+struct Visitor;
 
 struct Expression {
 	uint pos;
 	Expression(uint pos) : pos(pos) {}
-	virtual void accept(ExpressionVisitor *visitor) = 0;
+	virtual void accept(Visitor *visitor) = 0;
 };
 
 class Literal: public Expression
@@ -482,7 +482,7 @@ class Literal: public Expression
 public:
 	Literal(Value value, uint pos);
 	Value value() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Identifier: public Expression
@@ -491,7 +491,7 @@ class Identifier: public Expression
 public:
 	Identifier(String name, uint pos);
 	String name() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Negation: public Expression
@@ -500,7 +500,7 @@ class Negation: public Expression
 public:
 	Negation(Expression *expression, uint pos);
 	Expression* expression() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Addition: public Expression
@@ -511,7 +511,7 @@ public:
 	Addition(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Subtract: public Expression
@@ -522,7 +522,7 @@ public:
 	Subtract(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Multiply: public Expression
@@ -533,7 +533,7 @@ public:
 	Multiply(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Division: public Expression
@@ -544,7 +544,7 @@ public:
 	Division(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Modulus: public Expression
@@ -555,7 +555,7 @@ public:
 	Modulus(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class ShiftLeft: public Expression
@@ -566,7 +566,7 @@ public:
 	ShiftLeft(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class ShiftRight: public Expression
@@ -577,7 +577,7 @@ public:
 	ShiftRight(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class BitwiseOR: public Expression
@@ -588,7 +588,7 @@ public:
 	BitwiseOR(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class BitwiseAND: public Expression
@@ -599,7 +599,7 @@ public:
 	BitwiseAND(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class BitwiseXOR: public Expression
@@ -610,7 +610,7 @@ public:
 	BitwiseXOR(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class BitwiseNOT: public Expression
@@ -619,7 +619,7 @@ class BitwiseNOT: public Expression
 public:
 	BitwiseNOT(Expression *expression, uint pos);
 	Expression* expression() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Equal: public Expression
@@ -630,7 +630,7 @@ public:
 	Equal(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class NotEqual: public Expression
@@ -641,7 +641,7 @@ public:
 	NotEqual(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class LessThan: public Expression
@@ -652,7 +652,7 @@ public:
 	LessThan(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class LessEqual: public Expression
@@ -663,7 +663,7 @@ public:
 	LessEqual(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class GreaterThan: public Expression
@@ -674,7 +674,7 @@ public:
 	GreaterThan(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class GreaterEqual: public Expression
@@ -685,7 +685,7 @@ public:
 	GreaterEqual(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class LogicalOR: public Expression
@@ -696,7 +696,7 @@ public:
 	LogicalOR(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class LogicalAND: public Expression
@@ -707,7 +707,7 @@ public:
 	LogicalAND(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class LogicalNOT: public Expression
@@ -716,7 +716,7 @@ class LogicalNOT: public Expression
 public:
 	LogicalNOT(Expression *expression, uint pos);
 	Expression* expression() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Conditional: public Expression
@@ -729,7 +729,7 @@ public:
 	Expression* condition() const;
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Subscript: public Expression
@@ -740,7 +740,7 @@ public:
 	Subscript(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Dot: public Expression
@@ -751,7 +751,7 @@ public:
 	Dot(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Call: public Expression
@@ -762,7 +762,7 @@ public:
 	Call(Expression *caller, List<Expression*> *arguments, uint pos);
 	Expression* caller() const;
 	List<Expression*>* arguments() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class AddAssign: public Expression
@@ -773,7 +773,7 @@ public:
 	AddAssign(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class SubAssign: public Expression
@@ -784,7 +784,7 @@ public:
 	SubAssign(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
 class Assignment: public Expression
@@ -795,10 +795,131 @@ public:
 	Assignment(Expression *left, Expression *right, uint pos);
 	Expression* left() const;
 	Expression* right() const;
-	void accept(ExpressionVisitor *visitor);
+	void accept(Visitor *visitor);
 };
 
-struct ExpressionVisitor {
+struct Statement {
+	uint pos;
+	Statement(uint pos) : pos(pos) {}
+	virtual void accept(Visitor *visitor) = 0;
+};
+
+class ClassStatement: public Statement
+{
+	List<Statement*> *m_variables;
+	List<Statement*> *m_functions;
+public:
+	ClassStatement(List<Statement*> *variables, List<Statement*> *functions, uint pos);
+	List<Statement*>* variables() const;
+	List<Statement*>* functions() const;
+	void accept(Visitor *visitor);
+};
+
+class FunctionStatement: public Statement
+{
+	String m_name;
+	List<String> *m_params;
+	List<Statement*> *m_statements;
+public:
+	FunctionStatement(String name, List<String> *params, List<Statement*> *statements, uint pos);
+	String name() const;
+	List<String>* params() const;
+	List<Statement*>* statements() const;
+	void accept(Visitor *visitor);
+};
+
+class BlockStatement: public Statement
+{
+	List<Statement*> *m_statements;
+public:
+	BlockStatement(List<Statement*> *statements, uint pos);
+	List<Statement*>* statements() const;
+	void accept(Visitor *visitor);
+};
+
+class VarStatement: public Statement
+{
+	String m_name;
+	Expression *m_value;
+public:
+	VarStatement(String name, Expression *value, uint pos);
+	String name() const;
+	Expression* value() const;
+	void accept(Visitor *visitor);
+};
+
+class ValStatement: public Statement
+{
+	String m_name;
+	Expression *m_value;
+public:
+	ValStatement(String name, Expression *value, uint pos);
+	String name() const;
+	Expression* value() const;
+	void accept(Visitor *visitor);
+};
+
+class IfStatement: public Statement
+{
+	Expression *m_condition;
+	Statement *m_statement0;
+	Statement *m_statement1;
+public:
+	IfStatement(Expression *condition, Statement *statement0, Statement *statement1, uint pos);
+	Expression* condition() const;
+	Statement* statement0() const;
+	Statement* statement1() const;
+	void accept(Visitor *visitor);
+};
+
+class WhileStatement: public Statement
+{
+	Expression *m_condition;
+	Statement *m_statement;
+public:
+	WhileStatement(Expression *condition, Statement *statement, uint pos);
+	Expression* condition() const;
+	Statement* statement() const;
+	void accept(Visitor *visitor);
+};
+
+class ForeachStatement: public Statement
+{
+	String m_name;
+	String m_target;
+public:
+	ForeachStatement(String name, String target, uint pos);
+	String name() const;
+	String target() const;
+	void accept(Visitor *visitor);
+};
+
+class BreakStatement: public Statement
+{
+public:
+	BreakStatement(uint pos);
+	void accept(Visitor *visitor);
+};
+
+class ReturnStatement: public Statement
+{
+	Expression *m_value;
+public:
+	ReturnStatement(Expression *value, uint pos);
+	Expression* value() const;
+	void accept(Visitor *visitor);
+};
+
+class ExpressionStatement: public Statement
+{
+	Expression *m_expression;
+public:
+	ExpressionStatement(Expression *expression, uint pos);
+	Expression* expression() const;
+	void accept(Visitor *visitor);
+};
+
+struct Visitor {
 	virtual void visit(Literal *expression) = 0;
 	virtual void visit(Identifier *expression) = 0;
 	virtual void visit(Negation *expression) = 0;
@@ -829,8 +950,18 @@ struct ExpressionVisitor {
 	virtual void visit(AddAssign *expression) = 0;
 	virtual void visit(SubAssign *expression) = 0;
 	virtual void visit(Assignment *expression) = 0;
+	virtual void visit(ClassStatement *statement) = 0;
+	virtual void visit(FunctionStatement *statement) = 0;
+	virtual void visit(BlockStatement *statement) = 0;
+	virtual void visit(VarStatement *statement) = 0;
+	virtual void visit(ValStatement *statement) = 0;
+	virtual void visit(IfStatement *statement) = 0;
+	virtual void visit(WhileStatement *statement) = 0;
+	virtual void visit(ForeachStatement *statement) = 0;
+	virtual void visit(BreakStatement *statement) = 0;
+	virtual void visit(ReturnStatement *statement) = 0;
+	virtual void visit(ExpressionStatement *statement) = 0;
 };
-
 Literal::Literal(Value value, uint pos) : m_value(value), Expression(pos) {}
 Identifier::Identifier(String name, uint pos) : m_name(name), Expression(pos) {}
 Negation::Negation(Expression *expression, uint pos) : m_expression(expression), Expression(pos) {}
@@ -919,174 +1050,36 @@ Expression* SubAssign::right() const {return m_right;}
 Expression* Assignment::left() const {return m_left;}
 Expression* Assignment::right() const {return m_right;}
 
-void Literal::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Identifier::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Negation::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Addition::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Subtract::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Multiply::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Division::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Modulus::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void ShiftLeft::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void ShiftRight::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void BitwiseOR::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void BitwiseAND::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void BitwiseXOR::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void BitwiseNOT::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Equal::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void NotEqual::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void LessThan::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void LessEqual::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void GreaterThan::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void GreaterEqual::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void LogicalOR::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void LogicalAND::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void LogicalNOT::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Conditional::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Subscript::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Dot::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Call::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void AddAssign::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void SubAssign::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-void Assignment::accept(ExpressionVisitor *visitor) {visitor->visit(this);}
-
-struct StatementVisitor;
-
-struct Statement {
-	uint pos;
-	Statement(uint pos) : pos(pos) {}
-	virtual void accept(StatementVisitor *visitor) = 0;
-};
-
-class ClassStatement: public Statement
-{
-	List<Statement*> *m_variables;
-	List<Statement*> *m_functions;
-public:
-	ClassStatement(List<Statement*> *variables, List<Statement*> *functions, uint pos);
-	List<Statement*>* variables() const;
-	List<Statement*>* functions() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class FunctionStatement: public Statement
-{
-	String m_name;
-	List<String> *m_params;
-	List<Statement*> *m_statements;
-public:
-	FunctionStatement(String name, List<String> *params, List<Statement*> *statements, uint pos);
-	String name() const;
-	List<String>* params() const;
-	List<Statement*>* statements() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class BlockStatement: public Statement
-{
-	List<Statement*> *m_statements;
-public:
-	BlockStatement(List<Statement*> *statements, uint pos);
-	List<Statement*>* statements() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class VarStatement: public Statement
-{
-	String m_name;
-	Expression *m_value;
-public:
-	VarStatement(String name, Expression *value, uint pos);
-	String name() const;
-	Expression* value() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class ValStatement: public Statement
-{
-	String m_name;
-	Expression *m_value;
-public:
-	ValStatement(String name, Expression *value, uint pos);
-	String name() const;
-	Expression* value() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class IfStatement: public Statement
-{
-	Expression *m_condition;
-	Statement *m_statement0;
-	Statement *m_statement1;
-public:
-	IfStatement(Expression *condition, Statement *statement0, Statement *statement1, uint pos);
-	Expression* condition() const;
-	Statement* statement0() const;
-	Statement* statement1() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class WhileStatement: public Statement
-{
-	Expression *m_condition;
-	Statement *m_statement;
-public:
-	WhileStatement(Expression *condition, Statement *statement, uint pos);
-	Expression* condition() const;
-	Statement* statement() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class ForeachStatement: public Statement
-{
-	String m_name;
-	String m_target;
-public:
-	ForeachStatement(String name, String target, uint pos);
-	String name() const;
-	String target() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class BreakStatement: public Statement
-{
-public:
-	BreakStatement(uint pos);
-	uint pos() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class ReturnStatement: public Statement
-{
-	Expression *m_value;
-public:
-	ReturnStatement(Expression *value, uint pos);
-	Expression* value() const;
-	void accept(StatementVisitor *visitor);
-};
-
-class ExpressionStatement: public Statement
-{
-	Expression *m_expression;
-public:
-	ExpressionStatement(Expression *expression, uint pos);
-	Expression* expression() const;
-	void accept(StatementVisitor *visitor);
-};
-
-struct StatementVisitor {
-	virtual void visit(ClassStatement *statement) = 0;
-	virtual void visit(FunctionStatement *statement) = 0;
-	virtual void visit(BlockStatement *statement) = 0;
-	virtual void visit(VarStatement *statement) = 0;
-	virtual void visit(ValStatement *statement) = 0;
-	virtual void visit(IfStatement *statement) = 0;
-	virtual void visit(WhileStatement *statement) = 0;
-	virtual void visit(ForeachStatement *statement) = 0;
-	virtual void visit(BreakStatement *statement) = 0;
-	virtual void visit(ReturnStatement *statement) = 0;
-	virtual void visit(ExpressionStatement *statement) = 0;
-};
+void Literal::accept(Visitor *visitor) {visitor->visit(this);}
+void Identifier::accept(Visitor *visitor) {visitor->visit(this);}
+void Negation::accept(Visitor *visitor) {visitor->visit(this);}
+void Addition::accept(Visitor *visitor) {visitor->visit(this);}
+void Subtract::accept(Visitor *visitor) {visitor->visit(this);}
+void Multiply::accept(Visitor *visitor) {visitor->visit(this);}
+void Division::accept(Visitor *visitor) {visitor->visit(this);}
+void Modulus::accept(Visitor *visitor) {visitor->visit(this);}
+void ShiftLeft::accept(Visitor *visitor) {visitor->visit(this);}
+void ShiftRight::accept(Visitor *visitor) {visitor->visit(this);}
+void BitwiseOR::accept(Visitor *visitor) {visitor->visit(this);}
+void BitwiseAND::accept(Visitor *visitor) {visitor->visit(this);}
+void BitwiseXOR::accept(Visitor *visitor) {visitor->visit(this);}
+void BitwiseNOT::accept(Visitor *visitor) {visitor->visit(this);}
+void Equal::accept(Visitor *visitor) {visitor->visit(this);}
+void NotEqual::accept(Visitor *visitor) {visitor->visit(this);}
+void LessThan::accept(Visitor *visitor) {visitor->visit(this);}
+void LessEqual::accept(Visitor *visitor) {visitor->visit(this);}
+void GreaterThan::accept(Visitor *visitor) {visitor->visit(this);}
+void GreaterEqual::accept(Visitor *visitor) {visitor->visit(this);}
+void LogicalOR::accept(Visitor *visitor) {visitor->visit(this);}
+void LogicalAND::accept(Visitor *visitor) {visitor->visit(this);}
+void LogicalNOT::accept(Visitor *visitor) {visitor->visit(this);}
+void Conditional::accept(Visitor *visitor) {visitor->visit(this);}
+void Subscript::accept(Visitor *visitor) {visitor->visit(this);}
+void Dot::accept(Visitor *visitor) {visitor->visit(this);}
+void Call::accept(Visitor *visitor) {visitor->visit(this);}
+void AddAssign::accept(Visitor *visitor) {visitor->visit(this);}
+void SubAssign::accept(Visitor *visitor) {visitor->visit(this);}
+void Assignment::accept(Visitor *visitor) {visitor->visit(this);}
 
 ClassStatement::ClassStatement(List<Statement*> *variables, List<Statement*> *functions, uint pos) : m_variables(variables), m_functions(functions), Statement(pos) {}
 FunctionStatement::FunctionStatement(String name, List<String> *params, List<Statement*> *statements, uint pos) : m_name(name), m_params(params), m_statements(statements), Statement(pos) {}
@@ -1120,17 +1113,21 @@ String ForeachStatement::target() const {return m_target;}
 Expression* ReturnStatement::value() const {return m_value;}
 Expression* ExpressionStatement::expression() const {return m_expression;}
 
-void ClassStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void FunctionStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void BlockStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void VarStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void ValStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void IfStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void WhileStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void ForeachStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void BreakStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void ReturnStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
-void ExpressionStatement::accept(StatementVisitor *visitor) {visitor->visit(this);}
+void ClassStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void FunctionStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void BlockStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void VarStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void ValStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void IfStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void WhileStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void ForeachStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void BreakStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void ReturnStatement::accept(Visitor *visitor) {visitor->visit(this);}
+void ExpressionStatement::accept(Visitor *visitor) {visitor->visit(this);}
+
+
+
+
 
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-FIRST_FEMALE = ["Ananya", "Aishwarya", "Priya", "Priyanka", "Priety", "Sneha", "Kavya", "Meera", "Nisha", "Riya", "Shruti", "Pooja",
+FIRST_FEMALE = ["Ananya", "Aishwarya", "Priya", "Divya", "Priety", "Sneha", "Kavya", "Meera", "Nisha", "Riya", "Shruti", "Pooja",
 				"Shobha", "Radha", "Savita"]
 
 

@@ -63,8 +63,34 @@ Mutex is suited for exclusive access whereas semaphore is suited for limited con
 HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
 Microservices: each service can be developed, deployed and scaled separately.
 In monolith we have single unit of deployment.
+Docker is a technology which decouples application code from infrastructure.
+Dependecy injection allows us to depends more on abstraction rather than the concrete implementation, which promotes loosely-coupled architecture, flexibility and pluggability within our code.
+Dependency injection generally means passing a dependent object as a parameter to a method rather than having the method create the dependent object.
+What it means in practice is that the method does not have a direct dependency on a particular implementation, any implementation that meets the requirements can be passed as a parameter. 
+Dependency injection is a software design pattern that allow us to develop loosely-coupled software.
+Authentication verifies the identity of a user or service and authorization determines their access rights.
+Authentication is the process of verifying a user's identity while authorization is the process of determining what actions a user can perform.
+Dynamic binding (dispatch) is the process of linking function call to a specific sequence of code (function) at run-time.
+Dynamic binding: a process in which a call to overridden method is resolved at runtime rather than compile time.
+Web services provide a web-based interface that makes the services of an application available to other applications on the web.
+A web service helps us expose the functionality or data of an application to another applications over world wide web.
+Spring creates proxies for all the classes annotated with @Transactional, either on the class or on any of the methods.
+The proxy allows the framework to inject transactional logic before and after the running method, mainly for starting and committing the transaction.
+Polymorphism is the provision of a single interface to entities of different types or the use of a single symbol to represent multiple different types.
+Field level polymorphism: a reference variable of class T can point to object of class T as well as object of subclass of T.
+================================
+Object-relational mapping (ORM) is the process of mapping java objects to relational tables of a relational database. Each row in the table correspond to the single object and each column in the table correspond to the each field of the object.
 
+ORM is an layer between object-oriented language and SQL language of relational database. ORM layer work like a adapter layer as it adapts the language of object graphs to the language of relational tables. Data is structured into object graphs in the object oriented program and relational tables in the relational database.
 
-
-
-
+Java Persistence API is the java standard API for object-relational mapping. JPA is one of the many possible approach to ORM. The API is a set of concepts that defines which objects within the application should be persisted and how it should persist them. JPA is only an specification and that it needs an implementation to work. Most popular implementation of JPA is Hibernate. JPA is concerned with persistence, which means any mechanism by which java objects outlive the application process that created them.
+=======================
+Kafka stream API can be used to transform or aggregate topics before reaching to consumers.
+Objects do not create other objects on which they relay to do their work, instead they get the objects that they need from an outside world.
+===============
+Thread synchronization is a mechanism which ensures that two or more concurrent processes or threads do not simultaneously execute some particular program segment known as critical section. Processes' access to critical section is controlled by using synchronization techniques. When one thread starts executing the critical section (serialized segment of the program) the other thread should wait until the first thread finishes.
+============================
+Search tree have the initial state at the root.
+Branches of search tree are actions.
+Search tree nodes corresponds to states in the state space of the problem.
+Search tree have repeated states: such repeated states may make the search tree infinite.
