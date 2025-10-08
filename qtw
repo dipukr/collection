@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.12
 
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
