@@ -1,6 +1,7 @@
-#include <iostream>
-#include <vector>
 #include <queue>
+#include <vector>
+#include <iostream>
+using namespace std;
 
 struct edge
 {
@@ -12,34 +13,34 @@ struct edge
 	}
 };
 
-void connect(std::vector<std::vector<edge>> &graph, int src, int dest, int cost)
+void connect(vector<vector<edge>> &graph, int src, int dest, int cost)
 {
 	graph[src].push_back(edge(dest, cost));
 	graph[dest].push_back(edge(src, cost));
 }
 
-void breadth_first_search(std::vector<std::vector<edge>> &graph, int start)
+void breadth_first_search(vector<vector<edge>> &graph, int start)
 {
-	std::vector<bool> visited(graph.size());
-	std::fill(std::begin(visited), std::end(visited), false);
-	std::queue<int> queue;
+	vector<bool> visited(graph.size());
+	fill(begin(visited), end(visited), false);
+	queue<int> queue;
 	queue.push(start);
 	while (!queue.empty()) {
 		int u = queue.front();
 		queue.pop();
 		for (edge v: graph[u]) {
 			if (!visited[v.dest]) {
-				std::cout << v.dest << char(9);
+				cout << v.dest << char(9);
 				queue.push(v.dest);
 			}
 		}
 	}
 }
 
-void breadth_first_search_shortest_path(std::vector<std::vector<edge>> &graph, int start)
+void breadth_first_search_shortest_path(vector<vector<edge>> &graph, int start)
 {
-	std::vector<int> dist(graph.size(), -1);
-	std::queue<int> q;
+	vector<int> dist(graph.size(), -1);
+	queue<int> q;
 	q.push(start);
 	dist[start] = 0;
 	while (!q.empty()) {
@@ -53,32 +54,32 @@ void breadth_first_search_shortest_path(std::vector<std::vector<edge>> &graph, i
 	}
 }
 
-void connect(std::vector<std::vector<int>> &graph, int src, int dest)
+void connect(vector<vector<int>> &graph, int src, int dest)
 {
 	graph[src].push_back(dest);
 	graph[dest].push_back(src);
 }
 
-void breadth_first_search(std::vector<std::vector<int>> &graph, int start)
+void breadth_first_search(vector<vector<int>> &graph, int start)
 {
-	std::vector<bool> visited(graph.size(), false);
-	std::queue<int> q;
+	vector<bool> visited(graph.size(), false);
+	queue<int> q;
 	q.push(start);
 	while (!q.empty()) {
 		int u = q.front();
 		q.pop();
 		for (int v: graph[u])
 			if (!visited[v.dest]) {
-				std::cout << v.dest << char(9);
+				cout << v.dest << char(9);
 				q.push(v.dest);
 			}
 	}
 }
 
-void breadth_first_search_shortest_path(std::vector<std::vector<int>> &graph, int start)
+void breadth_first_search_shortest_path(vector<vector<int>> &graph, int start)
 {
-	std::vector<int> dist(graph.size(), -1);
-	std::queue<int> q;
+	vector<int> dist(graph.size(), -1);
+	queue<int> q;
 	q.push(start);
 	dist[start] = 0;
 	while (!q.empty()) {
@@ -94,7 +95,7 @@ void breadth_first_search_shortest_path(std::vector<std::vector<int>> &graph, in
 
 int main()
 {
-	std::vector<std::vector<edge>> graph(6);
+	vector<vector<edge>> graph(6);
 	connect(graph, 0, 1, 1);
 	connect(graph, 1, 2, 1);
 	connect(graph, 1, 3, 1);
