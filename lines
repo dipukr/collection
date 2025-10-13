@@ -94,3 +94,33 @@ Search tree have the initial state at the root.
 Branches of search tree are actions.
 Search tree nodes corresponds to states in the state space of the problem.
 Search tree have repeated states: such repeated states may make the search tree infinite.
+Topic is basic unit for categorizing data in kafka.
+A thread is a sequence of instructions within a program that can be executed independently of other code.
+Threads share memory (code and data) space.
+Volatile ensures that all threads sees the same value of a variable at any given time.
+===========================================
+Use interfaces for behavior and abstract classes for shared logic.
+Prefer composition over inheritance where possible.
+
+Always discuss scalability, concurrency, and thread safety.
+
+Structure your solution into clear layers like controller, service, repository, and model.
+
+Apply SOLID and DRY principles naturally in your reasoning.
+
+Handle failures and exceptions gracefully.
+
+Talk about design patterns if required 
+(Factory, Strategy, Observer etc.).
+
+Explain relationships clearly with UML-style descriptions. 
+API authentication ensures that right person is accessing the right data.
+
+
+class CircuitBreaker {
+
+}
+
+Kafka: Architecture, APIs, Kafka Streams and Kafka Connect
+
+=============================================================================================================================================================

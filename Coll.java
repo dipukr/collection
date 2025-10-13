@@ -1,11 +1,10 @@
-import java.io.File;
+import java.io.*;
+import java.net.*;
 
-void log(int i) {
-	System.out.println(i);
-}
 
-void main(String[] args) {
-	File file = new File("file");
-	System.out.println(file);
-	log(200);
+
+
+void main(String[] args) throws Exception {
+	System.out.println("hello.world");
+
 }

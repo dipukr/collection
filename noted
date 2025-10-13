@@ -1,6 +1,6 @@
 Docker container is the runtime instance of docker image.
 An event is any type of action, incident, or change that's identified or recorded by software or applications.
-Cacheable: data that does not changes at all are the best candidate for caching and data that does not frequently changes can also be cached for certain period to time (ttl).
+
 Caching is a techniques of storing frequently accessed data in a temporary storage location to improve the system performance.
 Caching helps to reduce the time and resources required to fetch the data from the original source by serving it quicky from the cache.
 Web browser caches web pages to load them faster on subsequent visits.
@@ -128,3 +128,9 @@ Loose coupling: Microservices are designed to minimize dependencies between them
 Relationship:
 Microservices architecture is a way to implement a distributed system. It's a specific approach to building distributed systems, emphasizing modularity and independent deployability.
 ===============================================================================================================
+
+
+
+
+
+

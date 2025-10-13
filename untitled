@@ -1,0 +1,115 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================================
+======================================================================================================================================
+======================================================================================================================================
+AI: any system or machine that can simulate human intelligence.
+API Gateway – A single entry point that routes client requests to backend services in a microservices system.
+As a Java/backend engineer, at one point these system design concepts become inescapable. Understand these concepts properly to be a better engineer and also to perform better during interviews:
+Availability vs Reliability – Availability means the system is up and running; reliability means it works correctly over time without failure.
+CAP Theorem – In a distributed system, you can only guarantee two out of three: consistency, availability, and partition tolerance.
+CDN (Content Delivery Network) – A network of servers that delivers static content (like images or videos) from locations closer to the user.
+Caching – Temporarily stores frequently used data to speed up future access.
+Checksum – A small piece of data used to detect errors in files or messages.
+Consistency Patterns – Strategies for making sure all users see the same data, either instantly or eventually.
+Data Partitioning – Splits large datasets into smaller chunks (shards) to spread the load across servers.
+Database Index – Like a table of contents for a database that helps find data faster.
+Database Replication – Creates and maintains copies of data across different servers for better availability and fault tolerance.
+Distributed Coordination Services – Tools (like ZooKeeper) that help manage and synchronize tasks across distributed systems.
+Distributed File Systems – A system that lets you store and access files across many servers as if they were on one machine.
+Distributed Messaging Systems – Enable services to communicate by sending messages asynchronously via a queue (e.g. Kafka, RabbitMQ).
+Distributed System Design and Architectures
+Domain Name System (DNS) – Translates human-friendly website names (like google.com) into IP addresses computers use.
+Forward Proxy vs Reverse Proxy – A forward proxy hides the client from the server; a reverse proxy hides the server from the client.
+Full-Text Search – Lets you search for words or phrases in documents or data like Google search does.
+Heartbeat – A small, regular signal sent between components to check if they’re still alive and responsive.
+Latency vs Throughput – Latency is the time it takes to process one request; throughput is how many requests are handled per second.
+Load Balancer – Distributes incoming traffic across multiple servers to keep the system fast and reliable.
+Long Polling vs WebSockets – Long polling repeatedly asks the server for updates; WebSockets keep a live connection for real-time communication.
+Microservices – A system design where different features are split into small, independent services that work together.
+NoSQL Database – A flexible, schema-less database designed for fast storage and retrieval of large amounts of data (e.g. MongoDB).
+Notification System – Sends alerts or updates to users through email, push notifications, or SMS based on events.
+Rate Limiting – Controls how many requests a user or client can make in a certain time to protect the system from abuse.
+Scalability – The ability of a system to handle increasing traffic, data, or users without breaking or slowing down.
+Software Architectural Models and Patterns
+Software Design: Data Structures, Algorithms, OOPs, SOLID, Design Patterns and UML
+`
+gRPC is an open-source, high-performance framework for remote procedure calls (RPC) initially developed by Google. It allows one program to call a method on another program on a different machine, making distributed communication function like a local call. Key features include using HTTP/2 for transport and Protocol Buffers for defining service interfaces and message structures, which enables efficient, cross-language communication
+→ ACID Transactions: A set of properties (Atomicity, Consistency, Isolation, Durability) that guarantee database transactions are processed reliably.
+→ API Gateways: A management tool that sits between a client and a collection of backend services, acting as a reverse proxy to handle all API calls
+→ APIs (Application Programming Interfaces): A set of rules and protocols that allows different software applications to communicate with each other
+→ Availability: The percentage of time that a system is operational and accessible to users.
+→ Batch vs Stream Processing: Batch processing handles data in large blocks, while stream processing handles data in real-time as it is generated.
+→ Bloom Filters: A space-efficient probabilistic data structure used to test whether an element is a member of a set.
+→ CAP Theorem: It is impossible for a distributed data store to simultaneously provide more than two out of three guarantees: Consistency, Availability, and Partition tolerance.
+→ CDC (Change Data Capture): The process of observing all data modifications in a database and then extracting them in a form that can be used by other systems
+→ CDN (Content Delivery Network): A geographically distributed network of proxy servers that work together to provide fast delivery of Internet content.
+→ Cache Eviction Policies: Algorithms used to decide which items to remove from a cache when it is full, such as Least Recently Used (LRU).
+→ Caching Strategies: Different methods for managing a cache to optimize performance and data consistency, such as cache-aside, read-through, and write-through.
+→ Caching: The process of storing copies of files in a temporary storage location (cache) to be accessed more quickly.
+→ Concurrency vs Parallelism: Concurrency is about dealing with lots of things at once, while parallelism is about doing lots of things at once.
+→ Consistent Hashing: A hashing technique that minimizes the number of keys that need to be remapped when a hash table is resized, useful in distributed systems.
+→ Database Indexes: Data structures that improve the speed of data retrieval operations on a database table.
+→ Database Sharding: The process of breaking up a large database into smaller, more manageable parts called shards
+→ Geohashing: A geocoding system that encodes a geographic location into a short string of letters and digits.
+→ Idempotency: A property of certain operations that they can be applied multiple times without changing the result beyond the initial application.
+→ JWTs (JSON Web Tokens): A compact, URL-safe means of representing claims to be transferred between two parties, commonly used for authorization
+→ Load Balancing: The process of distributing network traffic across multiple servers to ensure no single server becomes overwhelmed.
+→ Long Polling vs WebSockets: Long polling involves the server holding a client's request until new data is available, while WebSockets provide a persistent, two-way communication channel.
+→ Message Queues: A form of asynchronous service-to-service communication used in serverless and microservices architectures.
+→ Proxy vs Reverse Proxy: A proxy acts on behalf of a client to fetch resources, while a reverse proxy acts on behalf of a server to handle incoming requests.
+→ REST vs GraphQL: REST is an architectural style for building APIs using standard HTTP methods, while GraphQL is a query language for APIs that allows clients to request exactly the data they need
+→ Rate Limiting Algorithms: Techniques used to control the amount of incoming and outgoing traffic to or from a network.
+→ SPOF (Single Point of Failure): A part of a system that, if it fails, will stop the entire system from working.
+→ SQL vs NoSQL: SQL databases are relational and use structured query language, while NoSQL databases are non-relational and have dynamic schemas for unstructured data.
+→ Scalability: The ability of a system to handle a growing amount of work by adding resources.
+→ Stateful vs. Stateless Architecture: A stateful architecture remembers client data from one request to the next, while a stateless architecture does not.
+→ Webhooks: Automated messages sent from apps when something happens, delivered to a unique URL
+data loading and preprocessing to model training, evaluation, and deployment. 
+
+
+
+function handleCommand(Command command) => boolean {
+	
+}
+
+
+
+boolean handleCommand(Command command) {
+	val x = 1000;
+	foreach (val elem: elements)
+		logger(elem);
+		
+}
+
+
+

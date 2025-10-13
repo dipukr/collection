@@ -1,0 +1,5 @@
+Optional provides some API to handle or minimize null pointer exception.
+Future represents the future results of an asynchronous task.
+Main purpose of reactive style programming is to avoid blocking in our code.
+Thread does not have to block on anthing for the final result of the pipeline to be relevant.
+Volatile ensures that all the threads sees the same value of a variale at any given time.
