@@ -105,7 +105,25 @@
 			<tr>
 				<td>
 					Distributed computing involves multiple computers working together over a network to solve a problem, acting as a single, powerful system. It's a divide-and-conquer approach where tasks are broken down and processed concurrently on different nodes (computers), then the results are combined. This allows for greater scalability, performance, and resilience compared to using a single, centralized computer. 
-					The components of a distributed system communicate and coordinate their actions by passing messages to one another in order to achieve a common goal. Three significant challenges of distributed systems are: maintaining concurrency of components, overcoming the lack of a global clock, and managing the independent failure of components. When a component of one system fails, the entire system does not fail. Examples of distributed systems vary from SOA-based systems to microservices to massively multiplayer online games to peer-to-peer applications. Distributed systems cost significantly more than monolithic architectures, primarily due to increased needs for additional hardware, servers, gateways, firewalls, new subnets, proxies, and so on. There are many different types of implementations for the message passing mechanism, including pure HTTP, RPC-like connectors and message queues.
+					The components of a distributed system communicate and coordinate their actions by passing messages to one another in order to achieve a common goal. Three significant challenges of distributed systems are: maintaining concurrency of components, overcoming the lack of a global clock, and managing the independent failure of components. When a component of one system fails, the entire system does not fail. Examples of distributed systems vary from SOA-based systems to microservices to massively multiplayer online games to peer-to-peer applications. Distributed systems cost significantly more than monolithic architectures, primarily due to increased needs for additional hardware, servers, gateways, firewalls, new subnets, proxies, and so on. There are many different types of implementations for the message passing mechanism, including pure HTTP, RPC-like connectors and message queues. <br><br>
+					A distributed system design involves creating a system where multiple independent computers work together to achieve a common goal, appearing as a single coherent system to the user. This design approach is crucial for scalability, availability, and fault tolerance, addressing potential bottlenecks and single points of failure in centralized systems.
+					<br><br>
+					Key Concepts in Distributed System Design:<ul>
+					<li>Nodes or components: These are the individual computers or processes that make up the distributed system.</li>
+					<li>Network: A network connects these nodes, enabling communication and data exchange. </li>
+					<li>Communication: Different protocols and mechanisms (like message queues, RPC) are used for communication between nodes. </li>
+					<li>Transparency: Ideally, users should not be aware of the underlying complexity of the distributed nature of the system. </li>
+					<li>Scalability: The system should be able to handle increasing load and data volume by adding more nodes. </li>
+					<li>Availability: The system should remain operational and accessible even if some nodes fail. </li>
+					<li>Consistency: Ensuring data consistency across multiple nodes is a significant challenge. </li>
+					<li>Fault Tolerance: The system should be designed to handle failures gracefully and continue functioning. </li>
+					<ul>
+						Design Principles:
+						Scalability: Ability to handle increasing load.
+						Availability: Ensuring the system is always accessible.
+						Fault Tolerance: Handling failures of individual components.
+						Performance: Optimizing for speed and efficiency.
+						Security: Protecting the system from unauthorized access. 
 				</td>
 			</tr>
 		</tbody>
@@ -125,6 +143,11 @@
 					Web browser caches web pages to load them faster on subsequent visits.
 					Database server caches frequently accessed query results to avoid expensive database queries. <br> <br>
 					<em>Cacheable data:</em> data that does not changes at all are the best candidate for caching and data that does not frequently changes can also be cached for certain period to time.
+					Embedded cache
+	Client-server cache: cache is between the application and the database. Also called shared cache or standalone cache.
+	Distributed cache: 
+	Cloud cache
+	Reverse-proxy cache
 				</td>
 			</tr>
 		</tbody>
@@ -267,7 +290,7 @@
 		<tbody>
 			<tr>
 				<td>
-					Sharding is the process of dividing a database table (dataset) into smaller, more manageable pieces called shards, which are distributed across multiple machines or nodes. Sharding usually refers to splitting one large table’s data horizontally (row-wise) across multiple databases or servers. Each shard contains a subset of rows of the table. All shards have the same schema, just different data.
+					Sharding is the process of dividing a database table (dataset) into smaller, more manageable pieces called shards, which are distributed across multiple machines or nodes. Sharding usually refers to splitting one large table’s data horizontally (row-wise) across multiple databases or servers. Each shard contains a subset of rows of the table. All shards have the same schema, just different data. Splits large datasets into smaller chunks (shards) to spread the load across servers.
 				</td>
 			</tr>
 		</tbody>
@@ -334,7 +357,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th>GeoDNS</th>
+				<th>Software Architecture and Design</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -344,6 +367,583 @@
 				</td>
 			</tr>
 		</tbody>
-	</table>			
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Notification System</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Sends alerts or updates to users through email, push notifications, or SMS based on events.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>ACID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A set of properties (Atomicity, Consistency, Isolation, Durability) that guarantee database transactions are processed reliably.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>API Gateway</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A management tool that sits between a client and a collection of backend services, acting as a reverse proxy to handle all API calls.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>API</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A set of rules and protocols that allows different software applications to communicate with each other.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Availability</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					The percentage of time that a system is operational and accessible to users.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Batch vs Stream Processing</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Batch processing handles data in large blocks, while stream processing handles data in real-time as it is generated.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Bloom Filters</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A space-efficient probabilistic data structure used to test whether an element is a member of a set.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>CDN</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A geographically distributed network of proxy servers that work together to provide fast delivery of Internet content.
+					A network of servers that delivers static content (like images or videos) from locations closer to the user.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Caching</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Temporarily stores frequently used data to speed up future access.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Cache Eviction Policies</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Algorithms used to decide which items to remove from a cache when it is full.
+					Cache eviction policies determine which data is removed from a cache when it becomes full, making space for new data. These policies are crucial for maintaining cache performance and ensuring that the most relevant data remains readily accessible.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Cashing Strategies</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Different methods for managing a cache to optimize performance and data consistency, such as cache-aside, read-through, and write-through.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Consistent Hashing</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A hashing technique that minimizes the number of keys that need to be remapped when a hash table is resized, useful in distributed systems.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Idempotency</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Indexing</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Sharding</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Load Balancer</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Forward Proxy</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A proxy acts on behalf of a client to fetch resources.
+					A forward proxy hides the client from the server.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Reverse Proxy</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Reverse proxy acts on behalf of a server to handle incoming requests.
+					A reverse proxy hides the server from the client.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>REST</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					REST is an architectural style for building APIs using standard HTTP methods.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>GraphQL</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					GraphQL is a query language for APIs that allows clients to request exactly the data they need.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>SPOF</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A part of a system that, if it fails, will stop the entire system from working.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Websockets</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Webhooks</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+	<table>
+		<thead>
+			<tr>
+				<th>Stateful vs Stateless</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A stateful architecture remembers client data from one request to the next, while a stateless architecture does not.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Scalability</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Scalability is the ability of a system to handle an increased workload without loosing performance.
+					The ability of a system to handle a growing amount of work by adding resources.
+					The ability of a system to handle increasing traffic, data, or users without breaking or slowing down.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Rate Limiter</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Controls how many requests a user or client can make in a certain time to protect the system from abuse.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Latency vs Throughput</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Latency is the time it takes to process one request; throughput is how many requests are handled per second.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Heartbeat</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A small, regular signal sent between components to check if they’re still alive and responsive.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Distributed File System</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Distributed Message System</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Consistency Patterns</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Strategies for making sure all users see the same data, either instantly or eventually.
+					There is delay between a write and when all the readers can see that write.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Message Queue</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Message queue allows asynchoronous communication between microservices.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>CAP</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					CAP Theorem asserts that in a distributed system, you can only guarantee two out of three: consistency, availability and partition tolerance.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Docker</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Docker container is the runtime instance of docker image.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Kafka</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					An event is any type of action, incident, or change that's identified or recorded by software or applications.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Terms</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Security: How secure should the system be? Consider factors like authentication, encryption, and access controls.
+					Durability: How durable should the system be? What is the timeframe for data retention.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

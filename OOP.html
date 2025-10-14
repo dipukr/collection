@@ -14,7 +14,7 @@
       body {
         background: whitesmoke;
         margin-top: 20px;
-        width: 60%;
+        width: 62%;
         padding-left: 3%;
         padding-right: 3%;
         min-height: 1000px;
@@ -57,7 +57,7 @@
         text-align: center;
         font-weight: 600;
         font-style: italic;
-        font-size: 22px;
+        font-size: 25px;
       }
 
       table tbody tr {
@@ -70,7 +70,7 @@
         padding: 15px 25px;
         font-weight: 500;
         font-style: normal;
-        font-size: 22px;
+        font-size: 25px;
         background-color: #f8f8f8;
       }
 
@@ -79,7 +79,7 @@
         padding-top: 2px;
         padding-bottom: 5px;
         list-style: square;
-        font-size: 22px;
+        font-size: 24px;
       }
 
       pre {
@@ -170,6 +170,7 @@
       <tbody>
         <tr>
           <td>
+            Encapsulation refers to the bundling of data with the mechanisms or methods that operate on the data. Encapsulation also refer to the limiting of direct access to some of that data, such as an object's components. Essentially encapsulation prevents external code from being concerned with the internal workings of an object. Encapsulation allows developers to present a consistent interface that is independent of its internal implementation. A language mechanism for restricting direct access to some of the object's components. A language construct that facilitates the bundling of data with the methods (or other functions) operating on those data. <br> <br>
             Encapsulation is the process of wrapping of related data and code
             into a single unit which modularizes our software system.
             Encapsulation also help us to achieve data hiding which is the
@@ -269,8 +270,8 @@
             entity such as an variable, a method or an object to have more than
             one form. Polymorphism enables us to deal with generalities and let
             the compiler and runtime environment to handle the specific.
-            Polymorphism in Java can be achieved through method overloading and
-            method overriding. <br />
+            Polymorphism in Java can be achieved through method overloading,
+            method overriding and Generics. <br />
             <br />
             <ul>
               <li>Many methods can have one common name.</li>
@@ -282,11 +283,24 @@
                 One type of reference variable can be used to access many type
                 of objects.
               </li>
-            </ul> <br>
-            <b>Method-overloading:</b> The process of writing multiple methods with the same name in the
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Method-overloading</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Process of writing multiple methods with the same name in the
             same class is called
-            <em>method overloading. </em>Method overloading is a kind of
-            <em>static</em> polymorphism. <br />
+            <em>method overloading. </em>Method-overloading is a kind of
+            <em>static</em> polymorphism.<br />
             <br />
             <ul>
               <li>
@@ -302,12 +316,25 @@
               </li>
             </ul>
             <br />
-            Method overloading is achieved by either:
+            <em>Method overloading is achieved by:</em>
             <ul>
               <li>Changing the number of arguments.</li>
               <li>Changing the data type of the arguments.</li>
-            </ul> <br>
-            <b>Method-overriding: </b>Process of redefining a parent class instance method into its child
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Polymorphism</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Method-overriding is the process of redefining a parent class instance method into its child
             class is known as method overriding. An instance method defined in
             the parent class is redefined into its child class to give specific
             implementation of the parent class method.<br />
@@ -348,9 +375,9 @@
                 class method.
               </li>
             </ul> <br>
-            <b>Dynamic binding</b> is a process in which a call to overridden method is resolved at the runtime rather than compile time. Which means that the code to be executed for a specific method call is not known until runtime.
+            <em>Dynamic binding</em> is a process in which a call to overridden method is resolved at the runtime rather than compile time. Which means that the code to be executed for a specific method call is not known until runtime.
 
-<b>Dynamic dispatch</b> is used when multiple classes contain different implementations of the same method which provides a mechanism for selecting the function to be executed from various function alternatives at the runtime.
+<em>Dynamic dispatch</em> is used when multiple classes contain different implementations of the same method which provides a mechanism for selecting the function to be executed from various function alternatives at the runtime.
           </td>
         </tr>
       </tbody>
@@ -358,16 +385,54 @@
     <table>
       <thead>
         <tr>
-          <th>Dependency Inversion Principle</th>
+          <th>Dependency inversion</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>
-            The Dependency Inversion Principle (DIP) states that high level
+            Dependency inversion principle (DIP) states that high level
             modules should not depend on low level modules; both should depend
             on abstractions. Abstractions should not depend on details rather
             details should depend on abstractions.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Composition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Process of building complex objects from simpler ones is called object composition.
+            Composition is the design technique in object-oriented design to implement <i>has-a</i> relationship 
+            between objects. Composition supports code reuse.  <br> <br>
+            <em>Benefits of composition:</em>
+            <ul>
+            <li>Increases reusability and flexibility.</li>  
+            <li>Supports dependency injection and strategy pattern.</li>
+            <li>Enables plug-in architectures (swap modules dynamically).</li>
+            <li>Reduces class explosion (no need for hundreds of subclasses).</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Composition vs Inheritance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Both composition and inheritance used to solve the same problem that is code reuse.
+            Process of building complex objects from simpler ones is called object composition.
           </td>
         </tr>
       </tbody>

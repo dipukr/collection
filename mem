@@ -58,3 +58,14 @@ Bloom-filter use cases
 LSM Tree
 Geosharding
 Event streaming
+amazon.jobs
+indeed
+==========================================
+Software Architectural Models and Patterns
+Distributed System Desing and Architecture
+======================================================================================================================================
+While functional requirements define what the system does, non-functional requirements define how well it does it.
+Scalability: How many users does the system need to support, and will the system handle a large number of concurrent users or requests per second?
+CAP Theorem: Does your system need to prioritize availability or consistency? Remember, different parts of the system may have different needs (e.g., video serving might prioritize availability, but banking might prioritize consistency)
+Read/Write Ratio: Is the system read-heavy (e.g., many people searching and watching videos) or write-heavy (e.g., many content creators uploading new videos)? Understanding this can guide your choice of databases or storage solutions.
+Latency: How quickly does the system need to respond to user requests?
