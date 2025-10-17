@@ -30,7 +30,6 @@
         border-collapse: collapse;
         margin-bottom: 30px;
         width: 100%;
-        word-spacing: -1px;
         font-family: "DejaVu Serif";
         text-align: justify;
         text-justify: inter-word;
@@ -64,7 +63,8 @@
         padding: 15px 25px;
         font-weight: 500;
         font-style: normal;
-        font-size: 25px;
+        font-size: 24px;
+        word-spacing: -2px;
         background-color: #f8f8f8;
       }
       table tbody tr td ul {
@@ -72,7 +72,7 @@
         padding-top: 2px;
         padding-bottom: 5px;
         list-style: square;
-        font-size: 22px;
+        font-size: 24px;
       }
       pre {
         background: #f8f8f8;
@@ -88,9 +88,7 @@
         word-spacing: -2px;
         tab-size: 3;
       }
-      em {
-        color: brown;
-      }
+      em {color: brown;}
     </style>
 </head>
 
@@ -105,25 +103,47 @@
 			<tr>
 				<td>
 					Distributed computing involves multiple computers working together over a network to solve a problem, acting as a single, powerful system. It's a divide-and-conquer approach where tasks are broken down and processed concurrently on different nodes (computers), then the results are combined. This allows for greater scalability, performance, and resilience compared to using a single, centralized computer. 
-					The components of a distributed system communicate and coordinate their actions by passing messages to one another in order to achieve a common goal. Three significant challenges of distributed systems are: maintaining concurrency of components, overcoming the lack of a global clock, and managing the independent failure of components. When a component of one system fails, the entire system does not fail. Examples of distributed systems vary from SOA-based systems to microservices to massively multiplayer online games to peer-to-peer applications. Distributed systems cost significantly more than monolithic architectures, primarily due to increased needs for additional hardware, servers, gateways, firewalls, new subnets, proxies, and so on. There are many different types of implementations for the message passing mechanism, including pure HTTP, RPC-like connectors and message queues. <br><br>
-					A distributed system design involves creating a system where multiple independent computers work together to achieve a common goal, appearing as a single coherent system to the user. This design approach is crucial for scalability, availability, and fault tolerance, addressing potential bottlenecks and single points of failure in centralized systems.
+					The components of a distributed system communicate and coordinate their actions by passing messages to one another in order to achieve a common goal. Three significant challenges of distributed systems are: maintaining concurrency of components, overcoming the lack of a global clock, and managing the independent failure of components. When a component of one system fails, the entire system does not fail. Examples of distributed systems vary from SOA-based systems to microservices to massively multiplayer online games to peer-to-peer applications. Distributed systems cost significantly more than monolithic architectures, primarily due to increased needs for additional hardware, servers, gateways, firewalls, new subnets, proxies, and so on. There are many different types of implementations for the message passing mechanism, including pure HTTP, RPC-like connectors and message queues.
 					<br><br>
 					Key Concepts in Distributed System Design:<ul>
 					<li>Nodes or components: These are the individual computers or processes that make up the distributed system.</li>
 					<li>Network: A network connects these nodes, enabling communication and data exchange. </li>
-					<li>Communication: Different protocols and mechanisms (like message queues, RPC) are used for communication between nodes. </li>
-					<li>Transparency: Ideally, users should not be aware of the underlying complexity of the distributed nature of the system. </li>
+					<li>Communication: Many protocols and mechanisms (REST, RPC, MQ) are used for communication between nodes. </li>
+					<li>Transparency: Users should not be aware of the underlying complexity of the distributed nature of the system. </li>
 					<li>Scalability: The system should be able to handle increasing load and data volume by adding more nodes. </li>
 					<li>Availability: The system should remain operational and accessible even if some nodes fail. </li>
 					<li>Consistency: Ensuring data consistency across multiple nodes is a significant challenge. </li>
 					<li>Fault Tolerance: The system should be designed to handle failures gracefully and continue functioning. </li>
 					<ul>
-						Design Principles:
-						Scalability: Ability to handle increasing load.
-						Availability: Ensuring the system is always accessible.
-						Fault Tolerance: Handling failures of individual components.
-						Performance: Optimizing for speed and efficiency.
-						Security: Protecting the system from unauthorized access. 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Software Architecture and Design</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Architecture of a system describes its major components, its relationships and how they interact with each other. 
+					Software architecture is the high-level, strategic blueprint of a system, defining its overall structure, core components, and their interactions to meet business needs, while design is the tactical, low-level process of detailing how individual components will be built and work together. Think of architecture as defining the <em>what</em> and <em>why</em> (using a microservices pattern for scalability), whereas design is the <em>how</em> of specific implementation, like choosing a particular design pattern (Strategy pattern) to solve a problem within one of those services.<br><br><ul><li>Key decisions:</li><ul><li>Choosing an overall pattern like microservices or serverless.</li><li>Addressing non-functional requirements like security, performance, and scalability across the system.</li><li>Defining the interactions between major components and systems.</li></ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Client-server model</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
 				</td>
 			</tr>
 		</tbody>
@@ -143,6 +163,7 @@
 					Web browser caches web pages to load them faster on subsequent visits.
 					Database server caches frequently accessed query results to avoid expensive database queries. <br> <br>
 					<em>Cacheable data:</em> data that does not changes at all are the best candidate for caching and data that does not frequently changes can also be cached for certain period to time.
+					Cache performs well when there is more cache-hits than cache-miss.
 					Embedded cache
 	Client-server cache: cache is between the application and the database. Also called shared cache or standalone cache.
 	Distributed cache: 
@@ -354,20 +375,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<table>
-		<thead>
-			<tr>
-				<th>Software Architecture and Design</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					Software architecture is the high-level, strategic blueprint of a system, defining its overall structure, core components, and their interactions to meet business needs, while design is the tactical, low-level process of detailing how individual components will be built and work together. Think of architecture as defining the "what" and "why" (e.g., using a microservices pattern for scalability), whereas design is the "how" of specific implementation, like choosing a particular design pattern (e.g., the Strategy pattern) to solve a problem within one of those services.<br><br>Software architecture:<ul><li>Focus: Strategic, big-picture decisions and the "why".</li><li>Scope: The entire system, including its core structure, high-level component interactions, and fundamental principles.</li><li>Key decisions:</li><ul><li>Choosing an overall pattern like microservices or serverless.</li><li>Addressing non-functional requirements like security, performance, and scalability across the system.</li><li>Defining the interactions between major components and systems.</li></ul><li>Goal: To ensure the system meets business goals, is maintainable, and can scale.</li><br><br></ul><li>Software design:</li>Software design:<ul><li>Focus: Tactical, detailed implementation and the "how".</li><li>Scope: Individual components, classes, and their specific relationships.</li><li>Key decisions:</li><ul><li>Using specific design patterns, like the Singleton pattern, to solve a concrete problem within a component.</li><li>Structuring the internal logic and behavior of a module.</li><li>Defining data structures and interfaces for a specific part of the system.</li></ul><li>Goal: To translate requirements into a concrete, executable plan for developers to code.</li>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	
 	<table>
 		<thead>
 			<tr>
@@ -423,6 +431,7 @@
 			<tr>
 				<td>
 					A set of rules and protocols that allows different software applications to communicate with each other.
+					API authentication ensures that right person is accessing the right data. A web service helps us expose the functionality or data of an application to another applications over world wide web. Web services provide a web-based interface that makes the services of an application available to other applications on the web.
 				</td>
 			</tr>
 		</tbody>
@@ -545,6 +554,7 @@
 			<tr>
 				<td>
 					A hashing technique that minimizes the number of keys that need to be remapped when a hash table is resized, useful in distributed systems.
+					Consistent hashing is a distributed hashing algorithm designed to address the problem of data redistribution when nodes are added or removed. With traditional hashing algorithms adding or removing node often result in alot of data needing to be distributed which can lead to system instability and performance degradation. Goal of consistent hashing is to minimize the need for rehashing when the number of nodes in a system changes. Consistent hashing is used in distributed systems, such as web caches, CDNs and DBs to efficiently distribute data or load across a variable number of servers or nodes.
 				</td>
 			</tr>
 		</tbody>
@@ -870,6 +880,7 @@
 			<tr>
 				<td>
 					Docker container is the runtime instance of docker image.
+					Docker is a technology which decouples application code from infrastructure.
 				</td>
 			</tr>
 		</tbody>
@@ -884,6 +895,7 @@
 			<tr>
 				<td>
 					An event is any type of action, incident, or change that's identified or recorded by software or applications.
+					Topic is basic unit for categorizing data in kafka. Kafka stream API can be used to transform or aggregate topics before reaching to consumers. Objects do not create other objects on which they relay to do their work, instead they get the objects that they need from an outside world.
 				</td>
 			</tr>
 		</tbody>
@@ -906,13 +918,13 @@
 	<table>
 		<thead>
 			<tr>
-				<th></th>
+				<th>CQRS</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>
-					
+					CQRS pattern help us scaly read and write operations independently.
 				</td>
 			</tr>
 		</tbody>
@@ -920,13 +932,68 @@
 	<table>
 		<thead>
 			<tr>
-				<th></th>
+				<th>Authentication</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>
-					
+					Authentication verifies the identity of a user or service and authorization determines their access rights.
+					Authentication is the process of verifying a user's identity while authorization is the process of determining what actions a user can perform.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Monolithic and Microservices</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Microservices: each service can be developed, deployed and scaled separately.
+					In monolith we have single unit of deployment.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>HTTP</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>ACID</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					These four properties define the reliability and integrity of database transactions.
+					They ensure that transactions are processed reliably and that the database remains in a consistent state, even in the face of system failures.
+					Transactions are treated as a single, indivisible unit of work. 
+					Either all operations within a transaction are completed successfully, or none of them are. 
+					If any part of the transaction fails, the entire transaction is rolled back to its previous state, preventing partial updates. 
+					A transaction must bring the database from one valid state to another. 
+					This means that any transaction must respect all defined constraints, rules, and restrictions of the database.
+					Concurrent transactions should not interfere with each other.
+					Each transaction should be isolated from others, as if they were running sequentially.
+					This prevents issues like dirty reads (reading uncommitted data) or lost updates.
+					Once a transaction is committed, its changes are permanent and survive system failures. 
+					The database must guarantee that the data will be written to persistent storage and will not be lost due to power outages or other crashes.
 				</td>
 			</tr>
 		</tbody>

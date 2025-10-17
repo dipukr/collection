@@ -10,7 +10,6 @@
         margin: 0;
         padding: 0;
       }
-
       body {
         background: whitesmoke;
         margin-top: 20px;
@@ -27,12 +26,10 @@
         border-radius: 5px;
         padding-bottom: 100px;
       }
-
       table {
         border-collapse: collapse;
         margin-bottom: 30px;
         width: 100%;
-        word-spacing: -1px;
         font-family: "DejaVu Serif";
         text-align: justify;
         text-justify: inter-word;
@@ -43,13 +40,11 @@
         border-bottom-left-radius: 2px;
         border-bottom-right-radius: 2px;
       }
-
       table thead tr {
         border-bottom: 4px solid #009879;
         border-left: 4px solid #009879;
         border-right: 4px solid #009879;
       }
-
       table thead tr th {
         background-color: #009879;
         padding: 8px 20px;
@@ -59,21 +54,19 @@
         font-style: italic;
         font-size: 25px;
       }
-
       table tbody tr {
         border-bottom: 4px solid #009879;
         border-left: 4px solid #009879;
         border-right: 4px solid #009879;
       }
-
       table tbody tr td {
         padding: 15px 25px;
         font-weight: 500;
         font-style: normal;
-        font-size: 25px;
+        font-size: 24px;
+        word-spacing: -2px;
         background-color: #f8f8f8;
       }
-
       table tbody tr td ul {
         padding-left: 40px;
         padding-top: 2px;
@@ -81,7 +74,6 @@
         list-style: square;
         font-size: 24px;
       }
-
       pre {
         background: #f8f8f8;
         border: 3px solid #eeeeee;
@@ -96,10 +88,7 @@
         word-spacing: -2px;
         tab-size: 3;
       }
-
-      em {
-        color: brown;
-      }
+      em {color: brown;}
     </style>
   </head>
 
@@ -271,7 +260,7 @@
             one form. Polymorphism enables us to deal with generalities and let
             the compiler and runtime environment to handle the specific.
             Polymorphism in Java can be achieved through method overloading,
-            method overriding and Generics. <br />
+            method overriding and Generics. Polymorphism is the provision of a single interface to entities of different types or the use of a single symbol to represent multiple different types. Field level polymorphism: a reference variable of class T can point to object of class E as well as object of subclass of E. <br/>
             <br />
             <ul>
               <li>Many methods can have one common name.</li>
@@ -328,7 +317,7 @@
     <table>
       <thead>
         <tr>
-          <th>Polymorphism</th>
+          <th>Method-overriding</th>
         </tr>
       </thead>
       <tbody>
@@ -337,14 +326,14 @@
             Method-overriding is the process of redefining a parent class instance method into its child
             class is known as method overriding. An instance method defined in
             the parent class is redefined into its child class to give specific
-            implementation of the parent class method.<br />
-            <br />
+            impl of the parent class method.<br/>
+            <br/>
             Referenced object type, not the reference variable type determines
             which method will be called. When we create a parent class reference
             variable and assign a child class object then calling an overridden
             method on that variable will call the child class behaviour.
-            <br />
-            <br />
+            <br/>
+            <br/>
             <ul>
               <li>Final methods can not be overridden.</li>
               <li>Static methods can not be overridden.</li>
@@ -377,7 +366,7 @@
             </ul> <br>
             <em>Dynamic binding</em> is a process in which a call to overridden method is resolved at the runtime rather than compile time. Which means that the code to be executed for a specific method call is not known until runtime.
 
-<em>Dynamic dispatch</em> is used when multiple classes contain different implementations of the same method which provides a mechanism for selecting the function to be executed from various function alternatives at the runtime.
+<em>Dynamic dispatch</em> is used when multiple classes contain different implementations of the same method which provides a mechanism for selecting the function to be executed from various function alternatives at the runtime. Dynamic binding (dispatch) is the process of linking function call to a specific sequence of code (function) at run-time.
           </td>
         </tr>
       </tbody>
@@ -437,5 +426,36 @@
         </tr>
       </tbody>
     </table>
+    <table>
+    <thead>
+      <tr>
+        <th>SOLID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Solid principle is a set of guidelines for writing code that makes it easier to manage, extend and debug.
+          Solid principle help us break big problem into smaller easier to handle parts.
+          Solid reduces dependencies on code so changes in one area won't break another.
+          Solid reduces tight coupling, making code more flexible and easier to maintain.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>DI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Dependency injection generally means passing a dependent object as a parameter to a method rather than having the method create the dependent object. Dependency injection is a software design pattern that allow us to develop loosely-coupled software. Dependecy injection allows us to depends more on abstraction rather than the concrete implementation, which promotes loosely-coupled architecture, flexibility and pluggability within our code. What it means in practice is that the method does not have a direct dependency on a particular implementation, any implementation that meets the requirements can be passed as a parameter. 
+        </td>
+      </tr>
+    </tbody>
+  </table>
   </body>
 </html>

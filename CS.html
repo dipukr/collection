@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>System Design</title>
+	<style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: whitesmoke;
+        margin-top: 20px;
+        width: 62%;
+        padding-left: 3%;
+        padding-right: 3%;
+        min-height: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        padding-top: 40px;
+        background-color: white;
+        box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding-bottom: 100px;
+      }
+      table {
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        width: 100%;
+        word-spacing: -1px;
+        font-family: "DejaVu Serif";
+        text-align: justify;
+        text-justify: inter-word;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 4px;
+        color: #555555;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
+      table thead tr {
+        border-bottom: 4px solid #009879;
+        border-left: 4px solid #009879;
+        border-right: 4px solid #009879;
+      }
+      table thead tr th {
+        background-color: #009879;
+        padding: 8px 20px;
+        color: #ffffff;
+        text-align: center;
+        font-weight: 600;
+        font-style: italic;
+        font-size: 25px;
+      }
+      table tbody tr {
+        border-bottom: 4px solid #009879;
+        border-left: 4px solid #009879;
+        border-right: 4px solid #009879;
+      }
+      table tbody tr td {
+        padding: 15px 25px;
+        font-weight: 500;
+        font-style: normal;
+        font-size: 25px;
+        background-color: #f8f8f8;
+      }
+      table tbody tr td ul {
+        padding-left: 40px;
+        padding-top: 2px;
+        padding-bottom: 5px;
+        list-style: square;
+        font-size: 22px;
+      }
+      pre {
+        background: #f8f8f8;
+        border: 3px solid #eeeeee;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: normal;
+        padding-top: 0px;
+        overflow: auto;
+        max-width: 99.2%;
+        font-family: "Consolas";
+        width: 100%;
+        word-spacing: -2px;
+        tab-size: 3;
+      }
+      em {
+        color: brown;
+      }
+    </style>
+</head>
+<body>
+		<table>
+		<thead>
+			<tr>
+				<th>Search Tree</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Search tree have the initial state at the root. <br>
+					Branches of search tree are actions. <br>
+					Search tree nodes corresponds to states in the state space of the problem. <br>
+					Search tree have repeated states: such repeated states may make the search tree infinite. <br>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+		<table>
+		<thead>
+			<tr>
+				<th>Monitor</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Synchronization is built around an internal entity known as the monitor.
+					Monitors are used to achieved mutual exclusion and threads cooperation. 
+					A monitor is an entity that possesses a lock, a wait-queue and an entry-queue.
+					Every Java objects has a monitor associated with them.
+					Lock enforces mutual exclusive access to synchronized code block or method invoked on the associated object.
+					Wait set is the set of all the threads waiting on an monitor object that is used to provide coordination between multiple threads.
+					Entry set is the set of all the threads who has already requested for the lock and the lock is not acquired by them yet.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Lock</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A lock is a tool for controlling access to a shared resource by multiple threads.
+					Every objects in java has an intrinsic lock associated with it.
+					Only one thread at a time can acquire the lock and all access to the shared resource requires that the lock be acquired first.
+					When a new thread tries to acquire the lock and if already a thread owns the lock then that thread will be waiting on the entry set to acquire the lock.
+					When the thread which is acquired the lock completes execution of its critical section then it will release the lock.
+					Next thread will acquire the lock but this next thread is taken from the entry set and will be determined by JVM based on some criteria like FIFO.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Visibility</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Visibility ensures that read functionality is thread safe.
+					Volatile ensures that all threads sees the same value of a variable at any given time.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Mutual exclusion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Mutual exclusion or atomicity ensures that write functionality is thread safe.
+					Mutual exclusion is a property of concurrency control, which is instituted for the purpose of preventing race conditions.
+					Race condition occures when a shared resource is accessed by different actors at the same time.
+					Both mutex and semaphore helps managing access to shared resources but they do it in different ways.
+					Mutex is suited for exclusive access whereas semaphore is suited for limited concurrency.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Thread</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					A thread of execution is the smallest sequence of programmed instructions that can be managed independently by a OS scheduler. Threads of a process share its executable code and the values of its dynamically allocated variables and non-thread-local global variables at any given time. Local primitive variables are thread-safe because each thread has separate stack memory. Local reference variables are not thread-safe because each thread share heap memory. A thread is a sequence of instructions within a program that can be executed independently of other code.
+					Threads share memory (code and data) space.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Thread Synchronization</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Thread synchronization is a mechanism which ensures that two or more concurrent processes or threads do not simultaneously execute some particular program segment known as critical section. Processes' access to critical section is controlled by using synchronization techniques. When one thread starts executing the critical section (serialized segment of the program) the other thread should wait until the first thread finishes. There is no any guarantee about exactly when a blocked thread is unblocked when the synchronized block is free again. This is typically up to the OS or execution platform to coordinate the unblocking of blocked threads.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Race Condition</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Deadlock</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Deadlock which occurs when many processes are waiting for a shared resource (critical section) which is being held by some other process.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Heap</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Heap is a region of free memory that is allocated and deallocated at run time by the program.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>ORM and JPA</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					Object-relational mapping (ORM) is the process of mapping java objects to relational tables of a relational database. Each row in the table correspond to the single object and each column in the table correspond to the each field of the object.
+					<br>
+					ORM is an layer between object-oriented language and SQL language of relational database. ORM layer work like a adapter layer as it adapts the language of object graphs to the language of relational tables. Data is structured into object graphs in the object oriented program and relational tables in the relational database. <br>
+					Java Persistence API is the java standard API for object-relational mapping. JPA is one of the many possible approach to ORM. The API is a set of concepts that defines which objects within the application should be persisted and how it should persist them. JPA is only an specification and that it needs an implementation to work. Most popular implementation of JPA is Hibernate. JPA is concerned with persistence, which means any mechanism by which java objects outlive the application process that created them.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>

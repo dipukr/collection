@@ -114,6 +114,8 @@
 	<tbody>
 		<tr>
 			<td>
+        Design patterns are solutions or techniques to avoid code design problem.
+        Design patterns help us write robust, clean, modular and extensible code.
 				Design patterns are reusable solutions to commonly occurring problems in software design. They provide a template for solving design issues in various contexts, helping developers write code that is more maintainable, scalable and understandable. <br> <br>
 <b>Design patterns are divided into three categories:</b>
 <ul>
@@ -134,6 +136,20 @@
 		</tr>
 	</tbody>
 </table>
+<table>
+    <thead>
+      <tr>
+        <th>Builder</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Builder design pattern is a creational design pattern that separates the construction of a complex object from its representation. Builder design pattern allows the same construction process to create different representations of the object.
+        </td>
+      </tr>
+    </tbody>
+  </table>
     <table>
       <thead>
         <tr>
@@ -243,6 +259,20 @@
     </table>
     
 <table>
+  <table>
+    <thead>
+      <tr>
+        <th>Bridge</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          Bridge pattern decouples an abstraction from its implementation so that the two can vary independently.
+        </td>
+      </tr>
+    </tbody>
+  </table>
 	<thead>
 		<tr>
 			<th>Facade</th>
@@ -385,7 +415,8 @@
       <tbody>
         <tr>
           <td>
-            Proxy pattern is a structural design pattern that provides a proxy for other objects to control access to them. The proxy implements the same interface as the real object and can add behavior like access control, logging, caching, lazy loading, etc. A proxy functions as an interface to something else. A proxy is a wrapper or agent object that the client calls to access the real serving object behind the scenes. Using a proxy can simply forward requests to the actual object or provide additional logic. Extra functionalities can be provided into proxy such as caching the operations on the actual object or checking pre-conditions before calling operations on the actual object. When-to use: when we need to perform additional operations when accessing an object. For examples, lazy loading, caching and access control.<br> <br><b>Structure:</b><ul><li>Subject (Interface) – Declares common interface for RealSubject and Proxy.</li><li>RealSubject – The actual object that does the work.</li><li>Proxy – Controls access to RealSubject, implements the same interface.</li></ul><br><b>Pros and Cons:</b><ul><li>Adds a layer of control over real objects.</li><li>Can do lazy loading, caching, access control.</li><li>Promotes separation of concerns.</li><li>Adds extra complexity and indirection.</li><li>Can introduce performance overhead.</li></ul><br><b>Real-world example:</b><ul><li>Java RMI – Uses proxy to call remote objects.</li><li>Spring AOP – Uses proxies for method interception.</li><li>Hibernate – Lazy-loaded entities are proxies.</li><li>Security managers – Proxy access to critical resources.</li><li>Credit card - Acts as a proxy for our bank account.</li></ul><br><b>Types:</b><ul><li>Virtual proxy - Lazy loading (e.g., loading an image only when needed)</li><li>Remote proxy - Representing objects in another address space (RMI, gRPC)</li><li>Protection proxy - Access control (authorization, role checking)</li><li>Smart-reference proxy - Adds extra behavior (like logging, ref counting)</li></ul> <br>
+            Proxy pattern is a structural design pattern that provides a proxy for other objects to control access to them. The proxy implements the same interface as the real object and can add behavior like access control, logging, caching, lazy loading, etc. A proxy functions as an interface to something else. A proxy is a wrapper or agent object that the client calls to access the real serving object behind the scenes. Using a proxy can simply forward requests to the actual object or provide additional logic. Extra functionalities can be provided into proxy such as caching the operations on the actual object or checking pre-conditions before calling operations on the actual object. Spring creates proxies for all the classes annotated with <em>Transactional</em>, either on the class or on any of the methods.
+The proxy allows the framework to inject transactional logic before and after the running method, mainly for starting and committing the transaction. When-to use: when we need to perform additional operations when accessing an object. For examples, lazy loading, caching and access control.<br> <br><b>Structure:</b><ul><li>Subject (Interface) – Declares common interface for RealSubject and Proxy.</li><li>RealSubject – The actual object that does the work.</li><li>Proxy – Controls access to RealSubject, implements the same interface.</li></ul><br><b>Pros and Cons:</b><ul><li>Adds a layer of control over real objects.</li><li>Can do lazy loading, caching, access control.</li><li>Promotes separation of concerns.</li><li>Adds extra complexity and indirection.</li><li>Can introduce performance overhead.</li></ul><br><b>Real-world example:</b><ul><li>Java RMI – Uses proxy to call remote objects.</li><li>Spring AOP – Uses proxies for method interception.</li><li>Hibernate – Lazy-loaded entities are proxies.</li><li>Security managers – Proxy access to critical resources.</li><li>Credit card - Acts as a proxy for our bank account.</li></ul><br><b>Types:</b><ul><li>Virtual proxy - Lazy loading (e.g., loading an image only when needed)</li><li>Remote proxy - Representing objects in another address space (RMI, gRPC)</li><li>Protection proxy - Access control (authorization, role checking)</li><li>Smart-reference proxy - Adds extra behavior (like logging, ref counting)</li></ul> <br>
             <pre style="width: 39%; float: left;">
 
   interface Image {

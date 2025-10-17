@@ -1,0 +1,24 @@
+Use database indexing to improve read operations.
+Cache results of the queries for fast read operation which reduces load on the database.
+Use flyweight design pattern to cache shared object states.
+Use eager loading in hibernate instead of lazy loading.
+When threads becomes non-blocking, your task is waiting but threads can take on next one.
+Distributed transaction span across the multiple microservices.
+Use interfaces for behavior and abstract classes for shared logic.
+Prefer composition over inheritance where possible.
+Always discuss scalability, concurrency, and thread safety.
+Structure your solution into clear layers like controller, service, repository, and model.
+Apply SOLID and DRY principles naturally in your reasoning.
+Handle failures and exceptions gracefully.
+======================================================================================================================================
+Optional provides some API to handle or minimize null pointer exception.
+Future represents the future results of an asynchronous task.
+Main purpose of reactive style programming is to avoid blocking in our code.
+Thread does not have to block on anthing for the final result of the pipeline to be relevant.
+Volatile ensures that all the threads sees the same value of a variale at any given time.
+Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type.
+Advantages of Generics: compile-time type safety, avoids class cast exceptions and eliminate the need for most type conversions.
+======================================================================================================================================
+Communication between two services (A, B) is synchronous when service A call service B and service A will keep waiting till the service B returns the response. Blocking type of communication.
+Try-catch promotes separation of concern principles by avoiding mixing of business logic code and error handling code.
+Singleton: client-server model where client class can have many objects but server class must have a single object.

@@ -60,6 +60,10 @@ Geosharding
 Event streaming
 amazon.jobs
 indeed
+=======================================
+Application: HTTP, FTP, DNS, POP3, SMTP
+Transport: UDP and TCP
+Network: IP, ICMP, ARP
 ==========================================
 Software Architectural Models and Patterns
 Distributed System Desing and Architecture

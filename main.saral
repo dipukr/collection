@@ -20,17 +20,35 @@ class FileReader
 
 class Person
 {
-    val String name;
-    val int age;
-    val int sal;
+   val name as String;
+   val age as int;
+   val sal as int;
 
-    pub Person(String name, int age, int sal) {
+    pub Person(val name as String, val age as int, val sal as int) {
         this.name = name;
         this.age = age;
         this.sal = sal;
     }
 
-    pub This(String name, int age, int sal) {
+    pub void draw(val canvas as Canvas) {
+        val person = Person.builder()
+            .name("name")
+            .age(20)
+            .sal(40000)
+            .build();
+        canvas.draw("name={name}");
+        canvas.draw("age={age}");
+        canvas.draw("sal={sal}");
+    }
+}
+
+class Person
+{
+   String name;
+   int age;
+   int sal;
+
+    pub Person(String name, int age, int sal) {
         this.name = name;
         this.age = age;
         this.sal = sal;
