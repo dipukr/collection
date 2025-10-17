@@ -5,7 +5,7 @@ gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 git config --global user.name "koomar_dipu"
 git config --global user.email "koomar.dipu@gmail.com"
 git config --global core.editor "vim"
-git config --global credential.helper "/bin/bash /home/server/.config/.git-credentials"
+git config --global credential.helper "/bin/bash /home/dkumar/.config/.git-credentials"
 org.eclipse.ui.editors.prefs:wordwrap.enabled=true
 alter user 'root'@'localhost' identified by 'Root@123';
 wget https://brave-browser-rpm-release.s3.brave.com/x86_64/brave-browser-1.43.88-1.x86_64.rpm
