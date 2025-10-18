@@ -22,7 +22,6 @@
 			padding-top: 40px;
 			background-color: white;
 			box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
-		
 			padding-bottom: 100px;
 		}
 		table {
@@ -55,7 +54,7 @@
 	        padding-top: 2px;
 	        padding-bottom: 5px;
 	        list-style: square;
-	        font-size: 22px;
+	        font-size: 23px;
       	}
 		b {color: magenta;}
 	</style>
@@ -249,6 +248,21 @@ A system design paradigm where components react to events rather than relying on
 <tr>
 <td>
 CQRS pattern help us scale read and write operations independently.
+</td>
+</tr>
+<tr>
+<td>
+Object-relational mapping (ORM) is the process of mapping java objects to relational tables of a relational database. Each row in the table correspond to the single object and each column in the table correspond to the each field of the object. <br><br>
+ORM is an layer between object-oriented language and SQL language of relational database. <br> ORM layer work like a adapter layer as it adapts the language of object graphs to the language of relational tables.  <br>Data is structured into object graphs in the object oriented program and relational tables in the relational database.
+JPA is the java standard API for object-relational mapping which is one of the many possible approach to ORM. <br><br> The API is a set of concepts that defines which objects within the application should be persisted and how it should persist them. JPA is only an specification and that it needs an implementation to work. Most popular implementation of JPA is Hibernate. JPA is concerned with persistence, which means any mechanism by which java objects outlive the application process that created them.
+</td>
+</tr>
+<tr>
+<td>
+Search tree have the initial state at the root. <br>
+Branches of search tree are actions. <br>
+Search tree nodes corresponds to states in the state space of the problem. <br>
+Search tree have repeated states: such repeated states may make the search tree infinite.
 </td>
 </tr>
 </table>
