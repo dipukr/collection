@@ -77,3 +77,6 @@ int main(const int argc, const char **argv)
 	Evaluate(a, 0, 0, 8, 8);
 	Evaluate(a, 0, 0, 9, 9);
 }
+        ◦ Used Tensorflow to implement power demand forecasting model using FNN.
+        ◦ Used Tensorflow to implement real-time fault-detection and classification model with CNN.
+        AI: Hands-on with FNN, CNN, RNN, LSTM, GAN and LLMs

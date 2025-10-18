@@ -91,31 +91,9 @@ RabbitMQ
 CAP
 RPC
 REST
-Fault tolerance
 Zero-downtime
-========================
-ACID
-PK
-FK
-Indexing
-Partition
-Sharding
-Normalization
-=============
-ANN
-CNN
-RNN
-LSTM
-GAN
-VAE
-GNN
-LLM
-NLP
-PCA
-Adam
-Autoencoders
-Transformers
-====================
+Fault tolerance
+===============
 Interference graph
 Liveness analysis
 Graph coloring
@@ -141,3 +119,26 @@ Mutual exclusion
 Busy waiting
 Thread synchronization
 Critical section
+========================
+ACID
+PK
+FK
+Indexing
+Partition
+Sharding
+Normalization
+=============
+ANN
+CNN
+RNN
+LSTM
+GAN
+VAE
+GNN
+LLM
+NLP
+PCA
+Adam
+Autoencoders
+Transformers
+====================

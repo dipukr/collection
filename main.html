@@ -12,7 +12,7 @@
 		body {
 			background: whitesmoke;
 			margin-top: 20px;
-			width: 80%;
+			width: 70%;
 			padding-left: 3%;
 			padding-right: 3%;
 			min-height: 1000px;
@@ -36,33 +36,89 @@
 			cursor: pointer;
 			overflow: hidden;
 			border-radius: 4px;
-			color: #551111;
+			color: #555555;
 		}
-		
 		table tr td {
 			padding: 15px 25px;
 			font-weight: 500;
 			font-style: normal;
-			font-size: 22px;
+			font-size: 24px;
+			word-spacing: -2px;
 			background-color: #f8f8f8;
 			border-top: 2px solid #009879;
 			border-bottom: 2px solid #009879;
 			border-left: 2px solid #009879;
 			border-right: 2px solid #009879;
 		}
+		table tbody tr td ul {
+	        padding-left: 20px;
+	        padding-top: 2px;
+	        padding-bottom: 5px;
+	        list-style: square;
+	        font-size: 22px;
+      	}
 		b {color: magenta;}
 	</style>
 </head>
 <body>
-	<table>
-		<tr>
-			<td>
-				Software architecture is the high-level, strategic blueprint of a system, defining its overall structure, core components, and their interactions to meet business needs, while design is the tactical, low-level process of detailing how individual components will be built and work together. Think of architecture as defining the "what" and "why" (e.g., using a microservices pattern for scalability), whereas design is the "how" of specific implementation, like choosing a particular design pattern (e.g., the Strategy pattern) to solve a problem within one of those services.<br><br>Software architecture:<ul><li>Focus: Strategic, big-picture decisions and the "why".</li><li>Scope: The entire system, including its core structure, high-level component interactions, and fundamental principles.</li><li>Key decisions:</li><ul><li>Choosing an overall pattern like microservices or serverless.</li><li>Addressing non-functional requirements like security, performance, and scalability across the system.</li><li>Defining the interactions between major components and systems.</li></ul>Software design:<ul><li>Using specific design patterns, like the Singleton pattern, to solve a concrete problem within a component.</li><li>Structuring the internal logic and behavior of a module.</li><li>Defining data structures and interfaces for a specific part of the system.</li></ul>
+<table>
+<tr>
+<td>
 
-			</td>
-		</tr>
-	</table>
+Optional provides some API to handle or minimize null pointer exception. <br>
+Future represents the future results of an asynchronous task. <br>
+Main purpose of reactive style programming is to avoid blocking in our code. <br>
+Thread does not have to block on anthing for the final result of the pipeline to be relevant. <br>
+Volatile ensures that all the threads sees the same value of a variale at any given time. <br>
+Try-catch promotes separation of concern principles by avoiding mixing of business logic code and error handling code. <br>
+Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type. <br>
+Advantages of Generics: compile-time type safety, avoids class cast exceptions and eliminate the need for most type conversions. <br>
+
+</td>
+</tr>
+<tr>
+<td>
+
+Data structure is a way of organizing data so that it can be used effectively.
+Each thread is executing the same program code and shares the same data area and heap, however each threadhas it own stack containing local variables.
+Thread: A dispatchable unit of work, includes a processor context (which includes the program counter and stack pointer) and its own data area for a stack.
+Singleton: client-server model where client class can have many objects but server class must have a single object.
+YouTube stores likes count in a highly distributed, eventually consistent manner — not as a simple single number in one database.
+SPOF is a component in your system whose failure can bring down the entire system down.
+Pluggable code is a system architecture where components can be easily added, removed or replaced without changing existing code. 
+These components follow a common interface or contract.
+Creating platform threads is expensive both in terms of time and space.
+Load balancer allows us to roll out software updates without taking the whole service down.
+Shared data cached: causes a thread not to notice that data has been changed by the another thread.
+Returned value is wrapped into the Future object, which is returned immediately.
+Method get blocks invoking thread until timeout or when the value within the Future object becomes available.
+Method wait puts a thread into waiting state against specific monitor.
+Any number of threads can be waiting against the same monitor.
+Keyword synchronized enforces exclusive access to the block of code.
+DAO is a design pattern to implement persistent layer of the Java application and reduces coupling between business logic and persistent logic.
+Abstraction is separation of interface from implementation so that we can have one interface and many implementations.
+Abstract data type: what operations can be performed on this data, ignoring how those operations will be performed.
+High level modules should not depend on low level modules. Both should depends on abstraction.
+Abstraction should not depend implementation rather implementation should depends on abstraction.
+Polymorphism is the ability of a variable, function or object to take on multiple forms.
+Primary key: candidate key chosen to uniquely identify each row of data in a table.
+Foreign key: an attribute in table which is used to define its relationship with another table.
+Normalization is technique of organizing the data into multiple related tables to minimize data redundancy.
+Transaction: a series of database operations that either all succeed or they all fail.  
+Library is a tool that provides a specific functionality.
+Framework is a set of tools and guidelines for building the application.
+Constructor sets the initial state of an object ensuring that it is ready to use.
+Interface defines what a class does but not how it does it.
+A rate limiter controls how many requests a client can make within a specific timeframe.
+HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
+Authentication verifies the identity of a user or service and authorization determines their access rights.
+Authentication is the process of verifying a user's identity while authorization is the process of determining what actions a user can perform.
+Heartbeat is a small, regular signal sent between components to check if they’re still alive and responsive.
+Single point of failure is the part of a system that, if it fails, will stop the entire system from working.
 	
+</td>
+</tr>
+</table>
 </body>
 </html>
 

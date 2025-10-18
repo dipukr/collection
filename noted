@@ -1,25 +1,45 @@
-Use database indexing to improve read operations.
-Cache results of the queries for fast read operation which reduces load on the database.
-Use flyweight design pattern to cache shared object states.
-Use eager loading in hibernate instead of lazy loading.
-When threads becomes non-blocking, your task is waiting but threads can take on next one.
-Distributed transaction span across the multiple microservices.
-Use interfaces for behavior and abstract classes for shared logic.
-Prefer composition over inheritance where possible.
-Always discuss scalability, concurrency, and thread safety.
-Structure your solution into clear layers like controller, service, repository, and model.
-Apply SOLID and DRY principles naturally in your reasoning.
-Handle failures and exceptions gracefully.
-===========================================================================================================================================================================
 Optional provides some API to handle or minimize null pointer exception.
 Future represents the future results of an asynchronous task.
 Main purpose of reactive style programming is to avoid blocking in our code.
 Thread does not have to block on anthing for the final result of the pipeline to be relevant.
 Volatile ensures that all the threads sees the same value of a variale at any given time.
+Try-catch promotes separation of concern principles by avoiding mixing of business logic code and error handling code.
 Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type.
 Advantages of Generics: compile-time type safety, avoids class cast exceptions and eliminate the need for most type conversions.
-===========================================================================================================================================================================
-Try-catch promotes separation of concern principles by avoiding mixing of business logic code and error handling code.
+=============================================================================================================================================================
+Data structure is a way of organizing data so that it can be used effectively.
+Each thread is executing the same program code and shares the same data area and heap, however each threadhas it own stack containing local variables.
+Thread: A dispatchable unit of work, includes a processor context (which includes the program counter and stack pointer) and its own data area for a stack.
 Singleton: client-server model where client class can have many objects but server class must have a single object.
 YouTube stores likes count in a highly distributed, eventually consistent manner — not as a simple single number in one database.
-API Gateway: Facade
+SPOF is a component in your system whose failure can bring down the entire system down.
+Pluggable code is a system architecture where components can be easily added, removed or replaced without changing existing code. 
+These components follow a common interface or contract.
+Creating platform threads is expensive both in terms of time and space.
+Load balancer allows us to roll out software updates without taking the whole service down.
+Shared data cached: causes a thread not to notice that data has been changed by the another thread.
+Returned value is wrapped into the Future object, which is returned immediately.
+Method get blocks invoking thread until timeout or when the value within the Future object becomes available.
+Method wait puts a thread into waiting state against specific monitor.
+Any number of threads can be waiting against the same monitor.
+Keyword synchronized enforces exclusive access to the block of code.
+DAO is a design pattern to implement persistent layer of the Java application and reduces coupling between business logic and persistent logic.
+Abstraction is separation of interface from implementation so that we can have one interface and many implementations.
+Abstract data type: what operations can be performed on this data, ignoring how those operations will be performed.
+High level modules should not depend on low level modules. Both should depends on abstraction.
+Abstraction should not depend implementation rather implementation should depends on abstraction.
+Polymorphism is the ability of a variable, function or object to take on multiple forms.
+Primary key: candidate key chosen to uniquely identify each row of data in a table.
+Foreign key: an attribute in table which is used to define its relationship with another table.
+Normalization is technique of organizing the data into multiple related tables to minimize data redundancy.
+Transaction: a series of database operations that either all succeed or they all fail.  
+Library is a tool that provides a specific functionality.
+Framework is a set of tools and guidelines for building the application.
+Constructor sets the initial state of an object ensuring that it is ready to use.
+Interface defines what a class does but not how it does it.
+A rate limiter controls how many requests a client can make within a specific timeframe.
+HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
+Authentication verifies the identity of a user or service and authorization determines their access rights.
+Authentication is the process of verifying a user's identity while authorization is the process of determining what actions a user can perform.
+Heartbeat is a small, regular signal sent between components to check if they’re still alive and responsive.
+Single point of failure is the part of a system that, if it fails, will stop the entire system from working.

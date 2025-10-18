@@ -1,0 +1,12 @@
+Use database indexing to improve read operations.
+Cache results of the queries for fast read operation which reduces load on the database.
+Use flyweight design pattern to cache shared object states.
+Use eager loading in hibernate instead of lazy loading.
+When threads becomes non-blocking, your task is waiting but threads can take on next one.
+Distributed transaction span across the multiple microservices.
+Use interfaces for behavior and abstract classes for shared logic.
+Prefer composition over inheritance where possible.
+Always discuss scalability, concurrency, and thread safety.
+Structure your solution into clear layers like controller, service, repository, and model.
+Apply SOLID and DRY principles naturally in your reasoning.
+Handle failures and exceptions gracefully.
