@@ -6,6 +6,7 @@ Volatile ensures that all the threads sees the same value of a variale at any gi
 Try-catch promotes separation of concern principles by avoiding mixing of business logic code and error handling code.
 Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type.
 Advantages of Generics: compile-time type safety, avoids class cast exceptions and eliminate the need for most type conversions.
+Objects do not create other objects on which they relay to do their work, instead they get the objects that they need from an outside world.
 =============================================================================================================================================================
 Data structure is a way of organizing data so that it can be used effectively.
 Each thread is executing the same program code and shares the same data area and heap, however each threadhas it own stack containing local variables.

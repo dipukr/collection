@@ -10,3 +10,4 @@ Always discuss scalability, concurrency, and thread safety.
 Structure your solution into clear layers like controller, service, repository, and model.
 Apply SOLID and DRY principles naturally in your reasoning.
 Handle failures and exceptions gracefully.
+Use join fetch or eager loading in hibernate.

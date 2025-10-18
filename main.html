@@ -12,7 +12,7 @@
 		body {
 			background: whitesmoke;
 			margin-top: 20px;
-			width: 70%;
+			width: 60%;
 			padding-left: 3%;
 			padding-right: 3%;
 			min-height: 1000px;
@@ -51,7 +51,7 @@
 			border-right: 2px solid #009879;
 		}
 		table tbody tr td ul {
-	        padding-left: 20px;
+	        padding-left: 40px;
 	        padding-top: 2px;
 	        padding-bottom: 5px;
 	        list-style: square;
@@ -64,58 +64,191 @@
 <table>
 <tr>
 <td>
-
-Optional provides some API to handle or minimize null pointer exception. <br>
-Future represents the future results of an asynchronous task. <br>
-Main purpose of reactive style programming is to avoid blocking in our code. <br>
-Thread does not have to block on anthing for the final result of the pipeline to be relevant. <br>
-Volatile ensures that all the threads sees the same value of a variale at any given time. <br>
-Try-catch promotes separation of concern principles by avoiding mixing of business logic code and error handling code. <br>
-Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type. <br>
-Advantages of Generics: compile-time type safety, avoids class cast exceptions and eliminate the need for most type conversions. <br>
-
+Distributed computing involves multiple computers working together over a network to solve a problem, acting as a single, powerful system. It's a divide-and-conquer approach where tasks are broken down and processed concurrently on different nodes (computers), then the results are combined. This allows for greater scalability, performance, and resilience compared to using a single, centralized computer. 
+The components of a distributed system communicate and coordinate their actions by passing messages to one another in order to achieve a common goal. Three significant challenges of distributed systems are: maintaining concurrency of components, overcoming the lack of a global clock, and managing the independent failure of components. When a component of one system fails, the entire system does not fail. Examples of distributed systems vary from SOA-based systems to microservices to massively multiplayer online games to peer-to-peer applications. Distributed systems cost significantly more than monolithic architectures, primarily due to increased needs for additional hardware, servers, gateways, firewalls, new subnets, proxies, and so on. There are many different types of implementations for the message passing mechanism, including pure HTTP, RPC connectors and message queues.
+<br><br>
+Key Concepts in Distributed System Design:<ul>
+<li>Nodes or components: These are the individual computers or processes that make up the distributed system.</li>
+<li>Network: A network connects these nodes, enabling communication and data exchange. </li>
+<li>Communication: Many protocols and mechanisms (REST, RPC, MQ) are used for communication between nodes. </li>
+<li>Transparency: Users should not be aware of the underlying complexity of the distributed nature of the system. </li>
+<li>Scalability: The system should be able to handle increasing load and data volume by adding more nodes. </li>
+<li>Availability: The system should remain operational and accessible even if some nodes fail. </li>
+<li>Consistency: Ensuring data consistency across multiple nodes is a significant challenge. </li>
+<li>Fault Tolerance: The system should be designed to handle failures gracefully and continue functioning. </li>
+<li>Security: How secure should the system be? Consider factors like authentication, encryption, and access controls.</li>
+<li>Durability: How durable should the system be? What is the timeframe for data retention.</li>
+<ul>
 </td>
 </tr>
 <tr>
 <td>
+System design is the process of defining the architecture, components, interfaces and data of a  software system to meet specific requirements. It's a blueprint that guides the development and implementation of a system, ensuring it's functional, scalable, reliable, and maintainable. System design is a crucial process that ensures a system is well-structured, efficient, and can meet the evolving needs of its users. Key concepts include load balancing, caching, database sharding and understanding the CAP theorem.
+</td>
+</tr>	
+<tr>
+<td>
+Consistent hashing is a hashing technique that minimizes the number of keys that need to be remapped when a hash table is resized, useful in distributed systems.
+Consistent hashing is a distributed hashing algorithm designed to address the problem of data redistribution when nodes are added or removed. With traditional hashing algorithms adding or removing node often result in alot of data needing to be distributed which can lead to system instability and performance degradation. Goal of consistent hashing is to minimize the need for rehashing when the number of nodes in a system changes. Consistent hashing is used in distributed systems, such as web caches, CDNs and DBs to efficiently distribute data or load across a variable number of servers or nodes.
+</td>	
+</tr>
+<tr>
+<td>
+Scalability is the ability of a system to handle an increased workload without loosing performance.
+The ability of a system to handle a growing amount of work by adding resources.
+The ability of a system to handle increasing traffic, data, or users without breaking or slowing down.
+</td>
+</tr>
+<tr>
+<td>
+Latency measured in milliseconds (ms) represents the time taken for a single query to execute. 
+Latency is the time it takes to process one request; throughput is how many requests are handled per second.
+Throughput measured in operations per second or transactions per second represents the volume of data processed per unit time.
+Latency focuses on the speed of each operations while throughput focuses on the volume of operations that can be handled per unit time.<br>
+</td>
+</tr>
+<tr>
+<td>
+Caching is a techniques of storing frequently accessed data in a temporary storage location to improve the system performance. 
+Caching helps to reduce the time and resources required to fetch the data from the original source by serving it quicky from the cache.
+Caching is a technique that allows frequently accessed data to be stored in memory so that it can be quickly retrieved without having to go back to the database every time. Cache reduces latency and load on the database.
+Web browser caches web pages to load them faster on subsequent visits.
+Database server caches frequently accessed query results to avoid expensive database queries. <br> <br>
+<em>Cacheable data:</em> data that does not changes at all are the best candidate for caching and data that does not frequently changes can also be cached for certain period to time.
+</td>
+</tr>
+<tr>
+<td>
+DNS is a hierarchical and distributed name service that provides a naming system for computers, services and other resources on the internet or other Internet Protocol (IP) networks. <br><br>
+GeoDNS (Geographical Domain Name System) is a DNS service that redirects users to different servers based on their geographical location, optimizing traffic flow for better performance and availability. It works by identifying a user's IP address, determining their geographic location using IP geolocation databases, and then returning the IP address of a server that is closest or most appropriate for that region.
+</td>
+</tr>
+<tr>
+<td>
+CDN is a geographically distributed network of proxy servers that work together to provide fast delivery of internet content.
+A network of servers that delivers static content (like images or videos) from locations closer to the user.
+</td>
+</tr>
+<tr>
+<td>
+API gateway acts as a single entry point for handling client requests to various backend services. It acts as a reverse proxy, routing requests to the appropriate services and can also handle cross-cutting concerns like authentication, authorization, rate limiting, caching, logging, monitoring, protocol translation and load balancing. API gateway accepts API requests from a client, processes them based on defined policies, directs them to the appropriate services, and combines the responses for a simplified user experience.
+</td>
+</tr>
+<tr>
+<td>
+Load balancing is the method of distributing network traffic equally across a pool of resources that support an application. Modern applications must process millions of users simultaneously and return the correct text, videos, images, and other data to each user in a fast and reliable manner. To handle such high volumes of traffic, most applications have many resource servers with duplicate data between them. A load balancer is a device that sits between the user and the server group and acts as an invisible facilitator, ensuring that all resource servers are used equally. Companies usually have their application running on multiple servers. Such a server arrangement is called a server farm. User requests to the application first go to the load balancer. The load balancer then routes each request to a single server in the server farm best suited to handle the request. Benefits of load balancer: load balancer improves an application’s availability, scalability, security and performance. We can use load balancing to make these tasks easier: Run application server maintenance or upgrades without application downtime.	
+</td>
+</tr>
+<tr>
+<td>
+Rate limiting is the technique for limiting the number of request that can be made to a web service in a given period of time.
+For monetising an API rate limit is very important when you want to charge your client based on number of request made.	 
+</td>
+</tr>
+<tr>
+<td>
+API is a set of rules and protocols that allows different software applications to communicate with each other.
+API authentication ensures that right person is accessing the right data. A web service helps us expose the functionality or data of an application to another applications over world wide web. Web services provide a web-based interface that makes the services of an application available to other applications on the web.
+</td>
+</tr>
+<tr>
+<td>
+Cookie data is stored on the client’s computer.
+Cookies can be set to expire after a specific time period or when the browser is closed.
+In some cases, it is essential that all requests from a client are sent to the same server for the duration of a session, for example when a client is putting items in a shopping cart and then completing the purchase. Maintaining the connection between client and server is known as session persistence. Without session persistence, data has to be synchronized across servers and potentially fetched multiple times which results in performance loss. Session data is stored on the server.
+</td>
+</tr>
+<tr>
+<td>
+Communication between two services (A, B) is synchronous or blocking when service A call service B and service A will keep waiting till the service B returns the response.
+</td>
+</tr>
+<tr>
+<td>
+Message queue allows asynchoronous communication between microservices. <br>
+Message queues enables asynchronous communication between different parts of a system.
+</td>
+</tr>
+<tr>
+<td>
+An event is any type of action, incident, or change that's identified or recorded by software or applications.
+Topic is basic unit for categorizing data in kafka. Kafka stream API can be used to transform or aggregate topics before reaching to consumers.	
+</td>
+</tr>
+<tr>
+<td>
+The saga pattern is a design pattern used in microservices architecture to manage distributed transactions. This allows for a sequence of local transactions across multiple services, ensuring data consistency even when individual services might fail. It achieves this by defining a series of compensating transactions that can be executed to undo previous operations if a failure occurs. There are two main ways to implement: choreography and orchestration. <br>
+<br>
+<em>Orchestration:</em> a central coordinator service manages the saga, instructing each service when to perform its local or compensating transaction. 
+<em>Choreography:</em> services react to events published by other services, deciding whether to perform their local transaction or a compensating transaction based on the event.
 
-Data structure is a way of organizing data so that it can be used effectively.
-Each thread is executing the same program code and shares the same data area and heap, however each threadhas it own stack containing local variables.
-Thread: A dispatchable unit of work, includes a processor context (which includes the program counter and stack pointer) and its own data area for a stack.
-Singleton: client-server model where client class can have many objects but server class must have a single object.
-YouTube stores likes count in a highly distributed, eventually consistent manner — not as a simple single number in one database.
-SPOF is a component in your system whose failure can bring down the entire system down.
-Pluggable code is a system architecture where components can be easily added, removed or replaced without changing existing code. 
-These components follow a common interface or contract.
-Creating platform threads is expensive both in terms of time and space.
-Load balancer allows us to roll out software updates without taking the whole service down.
-Shared data cached: causes a thread not to notice that data has been changed by the another thread.
-Returned value is wrapped into the Future object, which is returned immediately.
-Method get blocks invoking thread until timeout or when the value within the Future object becomes available.
-Method wait puts a thread into waiting state against specific monitor.
-Any number of threads can be waiting against the same monitor.
-Keyword synchronized enforces exclusive access to the block of code.
-DAO is a design pattern to implement persistent layer of the Java application and reduces coupling between business logic and persistent logic.
-Abstraction is separation of interface from implementation so that we can have one interface and many implementations.
-Abstract data type: what operations can be performed on this data, ignoring how those operations will be performed.
-High level modules should not depend on low level modules. Both should depends on abstraction.
-Abstraction should not depend implementation rather implementation should depends on abstraction.
-Polymorphism is the ability of a variable, function or object to take on multiple forms.
-Primary key: candidate key chosen to uniquely identify each row of data in a table.
-Foreign key: an attribute in table which is used to define its relationship with another table.
-Normalization is technique of organizing the data into multiple related tables to minimize data redundancy.
-Transaction: a series of database operations that either all succeed or they all fail.  
-Library is a tool that provides a specific functionality.
-Framework is a set of tools and guidelines for building the application.
-Constructor sets the initial state of an object ensuring that it is ready to use.
-Interface defines what a class does but not how it does it.
-A rate limiter controls how many requests a client can make within a specific timeframe.
-HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
-Authentication verifies the identity of a user or service and authorization determines their access rights.
-Authentication is the process of verifying a user's identity while authorization is the process of determining what actions a user can perform.
-Heartbeat is a small, regular signal sent between components to check if they’re still alive and responsive.
-Single point of failure is the part of a system that, if it fails, will stop the entire system from working.
-	
+<br><br>
+<em>Compensating transactions:</em> for each local transaction, a corresponding compensating transaction is defined. When a transaction fails, the saga executes these compensating transactions in reverse order to undo the changes made by the successful transactions.
+Saga pattern relies on asynchronous communication to trigger subsequent transactions and compensating actions ensuring loose coupling between services. 
+</td>
+</tr>
+<tr>
+<td>
+ACID properties define the reliability and integrity of database transactions.
+They ensure that transactions are processed reliably and that the database remains in a consistent state, even in the face of system failures. <br><br>
+Transactions are treated as a single, indivisible unit of work. <br>
+Either all operations within a transaction are completed successfully, or none of them are. <br>
+If any part of the transaction fails, the entire transaction is rolled back to preventing partial updates.<br> 
+A transaction must bring the database from one valid state to another. <br>
+This means that any transaction must respect all defined constraints, rules and restrictions of the database.<br>
+Concurrent transactions should not interfere with each other.<br>
+Each transaction should be isolated from others, as if they were running sequentially.<br>
+This prevents issues like dirty reads (reading uncommitted data) or lost updates.<br>
+Once a transaction is committed, its changes are permanent and survive system failures. <br>
+The database must guarantee that the data will be written to persistent storage and will not be lost due to power outages or other crashes.
+</td>
+</tr>
+<tr>
+<td>
+Connection pooling means that connections are reused rather than created each time a connection is requested. A connection pool is cache of database connections maintained so that connections can be reused when future requests to the database is required. <br> <br>
+Sequence of steps involved in a typical database connection life cycle:
+<ul>
+<li>Opening a connection to the database using the database driver</li>
+<li>Opening a TCP socket for reading-writing data</li>
+<li>The user is authenticated</li>
+<li>Reading-writing data over the socket</li>
+<li>Close the connection</li>
+<li>Close the socket</li>
+</ul>					
+</td>
+</tr>
+<tr>
+<td>
+Sharding is the process of dividing a database table (dataset) into smaller, more manageable pieces called shards, which are distributed across multiple machines or nodes. Sharding usually refers to splitting one large table’s data horizontally (row-wise) across multiple databases or servers. Each shard contains a subset of rows of the table. All shards have the same schema, just different data. Splits large datasets into smaller chunks (shards) to spread the load across servers.
+</td>
+</tr>
+<tr>
+<td>
+Architecture of a system describes its major components, its relationships and how they interact with each other. 
+Software architecture is the high-level, strategic blueprint of a system, defining its overall structure, core components, and their interactions to meet business needs, while design is the tactical, low-level process of detailing how individual components will be built and work together. Think of architecture as defining the <em>what</em> and <em>why</em> (using a microservices pattern for scalability), whereas design is the <em>how</em> of specific implementation, like choosing a particular design pattern (Strategy pattern) to solve a problem within one of those services.<br><br>Key decisions:<ul><li>Choosing an overall pattern like microservices or serverless.</li><li>Addressing non-functional requirements like security, performance, and scalability across the system.</li><li>Defining the interactions between major components and systems.
+</td>
+</tr>
+<tr>
+<td>
+The client-server model is a computing model where client devices request resources or services from a centralized server, which then processes the request and provides a response. 
+Client-server model also called request-response model in which client sends a request and has to wait for the server's response before sending another one.
+In this model there is no continuous flow (live streaming) of data. For update client has to ask the server, server itself does not provides realtime updates.
+</td>
+</tr>
+<tr>
+<td>
+A stateful architecture remembers client data from one request to the next, while a stateless architecture does not.
+</td>
+</tr>
+<tr>
+<td>
+Event-driven architecture is a software design pattern that allows system to detect, process and respond to events.
+A system design paradigm where components react to events rather than relying on synchronous request-response patterns.
+</td>
+</tr>
+<tr>
+<td>
+CQRS pattern help us scale read and write operations independently.
 </td>
 </tr>
 </table>
