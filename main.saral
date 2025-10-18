@@ -2,19 +2,18 @@ record Person(String name, int age, int sal)
 
 class FileReader
 {
-    val File file;
+    val File file
 
     pub FileReader(File file) {
-        this.file = file;
+        this.file = file
     }
 
     pub ByteStream readAll() {
-        byte[] data = new byte[10000];
-        val reader = new DataStreamReader(file);
-        while (true) {
-            reader.read(data);
-        }
-        return ByteStream.of(data);
+        byte[] data = new byte[10000]
+        val reader = new DataStreamReader(file)
+        while (true)
+            reader.read(data)
+        return ByteStream.of(data)
     }
 }
 

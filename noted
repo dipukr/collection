@@ -10,7 +10,7 @@ Always discuss scalability, concurrency, and thread safety.
 Structure your solution into clear layers like controller, service, repository, and model.
 Apply SOLID and DRY principles naturally in your reasoning.
 Handle failures and exceptions gracefully.
-======================================================================================================================================
+===========================================================================================================================================================================
 Optional provides some API to handle or minimize null pointer exception.
 Future represents the future results of an asynchronous task.
 Main purpose of reactive style programming is to avoid blocking in our code.
@@ -18,8 +18,8 @@ Thread does not have to block on anthing for the final result of the pipeline to
 Volatile ensures that all the threads sees the same value of a variale at any given time.
 Generics enables generic programming in Java. Generics can be used to write classes and methods that can operate on any data type.
 Advantages of Generics: compile-time type safety, avoids class cast exceptions and eliminate the need for most type conversions.
-======================================================================================================================================
-Communication between two services (A, B) is synchronous when service A call service B and service A will keep waiting till the service B returns the response. Blocking type of communication.
+===========================================================================================================================================================================
 Try-catch promotes separation of concern principles by avoiding mixing of business logic code and error handling code.
 Singleton: client-server model where client class can have many objects but server class must have a single object.
 YouTube stores likes count in a highly distributed, eventually consistent manner — not as a simple single number in one database.
+API Gateway: Facade

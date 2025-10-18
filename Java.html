@@ -6,108 +6,90 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Java</title>
 	<style type="text/css">
-		* {
-			margin: 0;
-			padding: 0;
-		}
-
-		body {
-			background: whitesmoke;
-			margin-top: 20px;
-			width: 60%;
-			padding-left: 3%;
-			padding-right: 3%;
-			min-height: 1000px;
-			margin-left: auto;
-			margin-right: auto;
-			margin-bottom: 20px;
-			padding-top: 40px;
-			background-color: white;
-			box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
-			border-radius: 5px;
-			padding-bottom: 100px;
-		}
-
-		table {
-			border-collapse: collapse;
-			margin-bottom: 30px;
-			width: 100%;
-			word-spacing: -1px;
-			font-family: "DejaVu Serif";
-			text-align: justify;
-			text-justify: inter-word;
-			cursor: pointer;
-			overflow: hidden;
-			border-radius: 4px;
-			color: #551111;
-			border-bottom-left-radius: 2px;
-			border-bottom-right-radius: 2px;
-		}
-
-		table thead tr {
-			border-bottom: 4px solid #009879;
-			border-left: 4px solid #009879;
-			border-right: 4px solid #009879;
-		}
-
-		table thead tr th {
-			background-color: #009879;
-			padding: 8px 20px;
-			color: #ffffff;
-			text-align: center;
-			font-weight: 600;
-			font-style: normal;
-			font-size: 22px;
-		}
-
-		table tbody tr {
-			border-bottom: 4px solid #009879;
-			border-left: 4px solid #009879;
-			border-right: 4px solid #009879;
-		}
-
-		table tbody tr td {
-			padding: 15px 25px;
-			font-weight: 500;
-			font-style: normal;
-			font-size: 22px;
-			background-color: #f8f8f8;
-		}
-
-		table tbody tr td ul {
-			padding-left: 40px;
-			padding-top: 2px;
-			padding-bottom: 5px;
-			list-style: square;
-			font-size: 22px;
-		}
-
-		table tbody tr td ul code {
-			font-size: 22px;
-			font-family: "Source Code Pro";
-			font-weight: 700;
-			font-style: normal;
-		}
-
-		em {
-			color: brown;
-			font-style: normal;
-		}
-
-		pre {
-			background: #f8f8f8;
-			border: 3px solid #eeeeee;
-			font-size: 18px;
-			font-weight: 500;
-			line-height: normal;
-			padding-top: 0px;
-			overflow: auto;
-			max-width: 99.2%;
-			font-family: "Consolas";
-			width: 100%;
-			word-spacing: -2px;
-		}
-	</style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: whitesmoke;
+        margin-top: 20px;
+        width: 62%;
+        padding-left: 3%;
+        padding-right: 3%;
+        min-height: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        padding-top: 40px;
+        background-color: white;
+        box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding-bottom: 100px;
+      }
+      table {
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        width: 100%;
+        font-family: "DejaVu Serif";
+        text-align: justify;
+        text-justify: inter-word;
+        cursor: pointer;
+        overflow: hidden;
+        border-radius: 4px;
+        color: #555555;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
+      table thead tr {
+        border-bottom: 4px solid #009879;
+        border-left: 4px solid #009879;
+        border-right: 4px solid #009879;
+      }
+      table thead tr th {
+        background-color: #009879;
+        padding: 8px 20px;
+        color: #ffffff;
+        text-align: center;
+        font-weight: 600;
+        font-style: italic;
+        font-size: 25px;
+      }
+      table tbody tr {
+        border-bottom: 4px solid #009879;
+        border-left: 4px solid #009879;
+        border-right: 4px solid #009879;
+      }
+      table tbody tr td {
+        padding: 15px 25px;
+        font-weight: 500;
+        font-style: normal;
+        font-size: 24px;
+        word-spacing: -2px;
+        background-color: #f8f8f8;
+      }
+      table tbody tr td ul {
+        padding-left: 40px;
+        padding-top: 2px;
+        padding-bottom: 5px;
+        list-style: square;
+        font-size: 24px;
+      }
+      pre {
+        background: #f8f8f8;
+        border: 3px solid #eeeeee;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: normal;
+        padding-top: 0px;
+        overflow: auto;
+        max-width: 99.2%;
+        font-family: "Consolas";
+        width: 100%;
+        word-spacing: -2px;
+        tab-size: 3;
+      }
+      em {color: brown;}
+    </style>
 </head>
 
 <body>
@@ -274,13 +256,12 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Variable</th>
+				<th>Local Variable</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>
-					<em>Local variables:</em>
 					<ul>
 						<li>Variable declared inside method is called local variable.</li>
 						<li>Local variables are stored on stack.</li>
@@ -288,8 +269,20 @@
 						<li>Local variables can only be accessed by the code inside the method.</li>
 						<li>Memory for local variable is allocated when corresponding method is called.</li>
 						<li>Local vars exist only while the method in which they are declared is executing.</li>
-					</ul> <br>
-					<em>Intance variables:</em>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Instance Variable</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
 					<ul>
 						<li>Instance variables are declared inside class and outside method.</li>
 						<li>Instance variables are initialized to their default values.</li>
@@ -300,8 +293,20 @@
 						<li>Instance variables are created when an object of the class is created.</li>
 						<li>Instance variables are destroyed when the object is destroyed.</li>
 						<li>Each objects of a class have separate copy of the instance variables.</li>
-					</ul> <br>
-					<em>Static variables:</em>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Static Variable</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
 					<ul>
 						<li>Static variables are created inside class and outside method with <em>static</em> keyword.</li>
 						<li>Static variables are stored in the class area of the java virtual machine.</li>

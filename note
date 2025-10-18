@@ -21,11 +21,11 @@ Normalization is technique of organizing the data into multiple related tables t
 Transaction: a series of database operations that either all succeed or they all fail.  
 Library is a tool that provides a specific functionality.
 Framework is a set of tools and guidelines for building the application.
-Event-driven architecture is a software design pattern that allows system to detect, process and respond to events.
 Constructor sets the initial state of an object ensuring that it is ready to use.
 Interface defines what a class does but not how it does it.
 A rate limiter controls how many requests a client can make within a specific timeframe.
-
-
-
-
+HTTP keep-alive or HTTP persistent connection, is a feature that allows a single TCP connection to be reused for multiple HTTP requests and responses.
+Authentication verifies the identity of a user or service and authorization determines their access rights.
+Authentication is the process of verifying a user's identity while authorization is the process of determining what actions a user can perform.
+Heartbeat is a small, regular signal sent between components to check if they’re still alive and responsive.
+Single point of failure is the part of a system that, if it fails, will stop the entire system from working.
