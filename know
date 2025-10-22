@@ -1,9 +1,18 @@
-Encapsulation
-Abstraction
-Inheritance
-Composition
-Polymorphism
-SOLID
+DHCP, ICMP, NAT, ARP, BGP, DNS, TCP, UDP, IP, HTTP, FTP, SMTP, IMAP, POP, VOIP, P2P, SNNP, AMQP
+Encapsulation, Abstraction, Inheritance, Polymorphism, Composition, Aggregation, UML
+SOLID, Dependency injection, Dependency inversion, Inversion of control
+Singleton, Builder, Factory method, Abstract factory, Prototype
+Adapter, Bridge, 
+
+Circuit-breaker, Outbox, Aggregator, Bulkhead, Sidecar, Orchestraction, Choreography
+Command-query segragation, Event-sourcing
+Caching, HTTP Caching, Query caching, 
+Security (Authentication, Authorization)
+Scalability
+
+
+Security, Scalability, Availability, 
+
 IoC
 Singleton
 Builder
@@ -53,6 +62,10 @@ Default gateway
 Forward-proxy
 Reverse-proxy
 Rate limiter
+Token bucket
+Leaky bucket
+Sliding window log
+Sliding window counter
 Load balancer
 API Gateway
 CDN
@@ -142,3 +155,4 @@ Adam
 Autoencoders
 Transformers
 ====================
+Cache eviction policy refers to the strategy a system uses to remove data from a cache when it reaches its capacity, to make space for new data.

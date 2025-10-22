@@ -16,15 +16,15 @@ Inside JVM
 How Mathematician Think
 Advanced compiler design and implementation
 ===========================================
-Microprocessor
+Computer architecture
 Data structures
 Algorithms
-Design patterns
+Design Patterns
 Protocols
-Distributed system
-Operating system
-Database
-Compiler theory
+Distributed System
+Operating System
+Database Design
+Compiler Design
 ========================================================
 Two microservers one frontend used to upload images and
 other microservices used to take image as input and
@@ -67,9 +67,14 @@ Network: IP, ICMP, ARP
 ==========================================
 Software Architectural Models and Patterns
 Distributed System Desing and Architecture
-======================================================================================================================================
+=============================================================================================
 While functional requirements define what the system does, non-functional requirements define how well it does it.
 Scalability: How many users does the system need to support, and will the system handle a large number of concurrent users or requests per second?
 CAP Theorem: Does your system need to prioritize availability or consistency? Remember, different parts of the system may have different needs (e.g., video serving might prioritize availability, but banking might prioritize consistency)
 Read/Write Ratio: Is the system read-heavy (e.g., many people searching and watching videos) or write-heavy (e.g., many content creators uploading new videos)? Understanding this can guide your choice of databases or storage solutions.
 Latency: How quickly does the system need to respond to user requests?
+======================================================================
+Stream processing vs Batch processing
+Kafka vs RabbitMQ
+Event-stream vs Message brokers
+Maze generation algorithm

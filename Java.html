@@ -425,35 +425,26 @@
 					<em>default:</em> Declarations are visible only within the package. <br>
 						<em>private:</em> Declarations are visible within the class only. <br>
 						<em>protected:</em> Declarations are visible within the package or all subclasses. <br>
-					<em>public:</em> Declarations are visible everywhere. <br> <br>
+					<em>public:</em> Declarations are visible everywhere.
+					<br> <br>
 					<em>Class modifiers:</em>
 					<ul>
-						<li><em>default:</em> class is only accessible by classes in the same package.</li>
-						<li><em>public:</em> class is accessible by any other class.</li>
-						<li><em>final:</em> class cannot be inherited by other classes.</li>
-						<li><em>abstract:</em> class cannot be used to create objects.</li>
+						<li><em>final:</em> Class cannot be inherited by other classes.</li>
+						<li><em>abstract:</em> Class cannot be used to create objects.</li>
 					</ul> <br>
 					<em>Method modifiers:</em>
 					<ul>
-						<li><em>default:</em> method is only accessible in the same package.</li>
-						<li><em>private:</em> method is only accessible within the declared class.</li>
-						<li><em>protected:</em> method is accessible in the same package and subclasses.</li>
-						<li><em>public:</em> method is accessible from all classes.</li>
-						<li><em>final:</em> method cannot be overridden or modified.</li>
-						<li><em>static:</em> method belongs to the class rather than an object.</li>
-						<li><em>abstract:</em> method does not have a body which is provided by the subclass.</li>
-						<li><em>synchronized:</em> method can only be accessed by one thread at a time.</li>
+						<li><em>final:</em> Method cannot be overridden or modified.</li>
+						<li><em>static:</em> Method belongs to the class rather than an object.</li>
+						<li><em>abstract:</em> Method does not have a body which is provided by the subclass.</li>
+						<li><em>synchronized:</em> Method can only be accessed by one thread at a time.</li>
 					</ul> <br>
 					<em>Field modifiers:</em>
 					<ul>
-						<li><em>default:</em> field is only accessible in the same package. </li>
-						<li><em>private:</em> field is only accessible within the declared class. </li>
-						<li><em>protected: </em> field is accessible in the same package and subclasses. </li>
-						<li><em>public: </em> field is accessible for all classes. </li>
-						<li><em>final: </em> field cannot be modified. </li>
-						<li><em>static: </em> field belongs to the class rather than an object. </li>
-						<li><em>transient: </em> fields are skipped when serializing the object containing them. </li>
-						<li><em>volatile: </em> field value is not cached thread-locally and is always read from the memory. </li>
+						<li><em>final: </em> Field cannot be modified. </li>
+						<li><em>static: </em> Field belongs to the class rather than an object. </li>
+						<li><em>transient: </em> Fields are skipped when serializing the object containing them. </li>
+						<li><em>volatile: </em> Field value is not cached thread-locally and is always read from the memory. </li>
 					</ul>	
 				</td>
 			</tr>
@@ -478,7 +469,7 @@
 						Constructor with zero parameter is known as default constructor.
 						Constructor overloading is the special kind of method overloading.
 						Parent class constructor is called before the subclass constructor is called. <br> <br>
-						Process of calling a constructor from another constructor.
+						The process of calling a constructor from another constructor is called constructor chaining.
 						Expose multiple ways of constructing an object using constructors chaining.
 						Constructor chaining makes our code more readable and avoid duplicate code. <br> <br>
 						Constructor chaining can be done in two ways:
@@ -499,29 +490,17 @@
 		<tbody>
 			<tr>
 				<td>
+					An immutable class is a class whose instances cannot be modified after they are created. Once an object of an immutable class is initialized, its state remains constant throughout its lifetime. Immutable class is good for multithreaded application as state of the object cannot be changed.
+					<br><br>
 					<ul>
 						<li>Make all fields <i>final</i> and <i>private</i>.</li>
 						<li>Do not provide <i>setter</i> mathods.</li>
 						<li>Declare class as <i>final</i> to prevent subclasses to override methods.</li>
+						<li>The constructor is responsible for setting the initial state of the object.</li>
 						<li>When the instance fields include references to mutable objects:
 							<ul>
-								<li>Do not provide methods that modify the mutable objects.</li>
-								<li>Do not share references to the mutable objects.</li>
-								<li>
-									Create copies of internal mutable objects when necessary to avoid returning
-									the originals in your methods.
-								</li>
-								<li>Never store references to external mutable objects passed to the constructor
-									instread create copies if necessary and store references to the copies.
-								</li>
-							</ul>
-						</li> <br>
-						<li>Advantages of immutable objects:
-							<ul>
-								<li>Objects state (fields) can not be changed.</li>
-								<li>The object's <i>hashCode</i> can easily be cached.</li>
-								<li>These objects are a good choice for <i>keys</i> of <i>Map</i>.</li>
-								<li>Good for multithreaded application as state of object cannot be changed.</li>
+								<li>Performs a deep copy of these mutable objects to prevent external references from modifying the internal state.</li>
+								<li>Getter methods for these mutable objects also return deep copies or unmodifiable views rather than direct references to the internal mutable objects. This prevents external code from obtaining a reference and altering the internal state.</li>
 							</ul>
 						</li>
 					</ul>
@@ -538,46 +517,54 @@
 		<tbody>
 			<tr>
 				<td>
-					Exception is an unexpected event which occurred during the execution of a program and
-					disrupts the normal flow of instructions.
-					Exception object contains information about an error that happens at run time.
-					Creating an exception object and handing it to the runtime system is called
-					<em>throwing an exception</em>. <br> <br>
+					Exception is an event that disrupts the normal flow of a program during its execution. When an exception occurs, the program's normal execution path is interrupted and the Java virtual machine (JVM) attempts to find an appropriate exception handler to manage the error. If no handler is found, the program terminates.
 					Exception can be divided into two board categories:
 					faults introduced by the programmer, such as division by zero or calling a method
 							with null reference and things out of the programmer's control, such as a user entering a garbage on the
 							keyboard
 							when the program expects a positive integer. <br> <br> 
-					Try, catch and finally blocks helps in writing the application code which may
+					Try-catch and finally blocks helps in writing the application code which may
 					throw exceptions at runtime and gives us a chance to either recover from exception
 					by executing alternate application logic or handle the exception to
-					report back to <br> the user. It helps in preventing the ugly application crashes. <br>
+					report back to the user. It helps in preventing the ugly application crashes. Try-catch promotes separation 
+					of concern principles by avoiding mixing of business logic code and error handling code. <br> <br>
 					<ul>
 						<li>Code to be monitored for exceptions is written inside <em>try</em> block.</li>
 						<li>Catch block contains exception handling code.</li>
 						<li>We can use multiple catch with a single try.</li>
 						<li>Catch block must be written next to the try block.</li>
 						<li>Finally statement defines a code block to run regardless of the result.</li>
-					</ul>		
-					<br> <br>
-					Facts about exceptions:
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Facts about Exception</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
 					<ul>
-						<li>Checked exceptions are those checked by the java compiler at compile time</li>
-							<li>Checked exceptions are forced to be caught or declared by the compiler</li>
-							<li>Checked exceptions are also called compile time exceptions</li>
-							<li>Checked exceptions can be handled</li>
-							<li>Checked exceptions can be propagated through throws</li>
-							<li>Code will not compile if checked exceptions are not handled</li>
-							<li>Checked exception represent a potential problem that the user knows can happen</li>
-							<li>Checked exception forces the user to establish an error handling policy at compile time</li>
-							<li>Unchecked exceptions are not checked by the compiler at compile time</li>
-							<li>Unchecked exceptions are also called <i>RuntimeExceptions</i> or <i>Error</i></li>
-							<li>Unchecked exceptions does not need to be caught or declared</li>
-							<li>Unchecked exceptions are caught by the JVM</li>
-							<li>Unchecked exceptions can not be handled</li>
-							<li>Runtime exception indicates an issue with the code that can be prevented</li>
-							<li>Unchecked exceptions represent an unexpected defect in the application that happens at runtime</li>
-							<li>Unchecked exceptions does not force the user to establish an error handling policy on compile</li>
+						<li>Checked exceptions are those checked by the java compiler at compile time.</li>
+							<li>Checked exceptions are forced to be caught or declared by the compiler.</li>
+							<li>Checked exceptions are also called compile time exceptions.</li>
+							<li>Checked exceptions can be handled.</li>
+							<li>Checked exceptions can be propagated through throws.</li>
+							<li>Code will not compile if checked exceptions are not handled.</li>
+							<li>Checked exception represent a potential problem that the user knows can happen.</li>
+							<li>Checked exception forces the user to establish an error handling policy at compile time.</li>
+							<li>Unchecked exceptions are not checked by the compiler at compile time.</li>
+							<li>Unchecked exceptions are also called <i>RuntimeExceptions</i> or <i>Error</i>.</li>
+							<li>Unchecked exceptions does not need to be caught or declared.</li>
+							<li>Unchecked exceptions are caught by the JVM.</li>
+							<li>Unchecked exceptions can not be handled.</li>
+							<li>Runtime exception indicates an issue with the code that can be prevented.</li>
+							<li>Unchecked exceptions represent an unexpected defect in the application that happens at runtime.</li>
+							<li>Unchecked exceptions does not force the user to establish an error handling policy on compile.</li>
 					</ul>
 				</td>
 			</tr>
@@ -592,26 +579,24 @@
 		<tbody>
 			<tr>
 				<td>
-					A lambda expression is a short block of code which takes in parameters and
-					returns a value. Lambda expressions are similar to methods but without name
-					and they can be defined inside the body of a method. <br> <br>
-					Lambda expression can be stored in variables if type of the variable
-					is an interface which has only one method.
+					Lambda is a concise way to represent anonymous functions
+					which is primarily used to implement functional interfaces. Lambda expressions are similar to methods but without name
+					and they can be defined inside the body of a method.
+					Lambda enable functional programming paradigms in Java, 
+					allowing behavior (functions) to be passed as arguments to methods or assigned to variables.
 					The lambda expression should have the same number of parameters and the same
-					return type as that method. <br> <br>
-					<ul>
-						<li>Lambda is a kind of disposable functions</li>
-						<li>Lambda enables functional programming</li>
-						<li>Lambda expression help us to avoid boilerplate code</li>
-					</ul> <br>
-					<pre>
+					return type as that method. Lambda expression help us to avoid boilerplate code. <br><br>
 
+					<pre>
+            
             Supplier<Double> randomValue = () -> Math.random();
             System.out.println(randomValue.get()); <br>  
             Predicate&lt;Integer> lessThan = a -> (a < 100);
             System.out.println(lessThan.test(101)); <br>
             Consumer&lt;String> consumer = a -> System.out.println(a);
-            list.stream().forEach(consumer);
+            list.stream().forEach(consumer);<br>
+            Function&lt;String, String> function = a -> a.toUpperCase();
+            System.out.println(function.apply("hello"));
             </pre>
 				</td>
 			</tr>

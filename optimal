@@ -1,3 +1,5 @@
+Use IntStream instead of Stream<Integer> when possible.
+=============================================================================================================================
 Use database indexing to improve read operations.
 Cache results of the queries for fast read operation which reduces load on the database.
 Use flyweight design pattern to cache shared object states.

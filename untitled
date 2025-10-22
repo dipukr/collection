@@ -1,16 +1,22 @@
-<table>
-		<thead>
-			<tr>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
-37,
+HTTP Caching
+TCP Handshake
+SSH
+Statefull vs Stateless Architecture
+Cookies, Session, JWT
+Dependency injection, Dependency inversion
+Distributed job scheduling system (cron)
+Pub-Sub System, Message Queue
+Event-driven vs Request-response
+Data warehouse, Data analytics
+JSON and Protobuf
+Eventual consistency, Strong consistency
+Idempotency
+Cross cutting concerns
+SSL Termination
+=============================
+Less latency/response time
+Server load reduction
+Fault isolation
+Resilient, Fast, Well monitored
+==========================
+API Gateway is Facade

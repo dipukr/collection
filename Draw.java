@@ -1,4 +1,4 @@
-public class UC {
+public class Draw {
 
 	private static final String YELLOW = "\u001B[33m";
 	private static final String PURPLE = "\u001B[35m";
