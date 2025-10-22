@@ -65,7 +65,7 @@
         text-align: justify;
         white-space: pre-wrap;
         font-family: "Comic Sans MS";
-        font-size: 24px;
+        font-size: 23px;
         color: #222211;
         word-spacing: -2px;
         font-weight: 500;
@@ -150,9 +150,18 @@
 
       function toggleEdit() {
         const noteText = document.getElementById("noteText");
+        if (currentNoteId === null) {
+          alert("Select a note to edit first.");
+          return;
+        }
         isEditable = !isEditable;
-        noteText.contentEditable = isEditable; 
+        noteText.contentEditable = isEditable;
+        if (isEditable) {
+          noteText.focus();
+        }
       }
+
+
 
       function format(command) {
         document.execCommand(command, false, null);
@@ -231,8 +240,12 @@
           const note = req.result;
           document.getElementById("noteText").innerHTML = note.content;
           currentNoteId = id;
+          // Ensure note starts in non-editable mode
+          isEditable = false;
+          document.getElementById("noteText").contentEditable = false;
         };
       }
+
 
       function deleteNote() {
         if (currentNoteId !== null) {
