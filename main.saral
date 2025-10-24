@@ -43,6 +43,25 @@ class Person
 
 class Person
 {
+    val String name;
+    val int age;
+    val int sal;
+
+    pub Person(String name, int age, int sal) {
+        this.name = name;
+        this.age = age;
+        this.sal = sal;
+    }
+
+    pub void draw(Canvas canvas) {
+        logger(name);
+        logger(age);
+        logger(sal);
+    }
+}
+
+class Person
+{
    String name;
    int age;
    int sal;
