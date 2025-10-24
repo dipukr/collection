@@ -15,4 +15,5 @@ I have also worked on the enhancement and debugging of the existing Spring Boot 
 I love writing clean, modular and optimal code using Object-oriented design principles, Design-patterns, Data structues, Algorithms and Multithreding.
 ======================================================================================================================================
 SAMAST modules consisted of 14 modules, I have worked on 5 modules namely Scheduling, Forecasting, Open-access, Settlement and Energy-accounting.
-
+=======================================================================================================================
+Reduced API latency by 40%.

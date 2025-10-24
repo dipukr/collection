@@ -102,10 +102,9 @@
       <tbody>
         <tr>
           <td>
-            Object oriented programming is way of programming oriented towards
-            the objects. An object oriented program is basically a collection of
-            objects and relationship and communication among them. Related data
-            and code that operate on that data is considered as object. Four
+            Object-oriented programming (OOP) is a programming paradigm that organizes code around objects, which are self-contained units that bundle data and functions together. This approach uses concepts like classes (templates for objects), encapsulation (bundling data and methods), inheritance (reusing properties from other classes), and polymorphism (objects taking on many forms) to create modular, reusable, and maintainable code.  <br><br>
+            An object oriented program is basically a collection of
+            objects and relationships among them and they communicate or interact with each other using message passing. Four
             main concept of OOPs are abstraction, encapsulation, inheritance and
             polymorphism which help us to write modular, reusable, extensible
             and generic software system. <br> <br>
@@ -202,12 +201,12 @@
           <td>
             Inheritance is a mechanism by which one class acquires the
             attributes (fields) and functionalities (methods) of another
-            existing class. Inheritance enable us to create modules that does
-            not need to be changed when new attributes or functionalities is
-            added to the class. Inheritance helps to create reusable and
-            extensible software components. Reusability helps us to avoid
+            existing class. This mechanism promotes code reusability and establishes a hierarchical <em>is-a</em> relationship between classes.
+            Reusability helps us to avoid
             duplicate code and data. Inheritance helps us to define relationship
-            among classes.  <br> <br>
+            among classes. Inheritance enable us to create modules that does
+            not need to be changed when new attributes or functionalities is
+            added to the class.  <br> <br>
             <em>Kind of inheritance:</em>
             <ul>
               <li>Single inheritance - when a class inherits another class.</li>
@@ -273,6 +272,27 @@
                 of objects.
               </li>
             </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Subtype Polymorphism</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Subtype polymorphism is a form of type polymorphism where a variable of a superclass type refer to and object of a subclass type,
+            allowing a single interface to represent different type of objects.
+            Which means code written for a superclass can be used with instances of its subclasses and at runtime, the program calls the
+            correct method based on the object's actual type. <br><br>
+            <em>Inheritance and substitutability</em> - a subclass is considered a subtype of its superclass. This relationship allows an object of the subclass
+            to be substituted for an object of the superclass.
+            <em>Dynamic method selection</em> - the specific method tha is executed is determined at runtime, not at compile time.
+            <em>Single interface for multiple types</em> - this allows us to write code that operates on superclass type and have it work correctly with any of its subclasses.
           </td>
         </tr>
       </tbody>
