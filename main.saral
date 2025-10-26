@@ -19,6 +19,46 @@ class FileReader
 
 class Person
 {
+    mut String name;
+    mut int age;
+    mut int sal;
+
+    pub Self(String name, int age, int sal) {
+        self.name = name;
+        self.age = age;
+        self.sal = sal;
+    }
+
+    pub void draw(Canvas canvas) {
+        logger(self.name);
+        logger(self.age);
+        logger(self.sal);
+    }
+}
+
+class Person
+{
+    String name;
+    int age;
+    int sal;
+
+    pub Self(String name, int age, int sal) {
+        self.name = name;
+        self.age = age;
+        self.sal = sal;
+    }
+
+    pub void draw(Canvas canvas) {
+        logger("Name:", self.name);
+        logger(self.age);
+        logger(self.sal);
+    }
+}
+
+
+
+class Person
+{
     val String name
     val int age
     val int sal

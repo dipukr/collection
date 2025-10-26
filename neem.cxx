@@ -29,46 +29,6 @@ void Error::assert(bool flag, const char *what)
 	}
 }
 
-class String
-{
-	char *chars = nullptr;
-	int capacity = 0;
-	int count = 0;	
-public:
-	String(int size);
-	String(int size, char c);
-	String(const char *str = "");
-	String(const String &arg);
-	
-	virtual ~String();
-
-	void operator=(const String &rhs);
-	void operator+=(const String &rhs);
-	String operator+(const String &rhs);
-	char& operator[](int index);
-	char operator[](int index) const;
-	
-	void clear();
-	void resize(int sz);
-	int findFirst(char c) const;
-	int findLast(char c) const;
-	String substr(int start, int end) const;
-
-	int size() const {return count;}
-	bool empty() const {return size() == 0;}
-	const char* cstr() const {return chars;}
-
-	static const int NO_POS = -1; 
-	static String format(const char *fmt, ...);
-
-	bool operator==(const String &rhs) const {return strcmp(this->chars, rhs.chars) == 0;}
-	bool operator!=(const String &rhs) const {return strcmp(this->chars, rhs.chars) != 0;}
-	bool operator< (const String &rhs) const {return strcmp(this->chars, rhs.chars) <  0;}
-	bool operator<=(const String &rhs) const {return strcmp(this->chars, rhs.chars) <= 0;}
-	bool operator> (const String &rhs) const {return strcmp(this->chars, rhs.chars) >  0;}
-	bool operator>=(const String &rhs) const {return strcmp(this->chars, rhs.chars) >= 0;}
-};
-
 String::String(int sz)
 {
 	this->count = 0;
@@ -310,16 +270,6 @@ bool List<T>::empty() const
 	return size() == 0;
 }
 
-
-class Path
-{
-	String path;
-public:
-	Path() {}
-	Path(const String &path);
-	String getPath() const {return path;}
-};
-
 Path::Path(const String &path)
 {
 	if (!path.empty() and path[0] == '/')
@@ -331,18 +281,6 @@ Path::Path(const String &path)
 		this->path = String(cwd) + "/" + path;
 	}
 }
-
-
-class File
-{
-	Path path;
-public:
-	File(const String &path);
-	File(const Path &path);
-	bool exists() const;
-	bool isFile() const;
-	bool isDirectory() const;
-};
 
 File::File(const String &path) {this->path = Path(path);}
 File::File(const Path &path) {this->path = path;}
@@ -360,65 +298,6 @@ bool File::exists() const {
 	struct stat st;
 	return (stat(path.getPath().cstr(), &st) == 0);
 }
-
-
-enum Type {NONE, BOOL, INT, FLOAT, STRING, ARRAY, OBJECT, FUNCTION, CLASS, THING};
-
-struct Thing;
-struct Array;
-struct Class;
-struct Object;
-struct Function;
-
-struct Value
-{
-	static Value null;
-	static Value zero;
-	static Value one;
-	static Value two;
-	static Value three;
-	static Value four;
-	static Value five;
-	static Value zero_0;
-	static Value one_0;
-	static Value two_0;
-	static Value three_0;
-	static Value four_0;
-	static Value five_0;
-	static Value true1;
-	static Value false0;
-
-	short type;
-	union {
-	bool bin;
-	long i64;
-	double f64;
-	long data;
-	Thing *thg;
-	String *str;
-	Array* arr;
-	Class *cls;
-	Object *obj;
-	Function *fun;
-	};
-
-	Value() 		   : type(Type::NONE)     {data = 0;}
-	Value(bool v)      : type(Type::BOOL)     {data = 0; bin = v;}
-	Value(long v)      : type(Type::INT)      {data = 0; i64 = v;}
-	Value(double v)    : type(Type::FLOAT)    {data = 0; f64 = v;}
-	Value(Thing* v)    : type(Type::THING)    {data = 0; thg = v;}
-	Value(String* v)   : type(Type::STRING)   {data = 0; str = v;}
-	Value(Array* v)    : type(Type::ARRAY)    {data = 0; arr = v;}
-	Value(Class* v)    : type(Type::CLASS)    {data = 0; cls = v;}
-	Value(Object* v)   : type(Type::OBJECT)   {data = 0; obj = v;}
-	Value(Function* v) : type(Type::FUNCTION) {data = 0; fun = v;}
-};
-
-bool operator==(const Value &lhs, const Value &rhs);
-bool operator>(const Value &lhs, const Value &rhs);
-bool operator<(const Value &lhs, const Value &rhs);
-
-typedef void (native)(int argc, Value *argv, Value &retval);
 
 Value Value::null = Value();
 Value Value::zero = Value(long(0));
@@ -1261,6 +1140,209 @@ struct Object : Thing
 	virtual clas_s *get_class();
 	virtual size_t mallocs();
 };
+
+
+Value Machine::nativeCall(Code *code, int argc, Value *argv)
+{
+	Code *prev = native;
+	native = code;
+	Value answer = (*native->native())(argc, argv);
+	native = prev;
+	return answer;
+}
+
+void Machine::CPU() {
+	for (;;) {
+		int opcode = code[ip++];
+		switch (opcode) {
+		case NEEM_OPCODE_NOP: break;
+		case NEEM_OPCODE_POS: currPos = code[ip++]; break;
+		case NEEM_OPCODE_PUSH: if (sp >= stack.length) Error.error(currPos, "Stack overflow"); sp += 1; break;
+		case NEEM_OPCODE_POP:  if (sp <= 0) Error.error(currPos, "Stack underflow."); sp -= 1; break;
+		case NEEM_OPCODE_LOADC: sp += 1; stack[sp] = literals[code[ip]]; ip += 1; break;
+		case NEEM_OPCODE_LOAD: sp += 1; stack[sp] = data[code[ip]]; ip += 1; break;
+		case NEEM_OPCODE_LOADA: stack[sp] = data[code[ip++] + (int) stack[sp].num]; break;
+		case NEEM_OPCODE_STORE: data[code[ip++]] = stack[sp]; break;
+		case NEEM_OPCODE_STOREA: data[code[ip++] + (int) stack[sp].num] = stack[sp - 1]; sp -= 1; break;
+		case NEEM_OPCODE_JIT: ip = stack[sp].bin ? ip + 1 : code[ip]; sp -= 1; break;
+		case NEEM_OPCODE_JIF: ip = stack[sp].bin ? code[ip] : ip + 1; sp -= 1; break;
+		case NEEM_OPCODE_JUMP: ip = code[ip]; break;
+		case NEEM_OPCODE_INC: inc(data[code[ip]]); ip += 1; break;
+		case NEEM_OPCODE_DEC: dec(data[code[ip]]); ip += 1; break;
+		case NEEM_OPCODE_NEG: neg(stack[sp]); break;
+		case NEEM_OPCODE_ADD: stack[sp - 1] = add(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_SUB: stack[sp - 1] = sub(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_MUL: stack[sp - 1] = mul(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_DIV: stack[sp - 1] = div(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_MOD: stack[sp - 1] = mod(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CEQ: stack[sp - 1] = ceq(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CNE: stack[sp - 1] = cne(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CLT: stack[sp - 1] = clt(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CLE: stack[sp - 1] = cle(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CGT: stack[sp - 1] = cgt(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CGE: stack[sp - 1] = cge(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_AND: stack[sp - 1] = and(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_OR:  stack[sp - 1] =  or(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_NOT: stack[sp] = not(stack[sp]); break;
+		case NEEM_OPCODE_LOG: out(stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_run: run(literals[code[ip++]].str); break;
+		case NEEM_OPCODE_HALT: return;
+		default: Error::error(currPos, "Illegal opcode.");
+		}
+	}
+}
+
+void inc(Value a) {
+	isNumeric(a);
+	a.num += 1.0;
+}
+
+void dec(Value a) {
+	isNumeric(a);
+	a.num -= 1.0;
+}
+
+void neg(Value a) {
+	isNumeric(a);
+	a.num = -a.num;
+}
+
+Value add(Value a, Value b) {
+	if (a.type == b.type) {
+		if (a.type == Value.NUM) return new Value(a.num + b.num);
+		if (a.type == Value.STR) return new Value(a.str + b.str);
+	}
+	if (a.type == Value.NUM && b.type == Value.STR)
+		return new Value(a.num + b.str);
+	return new Value(a.str + b.num);
+}
+
+Value sub(Value a, Value b) {
+	isNumeric(a, b);
+	return new Value(a.num - b.num);
+}
+
+Value mul(Value a, Value b) {
+	isNumeric(a, b);
+	return new Value(a.num * b.num);
+}
+
+Value div(Value a, Value b) {
+	isNumeric(a, b);
+	return new Value(a.num / b.num);
+}
+
+Value mod(Value a, Value b) {
+	isNumeric(a, b);
+	return new Value(a.num % b.num);
+}
+
+Value ceq(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num == b.num);
+	return new Value(a.str.compareTo(b.str) == 0);
+}
+
+Value cne(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num != b.num);
+	return new Value(a.str.compareTo(b.str) != 0);
+}
+
+Value clt(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num < b.num);
+	return new Value(a.str.compareTo(b.str) < 0);
+}
+
+Value cle(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num <= b.num);
+	return new Value(a.str.compareTo(b.str) <= 0);
+}
+
+Value cgt(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num > b.num);
+	return new Value(a.str.compareTo(b.str) > 0);
+}
+
+Value cge(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num >= b.num);
+	return new Value(a.str.compareTo(b.str) >= 0);
+}
+
+Value and(Value a, Value b) {
+	isBoolean(a, b);
+	return new Value(a.bin && b.bin);
+}
+
+Value or(Value a, Value b) {
+	isBoolean(a, b);
+	return new Value(a.bin || b.bin);
+}
+
+Value not(Value a) {
+	isBoolean(a);
+	return new Value(!a.bin);
+}
+
+void out(Value val) {
+	if (val.type == Value.BOOL) System.out.println(val.bin);
+	if (val.type == Value.NUM) System.out.println(val.num);
+	if (val.type == Value.STR) System.out.println(val.str);
+}
+
+void run(String command) {
+	Runtime runtime = Runtime.getRuntime();
+	Process process = null;
+	int retval = 1;
+	try {
+		process = runtime.exec(command);
+		InputStream inputStream = process.getInputStream();
+		InputStreamReader isr = new InputStreamReader(inputStream);
+		BufferedReader reader = new BufferedReader(isr);
+		StringBuilder data = new StringBuilder();
+		while (true) {
+			String line = reader.readLine();
+			if (line == null) break;
+			data.append(line).append('\n');
+		}
+		retval = process.waitFor();
+		if (retval == 0) System.out.println(data);
+		else Error.error(currPos, "Program '%s' returned with non-zero value.", command);
+	} catch (IOException | InterruptedException e) {
+		Error.error(currPos, "%s\n",e.getMessage());
+	}
+}
+
+void isBoolean(Value a) {
+	if (a.type != Value.BOOL)
+		Error.error(currPos, "Boolean operands expected.");
+}
+
+void isBoolean(Value a, Value b) {
+	if (a.type != Value.BOOL || b.type != Value.BOOL)
+		Error.error(currPos, "Boolean operands expected.");
+}
+
+void isNumeric(Value val) {
+	if (val.type != Value.NUM)
+		Error.error(currPos, "Numeric operands expected.");
+}
+
+void isNumeric(Value a, Value b) {
+	if (a.type != Value.NUM || b.type != Value.NUM)
+		Error.error(currPos, "Numeric operands expected.");
+}
+
+void isComparable(Value a, Value b) {
+	if (a.type != b.type)
+		Error.error(currPos, "Comparison incompatible.");
+	if (a.type != Value.NUM && a.type != Value.STR)
+		Error.error(currPos, "Comparison incompatible.");
+}
 
 
 int main(int argc, const char **argv)
