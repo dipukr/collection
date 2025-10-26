@@ -20,3 +20,4 @@ Fault isolation
 Resilient, Fast, Well monitored
 ==========================
 API Gateway is Facade
+mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.1 -DinteractiveMode=false -DgroupId=main -DartifactId=MQueue

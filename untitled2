@@ -1,0 +1,201 @@
+Value Machine::nativeCall(Code *code, int argc, Value *argv)
+{
+	Code *prev = native;
+	native = code;
+	Value answer = (*native->native())(argc, argv);
+	native = prev;
+	return answer;
+}
+
+void Machine::CPU() {
+	for (;;) {
+		int opcode = code[ip++];
+		switch (opcode) {
+		case NEEM_OPCODE_NOP: break;
+		case NEEM_OPCODE_POS: currPos = code[ip++]; break;
+		case NEEM_OPCODE_PUSH: if (sp >= stack.length) Error.error(currPos, "Stack overflow"); sp += 1; break;
+		case NEEM_OPCODE_POP:  if (sp <= 0) Error.error(currPos, "Stack underflow."); sp -= 1; break;
+		case NEEM_OPCODE_LOADC: sp += 1; stack[sp] = literals[code[ip]]; ip += 1; break;
+		case NEEM_OPCODE_LOAD: sp += 1; stack[sp] = data[code[ip]]; ip += 1; break;
+		case NEEM_OPCODE_LOADA: stack[sp] = data[code[ip++] + (int) stack[sp].num]; break;
+		case NEEM_OPCODE_STORE: data[code[ip++]] = stack[sp]; break;
+		case NEEM_OPCODE_STOREA: data[code[ip++] + (int) stack[sp].num] = stack[sp - 1]; sp -= 1; break;
+		case NEEM_OPCODE_JIT: ip = stack[sp].bin ? ip + 1 : code[ip]; sp -= 1; break;
+		case NEEM_OPCODE_JIF: ip = stack[sp].bin ? code[ip] : ip + 1; sp -= 1; break;
+		case NEEM_OPCODE_JUMP: ip = code[ip]; break;
+		case NEEM_OPCODE_INC: inc(data[code[ip]]); ip += 1; break;
+		case NEEM_OPCODE_DEC: dec(data[code[ip]]); ip += 1; break;
+		case NEEM_OPCODE_NEG: neg(stack[sp]); break;
+		case NEEM_OPCODE_ADD: stack[sp - 1] = add(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_SUB: stack[sp - 1] = sub(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_MUL: stack[sp - 1] = mul(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_DIV: stack[sp - 1] = div(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_MOD: stack[sp - 1] = mod(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CEQ: stack[sp - 1] = ceq(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CNE: stack[sp - 1] = cne(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CLT: stack[sp - 1] = clt(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CLE: stack[sp - 1] = cle(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CGT: stack[sp - 1] = cgt(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_CGE: stack[sp - 1] = cge(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_AND: stack[sp - 1] = and(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_OR:  stack[sp - 1] =  or(stack[sp - 1], stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_NOT: stack[sp] = not(stack[sp]); break;
+		case NEEM_OPCODE_LOG: out(stack[sp]); sp -= 1; break;
+		case NEEM_OPCODE_run: run(literals[code[ip++]].str); break;
+		case NEEM_OPCODE_HALT: return;
+		default: Error::error(currPos, "Illegal opcode.");
+		}
+	}
+}
+
+void inc(Value a) {
+	isNumeric(a);
+	a.num += 1.0;
+}
+
+void dec(Value a) {
+	isNumeric(a);
+	a.num -= 1.0;
+}
+
+void neg(Value a) {
+	isNumeric(a);
+	a.num = -a.num;
+}
+
+Value add(Value a, Value b) {
+	if (a.type == b.type) {
+		if (a.type == Value.NUM) return new Value(a.num + b.num);
+		if (a.type == Value.STR) return new Value(a.str + b.str);
+	}
+	if (a.type == Value.NUM && b.type == Value.STR)
+		return new Value(a.num + b.str);
+	return new Value(a.str + b.num);
+}
+
+Value sub(Value a, Value b) {
+	isNumeric(a, b);
+	return new Value(a.num - b.num);
+}
+
+Value mul(Value a, Value b) {
+	isNumeric(a, b);
+	return new Value(a.num * b.num);
+}
+
+Value div(Value a, Value b) {
+	isNumeric(a, b);
+	return new Value(a.num / b.num);
+}
+
+Value mod(Value a, Value b) {
+	isNumeric(a, b);
+	return new Value(a.num % b.num);
+}
+
+Value ceq(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num == b.num);
+	return new Value(a.str.compareTo(b.str) == 0);
+}
+
+Value cne(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num != b.num);
+	return new Value(a.str.compareTo(b.str) != 0);
+}
+
+Value clt(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num < b.num);
+	return new Value(a.str.compareTo(b.str) < 0);
+}
+
+Value cle(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num <= b.num);
+	return new Value(a.str.compareTo(b.str) <= 0);
+}
+
+Value cgt(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num > b.num);
+	return new Value(a.str.compareTo(b.str) > 0);
+}
+
+Value cge(Value a, Value b) {
+	isComparable(a, b);
+	if (a.type == Value.NUM) return new Value(a.num >= b.num);
+	return new Value(a.str.compareTo(b.str) >= 0);
+}
+
+Value and(Value a, Value b) {
+	isBoolean(a, b);
+	return new Value(a.bin && b.bin);
+}
+
+Value or(Value a, Value b) {
+	isBoolean(a, b);
+	return new Value(a.bin || b.bin);
+}
+
+Value not(Value a) {
+	isBoolean(a);
+	return new Value(!a.bin);
+}
+
+void out(Value val) {
+	if (val.type == Value.BOOL) System.out.println(val.bin);
+	if (val.type == Value.NUM) System.out.println(val.num);
+	if (val.type == Value.STR) System.out.println(val.str);
+}
+
+void run(String command) {
+	Runtime runtime = Runtime.getRuntime();
+	Process process = null;
+	int retval = 1;
+	try {
+		process = runtime.exec(command);
+		InputStream inputStream = process.getInputStream();
+		InputStreamReader isr = new InputStreamReader(inputStream);
+		BufferedReader reader = new BufferedReader(isr);
+		StringBuilder data = new StringBuilder();
+		while (true) {
+			String line = reader.readLine();
+			if (line == null) break;
+			data.append(line).append('\n');
+		}
+		retval = process.waitFor();
+		if (retval == 0) System.out.println(data);
+		else Error.error(currPos, "Program '%s' returned with non-zero value.", command);
+	} catch (IOException | InterruptedException e) {
+		Error.error(currPos, "%s\n",e.getMessage());
+	}
+}
+
+void isBoolean(Value a) {
+	if (a.type != Value.BOOL)
+		Error.error(currPos, "Boolean operands expected.");
+}
+
+void isBoolean(Value a, Value b) {
+	if (a.type != Value.BOOL || b.type != Value.BOOL)
+		Error.error(currPos, "Boolean operands expected.");
+}
+
+void isNumeric(Value val) {
+	if (val.type != Value.NUM)
+		Error.error(currPos, "Numeric operands expected.");
+}
+
+void isNumeric(Value a, Value b) {
+	if (a.type != Value.NUM || b.type != Value.NUM)
+		Error.error(currPos, "Numeric operands expected.");
+}
+
+void isComparable(Value a, Value b) {
+	if (a.type != b.type)
+		Error.error(currPos, "Comparison incompatible.");
+	if (a.type != Value.NUM && a.type != Value.STR)
+		Error.error(currPos, "Comparison incompatible.");
+}

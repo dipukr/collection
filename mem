@@ -1,4 +1,4 @@
- xcaq2vEquanimity.
+Equanimity.
 Remember and offer.
 Nothing denied to the God lovers.
 Be an empty page untouched by words.
@@ -21,52 +21,13 @@ Data structures
 Algorithms
 Design Patterns
 Protocols
-Distributed System
 Operating System
 Database Design
 Compiler Design
-========================================================
-Two microservers one frontend used to upload images and
-other microservices used to take image as input and
-process that image and produce enhanced image.
-Here two microservices should communicate with
-each other asynchoronously (RabbitMQ).
-=========================================================================
-[DBOPtimization: Optimize-query, Perform-indexing, Replication, Sharding]
-[Roles: Used design patterns to optimize and decouple code]
-=========================================================================
-Qualcomm, NTTData, PaloAltoNetworks, Zoho, Paytm, Google, Youtube, Scole
-=========================================================================
-Ping
-Traceroute
-JSON Parser
-Distributed log system
-Distributed file system
-Web crawler
-URL shortner
-Notification system
-Log aggregator
-===================
-Performance
-Security
-Scalability
-Availability
-Resilient
-Fault-tolerant
-======================
-Bloom-filter use cases
-LSM Tree
-Geosharding
-Event streaming
+Distributed System
+==================
 amazon.jobs
 indeed
-=======================================
-Application: HTTP, FTP, DNS, POP3, SMTP
-Transport: UDP and TCP
-Network: IP, ICMP, ARP
-==========================================
-Software Architectural Models and Patterns
-Distributed System Desing and Architecture
 =============================================================================================
 While functional requirements define what the system does, non-functional requirements define how well it does it.
 Scalability: How many users does the system need to support, and will the system handle a large number of concurrent users or requests per second?
@@ -78,3 +39,5 @@ Stream processing vs Batch processing
 Kafka vs RabbitMQ
 Event-stream vs Message brokers
 Maze generation algorithm
+Multi-level cache
+link-service

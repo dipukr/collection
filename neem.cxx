@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
-
 struct Error
 {
 	static void error(const char *what);
@@ -33,8 +32,8 @@ void Error::assert(bool flag, const char *what)
 class String
 {
 	char *chars = nullptr;
-	uint capacity = 0;
-	uint count = 0;	
+	int capacity = 0;
+	int count = 0;	
 public:
 	String(int size);
 	String(int size, char c);
@@ -46,16 +45,16 @@ public:
 	void operator=(const String &rhs);
 	void operator+=(const String &rhs);
 	String operator+(const String &rhs);
-	char& operator[](uint index);
-	char operator[](uint index) const;
+	char& operator[](int index);
+	char operator[](int index) const;
 	
 	void clear();
-	void resize(uint sz);
+	void resize(int sz);
 	int findFirst(char c) const;
 	int findLast(char c) const;
-	String substr(uint start, uint end) const;
+	String substr(int start, int end) const;
 
-	uint size() const {return count;}
+	int size() const {return count;}
 	bool empty() const {return size() == 0;}
 	const char* cstr() const {return chars;}
 
@@ -122,7 +121,7 @@ void String::operator=(const String &rhs)
 
 void String::operator+=(const String &rhs)
 {
-	uint total = this->count + rhs.count;
+	int total = this->count + rhs.count;
 	if (total >= this->capacity) {
 		this->capacity = total * 2;
 		char *ptr = chars;
@@ -141,13 +140,13 @@ String String::operator+(const String &rhs)
 	return result;
 }
 
-char& String::operator[](uint index)
+char& String::operator[](int index)
 {
 	if (index >= this->count) Error::error("String index out of bound");
 	return this->chars[index];
 }
 
-char String::operator[](uint index) const
+char String::operator[](int index) const
 {
 	if (index >= this->count) Error::error("String index out of bound");
 	return this->chars[index];
@@ -160,7 +159,7 @@ void String::clear()
 	this->chars[0] = 0;
 }
 
-void String::resize(uint sz)
+void String::resize(int sz)
 {
 	this->capacity = sz;
 	if (sz < this->count) this->count = sz;
@@ -184,10 +183,10 @@ int String::findLast(char c) const
 	return ptr != nullptr ? ptr - this->chars: String::NO_POS;
 }
 
-String String::substr(uint start, uint end) const
+String String::substr(int start, int end) const
 {
 	if (start >= this->count or end >= this->count) Error::error("String index out of bound");
-	uint len = end - start;
+	int len = end - start;
 	String str(len, 0);
 	memcpy(str.chars, this->chars + start, len);
 	return str;
@@ -209,7 +208,7 @@ class List
 	struct Node {T data; Node *next;};
 	Node *tail = nullptr;
 	Node *head = nullptr;
-	uint count = 0;
+	int count = 0;
 public:
 	List();
 	List(const List &arg);
@@ -222,7 +221,7 @@ public:
 	
 	void clear();
 	
-	uint size() const;
+	int size() const;
 	bool empty() const;
 };
 
@@ -300,7 +299,7 @@ void List<T>::clear()
 }
 
 template<class T>
-uint List<T>::size() const
+int List<T>::size() const
 {
 	return count;
 }
@@ -362,7 +361,8 @@ bool File::exists() const {
 	return (stat(path.getPath().cstr(), &st) == 0);
 }
 
-enum Data {NIL, BIN, INT, FLT, STR, ARR, OBJ, FUN, CLS, THG};
+
+enum Type {NONE, BOOL, INT, FLOAT, STRING, ARRAY, OBJECT, FUNCTION, CLASS, THING};
 
 struct Thing;
 struct Array;
@@ -379,6 +379,7 @@ struct Value
 	static Value three;
 	static Value four;
 	static Value five;
+	static Value zero_0;
 	static Value one_0;
 	static Value two_0;
 	static Value three_0;
@@ -387,37 +388,37 @@ struct Value
 	static Value true1;
 	static Value false0;
 
-	uint16_t type;
+	short type;
 	union {
 	bool bin;
 	long i64;
 	double f64;
 	long data;
 	Thing *thg;
-	String *st;
+	String *str;
 	Array* arr;
 	Class *cls;
 	Object *obj;
 	Function *fun;
 	};
 
-	Value() 		   : type(Data::NIL) {data = 0;}
-	Value(bool v)      : type(Data::BIN) {data = 0; bin = v;}
-	Value(long v)      : type(Data::INT) {data = 0; i64 = v;}
-	Value(double v)    : type(Data::FLT) {data = 0; f64 = v;}
-	Value(Thing* v)    : type(Data::THG) {data = 0; thg = v;}
-	Value(String* v)   : type(Data::STR) {data = 0; st  = v;}
-	Value(Array* v)    : type(Data::ARR) {data = 0; arr = v;}
-	Value(Class* v)    : type(Data::CLS) {data = 0; cls = v;}
-	Value(Object* v)   : type(Data::OBJ) {data = 0; obj = v;}
-	Value(Function* v) : type(Data::FUN) {data = 0; fun = v;}
+	Value() 		   : type(Type::NONE)     {data = 0;}
+	Value(bool v)      : type(Type::BOOL)     {data = 0; bin = v;}
+	Value(long v)      : type(Type::INT)      {data = 0; i64 = v;}
+	Value(double v)    : type(Type::FLOAT)    {data = 0; f64 = v;}
+	Value(Thing* v)    : type(Type::THING)    {data = 0; thg = v;}
+	Value(String* v)   : type(Type::STRING)   {data = 0; str = v;}
+	Value(Array* v)    : type(Type::ARRAY)    {data = 0; arr = v;}
+	Value(Class* v)    : type(Type::CLASS)    {data = 0; cls = v;}
+	Value(Object* v)   : type(Type::OBJECT)   {data = 0; obj = v;}
+	Value(Function* v) : type(Type::FUNCTION) {data = 0; fun = v;}
 };
 
 bool operator==(const Value &lhs, const Value &rhs);
 bool operator>(const Value &lhs, const Value &rhs);
 bool operator<(const Value &lhs, const Value &rhs);
 
-typedef void (native)(uint argc, Value *argv, Value &retval);
+typedef void (native)(int argc, Value *argv, Value &retval);
 
 Value Value::null = Value();
 Value Value::zero = Value(long(0));
@@ -426,11 +427,12 @@ Value Value::two = Value(long(2));
 Value Value::three = Value(long(3));
 Value Value::four = Value(long(4));
 Value Value::five = Value(long(5));
-Value Value::one_0 = Value(double(0.0));
-Value Value::two_0 = Value(double(0.0));
-Value Value::three_0 = Value(double(0.0));
-Value Value::four_0 = Value(double(0.0));
-Value Value::five_0 = Value(double(0.0));
+Value Value::zero_0 = Value(double(0.0));
+Value Value::one_0 = Value(double(1.0));
+Value Value::two_0 = Value(double(2.0));
+Value Value::three_0 = Value(double(3.0));
+Value Value::four_0 = Value(double(4.0));
+Value Value::five_0 = Value(double(5.0));
 Value Value::true1 = Value(true);
 Value Value::false0 = Value(false);
 
@@ -438,7 +440,7 @@ bool operator==(const Value &lhs, const Value &rhs)
 {
 	if (lhs.type != rhs.type) return false;
 	if (lhs.data == rhs.data) return true;
-	if (lhs.type == Data::STR) return (*lhs.st) == (*rhs.st);
+	if (lhs.type == Type::STRING) return (*lhs.str) == (*rhs.str);
 	return false;
 }
 
@@ -446,11 +448,11 @@ bool operator<(const Value &lhs, const Value &rhs)
 {
 	if (lhs.type != rhs.type) return false;
 	switch (lhs.type) {
-	case Data::INT: return lhs.i64 < rhs.i64;
-	case Data::FLT: return lhs.f64 < rhs.f64;
-	case Data::STR: return *lhs.st < *rhs.st;
-	case Data::ARR: return lhs.arr < rhs.arr;
-	case Data::OBJ: return lhs.obj < rhs.obj;
+	case Type::INT: return lhs.i64 < rhs.i64;
+	case Type::FLOAT: return lhs.f64 < rhs.f64;
+	case Type::STRING: return *lhs.str < *rhs.str;
+	case Type::ARRAY: return lhs.arr < rhs.arr;
+	case Type::OBJECT: return lhs.obj < rhs.obj;
 	default: return false;
 	}
 }
@@ -459,11 +461,11 @@ bool operator>(const Value &lhs, const Value &rhs)
 {
 	if (lhs.type != rhs.type) return false;
 	switch (lhs.type) {
-	case Data::INT: return lhs.i64 > rhs.i64;
-	case Data::FLT: return lhs.f64 > rhs.f64;
-	case Data::STR: return *lhs.st > *rhs.st;
-	case Data::ARR: return lhs.arr > rhs.arr;
-	case Data::OBJ: return lhs.obj > rhs.obj;	
+	case Type::INT: return lhs.i64 > rhs.i64;
+	case Type::FLOAT: return lhs.f64 > rhs.f64;
+	case Type::STRING: return *lhs.str > *rhs.str;
+	case Type::ARRAY: return lhs.arr > rhs.arr;
+	case Type::OBJECT: return lhs.obj > rhs.obj;	
 	default: return false;
 	}
 }
@@ -471,8 +473,8 @@ bool operator>(const Value &lhs, const Value &rhs)
 struct Visitor;
 
 struct Expression {
-	uint pos;
-	Expression(uint pos) : pos(pos) {}
+	int pos;
+	Expression(int pos) : pos(pos) {}
 	virtual void accept(Visitor *visitor) = 0;
 };
 
@@ -480,7 +482,7 @@ class Literal: public Expression
 {
 	Value m_value;
 public:
-	Literal(Value value, uint pos);
+	Literal(Value value, int pos);
 	Value value() const;
 	void accept(Visitor *visitor);
 };
@@ -489,7 +491,7 @@ class Identifier: public Expression
 {
 	String m_name;
 public:
-	Identifier(String name, uint pos);
+	Identifier(String name, int pos);
 	String name() const;
 	void accept(Visitor *visitor);
 };
@@ -498,7 +500,7 @@ class Negation: public Expression
 {
 	Expression *m_expression;
 public:
-	Negation(Expression *expression, uint pos);
+	Negation(Expression *expression, int pos);
 	Expression* expression() const;
 	void accept(Visitor *visitor);
 };
@@ -508,7 +510,7 @@ class Addition: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Addition(Expression *left, Expression *right, uint pos);
+	Addition(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -519,7 +521,7 @@ class Subtract: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Subtract(Expression *left, Expression *right, uint pos);
+	Subtract(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -530,7 +532,7 @@ class Multiply: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Multiply(Expression *left, Expression *right, uint pos);
+	Multiply(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -541,7 +543,7 @@ class Division: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Division(Expression *left, Expression *right, uint pos);
+	Division(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -552,7 +554,7 @@ class Modulus: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Modulus(Expression *left, Expression *right, uint pos);
+	Modulus(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -563,7 +565,7 @@ class ShiftLeft: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	ShiftLeft(Expression *left, Expression *right, uint pos);
+	ShiftLeft(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -574,7 +576,7 @@ class ShiftRight: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	ShiftRight(Expression *left, Expression *right, uint pos);
+	ShiftRight(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -585,7 +587,7 @@ class BitwiseOR: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	BitwiseOR(Expression *left, Expression *right, uint pos);
+	BitwiseOR(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -596,7 +598,7 @@ class BitwiseAND: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	BitwiseAND(Expression *left, Expression *right, uint pos);
+	BitwiseAND(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -607,7 +609,7 @@ class BitwiseXOR: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	BitwiseXOR(Expression *left, Expression *right, uint pos);
+	BitwiseXOR(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -617,7 +619,7 @@ class BitwiseNOT: public Expression
 {
 	Expression *m_expression;
 public:
-	BitwiseNOT(Expression *expression, uint pos);
+	BitwiseNOT(Expression *expression, int pos);
 	Expression* expression() const;
 	void accept(Visitor *visitor);
 };
@@ -627,7 +629,7 @@ class Equal: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Equal(Expression *left, Expression *right, uint pos);
+	Equal(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -638,7 +640,7 @@ class NotEqual: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	NotEqual(Expression *left, Expression *right, uint pos);
+	NotEqual(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -649,7 +651,7 @@ class LessThan: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	LessThan(Expression *left, Expression *right, uint pos);
+	LessThan(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -660,7 +662,7 @@ class LessEqual: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	LessEqual(Expression *left, Expression *right, uint pos);
+	LessEqual(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -671,7 +673,7 @@ class GreaterThan: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	GreaterThan(Expression *left, Expression *right, uint pos);
+	GreaterThan(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -682,7 +684,7 @@ class GreaterEqual: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	GreaterEqual(Expression *left, Expression *right, uint pos);
+	GreaterEqual(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -693,7 +695,7 @@ class LogicalOR: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	LogicalOR(Expression *left, Expression *right, uint pos);
+	LogicalOR(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -704,7 +706,7 @@ class LogicalAND: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	LogicalAND(Expression *left, Expression *right, uint pos);
+	LogicalAND(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -714,7 +716,7 @@ class LogicalNOT: public Expression
 {
 	Expression *m_expression;
 public:
-	LogicalNOT(Expression *expression, uint pos);
+	LogicalNOT(Expression *expression, int pos);
 	Expression* expression() const;
 	void accept(Visitor *visitor);
 };
@@ -725,7 +727,7 @@ class Conditional: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Conditional(Expression *condition, Expression *left, Expression *right, uint pos);
+	Conditional(Expression *condition, Expression *left, Expression *right, int pos);
 	Expression* condition() const;
 	Expression* left() const;
 	Expression* right() const;
@@ -737,7 +739,7 @@ class Subscript: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Subscript(Expression *left, Expression *right, uint pos);
+	Subscript(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -748,7 +750,7 @@ class Dot: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Dot(Expression *left, Expression *right, uint pos);
+	Dot(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -759,7 +761,7 @@ class Call: public Expression
 	Expression *m_caller;
 	List<Expression*> *m_arguments;
 public:
-	Call(Expression *caller, List<Expression*> *arguments, uint pos);
+	Call(Expression *caller, List<Expression*> *arguments, int pos);
 	Expression* caller() const;
 	List<Expression*>* arguments() const;
 	void accept(Visitor *visitor);
@@ -770,7 +772,7 @@ class AddAssign: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	AddAssign(Expression *left, Expression *right, uint pos);
+	AddAssign(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -781,7 +783,7 @@ class SubAssign: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	SubAssign(Expression *left, Expression *right, uint pos);
+	SubAssign(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
@@ -792,15 +794,15 @@ class Assignment: public Expression
 	Expression *m_left;
 	Expression *m_right;
 public:
-	Assignment(Expression *left, Expression *right, uint pos);
+	Assignment(Expression *left, Expression *right, int pos);
 	Expression* left() const;
 	Expression* right() const;
 	void accept(Visitor *visitor);
 };
 
 struct Statement {
-	uint pos;
-	Statement(uint pos) : pos(pos) {}
+	int pos;
+	Statement(int pos) : pos(pos) {}
 	virtual void accept(Visitor *visitor) = 0;
 };
 
@@ -809,7 +811,7 @@ class ClassStatement: public Statement
 	List<Statement*> *m_variables;
 	List<Statement*> *m_functions;
 public:
-	ClassStatement(List<Statement*> *variables, List<Statement*> *functions, uint pos);
+	ClassStatement(List<Statement*> *variables, List<Statement*> *functions, int pos);
 	List<Statement*>* variables() const;
 	List<Statement*>* functions() const;
 	void accept(Visitor *visitor);
@@ -821,7 +823,7 @@ class FunctionStatement: public Statement
 	List<String> *m_params;
 	List<Statement*> *m_statements;
 public:
-	FunctionStatement(String name, List<String> *params, List<Statement*> *statements, uint pos);
+	FunctionStatement(String name, List<String> *params, List<Statement*> *statements, int pos);
 	String name() const;
 	List<String>* params() const;
 	List<Statement*>* statements() const;
@@ -832,7 +834,7 @@ class BlockStatement: public Statement
 {
 	List<Statement*> *m_statements;
 public:
-	BlockStatement(List<Statement*> *statements, uint pos);
+	BlockStatement(List<Statement*> *statements, int pos);
 	List<Statement*>* statements() const;
 	void accept(Visitor *visitor);
 };
@@ -842,7 +844,7 @@ class VarStatement: public Statement
 	String m_name;
 	Expression *m_value;
 public:
-	VarStatement(String name, Expression *value, uint pos);
+	VarStatement(String name, Expression *value, int pos);
 	String name() const;
 	Expression* value() const;
 	void accept(Visitor *visitor);
@@ -853,7 +855,7 @@ class ValStatement: public Statement
 	String m_name;
 	Expression *m_value;
 public:
-	ValStatement(String name, Expression *value, uint pos);
+	ValStatement(String name, Expression *value, int pos);
 	String name() const;
 	Expression* value() const;
 	void accept(Visitor *visitor);
@@ -865,7 +867,7 @@ class IfStatement: public Statement
 	Statement *m_statement0;
 	Statement *m_statement1;
 public:
-	IfStatement(Expression *condition, Statement *statement0, Statement *statement1, uint pos);
+	IfStatement(Expression *condition, Statement *statement0, Statement *statement1, int pos);
 	Expression* condition() const;
 	Statement* statement0() const;
 	Statement* statement1() const;
@@ -877,7 +879,7 @@ class WhileStatement: public Statement
 	Expression *m_condition;
 	Statement *m_statement;
 public:
-	WhileStatement(Expression *condition, Statement *statement, uint pos);
+	WhileStatement(Expression *condition, Statement *statement, int pos);
 	Expression* condition() const;
 	Statement* statement() const;
 	void accept(Visitor *visitor);
@@ -888,7 +890,7 @@ class ForeachStatement: public Statement
 	String m_name;
 	String m_target;
 public:
-	ForeachStatement(String name, String target, uint pos);
+	ForeachStatement(String name, String target, int pos);
 	String name() const;
 	String target() const;
 	void accept(Visitor *visitor);
@@ -897,7 +899,7 @@ public:
 class BreakStatement: public Statement
 {
 public:
-	BreakStatement(uint pos);
+	BreakStatement(int pos);
 	void accept(Visitor *visitor);
 };
 
@@ -905,7 +907,7 @@ class ReturnStatement: public Statement
 {
 	Expression *m_value;
 public:
-	ReturnStatement(Expression *value, uint pos);
+	ReturnStatement(Expression *value, int pos);
 	Expression* value() const;
 	void accept(Visitor *visitor);
 };
@@ -914,12 +916,13 @@ class ExpressionStatement: public Statement
 {
 	Expression *m_expression;
 public:
-	ExpressionStatement(Expression *expression, uint pos);
+	ExpressionStatement(Expression *expression, int pos);
 	Expression* expression() const;
 	void accept(Visitor *visitor);
 };
 
-struct Visitor {
+struct Visitor
+{
 	virtual void visit(Literal *expression) = 0;
 	virtual void visit(Identifier *expression) = 0;
 	virtual void visit(Negation *expression) = 0;
@@ -962,36 +965,37 @@ struct Visitor {
 	virtual void visit(ReturnStatement *statement) = 0;
 	virtual void visit(ExpressionStatement *statement) = 0;
 };
-Literal::Literal(Value value, uint pos) : m_value(value), Expression(pos) {}
-Identifier::Identifier(String name, uint pos) : m_name(name), Expression(pos) {}
-Negation::Negation(Expression *expression, uint pos) : m_expression(expression), Expression(pos) {}
-Addition::Addition(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-Subtract::Subtract(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-Multiply::Multiply(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-Division::Division(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-Modulus::Modulus(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-ShiftLeft::ShiftLeft(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-ShiftRight::ShiftRight(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-BitwiseOR::BitwiseOR(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-BitwiseAND::BitwiseAND(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-BitwiseXOR::BitwiseXOR(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-BitwiseNOT::BitwiseNOT(Expression *expression, uint pos) : m_expression(expression), Expression(pos) {}
-Equal::Equal(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-NotEqual::NotEqual(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-LessThan::LessThan(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-LessEqual::LessEqual(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-GreaterThan::GreaterThan(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-GreaterEqual::GreaterEqual(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-LogicalOR::LogicalOR(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-LogicalAND::LogicalAND(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-LogicalNOT::LogicalNOT(Expression *expression, uint pos) : m_expression(expression), Expression(pos) {}
-Conditional::Conditional(Expression *condition, Expression *left, Expression *right, uint pos) : m_condition(condition), m_left(left), m_right(right), Expression(pos) {}
-Subscript::Subscript(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-Dot::Dot(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-Call::Call(Expression *caller, List<Expression*> *arguments, uint pos) : m_caller(caller), m_arguments(arguments), Expression(pos) {}
-AddAssign::AddAssign(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-SubAssign::SubAssign(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
-Assignment::Assignment(Expression *left, Expression *right, uint pos) : m_left(left), m_right(right), Expression(pos) {}
+
+Literal::Literal(Value value, int pos) : m_value(value), Expression(pos) {}
+Identifier::Identifier(String name, int pos) : m_name(name), Expression(pos) {}
+Negation::Negation(Expression *expression, int pos) : m_expression(expression), Expression(pos) {}
+Addition::Addition(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+Subtract::Subtract(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+Multiply::Multiply(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+Division::Division(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+Modulus::Modulus(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+ShiftLeft::ShiftLeft(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+ShiftRight::ShiftRight(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+BitwiseOR::BitwiseOR(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+BitwiseAND::BitwiseAND(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+BitwiseXOR::BitwiseXOR(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+BitwiseNOT::BitwiseNOT(Expression *expression, int pos) : m_expression(expression), Expression(pos) {}
+Equal::Equal(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+NotEqual::NotEqual(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+LessThan::LessThan(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+LessEqual::LessEqual(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+GreaterThan::GreaterThan(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+GreaterEqual::GreaterEqual(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+LogicalOR::LogicalOR(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+LogicalAND::LogicalAND(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+LogicalNOT::LogicalNOT(Expression *expression, int pos) : m_expression(expression), Expression(pos) {}
+Conditional::Conditional(Expression *condition, Expression *left, Expression *right, int pos) : m_condition(condition), m_left(left), m_right(right), Expression(pos) {}
+Subscript::Subscript(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+Dot::Dot(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+Call::Call(Expression *caller, List<Expression*> *arguments, int pos) : m_caller(caller), m_arguments(arguments), Expression(pos) {}
+AddAssign::AddAssign(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+SubAssign::SubAssign(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
+Assignment::Assignment(Expression *left, Expression *right, int pos) : m_left(left), m_right(right), Expression(pos) {}
 
 Value Literal::value() const {return m_value;}
 String Identifier::name() const {return m_name;}
@@ -1081,17 +1085,17 @@ void AddAssign::accept(Visitor *visitor) {visitor->visit(this);}
 void SubAssign::accept(Visitor *visitor) {visitor->visit(this);}
 void Assignment::accept(Visitor *visitor) {visitor->visit(this);}
 
-ClassStatement::ClassStatement(List<Statement*> *variables, List<Statement*> *functions, uint pos) : m_variables(variables), m_functions(functions), Statement(pos) {}
-FunctionStatement::FunctionStatement(String name, List<String> *params, List<Statement*> *statements, uint pos) : m_name(name), m_params(params), m_statements(statements), Statement(pos) {}
-BlockStatement::BlockStatement(List<Statement*> *statements, uint pos) : m_statements(statements), Statement(pos) {}
-VarStatement::VarStatement(String name, Expression *value, uint pos) : m_name(name), m_value(value), Statement(pos) {}
-ValStatement::ValStatement(String name, Expression *value, uint pos) : m_name(name), m_value(value), Statement(pos) {}
-IfStatement::IfStatement(Expression *condition, Statement *statement0, Statement *statement1, uint pos) : m_condition(condition), m_statement0(statement0), m_statement1(statement1), Statement(pos) {}
-WhileStatement::WhileStatement(Expression *condition, Statement *statement, uint pos) : m_condition(condition), m_statement(statement), Statement(pos) {}
-ForeachStatement::ForeachStatement(String name, String target, uint pos) : m_name(name), m_target(target), Statement(pos) {}
-BreakStatement::BreakStatement(uint pos) : Statement(pos) {}
-ReturnStatement::ReturnStatement(Expression *value, uint pos) : m_value(value), Statement(pos) {}
-ExpressionStatement::ExpressionStatement(Expression *expression, uint pos) : m_expression(expression), Statement(pos) {}
+ClassStatement::ClassStatement(List<Statement*> *variables, List<Statement*> *functions, int pos) : m_variables(variables), m_functions(functions), Statement(pos) {}
+FunctionStatement::FunctionStatement(String name, List<String> *params, List<Statement*> *statements, int pos) : m_name(name), m_params(params), m_statements(statements), Statement(pos) {}
+BlockStatement::BlockStatement(List<Statement*> *statements, int pos) : m_statements(statements), Statement(pos) {}
+VarStatement::VarStatement(String name, Expression *value, int pos) : m_name(name), m_value(value), Statement(pos) {}
+ValStatement::ValStatement(String name, Expression *value, int pos) : m_name(name), m_value(value), Statement(pos) {}
+IfStatement::IfStatement(Expression *condition, Statement *statement0, Statement *statement1, int pos) : m_condition(condition), m_statement0(statement0), m_statement1(statement1), Statement(pos) {}
+WhileStatement::WhileStatement(Expression *condition, Statement *statement, int pos) : m_condition(condition), m_statement(statement), Statement(pos) {}
+ForeachStatement::ForeachStatement(String name, String target, int pos) : m_name(name), m_target(target), Statement(pos) {}
+BreakStatement::BreakStatement(int pos) : Statement(pos) {}
+ReturnStatement::ReturnStatement(Expression *value, int pos) : m_value(value), Statement(pos) {}
+ExpressionStatement::ExpressionStatement(Expression *expression, int pos) : m_expression(expression), Statement(pos) {}
 
 List<Statement*>* ClassStatement::variables() const {return m_variables;}
 List<Statement*>* ClassStatement::functions() const {return m_functions;}
@@ -1126,9 +1130,137 @@ void ReturnStatement::accept(Visitor *visitor) {visitor->visit(this);}
 void ExpressionStatement::accept(Visitor *visitor) {visitor->visit(this);}
 
 
+class Symbols
+{
+	struct Node {const char *key;int val;Node *next;};
+	Node **heads = nullptr;
+	int headCount = 0;
+	int count = 0;
+public:	
+	Symbols(int sz);
+	void insert(const char *key, int val);
+	int insert(const char *key);
+	int find(const char *key);
+	int hash(const char *key);
+	int size() const;
+};
+
+
+Symbols::Symbols(int sz)
+{
+	this->count = 0;
+	this->headCount = sz;
+	this->heads = new Node*[sz];
+	for (int iter(0); iter < sz; iter++)
+		this->heads[iter] = nullptr;
+}
+
+int Symbols::hash(const char *key)
+{
+	int h = 0;
+	int len = strlen(key);
+	for (int iter(0); iter < len; iter++)
+		h = 31 * h + key[iter];
+	return (h & 0x7fffffff);
+}
+
+void Symbols::insert(const char *key, int val)
+{
+	Node *node = new Node;
+	node->key = key;
+	node->val = val;
+	int h = hash(key) % headCount;
+	node->next = heads[h];
+	heads[h] = node;
+	count++;
+}
+
+int Symbols::insert(const char *key)
+{
+	int h = hash(key) % headCount;
+	for (Node *iter = heads[h]; iter != nullptr; iter = iter->next)
+		if (strcmp(iter->key, key) == 0)
+			return iter->val;
+	Node *node = new Node;
+	node->key = strdup(key);
+	node->val = count;
+	node->next = heads[h];
+	heads[h] = node;
+	return count++;
+}
+
+int Symbols::find(const char *key)
+{
+	int h = hash(key) % headCount;
+	for (Node *iter = heads[h]; iter != nullptr; iter = iter->next)
+		if (strcmp(iter->key, key) == 0)
+			return iter->val;
+	return -1;
+}
+
+int Symbols::size() const
+{
+	return count;
+}
+
+struct Class;
+
+struct Thing
+{
+	virtual Class *get_class() = 0;
+	virtual int mem_size() = 0;
+};
 
 
 
+void symbol_table_put(int key, const *char val);
+void function_table_new(int size);
+void function_table_put(int key, struct function *fun);
+
+
+
+struct Class : Thing
+{
+	int id;
+	int data_count;
+
+	Class();
+	Class(const char *sym);
+	Value instance();
+	void addNative(const char *sym, Native *native);
+	
+	virtual Class *get_class();
+	virtual int mem_size();
+};
+
+struct Function : thing
+{
+	clas_s *cls;
+	size_t id;
+	size_t argc;
+	size_t varc;
+	bool is_native;
+	union {
+	size_t addr;
+	native *func;
+	};
+
+	virtual clas_s *get_class();
+	virtual size_t mallocs();
+};
+
+struct Object : Thing
+{
+	clas_s *cls;
+	value *data;
+
+	object(clas_s *cls);
+	value get(size_t index);
+	void set(size_t index, const value &data);
+
+	virtual clas_s *get_class();
+	virtual size_t mallocs();
+};
 
 
 int main(int argc, const char **argv)
