@@ -122,8 +122,9 @@ StartupWMClass=SpringToolSuite4
 "editor.lineHeight": 20,
 "editor.inlayHints.enabled": "off",
 "workbench.editor.enablePreview": false,
-"workbench.activityBar.location": "hidden"
-==========================================
+"workbench.activityBar.location": "hidden",
+"workbench.colorCustomizations": {"scrollbar.shadow": "#00000000"}
+==================================================================
 [Unit]
 Description=DemoHTTPServer
 After=network.target
