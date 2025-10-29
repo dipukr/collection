@@ -9,16 +9,8 @@ class Person {
 	}
 }
 
-
-
 void main(String[] args) throws Exception
 {
 	Files.lines(Path.of("Main.java")).forEach(System.out::println);
-	var queue = new LinkedList<Integer>();
-	queue.offer(100);
-	queue.offer(200);
-	queue.offer(300);
-	while (!queue.isEmpty())
-		System.out.println(queue.poll());
-	System.out.println(new Random().nextInt(100));
+	System.out.println(System.getenv("PATH"));
 }

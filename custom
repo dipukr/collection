@@ -138,4 +138,15 @@ StandardOutput=append:/var/log/simple-http-server.log
 StandardError=append:/var/log/simple-http-server.err
 [Install]
 WantedBy=multi-user.target
-==========================
+===========================================================
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<configuration>
+				<proc>none</proc>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
