@@ -29,8 +29,21 @@ typedef unsigned long ulong;
 #define OPC_LOAD_M1  17
 #define OPC_LOAD_M1_0 18
 
+typedef struct {
+	byte type;
+	union {
+		int i32;
+		long i64;
+		float f32;
+		double f64;
+	};
+
+} Constant;
 
 typedef struct {
+	sym_t id;
+	short argc;
+	short localc;
 	byte *code;
 } Function;
 
@@ -42,8 +55,12 @@ typedef struct {
 } Frame;
 
 typedef struct {
-	uint lock;
-	
+
+} Class;
+
+
+typedef struct {
+	Class *class;
 } Object;
 
 
@@ -59,74 +76,41 @@ void Processor()
 	while (true) {
 		switch (*ip) {
 		case OPC_NOP:
-			ip += 1;
-			break;
-		case OPC_LOAD_N:
-			*sp++ = 0;
-			ip += 1;
-			break;
-		case OPC_LOAD_T:
-			*sp++ = 1;
-			ip += 1;
-			break;
-		case OPC_LOAD_F:
-		case OPC_LOAD_0:
-			*sp++ = 0;
-			ip += 1;
-			break;
-		case OPC_LOAD_1:
-			*sp++ = 1;
-			ip += 1;
-			break;
-		case OPC_LOAD_2:
-			*sp++ = 2;
-			ip += 1;
-			break;
-		case OPC_LOAD_3:
-			*sp++ = 3;
-			ip += 1;
-			break;
-		case OPC_LOAD_4:
-			*sp++ = 4;
-			ip += 1;
-			break;
-		case OPC_LOAD_5:
-			*sp++ = 5;
-			ip += 1;
-			break;
-		case OPC_LOAD_0L:
-			*sp++ = 0;
-			ip += 1;
-			break;
-		case OPC_LOAD_1L:
-			*sp++ = 1;
-			ip += 1;
-			break;
-		case OPC_LOAD_2L:
-			*sp++ = 5;
-			ip += 1;
-			break;
-		case OPC_LOAD_0_0:
-			*(double*) sp++ = 0.0;
-			ip += 1;
-			break;
-		case OPC_LOAD_1_0:
-			*(double*) sp++ = 1.0;
-			ip += 1;
-			break;
-		case OPC_LOAD_2_0:
-			*(double*) sp++ = 2.0;
-			ip += 1;
-			break;
-		case OPC_LOAD_M1:
-			*sp++ = -1;
-			ip += 1;
-			break;
-		case OPC_LOAD_M1_0:	
-			*(double*) sp++ = -1.0;
-			ip += 1;
-			break;
-			
+		case OPC_NULL:
+		case OPC_BCONST_0:
+		case OPC_BCONST_1:
+		case OPC_ICONST_0:
+		case OPC_ICONST_1:
+		case OPC_ICONST_2:
+		case OPC_ICONST_3:
+		case OPC_ICONST_4:
+		case OPC_ICONST_5:
+		case OPC_LCONST_0:
+		case OPC_LCONST_1:
+		case OPC_LCONST_2:
+		case OPC_FCONST_0:
+		case OPC_FCONST_1:
+		case OPC_FCONST_2:
+		case OPC_DCONST_0:
+		case OPC_DCONST_1:
+		case OPC_DCONST_2:
+		case OPC_ILDC:
+		case OPC_LLDC:
+		case OPC_FLDC:
+		case OPC_DLDC:	
+		case OPC_I2L:
+		case OPC_I2F:
+		case OPC_I2D:
+		case OPC_L2I:
+		case OPC_L2F:
+		case OPC_L2D:
+		case OPC_F2I:
+		case OPC_F2L:
+		case OPC_F2D:
+		case OPC_D2I:
+		case OPC_D2L:
+		case OPC_D2F:
+
 		}
 	}
 }
