@@ -40,4 +40,5 @@ Kafka vs RabbitMQ
 Event-stream vs Message brokers
 Maze generation algorithm
 Multi-level cache
-link-service
+url-shortner
+cache-locality

@@ -1,16 +1,9 @@
-class Person {
-	String name;
-	int age;
-	int sal;	
-	Person(String name, int age, int sal) {
-		this.name = name;
-		this.age = age;
-		this.sal = sal;
+public class Main {
+	public static int add(int a, int b) {
+		return a + b;
 	}
-}
-
-void main(String[] args) throws Exception
-{
-	Files.lines(Path.of("Main.java")).forEach(System.out::println);
-	System.out.println(System.getenv("PATH"));
+	public static void main(String[] args) {
+		int r = add(100, 200);
+		System.out.println(r);
+	}
 }

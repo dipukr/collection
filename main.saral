@@ -2,7 +2,7 @@ record Person(String name, int age, int sal)
 
 class FileReader
 {
-    val File file
+    File file
 
     pub FileReader(File file) {
         this.file = file
@@ -19,20 +19,20 @@ class FileReader
 
 class Person
 {
-    mut String name;
-    mut int age;
-    mut int sal;
+    mut String name
+    mut int age
+    mut int sal
 
     pub Self(String name, int age, int sal) {
-        self.name = name;
-        self.age = age;
-        self.sal = sal;
+        self.name = name
+        self.age = age
+        self.sal = sal
     }
 
     pub void draw(Canvas canvas) {
-        logger(self.name);
-        logger(self.age);
-        logger(self.sal);
+        logger(self.name)
+        logger(self.age)
+        logger(self.sal)
     }
 }
 
@@ -111,7 +111,8 @@ class Person
         val person = Person::builder()
             .name("name")
             .age(20)
-            .sal(40000);
+            .sal(40000)
+            .build();
         canvas.draw("name={name}");
         canvas.draw("age={age}");
         canvas.draw("sal={sal}");
@@ -126,10 +127,10 @@ boolean handleCommand(Command command) {
 
 void main(String[] args)
 {
-    val database = Database.of(url, username, password);
-    val userDAO = UserDAO.of(database);
-    val reader = BufferedReader.of(FileReader.of(file));
-    List<User> users = userDAO.findAll();
+    val database = Database.of(url, username, password)
+    val userDAO = UserDAO.of(database)
+    val reader = BufferedReader.of(FileReader.of(file))
+    List<User> users = userDAO.findAll()
 }
 
 function Math {
