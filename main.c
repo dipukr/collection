@@ -7,12 +7,16 @@
 #include <signal.h>
 #include <pthread.h>
 #include <stdio.h>
+struct Function {
+	uint32_t id;
+	uint16_t argc;
+	uint16_t localc;
+	uint32_t offset;
+	void *class;
+};
 void main(int argc, const char **argv) {
-	int **data = (int**) malloc(sizeof(int*) * 100);
-	for (int i = 0; i < 100; i++) {
-		data[i] = (int*) malloc(sizeof(int)*10);
-		if ((unsigned)data[i] & 15)
-			printf("%p\n", data[i]);
-	}
+	uint32_t a = -100;
+	printf("%d\n", sizeof(struct Function));
+	printf("%d\n", a);
 }
 

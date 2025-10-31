@@ -6,10 +6,6 @@
 
 #define null NULL
 
-typedef unsigned char byte;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-
 #define OPC_NOP 1
 #define OPC_LOAD_N 2
 #define OPC_LOAD_T 3
@@ -29,49 +25,112 @@ typedef unsigned long ulong;
 #define OPC_LOAD_M1  17
 #define OPC_LOAD_M1_0 18
 
-typedef struct {
-	byte type;
+#define CONSTANT_INT    1
+#define CONSTANT_LONG   2
+#define CONSTANT_FLOAT  3
+#define CONSTANT_DOUBLE 4
+#define CONSTANT_STRING 5
+#define CONSTANT_SYMBOL 6
+
+size_t allocated = 0;
+
+void runtime_error(const char *what)
+{
+	fprintf(stdout, "%s\n", what);
+	exit(EXIT_FAILURE);
+}
+
+
+struct Constant {
+	uint8_t type;
 	union {
-		int i32;
-		long i64;
+		int32_t i32;
+		int64_t i64;
 		float f32;
 		double f64;
+		uint32_t sym;
 	};
 
-} Constant;
+};
 
-typedef struct {
-	sym_t id;
-	short argc;
-	short localc;
-	byte *code;
-} Function;
+void* mem_alloc(size_t sz)
+{
+	allocated += sz;
+	void *mem = malloc(sz);
+	if (mem == null) runtime_error("Out of memory");
+	return mem;
+}
 
-typedef struct {
-	Function *fun;
-	ulong *locals;
-	ulong *stack;
+struct Class {
+	uint32_t id;
+	uint32_t datac;
+	uint32_t functionc;
+	struct Function *functions;
+};
+
+struct Function {
+	uint32_t id;
+	uint16_t argc;
+	uint16_t localc;
+	uint32_t *offset;
+	struct Class *class;
+};
+
+struct Frame {
+	uint64_t *locals;
+	uint64_t *stack;
+	struct Function *fun;
 	struct Frame *parent;
-} Frame;
-
-typedef struct {
-
-} Class;
+};
 
 
-typedef struct {
-	Class *class;
-} Object;
+struct Object {
+	struct Class *class;
+};
+
+struct Context {
+	struct Function *func;
+	struct Class *class;
+	uint64_t *sp;
+	uint64_t *bp;
+	uint64_t *ip; 
+};
+
+
+size_t constantc;
+struct Constant *constants;
+
+size_t symbolc;
+struct char **symbols;
+
+size_t classc;
+struct Class *classes;
+
+size_t functionc;
+struct Function *functions;
+
+
+uint8_t  read_uint8_t(FILE *file);
+uint16_t read_uint16_t(FILE *file);
+uint32_t read_uint32_t(FILE *file);
+uint64_t read_uint64_t(FILE *file);
+int8_t  read_int8_t(FILE *file);
+int16_t read_int16_t(FILE *file);
+int32_t read_int32_t(FILE *file);
+int64_t read_int64_t(FILE *file);
+float read_float(FILE *file);
+double read_double(FILE *file);
+
 
 
 void Processor()
 {
 	Frame *frame = null;
-	Function *fun = frame->fun;
-	ulong *locals = frame->locals;
-	ulong *sp = frame->stack;
-	byte *ip = fun->code;
-	Object *self = (Object*) locals[0];
+	uint64_t *locals = frame->locals;
+	uint64_t *sp = frame->stack;
+	uint8_t *ip = fun->code;
+	struct Function *func = frame->func;
+	struct Object *self = (Object*) locals[0];
 
 	while (true) {
 		switch (*ip) {
@@ -110,7 +169,8 @@ void Processor()
 		case OPC_D2I:
 		case OPC_D2L:
 		case OPC_D2F:
-
+		case OPC_CALL:
+				
 		}
 	}
 }
