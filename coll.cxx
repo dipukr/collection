@@ -1647,7 +1647,7 @@ bool Map<K, V>::notEmpty() const
 class file_reader
 {
 	FILE *stream = nullptr;
-	U64 size = 0;
+	size_t size = 0;
 
 public:
 	file_reader(const char *file);
@@ -1657,21 +1657,21 @@ public:
 	U64 file_size();
 	void close();
 	
-	void read(S8  &val);
-	void read(U8  &val);
-	void read(S16 &val);
-	void read(U16 &val);
-	void read(S32 &val);
-	void read(U32 &val);
-	void read(S64 &val);
-	void read(U64 &val);
-	void read(F32 &val);
-	void read(F64 &val);
-	void read(text* &v);
-	void read(value &v);
-	void read(code* &v);
-	void read(clas_s* &v);
-	void read(char *dest, U64 sz);	
+	void read(byte &val);
+	void read(ubyte  &val);
+	void read(short &val);
+	void read(ushort &val);
+	void read(int &val);
+	void read(uint &val);
+	void read(long &val);
+	void read(ulong &val);
+	void read(float &val);
+	void read(double &val);
+	void read(String* &v);
+	void read(Value &v);
+	void read(Code* &v);
+	void read(Class* &v);
+	void read(char *dest, size_t sz);	
 };
 
 file_reader::file_reader(const char *file)
@@ -1733,9 +1733,11 @@ void file_reader::read(code* &v)
 	read(v->addr);
 }
 
-void file_reader::read(clas_s* &v)
+
+
+void FileReader::read(Class* &v)
 {
-	v = (clas_s*) malloc(sizeof(clas_s));
+	v = (Class*) malloc(sizeof(clas_s));
 	read(v->id);
 	read(v->data_count);
 }
