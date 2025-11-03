@@ -1,40 +1,8 @@
+interface Clone<T> => T clone();
+
 record Person(String name, int age, int sal)
 
-class FileReader
-{
-    File file
-
-    pub FileReader(File file) {
-        this.file = file
-    }
-
-    pub ByteStream readAll() {
-        byte[] data = new byte[10000]
-        val reader = new DataStreamReader(file)
-        while (true)
-            reader.read(data)
-        return ByteStream.of(data)
-    }
-}
-
-class Person
-{
-    mut String name
-    mut int age
-    mut int sal
-
-    pub Self(String name, int age, int sal) {
-        self.name = name
-        self.age = age
-        self.sal = sal
-    }
-
-    pub void draw(Canvas canvas) {
-        logger(self.name)
-        logger(self.age)
-        logger(self.sal)
-    }
-}
+int add<Number>(Number a, Number b) {return a + b;}
 
 class Person
 {
@@ -57,97 +25,27 @@ class Person
 
 
 
-class Person
+void main(String[] args)
 {
-    val String name
-    val int age
-    val int sal
-
-    pub Person(String name, int age, int sal) {
-        this.name = name
-        this.age = age
-        this.sal = sal
-    }
-
-    pub void draw(Canvas canvas) {
-        logger(name)
-        logger(age)
-        logger(sal)
-    }
-}
-
-class Person
-{
-    val String name;
-    val int age;
-    val int sal;
-
-    pub Person(String name, int age, int sal) {
-        this.name = name;
-        this.age = age;
-        this.sal = sal;
-    }
-
-    pub void draw(Canvas canvas) {
-        logger(name);
-        logger(age);
-        logger(sal);
-    }
-}
-
-class Person
-{
-   String name;
-   int age;
-   int sal;
-
-    pub Person(String name, int age, int sal) {
-        this.name = name;
-        this.age = age;
-        this.sal = sal;
-    }
-
-    pub void draw(Canvas canvas) {
-        val person = Person::builder()
-            .name("name")
-            .age(20)
-            .sal(40000)
-            .build();
-        canvas.draw("name={name}");
-        canvas.draw("age={age}");
-        canvas.draw("sal={sal}");
-    }
-}
-
-boolean handleCommand(Command command) {
-    val x = 1000;
-    foreach (val elem: elements)
-        logger(elem);
+    let database = Database.of(url, username, password);
+    let userDAO = UserDAO.of(database);
+    Condition<int> = lambda: a => a > 0;
+    List<User> users = userDAO.findAll();
 }
 
 void main(String[] args)
 {
-    val database = Database.of(url, username, password)
-    val userDAO = UserDAO.of(database)
-    val reader = BufferedReader.of(FileReader.of(file))
-    List<User> users = userDAO.findAll()
-}
+    int x = 100;
+    mut obj = new Object();
+    let user = new User();
 
-function Math {
-    int add(int a, int b) {return a + b;}
-    int sub(int a, int b) {return a - b;}
-    int mul(int a, int b) {return a * b;}
-    int div(int a, int b) {return a / b;}
-}
-
-void main(String[] args) {
     int[] data = [10, 20, 30, 40, 50, 60, 70];
-    bool[] marked = [data.length: false];
-    var iter = 0;
+    bool[] marked = new bool[data.length: false];
+    int iter = 0;
 	while (iter < data.length) {
 		logger(data[iter]);
 		iter += 1;
 	}
-    foreach (val elem: data)
+    foreach (let elem: data)
         logger(elem);
 }

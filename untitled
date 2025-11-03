@@ -1,36 +1,14 @@
-HTTP Caching
-TCP Handshake
-SSH
-Statefull vs Stateless Architecture
-Cookies, Session, JWT
-Dependency injection, Dependency inversion
-Distributed job scheduling system (cron)
-Pub-Sub System, Message Queue
-Event-driven vs Request-response
-Data warehouse, Data analytics
-JSON and Protobuf
-Eventual consistency, Strong consistency
-Idempotency
-Cross cutting concerns
-SSL Termination
-=============================
-Less latency/response time
-Server load reduction
-Fault isolation
-Resilient, Fast, Well monitored
-==========================
-API Gateway is Facade
-mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.1 -DinteractiveMode=false -DgroupId=main -DartifactId=MQueue
-
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<proc>none</proc>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+public interface Visitor<R> {
+		R visit(ClassDecl statement);
+		R visit(Function statement);
+		R visit(Block statement);
+		R visit(VarDecl statement);
+		R visit(If statement);
+		R visit(While statement);
+		R visit(Foreach statement);
+		R visit(Break statement);
+		R visit(Return statement);
+		R visit(Assert statement);
+		R visit(Console statement);
+		R visit(Expresion statement);
+	}

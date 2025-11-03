@@ -153,10 +153,10 @@ void Processor()
 		case OPC_DCONST_0:
 		case OPC_DCONST_1:
 		case OPC_DCONST_2:
-		case OPC_ILDC:
-		case OPC_LLDC:
-		case OPC_FLDC:
-		case OPC_DLDC:	
+		case OPC_LDC_I:
+		case OPC_LDC_L:
+		case OPC_LDC_F:
+		case OPC_LDC_D:	
 		case OPC_I2L:
 		case OPC_I2F:
 		case OPC_I2D:
