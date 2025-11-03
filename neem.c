@@ -41,17 +41,14 @@ void runtime_error(const char *what)
 }
 
 
-struct Constant {
-	uint8_t type;
-	union {
-		int32_t i32;
-		int64_t i64;
-		float f32;
-		double f64;
-		uint32_t sym;
-	};
-
+union Constant {
+	int32_t i32;
+	int64_t i64;
+	float f32;
+	double f64;
+	uint32_t sym;
 };
+
 
 void* mem_alloc(size_t sz)
 {
@@ -109,18 +106,83 @@ struct Class *classes;
 size_t functionc;
 struct Function *functions;
 
+void file_reader::read(char *dest, U64 sz) 
+{
+	U64 rd = fread(dest, sz, 1, stream);
+	assert(rd == 1);
+}
 
-uint8_t  read_uint8_t(FILE *file);
-uint16_t read_uint16_t(FILE *file);
-uint32_t read_uint32_t(FILE *file);
-uint64_t read_uint64_t(FILE *file);
-int8_t  read_int8_t(FILE *file);
-int16_t read_int16_t(FILE *file);
-int32_t read_int32_t(FILE *file);
+
+uint8_t read_uint8_t(FILE *file)
+{
+	uint8_t v;
+	size_t sz = fread((char*) &v, sizeof(v), 1, stream);
+	if (sz != 1) runtime_error("File IO error");
+	return v;
+}
+
+uint16_t read_uint16_t(FILE *file)
+{
+	uint16_t v;
+	size_t sz = fread((char*) &v, sizeof(v), 1, stream);
+	if (sz != 1) runtime_error("File IO error");
+	return v;
+}
+
+uint32_t read_uint32_t(FILE *file)
+{
+	uint32_t v;
+	size_t sz = fread((char*) &v, sizeof(v), 1, stream);
+	if (sz != 1) runtime_error("File IO error");
+	return v;
+}
+
+uint64_t read_uint64_t(FILE *file)
+{
+	uint64_t v;
+	size_t sz = fread((char*) &v, sizeof(v), 1, stream);
+	if (sz != 1) runtime_error("File IO error");
+	return v;
+}
+
+int8_t read_int8_t(FILE *file)
+{
+	int8_t v;
+	size_t sz = fread((char*) &v, sizeof(v), 1, stream);
+	if (sz != 1) runtime_error("File IO error");
+	return v;
+}
+
+int16_t read_int16_t(FILE *file)
+{
+	int16_t v;
+	size_t sz = fread((char*) &v, sizeof(v), 1, stream);
+	if (sz != 1) runtime_error("File IO error");
+	return v;
+}
+
+int32_t read_int32_t(FILE *file)
+{
+	int32_t v;
+	size_t sz = fread((char*) &v, sizeof(v), 1, stream);
+	if (sz != 1) runtime_error("File IO error");
+	return v;
+}
+
 int64_t read_int64_t(FILE *file);
 float read_float(FILE *file);
 double read_double(FILE *file);
+struct Function* read_function(FILE *file);
+struct Class* read_class(FILE *file);
 
+void write_uint8_t(FILE *file, uint8_t v)
+void write_uint16_t(FILE *file, uint16_t v)
+void write_uint32_t(FILE *file, uint32_t v)
+void write_uint64_t(FILE *file, uint64_t v)
+void write_int8_t(FILE *file, int8_t v)
+void write_int16_t(FILE *file, int16_t v)
+void write_int32_t(FILE *file, int32_t v)
+void write_int64_t(FILE *file, uint64_t v)
 
 
 void Processor()
