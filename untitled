@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 public abstract Expr {
 	public Expr() {}
 	public abstract void accept(Visitor visitor);
@@ -38,3 +39,19 @@ public interface Visitor {
 	void visit(Sub expr);
 	void visit(Constant expr);
 }
+=======
+public interface Visitor<R> {
+		R visit(ClassDecl statement);
+		R visit(Function statement);
+		R visit(Block statement);
+		R visit(VarDecl statement);
+		R visit(If statement);
+		R visit(While statement);
+		R visit(Foreach statement);
+		R visit(Break statement);
+		R visit(Return statement);
+		R visit(Assert statement);
+		R visit(Console statement);
+		R visit(Expresion statement);
+	}
+>>>>>>> aebfed85eec8752a04b1fbae1db68fa73e49182b
