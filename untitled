@@ -1,36 +1,40 @@
-HTTP Caching
-TCP Handshake
-SSH
-Statefull vs Stateless Architecture
-Cookies, Session, JWT
-Dependency injection, Dependency inversion
-Distributed job scheduling system (cron)
-Pub-Sub System, Message Queue
-Event-driven vs Request-response
-Data warehouse, Data analytics
-JSON and Protobuf
-Eventual consistency, Strong consistency
-Idempotency
-Cross cutting concerns
-SSL Termination
-=============================
-Less latency/response time
-Server load reduction
-Fault isolation
-Resilient, Fast, Well monitored
-==========================
-API Gateway is Facade
-mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.1 -DinteractiveMode=false -DgroupId=main -DartifactId=MQueue
-
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<proc>none</proc>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+public abstract Expr {
+	public Expr() {}
+	public abstract void accept(Visitor visitor);
+}
+public Add extends Expr {
+	public Expr a;
+	public Expr b;
+	public Add(Expr a, Expr b) {
+		this.a = a;
+		this.b = b;
+	}
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+}
+public Sub extends Expr {
+	public Expr a;
+	public Expr b;
+	public Sub(Expr a, Expr b) {
+		this.a = a;
+		this.b = b;
+	}
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+}
+public Constant extends Expr {
+	public double val;
+	public Constant(double val) {
+		this.val = val;
+	}
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+}
+public interface Visitor {
+	void visit(Add expr);
+	void visit(Sub expr);
+	void visit(Constant expr);
+}
