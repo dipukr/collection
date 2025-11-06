@@ -1,6 +1,23 @@
 record Person(String name, int age, int sal)
 
-int add<Number>(Number a, Number b) {return a + b;}
+Type add<Type>(Type a, Type b) {
+    return a + b;
+}
+
+class List<Type>
+{
+    mut Type[] data;
+    int threshold;
+    int count;
+
+    pub Self(int threshold) {
+        self.threshold = threshold;
+    }
+
+    pub void add(Type elem) {
+
+    }
+}
 
 class Person
 {
@@ -34,9 +51,10 @@ void main(String[] args)
 void main(String[] args)
 {
     mut Object obj = new Object();
-    let user = new User();
+    let user = new Person();
     int x = 100;
-     
+    num x = 100;
+
 
     int[] data = [10, 20, 30, 40, 50, 60, 70];
     bool[] marked = new bool[data.length: false];

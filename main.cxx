@@ -20,6 +20,15 @@ std::vector<object> call() {
 	return data;
 }
 
+void bar() {
+	std::cout << "bar called" << std::endl;
+	foo();
+}
+void foo() {
+	std::cout << "foo called" << std::endl;
+	bar();
+}
+
 int main(int argc, const char **argv)
 {
 	std::vector<object> data = call();
