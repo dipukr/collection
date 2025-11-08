@@ -3,7 +3,11 @@
 #include <memory>
 #include <algorithm>
 #include <string>
-
+struct color {
+    uint8_t r, g, b, a;
+    color(uint8_t rr=0, uint8_t gg=0, uint8_t bb=0, uint8_t aa=255)
+        : r(rr), g(gg), b(bb), a(aa) {}
+};
 struct object
 {
 	object() {std::cout << "contructor called" << std::endl;}
@@ -20,16 +24,7 @@ std::vector<object> call() {
 	return data;
 }
 
-void bar() {
-	std::cout << "bar called" << std::endl;
-	foo();
-}
-void foo() {
-	std::cout << "foo called" << std::endl;
-	bar();
-}
-
 int main(int argc, const char **argv)
 {
-	std::vector<object> data = call();
+	std::cout << sizeof(color) << std::endl;
 }

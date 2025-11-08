@@ -24,7 +24,7 @@ void merge(std::list<int> &a, std::list<int> &b, std::list<int> &result)
 		result.push_back(*snd), snd++;
 }
 
-void merge(list<int> &a, list<int> &b, list<int> &r)
+void merge(std::list<int> &a, std::list<int> &b, std::list<int> &r)
 {
 	while (!a.empty() && !b.empty()) {
 		if (a.front() < b.front())
@@ -55,21 +55,6 @@ void increment(std::list<int> &a, std::list<int> &r)
 	return r;
 }
 
-int binary_to_decimal(std::list<int> &a)
-{
-	std::reverse(std::begin(a), std::end(a));
-	auto iter = std::begin(a);
-	int f = 1;
-	int r = 0;
-	while (iter != std::end(a)) {
-		int d = *iter;
-		r += d * f;
-		f = f * 2;
-		iter++;
-	}
-	return r;
-}
-
 void add(std::list<int> &a, std::list<int> &b, std::list<int> &r)
 {
 	std::reverse(std::begin(a), std::end(a));
@@ -90,7 +75,7 @@ void add(std::list<int> &a, std::list<int> &b, std::list<int> &r)
 	std::reverse(std::begin(r), std::end(r));
 }
 
-void multiply(std::list<int> &a, std::list<int> &b, std::list<int> &r) 
+void mul(std::list<int> &a, std::list<int> &b, std::list<int> &r) 
 {
 	std::reverse(std::begin(a), std::end(a));
 	std::reverse(std::begin(a), std::end(a));
@@ -124,7 +109,7 @@ void add(std::list<std::list<int>> &nums, std::list<int> &result)
 	std::reverse(std::begin(result), std::end(result));
 }
 
-void multiply(std::list<int> &a, std::list<int> &b, std::list<int> &r)
+void mul(std::list<int> &a, std::list<int> &b, std::list<int> &r)
 {
 	std::reverse(std::begin(a), std::end(a));
 	std::reverse(std::begin(a), std::end(a));
@@ -144,8 +129,7 @@ void multiply(std::list<int> &a, std::list<int> &b, std::list<int> &r)
             p++;
 			s++;
         }
-        if (carry > 0)
-            *s += carry;
+        if (carry > 0) *s += carry;
         r++;
 		q++;
     }
@@ -179,8 +163,17 @@ void timer(uint32_t interval)
 	}
 }
 
-int main(int argc, const char **argv)
+int binary_to_decimal(std::list<int> &a)
 {
-	std::cout << "Welcome to C++ Programming" << std::endl;
-	return EXIT_SUCCESS;
+	std::reverse(std::begin(a), std::end(a));
+	auto iter = std::begin(a);
+	int f = 1;
+	int r = 0;
+	while (iter != std::end(a)) {
+		int d = *iter;
+		r += d * f;
+		f = f * 2;
+		iter++;
+	}
+	return r;
 }

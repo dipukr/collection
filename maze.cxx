@@ -23,7 +23,7 @@ bool Path(std::vector<std::vector<int>> &a, int i, int j, int x, int y)
 	a[i][j] = 1;
 	return false;
 }
-
+	
 int ShortestPath(std::vector<std::vector<int>> &a, int i, int j, int x, int y)
 {
 	if (i < 0 || i == a.size() || j < 0 || j == a[0].size() || a[i][j] == 0) return MAX_INT;
