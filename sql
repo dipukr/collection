@@ -46,17 +46,11 @@ create table order (
 	foreign key (customer_id) references customer (customer_id),
 	foreign key (product_id) references product (product_id)
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+create table orders (
+	order_id bigint not null primary key,
+	customer_id bigint not null,
+	order_date datetime not null,
+	amount decimal(10,2) not null,
+	status varchar(32),
+	created_at timestamp default current_timestamp
+)
