@@ -167,7 +167,7 @@
   {
     "id": 44,
     "title": "Abacus",
-    "content": "<div>CRON Job schedular</div><div>Search engine</div><div>Web crawler</div><div>JSON parser</div><div>Distributed cache,</div><div>Distributed rate-limiter</div><div>Distributed storage-system</div><div>====================================<br></div><div>Stream processing vs Batch processing</div><div>Maze generation algorithm</div><div>Cache-locality</div><div><br></div><div><br></div><div><br></div><div><br><div><br><br></div></div>"
+    "content": "<div>CRON Job schedular</div><div>Search engine</div><div>Web crawler</div><div>JSON parser</div><div>Distributed cache,</div><div>Distributed rate-limiter</div><div>Distributed storage-system</div><div>====================================<br></div><div>Stream processing vs Batch processing</div><div>Maze generation algorithm</div><div>Cache-locality</div><div>Distributed-lock</div><div>Distributed transaction</div><div>Transaction isolation</div><div>Optimistic locking</div><div>Instruction reordering</div><div>Real-world application of fork-join pool</div><div>Leader-election algorithm (Bully and Ring)</div><div>Consistent hashing</div><div>Circuit-breaker algorithm</div><div>Paxos and Raft</div><div>Anycast Routing</div><div><br></div><div><div><br><br></div></div>"
   },
   {
     "id": 45,
