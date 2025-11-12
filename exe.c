@@ -58,7 +58,7 @@ void generate(const int argc, const char **argv)
 
 
 
-int main(const int argc, const char **argv)
+int main(int argc, const char **argv)
 {
 	read();
 	generate();

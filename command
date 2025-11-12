@@ -16,7 +16,7 @@ python3.12 -m pip install --upgrade pip
 sudo yum erase $(rpm -qa | grep mongodb-org)
 ss -tulnp|grep :8780
 journalctl -u server -f --no-pager
-====================================================================
+============================================================================================================
 zookeeper-server-start /opt/confluent/etc/kafka/zookeeper.properties
 kafka-server-start /opt/kafka/config/server.properties
 kafka-topics --bootstrap-server localhost:9092 --create --topic topic0 --partitions 3 --replication-factor 1
@@ -25,7 +25,7 @@ kafka-topics --bootstrap-server localhost:9092 --describe --topic topic0
 kafka-console-producer --broker-list localhost:9092 --topic topic0
 kafka-console-producer --broker-list localhost:9092 --topic topic0 < bin/customers.csv
 kafka-console-consumer --bootstrap-server localhost:9092 --topic topic0 --from-beginning
-========================================================================================
+=============================================================================================================
 docker ps
 docker images
 docker build -t docker-sch-srv:0.1.RELEASE .
