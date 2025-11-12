@@ -743,76 +743,8 @@
   <tbody>
     <tr>
       <td>
-        Mediator design pattern is a behavioral design pattern that promotes loose coupling between objects by centralizing communication between them. Instead of objects referring to each other directly, they communicate through a mediator object. This makes the system easier to maintain, modify, and scale, especially as the number of objects increases. Mediator pattern introduces a third-party object called the mediator to control the interation between two or more objects called colleagues. Mediator pattern focuses on simplifying communication between objects by managing and coordinating their interations through a mediator. When-to use: when you want to reduce complex dependencies between objects and promote decoupling. Mediator pattern is used for coordinating communication while the proxy pattern is used for controlling access.
-        <br><br><em>Components:</em><ul><li>Mediator interface: Declares the communication contract used by components.</li><li>ConcreteMediator: Implements coordination logic and knows all components (colleagues).</li><li>Colleague: Individual objects that communicate via the mediator. Knows about the mediator but not other colleagues.</li></ul><br><em>Pros and Cons:</em><ul><li>Promotes low coupling between components.</li><li>Simplifies maintenance and enhances reusability.</li><li>Centralizes complex communications.</li><li>Mediator can become a God object if it gets too complex.</li><li>Too much logic inside the mediator can lead to poor scalability.</li></ul><br><em>Real-world examples:</em><ul><li>Chat Room App: Chat room server = Mediator, users = Colleagues.</li><li>UI Components (MVC) - Dialog boxes, buttons send events to a central controller.</li></ul> <br>
-<pre style="width: 49%; float: left;">
- 
-    interface ChatMediator {
-        void addUser(User user);
-        void sendMessage(String message, User user);
-    }
-    
-    class ChatMediatorImpl implements ChatMediator {
-        List<User> users;
-
-        void addUser(User user) {
-            users.add(user);
-        }
-        
-        void sendMessage(String message, User user) {
-            for (User user: users)
-                if (user != this)
-                    user.receive("From {user.name}: {message}");
-        }
-    }
-
-    abstract class User {
-        ChatMediator mediator;
-        String name;
-
-        User(ChatMediator mediator, String name) {
-            this.mediator = mediator;
-            this.name = name;
-        }
-
-        abstract void send(String message);
-        abstract void receive(String message);
-    }
-</pre>
-<pre style="width: 49%; float: right;">
-
-    class UserImpl extend User {
-        UserImpl(ChatMediator mediator, String name) {
-            super(mediator, name);
-        }
-
-        void send(String message) {
-            println("{name} sends message: {message}");
-            mediator.sendMessage(message, this);
-        }
-
-        void receive(String message) {
-            println("{name} receives message: {message}");
-        }
-    }
-
-    void main(String[] args) {
-        ChatMediator mediator = new ChatMediatorImpl();
-        User user1 = new UserImpl(mediator, "user1");
-        User user2 = new UserImpl(mediator, "user2");
-        User user3 = new UserImpl(mediator, "user3");
-        User user4 = new UserImpl(mediator, "user4");
-        User user5 = new UserImpl(mediator, "user5");
-        mediator.addUser(user1);
-        mediator.addUser(user2);
-        mediator.addUser(user3);
-        mediator.addUser(user4);
-        mediator.addUser(user5);
-        user1.send("Hello everyone.");
-    }
-
-
-</pre>
+        Mediator design pattern is a behavioral design pattern that promotes loose coupling between objects by centralizing communication between them. Instead of objects referring to each other directly, they communicate through a mediator object. This makes the system easier to maintain, modify, and scale, especially as the number of objects increases. Mediator pattern focuses on simplifying communication between objects by managing and coordinating their interations through a mediator. <em>When-to use:</em> when you want to reduce complex dependencies between objects and promote decoupling. Mediator pattern is used for coordinating communication while the proxy pattern is used for controlling access.
+        <br><br><em>Components:</em><ul><li>Mediator interface: Declares the communication contract used by components.</li><li>ConcreteMediator: Implements coordination logic and knows all components (colleagues).</li><li>Colleague: Individual objects that communicate via mediator. Knows about the mediator but not other colleagues.</li></ul><br><em>Pros and Cons:</em><ul><li>Promotes low coupling between components.</li><li>Simplifies maintenance and enhances reusability.</li><li>Centralizes complex communications.</li><li>Mediator can become a God object if it gets too complex.</li><li>Too much logic inside the mediator can lead to poor scalability.</li></ul><br><em>Real-world examples:</em><ul><li>Chat Room App: Chat room server = Mediator, users = Colleagues.</li><li>UI Components (MVC) - Dialog boxes, buttons send events to a central controller.</li></ul>
       </td>
     </tr>
   </tbody>
@@ -826,65 +758,7 @@
   <tbody>
     <tr>
       <td>
-        Iterator pattern is a behavioral design pattern that provides a way to access the elements of a collection (like a list or tree) sequentially without exposing its underlying representation. Iterator pattern is used to traverse elements in a container. Iterator pattern decouples container traversal algorithms from containers. Intent is to provide a standard way to traverse through a collection of objects without exposing its internal structure.<br><br><em>Components:</em><ul><li>Iterator (Interface) – declares the interface for accessing elements.</li><li>ConcreteIterator – implements the Iterator interface and keeps track of the current position.</li><li>Aggregate (Interface) – declares a method to return an iterator.</li><li>ConcreteAggregate – implements the method to return an iterator instance.</li></ul><br><em>Advantages:</em><ul><li>Separates collection traversal logic from collection data structure.</li><li>Uniform traversal for various types of collections.</li><li>Supports multiple iterations simultaneously.</li></ul> <br>
-        <pre style="width: 49%; float: left;">
-
-    interface Iterator {
-        boolean hasNext();
-        Book next();
-    }
-
-    interface Collection {
-        Iterator iterator();
-    }
-
-    class BookStore implements Collection {
-        List&lt;Book> books;
-
-        void addBook(Book book) {
-            books.add(book);
-        }
-
-        List<Book> getBooks() {
-            return books;
-        }
-
-        Iterator iterator() {
-            return new BookStoreIterator();
-        }
-    }
-
-
-        </pre>
-        <pre style="width: 49%; float: right;">
-    
-    class BookStoreIterator implements Iterator {
-        BookStore bookStore;
-        int current;
-        
-        BookStoreIterator(BookStore bookStore) {
-            this.bookStore = bookStore;
-            this.current = 0;
-        }
-        boolean hasNext() {
-            return current < bookStore.getBooks().size();
-        }
-        Book next() {
-            return hasNext() ? 
-            bookStore.getBooks().get(current++) : null;
-        }
-    }
-
-    void main(String[] args) {
-        BookStore bookStore = new BookStore();
-        bookStore.addBook("Book1");
-        bookStore.addBook("Book2");
-        bookStore.addBook("Book3");
-        Iterator iterator = bookStore.iterator();
-        while (iterator.hasNext())
-            println(iterator.next());
-    }
-        </pre>
+        Iterator pattern is a behavioral design pattern that provides a way to access the elements of a collection (like a list or tree) sequentially without exposing its underlying representation. Iterator pattern is used to traverse elements in a container. Iterator pattern decouples container traversal algorithms from containers. Intent is to provide a standard way to traverse through a collection of objects without exposing its internal structure.<br><br><em>Components:</em><ul><li>Iterator (Interface) – declares the interface for accessing elements.</li><li>ConcreteIterator – implements the Iterator interface and keeps track of the current position.</li><li>Aggregate (Interface) – declares a method to return an iterator.</li><li>ConcreteAggregate – implements the method to return an iterator instance.</li></ul><br><em>Advantages:</em><ul><li>Separates collection traversal logic from collection data structure.</li><li>Uniform traversal for various types of collections.</li><li>Supports multiple iterations simultaneously.</li></ul>
       </td>
     </tr>
   </tbody>
@@ -913,22 +787,8 @@
   <tbody>
     <tr>
       <td>
-        Command design pattern is a behavioral design pattern that turns a request into a stand-alone object containing all the information about the request. This object can then be passed, stored, queued, and executed at a later time. Command pattern: an object is used to encapsulate all the information needed to perform an action or trigger an event at a later time, this information includes method name, the object that owns the method and the parameter for the method. Command pattern is perfect for features like scheduling, logging, undo and redo operations. When we need to encapsulate operations as objects and control behaviour through the arrangement of these operations. Command pattern encapsulates requests as objects, allowing the system to support complex command, request and operation management. Command pattern offers flexible way to extend system functionality while maintianing decoupling between the invoker and the receiver.<br><br><em>Components:</em><ul><li>Command (Interface) – declares an interface for executing an operation.</li><li>ConcreteCommand – defines a binding between a receiver and an action.</li><li>Receiver – knows how to perform the operation associated with the command.</li><li>Invoker – asks the command to carry out the request.</li><li>Client – creates the command object and sets its receiver.</li></ul><br><em>Pros and Cons:</em><ul><li>Decouples objects invoking operations from those performing them.</li><li>Easy to add new commands without changing existing code.</li><li>Supports undo-redo, logging, and macro recording.</li><li>May result in lots of small classes ex. one per command.</li><li>Complexity may be overkill for simple operations.</li></ul><br><em>Concepts:</em><ul><li>Intent: Encapsulate a request as an object.</li><li>Useful-for: Decoupling sender and receiver, undo-redo, logging.</li><li>Real-world:  Remote control, game commands, smart home actions.</li></ul>
+        Command design pattern is a behavioral design pattern that turns a request into a stand-alone object containing all the information about the request. This object can then be passed, stored, queued, and executed at a later time. Command pattern: an object is used to encapsulate all the information needed to perform an action or trigger an event at a later time, this information includes method name, the object that owns the method and the parameter for the method. Command pattern is perfect for features like scheduling, logging, undo and redo operations. When we need to encapsulate operations as objects and control behaviour through the arrangement of these operations. Command pattern encapsulates requests as objects, allowing the system to support complex command, request and operation management. Command pattern offers flexible way to extend system functionality while maintianing decoupling between the invoker and the receiver.<br><br><em>Components:</em><ul><li>Command (Interface) – declares an interface for executing an operation.</li><li>ConcreteCommand – defines a binding between a receiver and an action.</li><li>Receiver – knows how to perform the operation associated with the command.</li><li>Invoker – asks the command to carry out the request.</li><li>Client – creates the command object and sets its receiver.</li></ul><br><em>Pros and Cons:</em><ul><li>Decouples objects invoking operations from those performing them.</li><li>Easy to add new commands without changing existing code.</li><li>Supports undo-redo, logging, and macro recording.</li><li>May result in lots of small classes ex. one per command.</li><li>Complexity may be overkill for simple operations.</li></ul>
 
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <thead>
-    <tr>
-      <th>State</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        
       </td>
     </tr>
   </tbody>
@@ -965,85 +825,7 @@
           <li>Open-Closed Principle: Add new strategies without modifying existing code.</li>
           <li>Cleaner Code: Eliminates repetitive conditionals.</li>
           <li>Interchangeability: Strategies can be swapped out easily.</li>
-        </ul> <br>
- <pre style="width: 49%; float: left;">
-
-    interface PaymentStrategy {
-        void pay(double amount);
-    }
-
-    class CreditCardStrategy implements PaymentStrategy {
-        String cardNumber;
-
-        CreditCardStrategy(String cardNumber) {
-            this.cardNumber = cardNumber;
-        }
-        void pay(double amount) {
-            println("Paid {amount} using Credit Card.");
-        }
-    }
-
-    class PaypalStrategy implements PaymentStrategy {
-        String email;
-
-        PaypalStrategy(String email) {
-            this.email = email;
-        }
-        void pay(double amount) {
-            println("Paid {amount} using Paypal.");
-        }
-    }
-
-    class UPIStrategy implements PaymentStrategy {
-        String upiId;
-        
-        UPIStrategy(String upiId) {
-            this.upiId = upiId;
-        }
-        void pay(double amount) {
-            println("Paid {amount} using UPI.");
-        }
-    }
-</pre>
-<pre style="width: 49%; float: right;">
-
-    class ShoppingCart {
-        List<Item> items;
-
-        void addItem(Item item) {
-            items.add(item);
-        }
-
-        void removeItem(Item item) {
-            items.remove(item);
-        }
-
-        double calculateTotal() {
-            return items.stream()
-            .mapToDouble(Item::getPrice).sum();
-        }
-
-        void pay(PaymentStrategy paymentStrategy) {
-            double amount = calculateTotal();
-            paymentStrategy.pay(amount);
-        }
-    }
-
-    void main(String[] args) {
-        ShoppingCart cart = new ShoppingCart();
-        Item item1 = new Item("Item1", 200);
-        Item item2 = new Item("Item2", 400);
-        Item item3 = new Item("Item3", 700);
-
-        cart.addItem(item1);
-        cart.addItem(item2);
-        cart.addItem(item3);
-        
-        cart.pay(new CreditCardStrategy("43GH-23BF-HGJF-B432"));
-        cart.pay(new PaypalStrategy("koomar.dipu@gmail.com"));
-        cart.pay(new UPIStrategy("6200035453@ibl"));
-    }
-</pre>
+        </ul>
       </td>
     </tr>
   </tbody>
