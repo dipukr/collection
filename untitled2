@@ -1,0 +1,4 @@
+Software architecture refers to the high-level structure of a software system.
+System Design is about designing the entire system — not just software — to meet scalability, reliability and performance requirements.
+Heap memory is logically contiguous but physically non-contiguous.
+Heap is a region of a process’s address space used for dynamic memory allocation.
