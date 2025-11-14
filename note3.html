@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Low-level</title>
+	<style>
+		body {
+			margin: 0;
+			font-family: sans-serif;
+			display: flex;
+			height: 100vh;
+			width: 90%;
+		}
+
+		.sidebar {
+			width: 250px;
+			background: #f4f4f4;
+			border-right: 1px solid #ccc;
+			padding: 10px;
+			overflow-y: auto;
+		}
+
+		.sidebar h2 {
+			margin-top: 0;
+		}
+
+		.note-list {
+			list-style: none;
+			padding: 0;
+		}
+
+		.note-list li {
+			cursor: pointer;
+			padding: 5px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.note-list li:hover {
+			background: #ddd;
+		}
+
+		.main {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			padding: 10px;
+		}
+
+		.formatting {
+			margin-bottom: 10px;
+		}
+
+		.formatting button {
+			margin-right: 5px;
+			padding: 5px 10px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		#noteText {
+			flex: 1;
+			border: 1px solid #ccc;
+			padding: 17px;
+			overflow: auto;
+			text-align: justify;
+			white-space: pre-wrap;
+			font-family: "Comic Sans MS";
+			font-size: 23px;
+			color: #444444;
+			word-spacing: -2px;
+			font-weight: 500;
+			background-color: #f8f8f8;
+			overflow-y: scroll;
+			scrollbar-width: none;
+		}
+
+		#noteText::-webkit-scrollbar {
+			display: none;
+		}
+
+		.sidebar::-webkit-scrollbar {
+			display: none;
+		}
+
+		.buttons {
+			margin-top: 10px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: center;
+		}
+
+		button {
+			padding: 8px 16px;
+			font-size: 14px;
+			cursor: pointer;
+		}
+
+		#noteText ul {
+			list-style-type: square;
+			padding-left: 20px;
+			/* indent bullets */
+			margin-left: 20px;
+			margin-top: 2px;
+		}
+	</style>
+</head>
+<body>
+	<div class="sidebar">
+		<h2>Notes</h2>
+		<ul class="note-list" id="noteList"></ul>
+	</div>
+	<div class="main">
+		<div id="noteText" contenteditable="false" spellcheck="false" style="background: white"></div>
+		<div class="buttons">
+			<button onclick="saveNote()">Save</button>
+			<button onclick="toggleEdit()">Edit</button>
+			<button onclick="newNote()">New</button>
+			<button onclick="deleteNote()">Delete</button>
+			<button onclick="format('bold')">B</button>
+			<button onclick="format('italic')">I</button>
+			<button onclick="format('underline')">U</button>
+			<button onclick="changeColor('red')" style="color:purple">R</button>
+			<button onclick="decreaseFontSize()">A−</button>
+			<button onclick="increaseFontSize()">A+</button>
+			<button onclick="format('insertUnorderedList')">List</button>
+			<button onclick="insertTable()">Table</button>
+			<button onclick="insertImage()">Image</button>
+			<button onclick="importNotes()">Import</button>
+			<button onclick="exportNotes()">Export</button>
+		</div>
+	</div>
+	<script>
+		let currentNoteId = null;
+		let isEditable = false;
+
+		let db;
+		const DB_NAME = "NotesDB";
+		const STORE_NAME = "notes";
+
+		const request = indexedDB.open(DB_NAME, 1);
+		request.onerror = (event) => {
+			console.error("IndexedDB error:", event.target.errorCode);
+		};
+		request.onsuccess = (event) => {
+			db = event.target.result;
+			updateSidebar();
+		};
+		request.onupgradeneeded = (event) => {
+			db = event.target.result;
+			if (!db.objectStoreNames.contains(STORE_NAME)) {
+				db.createObjectStore(STORE_NAME, { keyPath: "id", autoIncrement: true });
+			}
+		};
+
+		function toggleEdit() {
+			const noteText = document.getElementById("noteText");
+			if (currentNoteId === null) {
+				alert("Select a note to edit first.");
+				return;
+			}
+			isEditable = !isEditable;
+			noteText.contentEditable = isEditable;
+			if (isEditable) {
+				noteText.focus();
+			}
+		}
+
+		function format(command) {
+			document.execCommand(command, false, null);
+		}
+
+		function changeColor(color) {
+			document.execCommand("styleWithCSS", false, true);
+			document.execCommand("foreColor", false, color);
+		}
+
+		function updateSidebar() {
+			const list = document.getElementById("noteList");
+			list.innerHTML = "";
+			notes = [];
+			const tx = db.transaction(STORE_NAME, "readonly");
+			const store = tx.objectStore(STORE_NAME);
+			const req = store.getAll();
+			req.onsuccess = () => {
+				notes = req.result;
+				notes.sort((a, b) =>
+					(a.title || "").toLowerCase().localeCompare((b.title || "").toLowerCase())
+				);
+				notes.forEach((note) => {
+					const li = document.createElement("li");
+					li.textContent = note.title;
+					li.dataset.index = note.id;
+					li.onclick = () => loadNote(note.id);
+					list.appendChild(li);
+				});
+			};
+			req.onerror = () => {
+				console.error("Unable to updateSidebar.");
+			};
+		}
+
+		function saveNote() {
+			const content_ = document.getElementById("noteText").innerHTML;
+			if (currentNoteId !== null) {
+				const tx = db.transaction(STORE_NAME, "readwrite");
+				const store = tx.objectStore(STORE_NAME);
+				const getReq = store.get(currentNoteId);
+				getReq.onsuccess = () => {
+					const note = getReq.result;
+					store.put({ id: currentNoteId, title: note.title, content: content_ });
+					const noteText = document.getElementById("noteText");
+					noteText.contentEditable = false;
+				};
+			}
+		}
+
+		function newNote() {
+			const title_ = prompt("Enter title:", "");
+			const tx = db.transaction(STORE_NAME, "readwrite");
+			const store = tx.objectStore(STORE_NAME);
+			const addRequest = store.add({ title: title_, content: "" });
+			addRequest.onsuccess = () => {
+				currentNoteId = addRequest.result;
+				document.getElementById("noteText").innerHTML = "Write...";
+				const noteText = document.getElementById("noteText");
+				noteText.contentEditable = true;
+				updateSidebar();
+			};
+		}
+
+		function loadNote(id) {
+			const tx = db.transaction(STORE_NAME, "readonly");
+			const store = tx.objectStore(STORE_NAME);
+			const req = store.get(id);
+			req.onsuccess = () => {
+				const note = req.result;
+				document.getElementById("noteText").innerHTML = note.content;
+				currentNoteId = id;
+				isEditable = false;
+				document.getElementById("noteText").contentEditable = false;
+			};
+		}
+
+		function deleteNote() {
+			if (currentNoteId !== null) {
+				const tx = db.transaction(STORE_NAME, "readwrite");
+				const store = tx.objectStore(STORE_NAME);
+				store.delete(currentNoteId);
+				currentNoteId = null;
+				document.getElementById("noteText").innerHTML = "";
+				updateSidebar();
+			}
+		}
+
+		function getAllNotes(callback) {
+			const tx = db.transaction(STORE_NAME, "readonly");
+			const store = tx.objectStore(STORE_NAME);
+			const request = store.getAll();
+			request.onsuccess = () => callback(request.result);
+		}
+
+		function exportNotes() {
+			getAllNotes((allNotes) => {
+				const data = JSON.stringify(allNotes, null, 2);
+				const blob = new Blob([data], { type: "application/json" });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement("a");
+				a.href = url;
+				a.download = "low.json";
+				a.click();
+				URL.revokeObjectURL(url);
+			});
+		}
+
+		function importNotes() {
+			const input = document.createElement("input");
+			input.type = "file";
+			input.accept = "application/json";
+			input.onchange = (event) => {
+				const file = event.target.files[0];
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					try {
+						const importedNotes = JSON.parse(e.target.result);
+						if (Array.isArray(importedNotes)) {
+							const tx = db.transaction(STORE_NAME, "readwrite");
+							const store = tx.objectStore(STORE_NAME);
+							importedNotes.forEach((note) => store.put(note));
+							tx.oncomplete = () => {
+								alert("Notes imported successfully!");
+								updateSidebar();
+							};
+						} else {
+							alert("Invalid notes file.");
+						}
+					} catch {
+						alert("Failed to import notes.");
+					}
+				};
+				reader.readAsText(file);
+			};
+			input.click();
+		}
+
+		function insertImage() {
+			const input = document.createElement("input");
+			input.type = "file";
+			input.accept = "image/*";
+			input.onchange = () => {
+				const file = input.files[0];
+				if (!file) return;
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					const img = document.createElement("img");
+					img.src = e.target.result;
+					img.style.maxWidth = "100%";
+					img.style.display = "block";
+					img.style.margin = "10px 0";
+					const range = window.getSelection().getRangeAt(0);
+					range.insertNode(img);
+					range.setStartAfter(img);
+					range.setEndAfter(img);
+					window.getSelection().removeAllRanges();
+					window.getSelection().addRange(range);
+				};
+				reader.readAsDataURL(file);
+			};
+			input.click();
+		}
+
+		function insertTable() {
+			const input = prompt("Enter rows,cols:", "")
+			const [r, c] = input.split(',').map(str => parseInt(str.trim(), 10));
+			if (isNaN(r) || isNaN(c) || r <= 0 || c <= 0) {
+				alert("Invalid table size");
+				return;
+			}
+			let html = `<table style="
+				width: 99%;
+				border-collapse: collapse;
+				border: 1px solid #ccc;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				margin-left: auto;
+				margin-right: auto;">`;
+
+			for (let i = 0; i < r; i++) {
+				html += "<tr>";
+				for (let j = 0; j < c; j++) {
+					html += `<td style="
+						border: 1px solid #ccc;
+						padding: 8px 17px;
+						padding-top: 8px;
+						padding-bottom: ${i === 0 ? "8px" : "20px"};
+						padding-left: 17px;
+						padding-right: 17px;
+						text-align: ${i === 0 ? "center" : "justify"};
+						background-color: ${i === 0 ? "#f0f0f0" : "#fff"};
+						font-weight: ${i === 0 ? "bold" : "normal"};
+					">${i === 0 ? "Header" : "Cell"}</td>`;
+				}
+				html += "</tr>";
+			}
+			html += "</table><br>";
+			document.execCommand("insertHTML", false, html);
+		}
+
+		function decreaseFontSize() {
+			const sel = window.getSelection();
+			if (!sel.rangeCount) return;
+			const range = sel.getRangeAt(0);
+			const selectedText = sel.toString();
+			if (!selectedText) return;
+			const span = document.createElement('span');
+			span.textContent = selectedText;
+			range.deleteContents();
+			range.insertNode(span);
+			const computedSize = window.getComputedStyle(span).fontSize;
+			let currentPt = parseFloat(computedSize); // usually in px
+			const isPx = computedSize.endsWith("px");
+			if (isPx) currentPt = currentPt / 1.333;
+			const newPt = Math.max(6, Math.round(currentPt - 1));
+			const newSpan = document.createElement('span');
+			newSpan.textContent = span.textContent;
+			newSpan.style.fontSize = `${newPt}pt`;
+			span.replaceWith(newSpan);
+			const newRange = document.createRange();
+			newRange.setStartAfter(newSpan);
+			newRange.setEndAfter(newSpan);
+			sel.removeAllRanges();
+			sel.addRange(newRange);
+		}
+
+		function increaseFontSize() {
+			const sel = window.getSelection();
+			if (!sel.rangeCount) return;
+			const range = sel.getRangeAt(0);
+			const selectedText = sel.toString();
+			if (!selectedText) return;
+			const span = document.createElement('span');
+			span.textContent = selectedText;
+			range.deleteContents();
+			range.insertNode(span);
+			const computedSize = window.getComputedStyle(span).fontSize;
+			let currentPt = parseFloat(computedSize);
+			const isPx = computedSize.endsWith("px");
+			if (isPx) currentPt = currentPt / 1.333;
+			const newPt = Math.min(72, Math.round(currentPt + 1));
+			const newSpan = document.createElement('span');
+			newSpan.textContent = span.textContent;
+			newSpan.style.fontSize = `${newPt}pt`;
+			span.replaceWith(newSpan);
+			const newRange = document.createRange();
+			newRange.setStartAfter(newSpan);
+			newRange.setEndAfter(newSpan);
+			sel.removeAllRanges();
+			sel.addRange(newRange);
+		}
+
+		document.getElementById("noteText")
+			.addEventListener("keydown", function (evt) {
+				if (evt.key === "Tab") {
+					evt.preventDefault();
+					const sel = window.getSelection();
+					const range = sel.getRangeAt(0);
+					const tabNode = document.createTextNode("    ");
+					range.insertNode(tabNode);
+					range.setStartAfter(tabNode);
+					range.setEndAfter(tabNode);
+					sel.removeAllRanges();
+					sel.addRange(range);
+				}
+			});
+
+		document.getElementById("noteText")
+			.addEventListener("paste", function (evt) {
+				evt.preventDefault();
+				const text = evt.clipboardData.getData("text/plain");
+				document.execCommand("insertText", false, text);
+			});
+	</script>
+</body>
+</html>

@@ -1,19 +1,10 @@
-gsettings set org.gnome.mutter center-new-windows true
-gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
-gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar true
-gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
-git config --global user.name "koomar_dipu"
-git config --global user.email "koomar.dipu@gmail.com"
-git config --global core.editor "vim"
-git config --global credential.helper "/bin/bash /home/dkumar/.config/.git-credentials"
 org.eclipse.ui.editors.prefs:wordwrap.enabled=true
-alter user 'root'@'localhost' identified by 'Root@123';
 wget https://brave-browser-rpm-release.s3.brave.com/x86_64/brave-browser-1.43.88-1.x86_64.rpm
-yum install gnome-tweaks liberation-fonts gdk-pixbuf2-modules-extra pcb-rnd-hid-gtk2-gdk zlib-devel
+install gnome-tweaks liberation-fonts gdk-pixbuf2-modules-extra pcb-rnd-hid-gtk2-gdk zlib-devel
 brave-browser-stable --disable-features=GlobalMediaControls
 dnf.conf:exclude=nautilus nautilus-extensions brave-browser:install_weak_deps=False
 user-dirs.dirs:user-dirs.defaults
-python3.12 -m ensurepip:python3.12 -m pip list
+<maven.compiler.release>21</maven.compiler.release>
 .plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
 git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
 git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822

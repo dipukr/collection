@@ -1,5 +1,8 @@
 sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
+mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.1
 sqlite3 cookies.sqlite "SELECT host, name, value FROM moz_cookies;"
+alter user 'root'@'localhost' identified by 'Root@123';
+python3.12 -m ensurepip:python3.12 -m pip list
 git remote add origin url.git:git push -u -f origin master
 g++ -c add.cpp:ar crf ..\lib\libadd.a add.o:g++ -o main main.cpp -L. -ladd
 g++ -c -O3 -std=c++11 -I"../include"
@@ -11,6 +14,16 @@ python3.12 -m pip install --upgrade pip
 journalctl -u nginx -f --no-pager
 nmap -n -PN -sT -p- localhost
 ss -tulnp|grep :8780
+=============================================================================
+gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar true
+gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
+gsettings set org.gnome.mutter center-new-windows true
+git config --global user.name "koomar_dipu"
+git config --global user.email "koomar.dipu@gmail.com"
+git config --global core.editor "vim"
+git config --global core.excludesfile ~/.config/.gitignore
+git config --global credential.helper "/bin/bash /home/dkumar/.config/.git-credentials"
 =============================================================================================================
 zookeeper-server-start /opt/kafka/zookeeper.properties:kafka-server-start /opt/kafka/config/server.properties
 kafka-topics --bootstrap-server localhost:9092 --create --topic topic0 --partitions 3 --replication-factor 1

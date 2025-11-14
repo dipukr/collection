@@ -1,17 +1,6 @@
 public class Draw {
-
-	private static final String YELLOW = "\u001B[33m";
-	private static final String PURPLE = "\u001B[35m";
-	private static final String GREEN = "\u001B[32m";
-	private static final String WHITE = "\u001B[37m";
-	private static final String BLACK = "\u001B[30m";
-	private static final String BLUE = "\u001B[34m";
-	private static final String CYAN = "\u001B[36m";
-	private static final String RESET = "\u001B[0m";
-	private static final String RED = "\u001B[31m";
-
-	public static void draw() {
-		int data[][] = {
+	public void draw() {
+		int[][] data = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1},
 			{1,0,0,0,1,0,0,0,1,1,1,1,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1},
@@ -35,14 +24,14 @@ public class Draw {
 		for (int row = 0; row < data.length; row++) {
 			for (int col = 0; col < data[0].length; col++) {
 				int code = data[row][col] == 0 ? 32: 9608;
-				System.out.printf("%s%c%c", BLACK, code, code);
+				System.out.printf("%s%c%c", "\u001B[35m", code, code);
 			}
 			System.out.println();
 		}
 	}
 
-	public static void main(String[] args) {
-		System.out.println("Hello");
-		draw();
+	public void main(String[] args) {
+		var draw = new Draw();
+		draw.draw();
 	}
 }

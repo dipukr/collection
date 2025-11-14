@@ -66,7 +66,7 @@
         white-space: pre-wrap;
         font-family: "Comic Sans MS";
         font-size: 23px;
-        color: #222221;
+        color: #444444;
         word-spacing: -2px;
         font-weight: 500;
         background-color: #f8f8f8;
@@ -115,7 +115,7 @@
         <button onclick="format('bold')">B</button>
         <button onclick="format('italic')">I</button>
         <button onclick="format('underline')">U</button>
-        <button onclick="changeColor('red')" style="color:red">R</button>
+        <button onclick="changeColor('red')" style="color:purple">R</button>
         <button onclick="decreaseFontSize()">A−</button>
         <button onclick="increaseFontSize()">A+</button>
         <button onclick="format('insertUnorderedList')">List</button>
@@ -132,7 +132,7 @@
 
       let db;
       const DB_NAME = "NotesLLD";
-      const STORE_NAME = "notes";
+      const STORE_NAME = "notes_lld";
 
       const request = indexedDB.open(DB_NAME, 1);
       request.onerror = (event) => {
@@ -352,10 +352,10 @@
           return;
         }
         let html = `<table style="
-            width: 100%;
+            width: 99%;
             border-collapse: collapse;
             border: 1px solid #ccc;
-            margin: 10px 0;
+            margin: 9px 8px; 
           ">`;
 
         for (let i = 0; i < r; i++) {
@@ -363,8 +363,9 @@
           for (let j = 0; j < c; j++) {
             html += `<td style="
             border: 1px solid #ccc;
-            padding: 8px;
-            text-align: justify;
+            padding: 7px 15px;
+			width: auto;
+            text-align: ${i === 0 ? "center" : "justify"};
             background-color: ${i === 0 ? "#f0f0f0" : "#fff"};
             font-weight: ${i === 0 ? "bold" : "normal"};
           ">${i === 0 ? "Header" : "Cell"}</td>`;
