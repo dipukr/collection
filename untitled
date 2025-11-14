@@ -350,3 +350,30 @@ public class BatchProcessingSystem {
         }
     }
 }
+==================================================================================================================================
+Software architecture refers to the high-level structure of a software system.
+System Design is about designing the entire system — not just software — to meet scalability, reliability and performance requirements.
+Heap memory is logically contiguous but physically non-contiguous.
+Heap is a region of a process’s address space used for dynamic memory allocation.
+Audit Log and Activity Log are both used to track actions within systems, but they serve different purposes.
+
+Objects do not create other objects on which they relay to do their work, instead they get the objects that they need from an outside world.
+Abstraction is separation of interface from implementation so that we can have one interface and many implementations or usages.
+Abstract data type: what operations can be performed on this data, ignoring how those operations will be performed.
+High level modules should not depend on low level modules rather both should depends on abstraction.
+Polymorphism is the ability of a variable, function or object to take on multiple forms.
+Interface defines what a class does but not how it does it.
+Advantages of generics: compile-time type safety, avoids class cast exceptions and eliminate the need for most type conversions.
+Try-catch promotes separation of concern principles by avoiding mixing of business logic code and error handling code.
+Volatile ensures that all the threads sees the same value of a variale at any given time.
+There is one-to-one mapping between JVM platform threads and OS threads.
+Cached shared data causes a thread not to notice that data has been changed by the another thread.
+Returned value is wrapped into the Future object, which is returned immediately.
+Method get blocks invoking thread until timeout or when the value within the Future object becomes available.
+Method wait puts a thread into waiting state against specific monitor.
+Any number of threads can be waiting against the same monitor.
+Keyword synchronized enforces exclusive access to the block of code.
+Creating platform threads is expensive both in terms of time and space.
+Thread does not have to block on anthing for the final result of the pipeline to be relevant.
+Use IntStream instead of Stream<Integer> when possible.
+Interrupts are co-operation mechanism for one thread to tell other thread to stop its execution.

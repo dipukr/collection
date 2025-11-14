@@ -1,0 +1,54 @@
+Stream processing vs Batch processing
+Maze generation algorithm
+Cache-locality
+Distributed-lock
+Distributed transaction
+Transaction isolation
+Optimistic locking
+Instruction reordering
+Real-world application of fork-join pool
+Leader-election algorithm (Bully and Ring)
+Consistent hashing
+Circuit-breaker algorithm
+Paxos and Raft
+Anycast Routing
+Architectural models
+Microservices communication
+Multithreading vs Multiprocessing
+Asynchronous processing
+Asynchronous programming
+Stateless vs Statefull
+Synchronous vs Asynchronous
+Push vs Pull
+Easy-to-add new feature without changing existing.
+Easy-to-change one part without breaking other part.
+====================================================
+CRON Job schedular
+Search engine
+Web crawler
+JSON parser
+Distributed cache,
+Distributed rate-limiter
+Distributed storage-system
+==========================
+Robust
+Modular
+Flexible
+Testable
+Pluggable
+Extensible
+Maintainable
+Loosely-coupled
+Seperation-of-concerns
+Easy-to read
+Easy-to understand
+Easy-to debug
+Easy-to unit-test
+================
+Scalable
+Robust
+Secure
+Available
+Fault-tolerant
+Resilient
+Performant

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8" />
-	<title>Low-level</title>
+	<title>Notes</title>
 	<style>
 		body {
 			margin: 0;
@@ -75,13 +74,7 @@
 			scrollbar-width: none;
 		}
 
-		#noteText::-webkit-scrollbar {
-			display: none;
-		}
-
-		.sidebar::-webkit-scrollbar {
-			display: none;
-		}
+		.sidebar::-webkit-scrollbar {display: none;}
 
 		.buttons {
 			margin-top: 10px;
@@ -96,7 +89,7 @@
 			font-size: 14px;
 			cursor: pointer;
 		}
-
+		
 		#noteText ul {
 			list-style-type: square;
 			padding-left: 20px;
@@ -351,9 +344,9 @@
 				for (let j = 0; j < c; j++) {
 					html += `<td style="
 						border: 1px solid #ccc;
-						padding: 8px 17px;
+						/*padding: 8px 17px;*/
 						padding-top: 8px;
-						padding-bottom: ${i === 0 ? "8px" : "20px"};
+						padding-bottom: ${i === 0 ? "8px" : "17px"};
 						padding-left: 17px;
 						padding-right: 17px;
 						text-align: ${i === 0 ? "center" : "justify"};
