@@ -1,7 +1,7 @@
-import java.io.*;
-import java.net.*;
-
 void main(String[] args) throws Exception {
-	System.out.println("hello.world");
 	
+	while (true) {
+		System.out.printf("%f\r", Math.random());
+		Thread.sleep(1000);
+	}		
 }
