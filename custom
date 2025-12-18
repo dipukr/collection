@@ -144,3 +144,24 @@ WantedBy=multi-user.target
 	</plugins>
 </build>
 =========================================================
+.gitignore
+.classpath
+.project
+.factorypath
+.mvn/
+.settings/
+.vscode/
+target/
+=========================
+[user]
+	name = dipukr
+	email = adipukr@gmail.com
+[core]
+	editor = vim
+	excludesfile = /home/dkumar/.config/.gitignore
+[credential]
+	helper = /bin/bash /home/dkumar/.config/.git-credentials
+[pull]
+	rebase = false
+[init]
+	defaultBranch = master
