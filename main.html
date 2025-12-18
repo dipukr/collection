@@ -1,137 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Best Approximation UI</title>
-  <style>
-    body {
-      background-color: #f5f5f7;
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      background: white;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      width: 1400px;
-      height: 600px;
-      padding: 30px 40px;
-    }
-
-    .title {
-      font-size: 1.4em;
-      font-weight: 600;
-      color: #222;
-    }
-
-    .subtitle {
-      margin-top: 5px;
-      color: #555;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-top: 25px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .field label {
-      font-size: 0.9em;
-      color: #666;
-      margin-bottom: 5px;
-    }
-
-    .field input {
-      padding: 20px 15px;
-      border: 2px solid #555555;
-      border-radius: 4px;
-      font-size: 1em;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .field input:focus {
-      border-color: #6c63ff;
-      box-shadow: 0 0 0 2px rgba(108,99,255,0.2);
-    }
-
-    .bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 30px;
-    }
-
-    .btn {
-      background: none;
-      border: none;
-      font-weight: 600;
-      font-size: 1em;
-      color: #6c63ff;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .btn:hover {
-      color: #554ce8;
-    }
-  </style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Main</title>
+	<style>
+		body {
+			width: 68%;
+			margin-top: 1%;
+			padding-left: 1%;
+			padding-right: 1%;
+			min-height: 1000px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 20px;
+			padding-top: 1%;
+			background-color: white;
+			box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+			border-radius: 5px;
+			padding-bottom: 100px;
+		}
+		table {
+			width: 99%;
+			border-collapse: collapse;
+			border: 1px solid #ccc;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			margin-left: auto;
+			margin-right: auto;
+			font-family: "Comic Sans MS";
+			font-size: 23px;
+			color: #444444;
+			word-spacing: -3px;
+			font-weight: 500;
+		}
+		table tr th {
+			border: 1px solid #ccc;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			padding-left: 17px;
+			padding-right: 17px;
+			text-align: center;
+			background-color: #f0f0f0;
+			font-weight: bold;
+		}
+		table tr td {
+			border: 1px solid #ccc;
+			padding-top: 8px;
+			padding-bottom: 17px;
+			padding-left: 17px;
+			padding-right: 17px;
+			text-align: justify;
+			background-color: #fff;
+			font-weight: normal;
+		}
+	</style>
 </head>
 <body>
-  <div class="container">
-    <div class="title">Best approximation:</div>
-    <div class="subtitle">Gen: 1</div>
-
-    <div class="grid" style="grid-template-columns: 1fr 1fr;">
-      <div class="field">
-        <label>Inputs</label>
-        <input type="text" value="0,1,3,5" />
-      </div>
-      <div class="field">
-        <label>Outputs</label>
-        <input type="text" value="1,2,10,26" />
-      </div>
-    </div>
-
-    <div class="grid" style="margin-top: 25px;">
-      <div class="field">
-        <label>PopulationSize</label>
-        <input type="text" value="600" />
-      </div>
-      <div class="field">
-        <label>Gens</label>
-        <input type="text" value="100" />
-      </div>
-      <div class="field">
-        <label>Complexity</label>
-        <input type="text" value="2" />
-      </div>
-      <div class="field">
-        <label>Diversity</label>
-        <input type="text" value="10" />
-      </div>
-      <div class="field">
-        <label>DeathProb</label>
-        <input type="text" value="0.5" />
-      </div>
-    </div>
-
-    <div class="bottom">
-      <button class="btn">RESET</button>
-      <button class="btn">RUN 100 GENS</button>
-    </div>
-  </div>
+	<table>
+		<tr><th>Class loader</th></tr>
+		<tr><td>Class loader subsystem is responsible for loading, linking, verifying and initializing java class file. Runtime data areas contain class area, heap area, stack areas and PC registers. Execution engine contains an bytecode interpreter, JIT compiler and memory manager. The class loader is part of the java virtual machine which is used to load class files during execution of a program. Application classes and all the dependencies from imported JARs are loaded by the system class loader.</td></tr>
+	</table>
 </body>
 </html>
