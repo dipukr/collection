@@ -377,3 +377,4 @@ Creating platform threads is expensive both in terms of time and space.
 Thread does not have to block on anthing for the final result of the pipeline to be relevant.
 Use IntStream instead of Stream<Integer> when possible.
 Interrupts are co-operation mechanism for one thread to tell other thread to stop its execution.
+Simply put, calling wait() forces the current thread to wait until some other thread invokes notify() or notifyAll() on the same object.

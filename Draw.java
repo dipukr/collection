@@ -32,7 +32,6 @@ public class Draw {
 
 	public void main(String[] args) {
 		var draw = new Draw();
-		draw.draw();
-		
+		draw.draw();		
 	}
 }

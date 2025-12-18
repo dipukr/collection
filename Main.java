@@ -32,14 +32,12 @@ public class Main {
         for (int r = 0; r < rows; r++) {
             String L = (r == 0) ? leftTop : (r == rows - 1) ? leftBot : leftMid;
             String R = (r == 0) ? rightTop : (r == rows - 1) ? rightBot : rightMid;
-
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.append(L);
             for (int c = 0; c < cols; c++) {
                 String cell = (c < m[r].length) ? String.valueOf(m[r][c]) : "";
-                // right-align each column
                 sb.append(String.format("%" + colWidth[c] + "s", cell));
-                if (c < cols - 1) sb.append(' ');
+                if (c < cols - 1) sb.append(" ");
             }
             sb.append(R);
             System.out.println(sb.toString());
@@ -79,6 +77,10 @@ public class Main {
 		set.add(100);
 		set.add(200);
 		set.add(300);
+		var rand = new java.util.Random();
+		for(int i=0;i<mat.length;i++)
+			for(int j=0;j<mat[0].length;j++)
+				mat[i][j]=rand.nextInt(3478);
 		//System.out.println(set);
 		main.drawMat(mat);
 	}

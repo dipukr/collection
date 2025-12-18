@@ -62,6 +62,7 @@ class Stack
 	struct Node {T data; Node *next;};
 	Node *head = nullptr;
 	int count = 0;
+
 public:
 	Stack();
 	Stack(const Stack &arg);
@@ -78,7 +79,6 @@ public:
 	
 	int size() const;
 	bool empty() const;
-	bool notEmpty() const;
 };
 
 template<class T>

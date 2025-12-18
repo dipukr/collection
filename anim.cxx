@@ -4,7 +4,7 @@
 #include <string>
 
 struct Object {
-    String name;
+    std::string name;
     float radius;  // relative units
     float r, g, b; // color
 };
@@ -37,7 +37,7 @@ int main() {
     glfwMakeContextCurrent(win);
     glfwSwapInterval(1);
 
-    Array<Object> objects = {
+    std::vector<Object> objects = {
         {"Earth",     0.15f, 0.3f, 0.6f, 1.0f},
         {"Jupiter",   0.40f, 1.0f, 0.7f, 0.3f},
         {"Sun",       1.20f, 1.0f, 0.9f, 0.3f},

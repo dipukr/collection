@@ -1,7 +1,6 @@
 #include <queue>
 #include <vector>
 #include <iostream>
-using namespace std;
 
 struct edge
 {
@@ -13,24 +12,24 @@ struct edge
 	}
 };
 
-void connect(vector<vector<edge>> &graph, int src, int dest, int cost)
+void connect(std::vector<std::vector<edge>> &graph, int src, int dest, int cost)
 {
 	graph[src].push_back(edge(dest, cost));
 	graph[dest].push_back(edge(src, cost));
 }
 
-void breadth_first_search(vector<vector<edge>> &graph, int start)
+void breadth_first_search(std::vector<std::vector<edge>> &graph, int start)
 {
-	vector<bool> visited(graph.size());
-	fill(begin(visited), end(visited), false);
-	queue<int> queue;
+	std::vector<bool> visited(graph.size());
+	std::fill(std::begin(visited), std::end(visited), false);
+	std::queue<int> queue;
 	queue.push(start);
 	while (!queue.empty()) {
 		int u = queue.front();
 		queue.pop();
 		for (edge v: graph[u]) {
 			if (!visited[v.dest]) {
-				cout << v.dest << char(9);
+				std::cout << v.dest << char(9);
 				queue.push(v.dest);
 			}
 		}

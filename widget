@@ -48,8 +48,7 @@ class QWidget_3(QWidget):
 		self.layout.addWidget(self.progressBar)
 		self.setLayout(self.layout)
 		self.slider.valueChanged.connect(self.progressBar.setValue)
-		self.progressBar.valueChanged.connect(self.slider.setValue)		
-
+		self.progressBar.valueChanged.connect(self.slider.setValue)
 
 class QWidget_4(QWidget):
 	def __init__(self):
