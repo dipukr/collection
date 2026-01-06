@@ -43,7 +43,10 @@ void binary_print(uint32_t value)
 
 void main(int argc, const char **argv)
 {
-	uint32_t a = 0x00ff0000;
-	binary_print(a);
-	add_binary(10, 7);
+	int from = (int)'A';
+	int to = (int)'z';
+	for(int i=0;i<=127;i++) {
+		binary_print(i);
+	}
+	//add_binary(10, 7);
 }

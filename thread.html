@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>Notes</title>
+	<title>Thread</title>
 	<style>
 		body {
 			margin: 0;
@@ -11,7 +11,6 @@
 			height: 100vh;
 			width: 90%;
 		}
-
 		.sidebar {
 			width: 250px;
 			background: #f4f4f4;
@@ -19,44 +18,36 @@
 			padding: 10px;
 			overflow-y: auto;
 		}
-
 		.sidebar h2 {
 			margin-top: 0;
 		}
-
 		.note-list {
 			list-style: none;
 			padding: 0;
 		}
-
 		.note-list li {
 			cursor: pointer;
 			padding: 5px;
 			border-bottom: 1px solid #ddd;
 		}
-
 		.note-list li:hover {
 			background: #ddd;
 		}
-
 		.main {
 			flex: 1;
 			display: flex;
 			flex-direction: column;
 			padding: 10px;
 		}
-
 		.formatting {
 			margin-bottom: 10px;
 		}
-
 		.formatting button {
 			margin-right: 5px;
 			padding: 5px 10px;
 			font-weight: bold;
 			cursor: pointer;
 		}
-
 		#noteText {
 			flex: 1;
 			border: 1px solid #ccc;
@@ -64,19 +55,17 @@
 			overflow: auto;
 			text-align: justify;
 			white-space: pre-wrap;
-			font-family: "Comic Sans MS";
-			font-size: 23px;
-			color: #444444;
+			font-family: "CMU Serif";
+			font-size: 25px;
+			color: #111111;
 			word-spacing: -2px;
 			font-weight: 500;
 			background-color: #f8f8f8;
 			overflow-y: scroll;
 			scrollbar-width: none;
 		}
-
 		#noteText::-webkit-scrollbar {display: none;}
 		.sidebar::-webkit-scrollbar {display: none;}
-
 		.buttons {
 			margin-top: 10px;
 			display: flex;
@@ -84,13 +73,11 @@
 			gap: 10px;
 			justify-content: center;
 		}
-
 		button {
 			padding: 8px 16px;
 			font-size: 14px;
 			cursor: pointer;
 		}
-		
 		#noteText ul {
 			list-style-type: square;
 			padding-left: 20px;
@@ -98,13 +85,7 @@
 			margin-top: 2px;
 			line-height: normal;
 		}
-		#noteText ul:last-child {
-    		list-style-type: square;
-			padding-left: 20px;
-			margin-left: 30px;
-			margin-top: 2px;
-			margin-bottom: 5px;
-		}
+		
 	</style>
 </head>
 <body>
@@ -137,7 +118,7 @@
 		let isEditable = false;
 
 		let db;
-		const DB_NAME = "NotesDB";
+		const DB_NAME = "thread";
 		const STORE_NAME = "notes";
 
 		const request = indexedDB.open(DB_NAME, 1);
@@ -186,9 +167,7 @@
 			const req = store.getAll();
 			req.onsuccess = () => {
 				notes = req.result;
-				notes.sort((a, b) =>
-					(a.title || "").toLowerCase().localeCompare((b.title || "").toLowerCase())
-				);
+				//notes.sort((a, b) => (a.title || "").toLowerCase().localeCompare((b.title || "").toLowerCase()));
 				notes.forEach((note) => {
 					const li = document.createElement("li");
 					li.textContent = note.title;
@@ -269,7 +248,7 @@
 				const url = URL.createObjectURL(blob);
 				const a = document.createElement("a");
 				a.href = url;
-				a.download = "note.json";
+				a.download = "thread.json";
 				a.click();
 				URL.revokeObjectURL(url);
 			});
@@ -342,7 +321,7 @@
 			for (let i = 0; i < r; i++) {
 				html += "<tr>";
 				for (let j = 0; j < c; j++) {
-					html += `<td style="border: 1px solid #ccc;padding-top: 8px;padding-bottom: ${i === 0 ? "8px" : "17px"};padding-left: 17px;padding-right: 17px;text-align: ${i === 0 ? "center" : "justify"};background-color: ${i === 0 ? "#f0f0f0" : "#fff"};font-weight: ${i === 0 ? "bold" : "normal"};">${i === 0 ? "Header" : "Cell"}</td>`;
+					html += `<td style="border: 1px solid #ccc;padding-top: 8px;padding-bottom: ${i === 0 ? "8px" : "17px"};padding-left: 17px;padding-right: 17px;text-align: center;background-color: ${i === 0 ? "#f0f0f0" : "#fff"};font-weight: ${i === 0 ? "bold" : "normal"};">${i === 0 ? "Header" : "Data"}</td>`;
 				}
 				html += "</tr>";
 			}

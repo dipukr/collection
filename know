@@ -1,119 +1,75 @@
-DHCP, ICMP, NAT, ARP, BGP, DNS, TCP, UDP, IP, HTTP, FTP, SMTP, IMAP, POP, VOIP, P2P, SNNP, AMQP
+Ethernet, Switch, Hub, Router, VPN, Firewall, Subnet mask, Default gateway
+DHCP, ICMP, NAT, ARP, BGP, DNS, TCP, UDP, IP, HTTP, FTP, SMTP, IMAP, POP, VOIP, P2P, SNNP, AMQP, WebSockets, WebHooks
+=====================================================================================================================
 Encapsulation, Abstraction, Inheritance, Polymorphism, Composition, Aggregation, UML
 SOLID, Dependency injection, Dependency inversion, Inversion of control
 Singleton, Builder, Factory method, Abstract factory, Prototype
-Adapter, Bridge, 
-
+Adapter, Bridge,
+====================================================================================
 Circuit-breaker, Outbox, Aggregator, Bulkhead, Sidecar, Orchestraction, Choreography
-Command-query segragation, Event-sourcing
+CQRS, Event-sourcing
 Caching, HTTP Caching, Query caching, 
 Security (Authentication, Authorization)
 Scalability
-
-
-Security, Scalability, Availability, 
-
-IoC
-Singleton
-Builder
-Prototype
-Adapter
-CQRS
-Event-sourcing
-Orchestration
-Choreography
-Aggregator
-Bulkhead
-Sidecar
-Outbox
-Circuit-breaker
-===============
-DHCP
-ICMP
-NAT
-ARP
-BGP
-DNS
-TCP
-UDP
-IP
-HTTP
-FTP
-SMTP
-IMAP
-POP
-VOIP
-P2P
-SNNP
-AMQP
-WebSockets
-WebHooks
-TCP/IP
-Ethernet
-Switch
-Hub
-Router
-VPN
-JWT
-Firewall
-Subnet mask
-Default gateway
+Availability
 ===============
 Forward-proxy
 Reverse-proxy
 Rate limiter
-Token bucket
-Leaky bucket
-Sliding window log
-Sliding window counter
 Load balancer
 API Gateway
-CDN
-=========================
-Event-driven architecture
-Event-sourcing pattern
-Statefull architecture
-Stateless architecture
+Service descovery
+Content-delivery network
+========================
+Monolith
+Client-server
 Client-server model
+Microservices
+Event-driven architecture
 Event-driven system
-Rate-limiting algorithms
-Eventual consisency
+Event-sourcing pattern
+Command-query segragation
+Statefull vs Stateless architecture
 Caching
 Cache invalidation
-Centralized caching
-Distributed caching
 Caching algorithms
 Cache-eviction policy
-REST API Caching
-Scaling
+HTTP caching
+REST API caching
+Database caching
+Centralized caching
+Distributed caching
+Distributed locks
+Distributed hashtable
+Distributed transaction
 Event log
 Audit log
 Activity log
 Write-ahead logging
 Idempotence
-Namespaces
-Distributed locks
-Distributed hashtable
-Rate-limiting algorithms
 Service mesh
 Message broker
 Message queue
+Pub-sub system
 Sync-async communication
-Kafka
-RabbitMQ
-CAP
 RPC
 REST
-Zero-downtime
-Fault tolerance
 ===============
+CAP
+Security
+Scalability
+Availability
+Fault tolerance
+Consistent hashing
+==================
 Interference graph
 Liveness analysis
 Graph coloring
 Register allocation
 Control flow graph
 Three-address code
-==================
+Directed-acyclic graph
+======================
 File system
 File storage
 Object storage
@@ -121,6 +77,7 @@ Virtual memory
 Paging
 Process
 Thread
+MMU
 =========================
 Dining-philosphor problem
 Producer-consumer problem
@@ -130,37 +87,27 @@ Monitor
 Starvation
 Mutual exclusion
 Busy waiting
-Thread synchronization
 Critical section
+Multi-threading
+Thread communication
+Thread synchronization
+Asynchronous programming
 ========================
 ACID
-PK
-FK
+Keys
+Normalization
+Denormalization
 Indexing
 Partition
 Sharding
-Normalization
-=========================
-Frequentist probability
-Bayesian probability
-Markov chain
-Monte carlo
-Markov decision process
-Contradiction
-Morphic resonance
-Spinoza
-Monad
-Imagenary number
-Wave equations
-Formal theory
-Proof theory
-Set theory
-Recursion theory
-Locality
-Principle of least action
-Bessel function
+Query optimization
+Eventual consisency
+Strong consistency
 
-
-Number theory
-Combinatorics
-Analysis
+Work-stealing algorithm
+===========================
+When to choose SQL or NoSQL
+HDFS
+Hadoop
+Chord vs Kademelia
+Ngnix setup for HTTPS

@@ -3,18 +3,47 @@ class Person
 	String name;
 	int age;
 	int sal;
-	
-	Maker(String name, int age, int sal) {
+	Make(String name, int age, int sal) {
 		this.name = name;
 		this.age = age;
 		this.sal = sal;
 	}
 }
 
+Person (Person this) = maker(String name, int age, int sal) {
+	this.name = name;
+	this.age = age;
+	this.sal = sal;
+}
+
+List<char> scanner(Scanner this, List<Token> tokenStream) {
+
+}
+
+class Person;
+	String name;
+	int age;
+	int sal;
+	Maker(String name, int age, int sal)
+		this.name = name;
+		this.age = age;
+		this.sal = sal;
+	end
+
+	void Append(int data)
+		
+	end
+end
+
+void Append(List<int> list, int data)
+	
+
+end
+
 class Node {
 	Type type;
 	Node next;
-	Maker(Type type, Node next) {
+	maker(Type type, Node next) {
 		this.type = type;
 		this.next = next;
 	}
