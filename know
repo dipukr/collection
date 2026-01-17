@@ -1,38 +1,25 @@
-Ethernet, Switch, Hub, Router, VPN, Firewall, Subnet mask, Default gateway
-DHCP, ICMP, NAT, ARP, BGP, DNS, TCP, UDP, IP, HTTP, FTP, SMTP, IMAP, POP, VOIP, P2P, SNNP, AMQP, WebSockets, WebHooks
+DHCP, ICMP, NAT, ARP, BGP, DNS, TCP, UDP, IP, HTTP, FTP, SMTP, IMAP, POP, VOIP, P2P, SNNP, AMQP, TLS, WebSockets, WebHooks
 =====================================================================================================================
-Encapsulation, Abstraction, Inheritance, Polymorphism, Composition, Aggregation, UML
-SOLID, Dependency injection, Dependency inversion, Inversion of control
-Singleton, Builder, Factory method, Abstract factory, Prototype
-Adapter, Bridge,
-====================================================================================
-Circuit-breaker, Outbox, Aggregator, Bulkhead, Sidecar, Orchestraction, Choreography
-CQRS, Event-sourcing
-Caching, HTTP Caching, Query caching, 
-Security (Authentication, Authorization)
-Scalability
-Availability
-===============
-Forward-proxy
-Reverse-proxy
-Rate limiter
-Load balancer
-API Gateway
-Service descovery
-Content-delivery network
-========================
 Monolith
-Client-server
 Client-server model
 Microservices
 Event-driven architecture
 Event-driven system
 Event-sourcing pattern
 Command-query segragation
-Statefull vs Stateless architecture
+Stateless architecture
+Statefull architecture
+======================
+CAP
+Security
+Scalability
+Availability
+Fault-tolerance
+Consistent hashing
+Chord
+Kademelia
 Caching
 Cache invalidation
-Caching algorithms
 Cache-eviction policy
 HTTP caching
 REST API caching
@@ -42,6 +29,13 @@ Distributed caching
 Distributed locks
 Distributed hashtable
 Distributed transaction
+Forward-proxy
+Reverse-proxy
+Rate limiter
+Load balancer
+API Gateway
+Service descovery
+Content-delivery network
 Event log
 Audit log
 Activity log
@@ -52,36 +46,12 @@ Message broker
 Message queue
 Pub-sub system
 Sync-async communication
-RPC
-REST
-===============
-CAP
-Security
-Scalability
-Availability
-Fault tolerance
-Consistent hashing
-==================
-Interference graph
-Liveness analysis
-Graph coloring
-Register allocation
-Control flow graph
-Three-address code
-Directed-acyclic graph
-======================
-File system
-File storage
-Object storage
-Virtual memory
-Paging
-Process
-Thread
-MMU
 =========================
 Dining-philosphor problem
 Producer-consumer problem
 Reader-writer problem
+Work-stealing algorithm
+Job-scheduling algorithm
 Semaphores
 Monitor
 Starvation
@@ -103,11 +73,126 @@ Sharding
 Query optimization
 Eventual consisency
 Strong consistency
+=====================
+Interference graph
+Liveness analysis
+Graph coloring
+Register allocation
+Control flow graph
+Three-address code
+Directed-acyclic graph
+======================
+File system
+File storage
+Object storage
+Virtual memory
+Paging
+Process
+Thread
+MMU
+==============================================================
+Distributed Key-Value Store (single leader, multiple replicas)
+Client–Server System (TCP/HTTP)
+Heartbeat and Failure Detection Service
+Basic Load Balancer (round-robin, least connections)
+Leader Election System (Raft-style, simplified)
+Distributed Rate Limiter (token bucket across nodes)
+Message Queue with Acks & Retries
+Distributed Cache with TTL & Eviction
+Log Replication System
+Distributed File Storage System
+Event Streaming Platform (Kafka-lite)
+Distributed Task Scheduler
+Globally Consistent Counter (CAP trade-offs)
+Fault-Tolerant Microservice Platform
+====================================
+Leader election
+Replication
+Partition tolerance
+Distributed locking
+Failure recovery
+Retries with backoff
+circuit breakers
+bulkheads
+graceful degradation
+chaos testing
+=======================
+Circuit Breaker Pattern
+Distributed Tracing
+CAP Theorem
+1. Event-Driven Architecture
+Systems communicate by publishing and reacting to events instead of calling each other directly, improving decoupling and scalability.
 
-Work-stealing algorithm
-===========================
-When to choose SQL or NoSQL
-HDFS
-Hadoop
-Chord vs Kademelia
-Ngnix setup for HTTPS
+2. Saga Pattern
+Manages distributed transactions by breaking them into steps with compensating actions instead of using a single ACID transaction.
+
+3. CQRS (Command Query Responsibility Segregation)
+Separates write operations (commands) from read operations (queries) to optimize scalability and performance independently.
+
+4. Event Sourcing
+Stores state as a sequence of immutable events rather than current values, allowing replay, auditing, and rebuilding state.
+
+5. Circuit Breaker Pattern
+Prevents cascading failures by stopping calls to an unhealthy service until it recovers.
+
+6. Distributed Tracing
+Tracks a request as it flows through multiple services to debug latency, failures, and bottlenecks.
+
+7. CAP Theorem
+In a distributed system, you can only guarantee two of three: Consistency, Availability, and Partition Tolerance.
+
+8. Idempotency
+Ensures repeated requests produce the same result, critical for retries in unreliable networks.
+
+9. Data Sharding
+Splits data across multiple databases or nodes to scale horizontally and reduce load on a single instance.
+
+10. API Gateway
+Acts as a single entry point for clients, handling routing, auth, rate limiting, and aggregation.
+=================================================================================================
+Consistent Hashing
+Load Balancing Algorithms
+Leaky Bucket & Token Bucket
+Bloom Filters
+Merkle Trees
+Quorum Algorithms
+Leader Election Algorithms
+Distributed Lock Algorithms
+Raft / Paxos
+Gossip Protocol
+Vector Clocks / Lamport Timestamps
+Two-Phase / Three-Phase Commit
+Reservoir Sampling
+HyperLogLog
+CRDTs
+Sharding Algorithms
+MapReduce
+Tail Latency Reduction (Hedged Requests)
+Circuit Breaker Pattern
+Split-Brain Resolution Algorithms
+Load Shedding Algorithms
+Byzantine Fault Tolerance
+Skip Lists
+B+ Trees
+LSM Trees
+Write-Ahead Logging
+Two-Phase Commit
+Three-Phase Commit
+Read Replicas
+Leader-Follower Replication
+Partitioning
+Query Caching
+Secondary Indexes
+Vector Indexes (FAISS, HNSW)
+Distributed Joins
+Materialized Views
+Event Sourcing
+Change Data Capture
+===================
+Mainmatter
+Tekion
+=========================================
+Caching
+Query optimization
+Pagination
+Aggregator (Parallel fetch)
