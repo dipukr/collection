@@ -11,27 +11,28 @@ git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa
 ========================================================================================================
 export HISTSIZE=100000
 export HISTFILESIZE=100000
-export JAVA_HOME=/opt/GraalVM
+export JAVA_HOME=/opt/GraalVM/
+export SERVER_HOME=/home/dkumar/Server/home/logs
 export PATH=.:$PATH
-export PATH=/usr/local/bin/:$PATH
+export PATH=/usr/local/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/opt/maven/bin:$PATH
+export PATH=/opt/kafka/bin:$PATH
 alias cls=clear
 alias gis="git status"
-alias stow="cd /home/server/RESEARCH"
+alias stow="cd /home/dkumar/collection"
 alias save='pushd .'
 alias goto=popd
 alias open=xdg-open
 alias cat=draw
 alias nativ='native-image'
-alias py=python3.12
-alias qmake=qmake-qt5
+alias l1='ls -1'
 alias ls='ls --color -h --group-directories-first'
 PS1='[\u@localhost:\W] '
 export TF_ENABLE_ONEDNN_OPTS=0
 export TF_CPP_MIN_LOG_LEVEL=3
-PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[00;32m\]
-		[\u@localhost\[\033[00m\]:\[\033[00;34m\]\W] \[\033[00m\]'
+export MYSQL_PS1='[mysql] '
+PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[00;32m\][\u@localhost\[\033[00m\]:\[\033[00;34m\]\W] \[\033[00m\]'
 ==========================================================================
 font-family=SF Mono
 font-size=11
@@ -95,14 +96,18 @@ StartupWMClass=SpringToolSuite4
 "terminal.integrated.cursorWidth": 2,
 "terminal.integrated.cursorBlinking": true,
 "editor.folding": false,
+"debug.terminal.clearBeforeReusing": true ,
 "editor.lineNumbers": "off",
 "editor.tabCompletion": "on",
 "editor.insertSpaces": false,
+"scm.diffDecorations": "none",
 "editor.tabSize": 4,
+"editor.cursorHeight": 19,
+"debug.inlineValues": "off",
 "security.workspace.trust.enabled": false,
 "explorer.confirmDelete": false,
 "update.mode": "none",
-"enable-crash-reporter": false,
+"debug.toolBarLocation": "docked",
 "extensions.autoUpdate": false,
 "workbench.enableExperiments": false,
 "workbench.iconTheme": "vs-minimal",
@@ -113,9 +118,28 @@ StartupWMClass=SpringToolSuite4
 "editor.stickyScroll.enabled": false,
 "editor.lineHeight": 20,
 "editor.inlayHints.enabled": "off",
-"workbench.editor.enablePreview": false,
 "workbench.activityBar.location": "hidden",
-"workbench.colorCustomizations": {"scrollbar.shadow": "#00000000"}
+"workbench.colorCustomizations": {"scrollbar.shadow": "#00000000"},
+"chat.disableAIFeatures": true,
+"editor.fontSize": 18,
+"window.enableMenuBarMnemonics": false,
+"accessibility.verbosity.debug": false,
+"java.configuration.updateBuildConfiguration": "interactive",
+"files.exclude": {
+    "**/.vscode": true,
+    "**/.git": true,
+    "**/.gitignore": true,
+    "**/.gitattributes": true,
+    "**/.editorconfig": true
+},
+"editor.detectIndentation": false,
+"[java]": {
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4
+	},
+"terminal.explorerKind": "external",
+"workbench.layoutControl.enabled": false,
+"workbench.editor.enablePreview": false
 ==================================================================
 [Unit]
 Description=DemoHTTPServer

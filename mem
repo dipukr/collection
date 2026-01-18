@@ -24,6 +24,7 @@ Used Tensorflow to implement real-time fault-detection and classification model 
 ΔX - ΔY = How much more (or less) did X change compared to Y.
 ΔY / ΔX = How much X changes for each unit change in Y.
 =================================================================================
+Medlone-4(Methylprednisolone)
 Multithreading vs Asynchronous Programming
 Abstract class vs interface
 Optiver

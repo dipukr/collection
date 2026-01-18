@@ -33,4 +33,7 @@ kafka-console-producer --broker-list localhost:9092 --topic topic0
 kafka-console-producer --broker-list localhost:9092 --topic topic0 < bin/customers.csv
 kafka-console-consumer --bootstrap-server localhost:9092 --topic topic0 --from-beginning
 ========================================================================================
-
+ghostty --fullscreen=true --theme=Ubuntu
+ghostty --fullscreen
+gnome-terminal --full-screen --show-menubar
+gnome-terminal --full-screen
