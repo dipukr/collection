@@ -1,0 +1,5 @@
+package main;
+
+public enum MessageType {
+	REGISTER, DEREGISTER, HEARTBEAT, DISCOVER, DISCOVER_ALL, LIST_SERVICES, RESPONSE
+}

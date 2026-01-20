@@ -1,11 +1,10 @@
-org.eclipse.ui.editors.prefs:wordwrap.enabled=true
+yum install gnome-tweaks liberation-fonts gdk-pixbuf2-modules-extra pcb-rnd-hid-gtk2-gdk zlib-devel
 wget https://brave-browser-rpm-release.s3.brave.com/x86_64/brave-browser-1.43.88-1.x86_64.rpm
-install gnome-tweaks liberation-fonts gdk-pixbuf2-modules-extra pcb-rnd-hid-gtk2-gdk zlib-devel
+dnf.conf:exclude=firefox firefox-langpacks brave-browser:install_weak_deps=False
 brave-browser-stable --disable-features=GlobalMediaControls
-dnf.conf:exclude=nautilus nautilus-extensions brave-browser:install_weak_deps=False
+org.eclipse.ui.editors.prefs:wordwrap.enabled=true
+org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
 user-dirs.dirs:user-dirs.defaults
-<maven.compiler.release>21</maven.compiler.release>
-.plugins/org.eclipse.core.runtime/.settings/org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
 git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
 git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822
 ========================================================================================================
@@ -74,7 +73,8 @@ StartupWMClass=SpringToolSuite4
 "caret_extra_bottom": 0,
 "overlay_scroll_bars": "enabled",
 "mini_diff": false
-=========================================
+===================================================================
+"workbench.colorCustomizations": {"scrollbar.shadow": "#00000000"},
 "extensions.ignoreRecommendations": true,
 "editor.minimap.enabled": false,
 "editor.fontFamily": "SF Mono",
@@ -119,7 +119,6 @@ StartupWMClass=SpringToolSuite4
 "editor.lineHeight": 20,
 "editor.inlayHints.enabled": "off",
 "workbench.activityBar.location": "hidden",
-"workbench.colorCustomizations": {"scrollbar.shadow": "#00000000"},
 "chat.disableAIFeatures": true,
 "editor.fontSize": 18,
 "window.enableMenuBarMnemonics": false,
@@ -176,16 +175,4 @@ WantedBy=multi-user.target
 .settings/
 .vscode/
 target/
-=========================
-[user]
-	name = dipukr
-	email = adipukr@gmail.com
-[core]
-	editor = vim
-	excludesfile = /home/dkumar/.config/.gitignore
-[credential]
-	helper = /bin/bash /home/dkumar/.config/.git-credentials
-[pull]
-	rebase = false
-[init]
-	defaultBranch = master
+=======

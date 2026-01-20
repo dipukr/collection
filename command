@@ -19,8 +19,8 @@ gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar true
 gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
 gsettings set org.gnome.mutter center-new-windows true
-git config --global user.name "koomar_dipu"
-git config --global user.email "koomar.dipu@gmail.com"
+git config --global user.name "dipukr"
+git config --global user.email "adipukr@gmail.com"
 git config --global core.editor "vim"
 git config --global core.excludesfile ~/.config/.gitignore
 git config --global credential.helper "/bin/bash /home/dkumar/.config/.git-credentials"
@@ -33,7 +33,9 @@ kafka-console-producer --broker-list localhost:9092 --topic topic0
 kafka-console-producer --broker-list localhost:9092 --topic topic0 < bin/customers.csv
 kafka-console-consumer --bootstrap-server localhost:9092 --topic topic0 --from-beginning
 ========================================================================================
-ghostty --fullscreen=true --theme=Ubuntu
-ghostty --fullscreen
 gnome-terminal --full-screen --show-menubar
+ghostty --fullscreen=true --theme=Ubuntu
 gnome-terminal --full-screen
+ghostty --fullscreen
+
+
