@@ -1,0 +1,26 @@
+public class Scanner {
+	
+	private List<ServiceInstance> instances;
+
+}
+
+public interface UserDAO {
+	void findAll()
+}
+
+interface UserDAO
+{
+	void findAll();
+
+}
+
+class Scanner
+{
+	List<ServiceInstance> instances;
+
+
+
+	void processMessage() {
+
+	}
+}
