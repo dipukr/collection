@@ -378,3 +378,25 @@ Thread does not have to block on anthing for the final result of the pipeline to
 Use IntStream instead of Stream<Integer> when possible.
 Interrupts are co-operation mechanism for one thread to tell other thread to stop its execution.
 Simply put, calling wait() forces the current thread to wait until some other thread invokes notify() or notifyAll() on the same object.
+=======================================================================================================================
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+@Converter
+public class StringListConverter implements AttributeConverter<List<String>, String> {
+    private static final String SPLIT_CHAR = ",";
+
+    @Override
+    public String convertToDatabaseColumn(List<String> attrs) {
+        return attrs != null ? String.join(SPLIT_CHAR, attrs) : "";
+    }
+
+    @Override
+    public List<String> convertToEntityAttribute(String dbData) {
+        return dbData != null ? Arrays.asList(dbData.split(SPLIT_CHAR)) : Collections.emptyList();
+    }
+}
