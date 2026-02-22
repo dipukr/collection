@@ -22,5 +22,5 @@ std::vector<object> call() {
 }
 
 int main() {
-	call();
+	std::cout << __cplusplus << std::endl;
 }

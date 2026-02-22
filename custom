@@ -5,9 +5,11 @@ brave-browser-stable --disable-features=GlobalMediaControls
 org.eclipse.ui.editors.prefs:wordwrap.enabled=true
 org.eclipse.wst.sse.ui.prefs:foldingEnabled=false
 user-dirs.dirs:user-dirs.defaults
-git-credentials:#!/bin/bash|echo username=dipukr|echo password=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
-git-credentials:#!/bin/bash|echo username=koomar_dipu|echo password=ATBBHWS38wNa4pEtS5V7UYS399kNF4624822
-========================================================================================================
+=================================
+#!/bin/bash
+echo username=dipukr
+echo password=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
+======================================================
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 export JAVA_HOME=/opt/GraalVM/
@@ -32,7 +34,7 @@ export TF_ENABLE_ONEDNN_OPTS=0
 export TF_CPP_MIN_LOG_LEVEL=3
 export MYSQL_PS1='[mysql] '
 PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[00;32m\][\u@localhost\[\033[00m\]:\[\033[00;34m\]\W] \[\033[00m\]'
-==========================================================================
+====================================================================================================================================
 font-family=SF Mono
 font-size=11
 theme=Espresso

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>Thread</title>
+	<title>OOP</title>
 	<style>
 		body {
 			margin: 0;
@@ -85,7 +85,6 @@
 			margin-top: 2px;
 			line-height: normal;
 		}
-		
 	</style>
 </head>
 <body>
@@ -118,7 +117,7 @@
 		let isEditable = false;
 
 		let db;
-		const DB_NAME = "thread";
+		const DB_NAME = "oop";
 		const STORE_NAME = "notes";
 
 		const request = indexedDB.open(DB_NAME, 1);
@@ -248,7 +247,7 @@
 				const url = URL.createObjectURL(blob);
 				const a = document.createElement("a");
 				a.href = url;
-				a.download = "thread.json";
+				a.download = "noted.json";
 				a.click();
 				URL.revokeObjectURL(url);
 			});
