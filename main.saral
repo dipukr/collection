@@ -1,17 +1,18 @@
+OP: ADD, SUB, MUL, DIV, MOD, SHL, SHR, BAND, BOR, BXOR, BNOT, AND, OR, NOT, 
+
+Function overloading
+Operator overloading
+Generic function (Type add<Type>(Type a, Type b))
+Generic class (class List<Type> {})
+=======================================================================================================================
 module com.framework.annotation;
 
-import web.Controller;
 import std.List;
 import std.Predicate;
 import std.File;
 import std.Folder;
 
-record Person
-{
-	String name;
-	int age;
-	int sal;
-}
+record Writer(String name, int age, int sal)
 
 class Person
 {
@@ -48,7 +49,10 @@ void Main(String[] args)
 		logger(data[iter])
 		iter += 1
 	}
-	os.Exit() if file == null;
+	os.Exit() 
+	if file == null do
+
+	end
 
 	foreach (int elem: elems)
 		logger(elem)
@@ -58,8 +62,6 @@ void Main(String[] args)
 	val socket = new Socket(host, port)
 	socket.Listen()
 }
-
-module std
 
 class BufferedWriter
 {
