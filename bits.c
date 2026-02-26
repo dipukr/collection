@@ -43,10 +43,9 @@ void binary_print(uint32_t value)
 
 void main(int argc, const char **argv)
 {
-	int from = (int)'A';
-	int to = (int)'z';
-	for(int i=0;i<=127;i++) {
+	int from = (int) 'A';
+	int to = (int) 'z';
+	for (int i = 0; i <= 127; i++)
 		binary_print(i);
-	}
 	//add_binary(10, 7);
 }
