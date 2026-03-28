@@ -1,0 +1,80 @@
+public class GlobalMaskingSerializer extends JsonSerializer<Object> {
+
+    @Override
+    public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+
+        if (value == null) {
+            gen.writeNull();
+            return;
+        }
+
+        gen.writeString("*******");
+    }
+}
+public class GlobalMaskingBeanSerializerModifier extends BeanSerializerModifier {
+
+    @Override
+    public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {
+
+        for (int i = 0; i < beanProperties.size(); i++) {
+
+            BeanPropertyWriter writer = beanProperties.get(i);
+            String name = writer.getName();
+
+            if ("data".equalsIgnoreCase(name) || SensitiveFieldRegistry.isSensitive(name, null) || writer.getAnnotation(Masked.class) != null) {
+                beanProperties.set(i, new MaskingBeanPropertyWriter(writer));
+            }
+        }
+
+        return beanProperties;
+    }
+}
+public class LogObjectMapperHolder {
+
+    private static final ObjectMapper LOG_OBJECT_MAPPER;
+
+    static {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        SimpleModule module = new SimpleModule();
+        module.setSerializerModifier(new GlobalMaskingBeanSerializerModifier());
+
+        mapper.registerModule(module);
+
+        LOG_OBJECT_MAPPER = mapper;
+    }
+
+    private LogObjectMapperHolder() {
+    }
+
+    public static ObjectMapper getMapper() {
+        return LOG_OBJECT_MAPPER;
+    }
+}
+public class MaskingBeanPropertyWriter extends BeanPropertyWriter {
+
+    private static final GlobalMaskingSerializer MASK_SERIALIZER = new GlobalMaskingSerializer();
+
+    public MaskingBeanPropertyWriter(BeanPropertyWriter base) {
+        super(base);
+    }
+
+    @Override
+    public void serializeAsField(Object bean, JsonGenerator gen, SerializerProvider prov) throws Exception {
+
+        Object value = get(bean);
+
+        if (SensitiveFieldRegistry.isSensitive(getName(), value) || getAnnotation(Masked.class) != null) {
+
+            gen.writeFieldName(getName());
+            MASK_SERIALIZER.serialize(value, gen, prov);
+            return;
+        }
+
+        super.serializeAsField(bean, gen, prov);
+    }
+}
+@ControllerAdvice
+public class CustomRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter 
