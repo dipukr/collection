@@ -165,7 +165,11 @@ WantedBy=multi-user.target
 		</plugin>
 	</plugins>
 </build>
-=========================================================
+===============================================
+[main]
+exclude=firefox firefox-langpacks brave-browser
+install_weak_deps=False
+=======================
 .gitignore
 .classpath
 .project
