@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "title": "grep",
+    "content": "<b>grep word filename</b> <b>→ </b>matches any occurrence (even inside other words)<div><b>grep -w word filename</b> <b>→ </b>matches only exact whole word</div><div><b>grep -i word filename</b> <b>→ </b>case-insensitive match</div><div><b>grep -v word filename</b> <b>→ </b>shows lines that do not match</div><div><b>grep -n word filename</b> <b>→</b> shows matching lines with line numbers</div><div><b>grep -c word filename</b> <b>→ </b>prints count of matching lines</div><div><b>grep -r word dir</b> <b>→ </b>searches recursively inside directory</div><div><b>grep -l word *.txt</b> <b>→ </b>shows only filenames that contain match</div><div><b>grep -L word *.txt →</b> shows filenames that do not contain match</div><div><b>grep -E 'a|b' file →</b> matches multiple patterns (OR condition)</div><div><b>grep -F 'text' file →</b> matches exact string (no regex, faster)</div><div><b>grep -e a -e b file →</b> multiple search patterns</div><div><b>grep -o word file →</b> prints only the matched part</div><div><b>grep -A N word file</b> <b>→ </b>shows N lines after match</div><div><b>grep -B N word file →</b> shows N lines before match</div><div><b>grep -C N word file</b> <b>→ </b>shows N lines before and after match</div><div><b>grep -q word file</b> <b>→ </b>no output, only exit status (use in scripts)</div><div><b>grep --color=auto word file</b> <b>→ </b>highlights matched text</div>"
+  },
+  {
+    "id": 2,
+    "title": "misc",
+    "content": "<b>grep -n word file | tail -1 | cut -d: -f1 | xargs -I{} tail -n +{} file | head -100</b><div><ul><li><span style=\"color: purple;\">grep -n →</span> get line numbers of matches</li><li><span style=\"color: purple;\">tail -1</span> → pick last match</li><li><span style=\"color: purple;\">cut -d: -f1</span> → extract line number</li><li><span style=\"color: purple;\">tail -n +{}</span> → start printing from that line</li><li><span style=\"color: purple;\">head -100</span> → limit to next 100 lines</li></ul></div>"
+  }
+]
