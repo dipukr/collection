@@ -66,7 +66,7 @@ public class Main {
 		
 		return answer;
 	}
-	public static void main(String[] args) throws Exception {
+	public void main(String[] args) throws Exception {
 		System.out.println("hellow");
 		var main = new Main();
 		int[] data = {0,1,1,0,1,1,1,0};
