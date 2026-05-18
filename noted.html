@@ -17,6 +17,7 @@
 			border-right: 1px solid #ccc;
 			padding: 10px;
 			overflow-y: auto;
+			scrollbar-width: none;
 		}
 		.sidebar h2 {
 			margin-top: 0;
@@ -56,7 +57,7 @@
 			text-align: justify;
 			white-space: pre-wrap;
 			font-family: "CMU Serif";
-			font-size: 25px;
+			font-size: 24px;
 			color: #111111;
 			word-spacing: -2px;
 			font-weight: 500;
@@ -166,7 +167,7 @@
 			const req = store.getAll();
 			req.onsuccess = () => {
 				notes = req.result;
-				//notes.sort((a, b) => (a.title || "").toLowerCase().localeCompare((b.title || "").toLowerCase()));
+				notes.sort((a, b) => (a.title || "").toLowerCase().localeCompare((b.title || "").toLowerCase()));
 				notes.forEach((note) => {
 					const li = document.createElement("li");
 					li.textContent = note.title;

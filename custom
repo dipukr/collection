@@ -28,8 +28,6 @@ alias cat=draw
 alias nativ='native-image'
 alias l1='ls -1'
 alias ls='ls --color -h --group-directories-first'
-export TF_ENABLE_ONEDNN_OPTS=0
-export TF_CPP_MIN_LOG_LEVEL=3
 PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[00;32m\][\u@localhost\[\033[00m\]:\[\033[00;34m\]\W] \[\033[00m\]'
 ====================================================================================================================================
 font-family=SF Mono
