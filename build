@@ -1,0 +1,131 @@
+ORM
+operating system
+database
+virtual machine
+web server
+game engine
+compiler
+programming language
+browser
+blockchain
+encryption algorithm
+CPU emulator
+file system
+container runtime
+package manager
+shell
+window manager
+GUI toolkit
+text editor
+IDE
+version control system
+network protocol
+operating system kernel in assembly
+scheduler
+memory allocator
+hypervisor
+microkernel
+compiler backend (LLVM target)
+query language
+cache system (like Redis)
+message broker (like Kafka)
+search engine
+machine learning framework
+graphics renderer (rasterizer or ray tracer)
+physics engine
+scripting language
+audio engine
+database driver
+networking stack (TCP/IP implementation)
+API gateway
+reverse proxy
+load balancer
+CI/CD system
+operating system bootloader
+container orchestrator (like Kubernetes)
+distributed file system
+key-value store
+operating system scheduler
+compiler optimizer
+disassembler
+debugger
+profiler
+static code analyzer
+runtime (like Node.js)
+scripting sandbox
+blockchain consensus algorithm
+zero-knowledge proof system
+operating system for embedded devices
+authentication server (OAuth2/OpenID Connect)
+browser engine (HTML/CSS/JS parser and renderer)
+custom shell
+text editor
+basic web server
+cache (LRU, TTL-based)
+file watcher
+toy scripting language
+basic package manager
+database / key-value store
+search engine
+reverse proxy
+compiler (parser + AST)
+runtime (Node-like)
+2D game engine
+file system
+message queue
+authentication server (OAuth basics)
+operating system / kernel
+virtual machine / CPU emulator
+browser engine (HTML/CSS/JS)
+network stack (TCP/IP)
+container runtime
+container orchestrator
+distributed file system
+compiler backend (LLVM target)
+database engine
+blockchain / consensus algorithm
+================================================
+Graphs problems you should practice
+Course Schedule
+Word Ladder
+Number of Islands
+Clone Graph
+Evaluate Division
+Reconstruct Itinerary
+Alien Dictionary
+Accounts Merge
+================================================
+Search Indexing System
+Metrics Collection System
+Log Aggregation System
+Event Tracking System
+Distributed Cron
+Rate-based Alerting System
+Data Ingestion Pipeline
+Video Steaming Service 
+Job Queue System
+Distributed File Storage System
+===============================
+PYTHON PROJECTS FOR CYBERSECURITY 
+
+BEGINNER
+
+Keylogger
+Port Scanner
+DDoS Tool
+Clipboard Copy
+Zip Cracker 
+
+INTERMEDIATE
+
+Vulnerabilty Scanner
+Network Packet Sniffer
+Password Generator
+Location Tracker 
+
+ADVANCED
+
+WiFi Extractor
+NFC Cracker
+Email Spoofing Tool
+Replicating Virus

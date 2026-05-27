@@ -15,6 +15,10 @@ python3.12 -m pip install --upgrade pip
 journalctl -u nginx -f --no-pager
 nmap -n -PN -sT -p- localhost
 ss -tulnp|grep :8780
+ghostty --fullscreen
+gnome-terminal --full-screen
+ghostty --fullscreen=true --theme=Ubuntu
+gnome-terminal --full-screen --show-menubar
 =============================================================================
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar true
@@ -43,9 +47,9 @@ kafka-console-producer.sh --topic quickstart-events --bootstrap-server localhost
 kafka-console-producer.sh --broker-list localhost:9092 --topic topic0 < bin/customers.csv
 kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server localhost:9092
 ======================================================================================================
-gnome-terminal --full-screen --show-menubar
-ghostty --fullscreen=true --theme=Ubuntu
-gnome-terminal --full-screen
-ghostty --fullscreen
-
-
+rpm -qf /usr/lib64/evolution-data-server/calendar-backends/libecalbackendweather.so
+find /path/to/search -type d -name "node_modules" -exec rm -rf {} +
+find /path/to/search -name "target_name" -exec rm -rf {} +
+find /path/to/search -type f -name "*.log" -delete
+locate -0 -i anthy | sudo xargs -0 rm -rvf
+locate -i baobab|sudo xargs -d '\n' rm -rvf

@@ -1,0 +1,19 @@
+Explain Circuit Breaker pattern, its application in Microservices arch to handle failures.
+What is Command Query Responsibility Segregation (CQRS) pattern and when is it appropriate to use it?
+What is a View and its limitations?
+What are window functions , explain any 3?
+What is the difference between UNION and UNION ALL.
+How to handle high throughput?
+Discussion on GeoHashing vs Quad Tree.
+Print 1–100 (2 Threads): Alternate using shared counter + lock.
+Print ABCABC...: Sync 3 threads with Lock or notifyAll.
+How to store a tree in a file and get it back?
+Build a tree from these two arrays.
+DP on Tree problems which involve re-rooting.
+Technology-wise, how does Netflix work?
+What changes if the same movie is streamed from India vs from the US?
+What is an edge server and why does Netflix need it?
+How does Netflix decide which edge server should serve a user request?
+What is the difference between packets and streams?
+Why are movies streamed instead of sent as a single large file?
+How does Netflix handle changing internet speed during playback?

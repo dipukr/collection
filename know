@@ -196,3 +196,83 @@ Caching
 Query optimization
 Pagination
 Aggregator (Parallel fetch)
+Sudden Spikes
+DNS resolution
+JWT vs Sessions
+ACID vs BASE
+Caching strategies
+Connection pooling
+N+1 query problem
+Load balancing
+Kafka vs RabbitMQ
+Retries and circuit breakers
+Eventual consistency
+Microservices Architecture
+Event-Driven Architecture
+Distributed Architecture
+Idempotency
+Pagination
+Monotonic Stack
+Matrix Traversal
+Merkle Trees
+Event-Driven Architecture
+Saga Pattern
+CQRS
+Event Sourcing
+Circuit Breaker Pattern
+Distributed Tracing
+CAP Theorem
+Idempotency
+Data Sharding
+API Gateway
+Domain Name System
+Load Balancer
+API Gateway
+CDN
+Forward Proxy vs Reverse Proxy
+Caching
+Data Partitioning
+Database Replication
+Distributed Messaging Systems
+Microservices
+NoSQL Databases
+Database Index
+Distributed File Systems
+Notification System
+Full-text Search
+Distributed Coordination Services
+Leader
+Follower
+Replica
+Quorum
+Consensus
+Coordinator
+Election
+Heartbeat
+Lease
+Failure
+Timeout
+Partition
+Replication
+Sharding
+Scheduler
+Load Balancer
+Message Broker
+Distributed Caching – Redis, Memcache
+Monitoring – Splunk, Dynatrace, Grafana, ELK
+Messaging – Kafka, JMS, RabbitMQ
+Testing – TDD, Mockito, JUnit
+CI/CD & Containers – Jenkins, GitHub Actions, Docker, Kubernetes
+Frameworks – Spring Boot, Spring MVC, Apache Camel
+Microservices – Config Server, API Gateway, Service Discovery, Resilience4j
+Multithreading & Concurrency – Executors, ForkJoin, CompletableFuture
+Security – Spring Security, OAuth2, JWT
+Persistence – Hibernate, JPA, MyBatis
+API Development – REST, Swagger, OpenAPI
+Reactive Programming – WebFlux, RxJava, Reactor
+Build Tools – Maven, Gradle
+Code Quality – SonarQube, PMD, Checkstyle
+Cloud – AWS, GCP, Azure
+Java Versions – Java 8–21 features
+Design Principles – SOLID, Design Patterns, Clean Architecture
+Hamiltonian Monte Carlo

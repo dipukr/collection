@@ -27,3 +27,6 @@ Interrupts are co-operation mechanism for one thread to tell other thread to sto
 Simply put, calling wait() forces the current thread to wait until some other thread invokes notify() or notifyAll() on the same object.
 =======================================================================================================================
 Kafka: Replication factor ≤ number of brokers
+A good API doesn’t just return data.
+It handles rate-limiting, caching, auth, validation, logging, versioning, and graceful failure.
+Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program
