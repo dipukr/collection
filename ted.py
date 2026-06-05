@@ -3,7 +3,7 @@ Simple Multi-Tabbed File Editor with trapezoidal (Sublime-style) tabs.
 
 Run:
     pip install PyQt5
-    python tab_editor.py
+    python ted.py
 """
 
 import sys

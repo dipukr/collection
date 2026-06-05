@@ -43,7 +43,6 @@ uint64_t virt_to_phys(void *virt_addr)
 	return phys_addr;
 }
 
-
 void list_files_recursively(const char *dir_name)
 {
 	DIR *dir = opendir(dir_name);
