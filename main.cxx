@@ -22,7 +22,5 @@ std::vector<object> call() {
 }
 
 int main() {
-	std::cout << __cplusplus << std::endl;
+	call();
 }
-
-void main(String[] args)
