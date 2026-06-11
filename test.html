@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+<pre id="output"></pre>
+
+<script>
+fetch("https://raw.githubusercontent.com/dipukr/anim/master/Main.java")
+    .then(response => response.text())
+    .then(text => {
+        document.getElementById("output").textContent = text;
+    })
+    .catch(error => console.error(error));
+</script>
+
+</body>
+</html>
