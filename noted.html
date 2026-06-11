@@ -394,14 +394,14 @@
 					sel.removeAllRanges();
 					sel.addRange(range);
 				}
-			});
+		});
 
 		document.getElementById("noteText")
 			.addEventListener("paste", function (evt) {
 				evt.preventDefault();
 				const text = evt.clipboardData.getData("text/plain");
 				document.execCommand("insertText", false, text);
-			});
+		});
 	</script>
 </body>
 </html>

@@ -40,22 +40,12 @@
 		.main {
 			flex: 1;
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
 			padding: 0;
-		}
-		.formatting {
-			margin-bottom: 10px;
-		}
-		.formatting button {
-			margin-right: 5px;
-			padding: 5px 10px;
-			font-weight: bold;
-			cursor: pointer;
 		}
 		#noteText {
 			flex: 1;
 			border: none;
-			border-right: 150px solid #f4f4f4;
 			box-shadow: inset -1px 0 0 #ccc;
 			padding: 17px;
 			overflow: auto;
@@ -73,18 +63,31 @@
 		#noteText::-webkit-scrollbar {display: none;}
 		.sidebar::-webkit-scrollbar {display: none;}
 		.buttons {
-			margin: 10px;
+			width: 150px;
+			box-sizing: border-box;
+			background: #f4f4f4;
+			border-left: 1px solid #ccc;
+			padding: 15px 10px;
 			display: flex;
-			flex-wrap: wrap;
+			flex-direction: column;
 			gap: 10px;
-			justify-content: center;
+			align-items: stretch;
+			overflow-y: auto;
+			scrollbar-width: none;
 		}
-		.buttons.hidden {
+		.buttons::-webkit-scrollbar {display: none;}
+		.buttons.hidden button {
 			display: none;
 		}
 		button {
 			padding: 8px 16px;
 			font-size: 14px;
+			cursor: pointer;
+		}
+		.formatting button {
+			margin-right: 5px;
+			padding: 5px 10px;
+			font-weight: bold;
 			cursor: pointer;
 		}
 		#noteText ul {
@@ -98,7 +101,7 @@
 </head>
 <body>
 	<div class="sidebar">
-		<h2>Commands</h2>
+		<h2>Notes</h2>
 		<ul class="note-list" id="noteList"></ul>
 	</div>
 	<div class="main">
@@ -106,16 +109,20 @@
 		<div class="buttons">
 			<button onclick="saveNote()">Save</button>
 			<button onclick="toggleEdit()">Edit</button>
-			<button onclick="newNote()">New</button>
 			<button onclick="deleteNote()">Delete</button>
+			<button onclick="newNote()">New</button>
 			<button onclick="format('bold')">B</button>
 			<button onclick="format('italic')">I</button>
 			<button onclick="changeColor('purple')" style="color:red">R</button>
 			<button onclick="decreaseFontSize()">A−</button>
 			<button onclick="increaseFontSize()">A+</button>
 			<button onclick="format('insertUnorderedList')">List</button>
+			<button onclick="insertTable()">Table</button>
+			<button onclick="insertImage()">Image</button>
 			<button onclick="importNotes()">Import</button>
 			<button onclick="exportNotes()">Export</button>
+			<button onclick="uploadNotes()">PUSH</button>
+			<button onclick="downloadNotes()">FETCH</button>
 		</div>
 	</div>
 	<script>
@@ -125,6 +132,9 @@
 		let db;
 		const DB_NAME = "test";
 		const STORE_NAME = "notesdata";
+
+		const JSONBIN_URL = "https://api.jsonbin.io/v3/b/6a2a667df5f4af5e29dd4977";
+		const MASTER_KEY = "$2a$10$yq..VL1qOd4lTSyiXKDA1uGonRMlhQf7F.qGR2UgSQ6u8wG6gIMf6";
 
 		const request = indexedDB.open(DB_NAME, 1);
 		request.onerror = (event) => {
@@ -287,6 +297,71 @@
 				reader.readAsText(file);
 			};
 			input.click();
+		}
+
+		async function uploadNotes() {
+			getAllNotes(async (allNotes) => {
+				try {
+					const resp = await fetch(JSONBIN_URL, {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							"X-Master-Key": MASTER_KEY
+						},
+						body: JSON.stringify(allNotes)
+					});
+
+					const text = await resp.text();
+
+					if (!resp.ok) {
+						throw new Error(`HTTP ${resp.status}: ${text}`);
+					}
+
+					alert("Notes uploaded successfully!");
+				} catch (e) {
+					console.error(e);
+					alert("Upload error: " + e.message);
+				}
+			});
+		}
+
+		async function downloadNotes() {
+			try {
+				const resp = await fetch(JSONBIN_URL + "/latest", {
+					headers: {
+						"X-Master-Key": MASTER_KEY
+					},
+					cache: "no-store"
+				});
+
+				const data = await resp.json();
+
+				const downloadedNotes = data.record;
+
+				if (!Array.isArray(downloadedNotes)) {
+					throw new Error("Bin content is not a valid notes array.");
+				}
+
+				const tx = db.transaction(STORE_NAME, "readwrite");
+				const store = tx.objectStore(STORE_NAME);
+
+				downloadedNotes.forEach(note => store.put(note));
+
+				tx.oncomplete = () => {
+					currentNoteId = null;
+					document.getElementById("noteText").innerHTML = "";
+					updateSidebar();
+					alert("Notes downloaded and updated successfully!");
+				};
+
+				tx.onerror = () => {
+					alert("Failed to write downloaded notes to local storage.");
+				};
+
+			} catch (e) {
+				console.error(e);
+				alert("Download error: " + e.message);
+			}
 		}
 
 		function insertImage() {
