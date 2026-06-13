@@ -78,3 +78,4 @@ public class MaskingBeanPropertyWriter extends BeanPropertyWriter {
 }
 @ControllerAdvice
 public class CustomRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter 
+--disable-features=GlobalMediaControls,MediaSessionService
