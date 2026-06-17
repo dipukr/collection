@@ -460,6 +460,21 @@
 			sel.removeAllRanges();
 			sel.addRange(newRange);
 		}
+		
+		function applyUserFontSize() {
+			const path = decodeURIComponent(location.pathname);
+			let user = null;
+			const winMatch = path.match(/\/Users\/([^/]+)\//);
+			const linMatch = path.match(/\/home\/([^/]+)\//);
+			if (winMatch) user = winMatch[1];
+			else if (linMatch) user = linMatch[1];
+			const fontByUser = {
+				"dipu.kumar": 22,
+				"dipu": 24
+			};
+			const px = fontByUser[user] || 22;
+			document.getElementById("noteText").style.fontSize = px + "px";
+		}
 
 		document.getElementById("noteText")
 			.addEventListener("keydown", function (evt) {
@@ -483,7 +498,6 @@
 				document.execCommand("insertText", false, text);
 			});
 
-		// Keyboard shortcuts: Ctrl+Shift+B toggles sidebar, Ctrl+Shift+H toggles toolbar
 		document.addEventListener("keydown", function (evt) {
 			if (evt.ctrlKey && evt.shiftKey && evt.key.toLowerCase() === "b") {
 				evt.preventDefault();
@@ -494,6 +508,7 @@
 				document.querySelector(".buttons").classList.toggle("hidden");
 			}
 		});
+		applyUserFontSize();
 	</script>
 </body>
 </html>
