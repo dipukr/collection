@@ -1,0 +1,14 @@
+#!/bin/bash
+
+search() {
+	cd TReDS
+	mvn dependency:copy-dependencies -DoutputDirectory=target/deps
+	cd target/deps
+	for f in *.jar; do
+		if unzip -l "$f" 2>/dev/null | grep ".*\.class" | grep -qF $1; then
+			echo "$f";
+		fi
+	done
+}
+
+search "javax/xml/parsers"
