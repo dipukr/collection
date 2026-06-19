@@ -1,0 +1,2 @@
+^.*\bREQUEST\b.*/treds/api/v1/Common/whatsNewDocument/getAll.*$
+org/w3c/dom/.*\.class
