@@ -10,7 +10,7 @@ class Person
 		self.name = name;
 		self.age = age;
 		self.sal = sal;
-		delete name;
+		del name;
 	}
 }
 
@@ -33,4 +33,6 @@ void Main(String[] args)
 
 	let stream = std.Stream<int>();
 	val person = new Person("Hello", 30, 50000);
+
+	del stream, marked;
 }
