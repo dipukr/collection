@@ -19,6 +19,7 @@ ghostty --fullscreen
 gnome-terminal --full-screen
 ghostty --fullscreen=true --theme=Ubuntu
 gnome-terminal --full-screen --show-menubar
+Set-PSReadLineKeyHandler -Key Tab -Function AcceptSuggestion
 =============================================================================
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar true
