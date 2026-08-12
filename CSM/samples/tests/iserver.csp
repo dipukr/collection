@@ -1,0 +1,37 @@
+package socket_test;
+
+function conn(conn_socket) {
+  var socket_stream = conn_socket.stream();
+  
+  out.printf("waiting on ANDREWF(%s):%d...\n",
+				socket::addr_by_name("ANDREWF"),
+				conn_socket.port());
+  
+  while(1) 
+	{
+		var msg = socket_stream.get("\n"); // get until...	
+		if(msg) out.printf("%s:%d wrote:%s\n",
+				socket::name_by_addr(conn_socket.remote_addr()),
+				conn_socket.remote_port(),  
+				msg);
+		else break;		
+	}
+	socket_stream.close();
+	out.printf("CHANNEL CLOSED!\n");
+}
+
+function listener() {
+	var gatekeeper = new socket("andrewf:5000",socket::global_domain);
+
+	while(1) {
+		var conn_socket = gatekeeper.accept();
+		if(!conn_socket) { print("error!\n"); break; }
+		else new thread(conn,conn_socket);
+	}
+}
+
+function main()
+{
+    listener();
+}
+

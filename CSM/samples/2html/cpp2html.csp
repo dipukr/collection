@@ -1,0 +1,239 @@
+//|
+//| cpp source to html converter
+//| author: Andrew Fedoniuk
+//|
+package csp2html;
+
+//--some-settings------------------------------
+//  colors
+const NUMBER_COLOR = "red";
+const KEYWORD_COLOR = "darkblue";
+const DIRECTIVE_COLOR = "blue";
+const FUNCTION_COLOR = "purple";
+const COMMENT_COLOR = "green";
+const STRING_LIT_COLOR = "maroon";
+const OPERATOR_COLOR = "dimgray";
+const LINE_NO_COLOR = "gray";
+
+const TAB = "  "; // two chars tab
+//---------------------------------------------
+
+// streams
+var _in = null;
+var _out = null;
+
+var _line_no = 0;
+
+var _r_words = {
+    "_asm":true,    "__asm":true,    "_far16":true,    "__far16":true,
+    "enum":true,    "__multiple_inheritance":true,    "template":true,
+    "auto":true,    "__except":true,    "__single_inheritance":true,
+    "this":true,    "__based":true,    "explicit":true,    "__virtual_inheritance":true,
+    "thread":true,    "bool":true,    "extern":true,    "mutable":true,
+    "throw":true,    "break":true,    "false":true,    "naked":true,
+    "true":true,    "case":true,    "_fastcall":true,    "__fastcall":true,
+    "namespace":true,    "try":true,    "catch":true,    "__finally":true,
+    "new":true,    "__try":true,    "__cdecl":true,    "__pascal":true,
+    "_cdecl":true,    "_pascal":true,    "float":true,    "operator":true,
+    "typedef":true,    "char":true,    "for":true,    "private":true,
+    "typeid":true,    "class":true,    "friend":true,    "protected":true,
+    "typename":true,    "const":true,    "goto":true,    "public":true,
+    "union":true,    "const_cast":true,    "if":true,    "register":true,
+    "unsigned":true,    "continue":true,    "inline":true,    "reinterpret_cast":true,
+    "using":true,    "__declspec":true,    "__inline":true,    "return":true,
+    "uuid":true,    "default":true,    "int":true,    "short":true,
+    "__uuidof":true,    "delete":true,    "__int8":true,    "signed":true,
+    "virtual":true,    "_export":true,    "__export":true,    "dllexport":true,
+    "__int16":true,    "sizeof":true,    "void":true,    "dllimport":true,
+    "__int32":true,    "static":true,    "volatile":true,    "do":true,
+    "__int64":true,    "static_cast":true,    "wmain":true,    "double":true,
+    "__leave":true,    "_stdcall":true,    "__stdcall":true,    "_syscall":true,
+    "__syscall":true,    "while":true,    "dynamic_cast":true,    "long":true,
+    "struct":true,    "xalloc":true,    "else":true,    "main":true,
+    "switch":true,    "interface":true
+};
+
+var _r_directives = {
+    "#define":true,   "#include":true,  "#if":true,  "#ifdef":true, "#ifndef":true,
+    "#else":true,     "#endif":true,    "#elif":true,"#pragma":true,  "#error":true
+};
+
+var _r_delimeters = [
+    // 1    2    3    4
+      " ","\r","\n","\t",
+    //  5    6   7    8
+      '\"',"\'","(", ")",
+    //  9    10   
+      "/*","//",
+      "<<=",  "<=", "<<", "<",
+      ">>=",  ">=", ">>", ">",
+      "==", "=",
+      "!=", "!",
+      "&=", "&&", "&", 
+      "|=", "||", "|",
+      "+=", "++", "+",
+      "-=", "--", "-",
+      "*=", "*",
+      "/=", "/",
+      "%=", "%",
+      "^=", "^",
+      "::", ":",
+      "{", "}",
+      "[", "]",
+      ".", ",", ";" ];
+
+function escape(s) {
+  return s.replace('&',"&amp;",'<',"&lt;",'>',"&gt;",'"',"&quot;"); 
+  // '\'',"&apos;"
+}
+
+function emit_line_no() {
+  _out.printf("\n<FONT color='%s'>%3d| </FONT>",LINE_NO_COLOR,++_line_no);
+}
+function emit_number(tok) {
+  _out.printf("<FONT color='%s'>%s</FONT>",NUMBER_COLOR,tok);
+}
+function emit_keyword(tok) {
+  /*
+  out.printf("<FONT color='%s'>%s</FONT>",KEYWORD_COLOR,tok);
+  */
+  _out.printf("<FONT color='%s'><B>%s</B></FONT>",KEYWORD_COLOR,tok);
+}
+function emit_directive(tok) {
+  _out.printf("<FONT color='%s'><B>%s</B></FONT>",DIRECTIVE_COLOR,tok);
+}
+function emit_call(tok) {
+  _out.printf("<FONT color='%s'>%s</FONT>",FUNCTION_COLOR,tok);
+}
+function emit_plain_id(tok) {
+  _out.put(tok);
+}
+function emit_string(tok) {
+  _out.printf("<FONT color='%s'>&quot;%s&quot;</FONT>",STRING_LIT_COLOR,tok);
+}
+function emit_char(tok) {
+  _out.printf("<FONT color='%s'>\'%s\'</FONT>",STRING_LIT_COLOR,tok);
+}
+
+function emit_whitespace(idx) {
+  switch(idx)
+  {
+    case 0: break; // EOF  
+    case 1: _out.put(' ');  break;   
+    case 2: emit_line_no(); break;
+    case 3: break; // '\r'    
+    case 4: _out.put(TAB);  break;
+  }
+}
+
+function emit_operator(idx) {
+  _out.printf("<FONT color='%s'>%s</FONT>",OPERATOR_COLOR, escape(_r_delimeters[ idx - 1 ]) );
+}
+
+// string or char literal
+function parse_sc_literal(dlms) {
+  var r = ""; 
+  while(true) {
+    var tok = _in.get(dlms); 
+    if( tok == null ) break;
+    r += tok; 
+    if( _in.get_match == 2 ) break;
+    if( _in.get_match == 1 ) r += dlms[0]; 
+  }  
+  return escape(r);
+}
+
+function emit_c_comment() {
+  _out.printf("<FONT color='%s'>/*",COMMENT_COLOR);  
+  while( true ) 
+  {
+    var tok = _in.get("\n", "\r", "*/");
+    if( _in.get_match == 0 ) return;
+    if( _in.get_match == 1 ) 
+    {
+      _out.printf("</FONT>"); 
+      emit_line_no(); 
+      _out.printf("<FONT color='%s' >%s ",COMMENT_COLOR,escape(tok));  
+    }
+    else if( _in.get_match == 2 ) { _out.put(escape(tok)); }  
+    else if( _in.get_match == 3 ) 
+    {
+      _out.put(escape(tok));
+      break;
+    }
+  }
+  _out.printf("*/</FONT>");  
+}
+function emit_cpp_comment() {
+  var tok = _in.get('\n');
+  _out.printf("<FONT color='%s'>//%s</FONT>",COMMENT_COLOR,escape(tok));  
+  emit_line_no();
+}
+
+function parse() {
+  var tok;
+  while(true) {
+    tok = _in.get(_r_delimeters); 
+    if( is_null(tok) ) break; //eof
+        
+    if( tok.like("[0-9]*") ) emit_number(tok);
+    else if( _r_words.exist(tok) ) emit_keyword(tok);
+    else if( _r_directives.exist(tok) ) emit_directive(tok);
+    else if( _in.get_match == 7 /* '(' */ ) emit_call(tok);
+    else if( tok ) emit_plain_id(tok);
+        
+    //if( _in.get_match == 0) break; //this was last tok before eof
+    
+    if( _in.get_match <= 4 ) emit_whitespace(_in.get_match);
+    else if( _in.get_match == 5 /*string lit*/ ) emit_string( parse_sc_literal(["\\\"","\""]) );
+    else if( _in.get_match == 6 /*char lit*/ ) emit_char( parse_sc_literal(["\\\'","\'"]) );
+    else if( _in.get_match == 9 /* C comment */ ) emit_c_comment(); 
+    else if( _in.get_match == 10/* C++ comment */ ) emit_cpp_comment();
+    else emit_operator(_in.get_match);
+  }
+}
+
+function do_parse(nin)
+{
+  _line_no = 0;
+  out.printf("parsing '%s' ...",nin.name_extension);
+  _in = nin.stream("rb");
+  if(!_in) out.printf("ERROR: cannot open '%s'\n",nin.path);
+  
+  var nout = new node(nin.path);
+//
+  nout.name += ("." + nout.extension);
+  nout.extension = "htm";
+  _out = nout.stream("wb");
+  if(!_out) out.printf("ERROR: cannot create '%s'\n",nout.path);
+  
+  _out.put("<HTML>\n");
+  _out.put("<HEAD>\n");
+  _out.put("<META NAME='GENERATOR' Content='TIL:cpp2html'>\n");  
+  _out.put("<LINK rel='stylesheet' type='text/css' href='codestyle.css'>\n");
+  _out.put("</HEAD>\n");
+  _out.put("<BODY>\n");
+  _out.printf("<P>plain text version:<A href=\'%s\'>%s</A></P>\n",nin.name_extension,nin.name_extension);
+  _out.put("<HR>\n<PRE>\n");
+  emit_line_no();
+  parse();
+  _out.put("</PRE></BODY></HTML>\n");
+  out.put("done\n");
+}
+
+function main(file_name_in) {
+  var nin = new node(file_name_in);
+  if( nin.is_folder ) 
+  {
+    var i, narray = nin.nodes("*.*");
+    for(i = 0; i < narray.length; i++) 
+      if( narray[i].is_file ) {
+        var ext = narray[i].extension.to_lower();
+        if(ext == "h" || ext == "hpp" ||
+           ext == "c" || ext == "cpp" ||
+           ext == "hxx" || ext == "cxx" ) do_parse(narray[i]);
+      }
+  } 
+  else if(nin.is_file) do_parse(nin);
+  else out.printf("ERROR: cannot find '%s'\n",file_name_in);
+}

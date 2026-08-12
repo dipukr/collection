@@ -1,0 +1,68 @@
+package tnet;
+
+function main()
+{
+  var n = new net::http();
+  //net::http::agent_name = "Samodov Client";
+  
+  //var http_stream = n.get("http://www.terra-informatica.org/index.htm");
+  //var http_stream = n.get("http://www.canadaboard.com/cgi-bin/last_msg.cgi?fid=56817");
+  //var http_stream = n.get("http://www.canadaboard.com/cgi-bin/pmail.pl?fid=56817&user_name=%F1%EC%E0%E9%EB%E8%EA");
+  /*var param = 
+  {
+    "fid":56817,
+    "user_name":"смайлик"
+  };
+  var http_stream = n.get("http://www.canadaboard.com/cgi-bin/pmail.pl",param);
+  */
+  /*
+  var param = 
+  {
+    "action":"show_mail",
+    "fid":56817,
+    "user_name":"смайлик",
+    "user_pwd":"6931",
+    "submit":" Log in "
+  };
+  var http_stream = n.post("http://www.canadaboard.com/cgi-bin/pmail.pl",param);
+  */
+  var param = 
+  {
+    "fid":56817,
+    "user_name":"смайлик"
+  };
+
+  /*
+  var headers = n.info();
+  
+  for(var i = 0; headers && i < headers.length; i++) {
+    std::out.printf("%s:%s\n", headers.key(i), headers.value(i) );
+  }
+  std::out.printf("--------\n");
+  */
+
+  //var http_stream = n.get("http://www.canadaboard.com/cgi-bin/get_last.cgi",prm);  
+  
+  var http_stream = n.get("http://www.canadaboard.com/cgi-bin/get_file.cgi",
+                          { "dir":"efw", "msg":47559 });  
+try {
+  do {
+     var l = http_stream.get('\n');  
+     if( typeof(l) == type::NULL) break;
+     std::out.printf("%s\n",l);
+  } while( true ); 
+} 
+catch (e) { std::out.printf("ERROR:%s",e); }
+
+
+
+
+/*  
+  for(var i=0;i < a.length;++i)
+  {
+    print(a[i]+=2);
+  }
+*/
+  print("\n");
+}
+

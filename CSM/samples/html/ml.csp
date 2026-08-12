@@ -1,0 +1,245 @@
+//|
+//| (sg)ml parser package
+//| C-SMILE language (http://terra-informatica.org) 
+//| author: Andrew Fedoniuk ( a.k.a Петровитч )
+package ml;
+
+//|
+//| ml stream parser (SAX alike) non validating!
+//| will callback on_* functions 
+//|
+class parser {
+  
+  var _in;
+  var _error_msg;
+  var _error_ln;
+  var _got_eot;
+  
+  // ctor  
+  function parser() { _in = null; _error_ln = 1; }
+  // idee fixe 
+  function parse(in_stream);
+
+  // overridables
+  function on_tag_open(tag_name,tag_attributes_map){ /*override*/ }
+  function on_tag_close(tag_name){ /*override*/ }
+  function on_text(text){ /*override*/ }
+  function on_pi(proc_instruction_text){ /*override*/ }
+  function on_comment(comment_text){ /*override*/ }
+  function on_cdata(cdata_text) { /*override*/ }
+  
+  function warning(warning_text) { /*override*/ }
+  function error(error_text) { /*override*/ }
+  
+  // will resolve only XML entity. override it for HTML  
+  function entity(entity_text); 
+
+  // internal stuff: 
+      // parse tag header attributes  
+      function parse_atts();
+      // parse tag:
+      function parse_tag(tag_name);
+}
+
+// vocabulary for interned nmtokens
+static var voc = new map();
+
+// atomisize the string    
+function intern(nmtoken) {
+  var nmt = nmtoken.to_upper();
+  if( !voc.exist(nmt) ) voc[nmt] = nmt;
+  return voc[nmt];
+}
+
+// will return tag attributes as std::map or null
+function parser::parse_atts() {
+  var atts;
+  _got_eot = false;
+  while(true) {
+    var n = _in.get('=',"/>",">").trim(); 
+    if(_in.get_match == 2) _got_eot = true;
+    if(_in.get_match != 1) break;
+    
+    if(!n) throw "empty name encountered";
+    
+    var z = _in.get('\"','\'',' ',"/>",">").trim(); 
+    var match = _in.get_match;
+    //TODO: escapes in attribute values!
+    var v = "";
+    if( match == 1 )
+      v = _in.get( '\"' ); 
+    else if( match == 2 )
+      v = _in.get( '\'' ); 
+    else
+      v = z;
+        
+    if(!atts) atts = new map();
+    atts[ intern(n) ] = v;
+    
+    if(match > 3) break;
+    
+  }
+  return atts;
+}
+
+function parser::parse_tag(tag_name)
+{
+  //note: we've already parsed '<'
+  var c = _in.get(); // get one char
+  switch(c) 
+  {
+    case '/': 
+      { 
+        var n = _in.get('>').trim(); // get until (exclusive) 
+        if(!n) warning("closing tag is empty");
+        else on_tag_close(intern(n));
+      } break;
+    case '?':
+      { 
+        var v = _in.get("?>"); 
+        on_pi(v);
+      } break;
+    case '!': 
+      {
+        c = _in.get();
+        if ( c == '-' )
+        {
+          if(_in.get() != '-') throw string::printf("bad comment: %s",_in.get("\n"));
+          var v = _in.get("-->");
+          on_comment(v);
+        }
+        else if ( c == '[' ) {
+          var v = _in.get("CDATA[","\n");
+          if(v) throw string::printf("expecting:'CDATA[', got:%s",v);
+          v = _in.get("]]>");
+          on_cdata(v);
+        }
+        else if( c == 'D' )
+        {
+          //skip doctype definition
+          _in.get("OCTYPE");
+          _in.get(">");
+          return true;
+        }
+        else
+          warning(string::printf("expecting comment or cdata, got '%c'",c));
+      } break;
+    default:    
+      {
+        var atts_map;
+        _got_eot = false;
+        var name = intern( new string(c) + _in.get(' ',"/>",'>').trim() );
+        if(_in.get_match == 1) atts_map = parse_atts(_in);
+        else if(_in.get_match == 2) _got_eot = true;
+        on_tag_open(name,atts_map);
+        if(_got_eot) on_tag_close(name);
+      } break;
+  }
+}
+
+function parser::parse(in_stream)
+{
+    _in = in_stream;
+    var text_buffer = "";
+    var r;
+    try 
+    {
+      while(true) 
+      {
+        var t = _in.get('<',"\n",'&');
+        
+        if(t) text_buffer += t;
+             
+        var match = _in.get_match;
+        if(match != 3) // != '&'
+          {
+             if(text_buffer.trim()) on_text(text_buffer);
+             text_buffer = "";
+          }
+        
+        if(match == 0) break; // eof - done
+        else if(match == 1) parse_tag();
+        else if(match == 3) 
+          { 
+             var et = _in.get(';');
+             text_buffer += entity(et);
+          }
+      } 
+    } catch (e) { std::out.printf("ERROR:%s",e); }
+    _in.close();
+    return r;  
+}
+
+var entity_map = {
+    // Standard SGML stuff
+    "amp":   "&",    // ampersand
+    "gt":    ">",    // greater than
+    "lt":    "<",    // less than
+    "quot":  "\"",   // double quote
+      
+    // Some extra Latin 1 chars that are listed in the HTML3.2 draft (21-May-96)
+    "nbsp":  "\xa0", // non breaking space
+    "reg":   "\xae", // registered sign
+    "copy":  "\xa9", // copyright sign
+
+   // Additional ISO-8859/1     entities listed in rfc1866 (section 14)
+    "iexcl":  "\xa1",    "cent":   "\xa2",    "pound":  "\xa3",    "curren": "\xa4",
+    "yen":    "\xa5",    "brvbar": "\xa6",    "sect":   "\xa7",    "uml":    "\xa8",
+    "ordf":   "\xaa",    "laquo":  "\xab",    "not":    "\xac",    "shy":    "\xad",  // soft hyphen
+    "macr":   "\xaf",    "deg":    "\xb0",    "plusmn": "\xb1",    "sup1":   "\xb9",
+    "sup2":   "\xb2",    "sup3":   "\xb3",    "acute":  "\xb4",    "micro":  "\xb5",
+    "para":   "\xb6",    "middot": "\xb7",    "cedil":  "\xb8",    "ordm":   "\xba",
+    "raquo":  "\xbb",    "frac14": "\xbc",    "frac12": "\xbd",    "frac34": "\xbe",
+    "iquest": "\xbf",    "times":  "\xd7",    "divide": "\xf7"
+};
+  
+function parser::entity(entity_text) 
+{
+  if(entity_text == '#') 
+  {
+      entity_text[0] = '0';
+      return new string(int(entity_text));
+  }
+  
+  var v = entity_map[entity_text]; if( v ) return v;
+
+  return string::printf("&%s;",entity_text);
+
+} 
+
+
+class test_parser: parser 
+{
+  function test_parser(){}
+  function on_tag_open(tag_name,tag_attributes_map)
+  { 
+    std::out.printf("tag open '%s'\n",tag_name); 
+  }
+  function on_tag_close(tag_name)
+  {
+    std::out.printf("tag close '%s'\n",tag_name);  
+  }
+  function on_text(text)
+  {
+    //std::out.printf("text:\n%s\n",text);  
+  }
+  function on_pi(proc_instruction_text){  }
+  function on_comment(comment_text){  }
+  function on_cdata(cdata_text) {  }
+
+  function warning(text)
+  {
+    std::out.printf("WARNING:%s\n",text);  
+  }
+  
+}
+
+function main(file_name_in) 
+{
+  var node_in = new node(file_name_in);
+  var stream_in = node_in.stream("r");
+  var p = new test_parser();
+  p.parse(stream_in);
+}
+
+

@@ -1,0 +1,1 @@
+FOR %%F IN (*.htm) DO fictionbook.exe "%%F"

@@ -1,0 +1,10 @@
+<?xml version="1.0"?> 
+<tilis>
+	<ftp address="fortress:21" caption="TerraInformatica's TIL FTP daemon" />
+	<users>
+		<user name="anonymous" password="" path="d:/anonymous" />
+		<user name="ftp" password="" path="d:/anonymous" />
+		<user name="ftpadmin" password="31415926" quota="3" path="d:/anonymous" />
+	</users> 
+</tilis>
+

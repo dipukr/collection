@@ -1,0 +1,13 @@
+package test_shell;
+import shell;
+
+function main()
+{
+	var caption = "test of shell package";
+	//var r = shell::ask( );
+	var r = shell::ask("Is it OK?",caption,shell::ICON_QUESTION | shell::YES_NO );
+	if(r == shell::YES_BUTTON) return 0;
+	//shell::ask("" + r,caption,shell::ICON_INFORMATION | shell::OK );
+	return 1;
+}
+

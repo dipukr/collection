@@ -1,0 +1,45 @@
+# Process this file with autoconf to produce a configure script.
+AC_INIT(c-smile, 1.0.0, csbugs@deeptown.org )
+AC_CONFIG_SRCDIR([config.h.in])
+
+AM_INIT_AUTOMAKE(c-smile, 1.0.0)
+AM_CONFIG_HEADER(config.h)
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_AWK
+
+# Checks for libraries.
+# FIXME: Replace `main' with a function in `-le':
+#AC_CHECK_LIB([e], [main])
+# FIXME: Replace `main' with a function in `-links':
+#AC_CHECK_LIB([inks], [main])
+
+# Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([arpa/inet.h fcntl.h limits.h locale.h malloc.h netdb.h netinet/in.h stddef.h stdlib.h string.h sys/ioctl.h sys/socket.h sys/time.h unistd.h wchar.h])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_OFF_T
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_STRUCT_TM
+
+# Checks for library functions.
+AC_FUNC_ERROR_AT_LINE
+AC_FUNC_MALLOC
+AC_FUNC_MEMCMP
+AC_FUNC_MMAP
+AC_TYPE_SIGNAL
+AC_FUNC_STAT
+AC_FUNC_STRFTIME
+AC_FUNC_STRTOD
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS([ftruncate getcwd gethostbyaddr gethostbyname gethostname getpagesize gettimeofday inet_ntoa memchr memmove memset mkdir munmap rmdir select setlocale socket strchr strcspn strdup strerror strspn strstr strtol strtoul uname])
+
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT

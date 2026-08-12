@@ -1,0 +1,237 @@
+package tests;
+
+class tclass_base
+{
+  var value;
+  function tclass_base(v) { value = v; }
+  function toString() { return string(value); }
+}
+
+class tclass: tclass_base
+{
+  function tclass(v) { tclass_base(v); }
+}
+
+function basics_test() {
+  var v = new tclass(4);
+  var v_base = new tclass_base(4);
+  if (!(v instanceof tclass))  throw "instanceof 1";
+  if (!(v instanceof tclass_base))  throw "instanceof 2";
+  if (v_base instanceof tclass)  throw "instanceof 3";
+  print("basics test passed! \n");
+}
+
+function string_test() 
+{
+    var v = new tclass(4);
+    
+    if ( "1" + 2 + "3" != "123" ) throw "default toString in assignmet";
+    if ( "1" + 2 + "3" + v != "1234" ) throw "user defined toString in assignmet";
+
+    var s = new string("0123456789");
+    if( s[3] != '3' ) throw "item";
+    
+    // substr test            
+    if ( "0123456789".substr(2,3) != "234" ) throw "substr 1";
+    if ( "0123456789".substr(2,10) != "23456789" ) throw "substr 2";
+    if ( "0123456789".substr(-2,8) != "01234567" ) throw "substr 3";
+    if ( "0123456789".substr(2,-8) != "" ) throw "substr 4";
+  
+    // slice test  
+    if ( "0123456789".slice(2,6) != "2345" ) throw "slice 1";
+    if ( "0123456789".slice(2,-2) != "234567" ) throw "slice 2";
+    
+    // case tests
+    if ( "Hello World".to_upper() != "HELLO WORLD" ) throw "to_upper";  
+    if ( "Hello World".to_lower() != "hello world" ) throw "to_lover";  
+    // case test /russian/
+    //locale("Russian");
+//    if ( "Привет Мир".to_lower() != "привет мир" ) throw "to_lover:" + "Привет Мир".to_lower();  
+
+    // like test    
+    if ( !"Hello world".like("??[a-z]l*") ) throw "like 0";  
+    if ( !"5*".like("5[*]") ) throw "like 1";     
+    if ( !"?n".like("[?]n") ) throw "like 2";     
+    if ( !"a".like("[a-cdf]") && !"f".like("[a-cdf]") ) throw "like 3";     
+    if ( !"-".like("[-acdf]") && !"f".like("[-acdf]") ) throw "like 4";     
+    if ( !"[".like("[[]") ) throw "like 5";     
+    if ( !"abc?d".like("abc[?]d*") ) throw "like 5";     
+    if ( !"abc?de".like("abc[?]d*") ) throw "like 6";     
+    if ( !"abce".like("abc[def]") && !"abcz".like("abc[def]") ) throw "like 7";     
+    if ( !"Hello".like("[a-zA-Z]*") && !"hello".like("[a-zA-Z]*") ) throw "like 8";         
+//    if ( !"Шишига".like("[А-Я]*") ) throw "like 9";
+       
+    
+    print(string::printf("%d,%.2f,%s\n",123,123.45,"it is a string"));
+
+   
+    var ts = "1.2.3.4.";
+    if( ts.replace(".","-") != "1-2-3-4-" ) throw "replace " + ts.replace(".","-") ;
+    
+    
+    var sarr = "1,2,3,4,5,6".split(',');
+    if(sarr.length != 6) throw "split 1";
+    if(int(sarr[0]) != 1 && int(sarr[5]) != 6) throw "split 2";
+    
+    print("string test passed!\n");
+}
+
+//compararator function for array sort
+function less(a,b) {
+  //throw "aaaa";
+	return a < b;
+} 
+
+function array_test() 
+{
+	var ar = new array();
+	var i;
+	// push test
+	for(var j=9;j>=0;j--) ar.push(j);
+	if(ar.length != 10) throw "array.length";
+	for(i=0;i<10;i++) if(ar[i] != (9-i) ) throw "array.push";
+			
+	ar[9] = 0; if(ar[9] != 0) throw "array.item";
+
+  //slice test
+  var fragment = ar.slice(2,-2);
+  if (fragment.length != 6) throw "array.slice";
+  
+  // sort test (default) 
+  fragment.sort();
+  for(i=0;i<fragment.length;i++) if(fragment[i] != (i+2) ) throw "array.slice";
+		
+	// sort test (with user defined function)
+	ar.sort(less);
+	for(i=0;i<10;i++) if(ar[i] != i) throw "array.sort UDF";
+
+	// pop test	
+	for(i=0;i<10;i++) if(ar.pop() != (9-i)) throw "array.pop order";
+	if(ar.length != 0) throw "array.pop";
+	
+	// concat test	
+	for(i=0;i<10;i++) ar.push(i);
+  var ins = new array(12,13,14);
+	ar.concat(10,11,ins,15);
+	if(ar.length != 16) throw "array.concat length";
+	for(i=0;i<ar.length;i++) if(ar[i] != i) throw "array.concat order";
+
+	// shift test	
+	if(ar.shift() != 0) throw "array.shift return";
+	if(ar.shift() != 1) throw "array.shift return";
+	if(ar.length != 14) throw "array.shift length";
+	for(i=0;i<ar.length;i++) if(ar[i] != (i+2)) throw "array.shift order";
+	
+	// unshift test	
+  ar.unshift(0,1);
+  if(ar.length != 16) throw "array.unshift length";
+  for(i=0;i<ar.length;i++) if(ar[i] != i) throw "array.unshift order";
+  
+  print(ar,"\n");
+		
+	print("array test passed! \n");
+}
+
+function date_test() {
+  var d = new date (1962,1,18);
+  print ("my birthday is ", d );
+  print (" wd=",d.day_of_week," yd=",d.day_of_year,"\n");
+  //d.month += 12;
+  //d.year = 1962;
+  var mon = d.month;
+  d.day += 31;
+  if( d.month != (mon+1) % 12 ) throw "set day";
+  
+  d = new date (1962,2,28);
+  d.day += 1;
+  
+  print ("date ", d, "\n" );
+  
+  print ("time ", d.time, "\n" );
+    
+  print("date test passed! \n");
+}
+
+function map_test() {
+  var m = new map();
+  m.add("one",1);
+  m.add("two",2);
+  m["three"] = 3;
+  
+  //std::gc();
+  // exists test
+  if( !m.exist("one") ) throw "exist";
+  if( m["two"] != 2 ) throw "item";
+  
+  // remove test
+  if( m.remove("two") != 2 ) throw "remove 1";
+  if( m.exist("two") ) throw "remove 2";
+
+  // literal test
+  var m1 = { "one":1, "two":2, "three":3 };
+  if( m1["two"] != 2 ) throw "literal";
+  
+  print("map test passed! \n");
+}
+
+function regexp_test() {
+   var pat = "sdfdfsgfdg013alocalAB5163k000la";
+   var reg = new regexp( "l[a-z]*" );
+   if(reg.match( pat ) != "local") 
+      throw "regexp failed to match!";
+
+   out.printf("regexp test passed! \n");
+}
+
+
+// Filter TCP/IP addresses
+const RE_TCP_IP_ADDR_NAME  = "[_a-zA-Z0-9\\-]+([\\.]+[_a-zA-Z0-9\\-]+)*";
+const RE_TCP_IP_ADDR_IP    = "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+";
+const RE_TCP_IP_ADDR       = "(" + RE_TCP_IP_ADDR_IP + "|" + RE_TCP_IP_ADDR_NAME + ")";
+// Filter an e-mail address
+const RE_EMAIL_ADDR        = "[_a-zA-Z0-9\\-\\.]+@(" + RE_TCP_IP_ADDR + ")";
+// Filter an unix path
+const RE_UNIX_PATH         = "(/[_a-zA-Z0-9\\-\\.]+)+";
+// filters an URL - ftp or http.
+const RE_URL               = "([Ff][Tt][Pp]|[Hh][Tt][Tt][Pp])://(" + RE_TCP_IP_ADDR + ")(:[0-9]+)?(" + RE_UNIX_PATH + ")*";
+
+function regexp_test_2() 
+{
+    var pat = "http://www.terra-informatica.org/projects/smile/index.htm; ftp://ftp.terra-informatica.org";
+    var reg = new regexp( RE_URL );
+    var matches = reg.split(pat);
+    out.printf( "matching:%s\n", pat);
+    for(var i=0; i < matches.length; i++)
+      out.printf( "  match #%d = <%s>\n",i, matches[i] );
+      
+    reg.compile( RE_TCP_IP_ADDR );
+    pat = "127.0.0.1 localhost";
+    out.printf( "matching:%s\n", pat);
+    if(reg.test( pat )) {
+      out.printf( "matched:%s by %s\n", pat, reg); 
+      for(var k=0; k < reg.length; k++)
+        out.printf( "  element #%d = <%s>\n",k, reg[k] );
+    }
+  
+    out.printf("regexp 2 test passed! \n");
+    
+}
+
+
+function main()
+{
+    try {
+      basics_test();
+      string_test();
+      array_test();
+      date_test();
+      map_test();
+      regexp_test();
+      regexp_test_2();
+      print("all tests passed!\n");
+//	    print(tclass::toString);      	
+    }
+    catch(e) {
+      print("ERROR:" + e + "\n");
+    }
+}

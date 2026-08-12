@@ -56,7 +56,7 @@ scp dipu@10.255.74.14:/opt/STAGING/biddingPortal_logs/rolling/portal-02-07-2026-
 rsync --rsync-path="sudo rsync" target/Treds-BiddingPortal.jar dipu@103.25.172.132:/opt/UAT/biddingPortal/
 curl -u configuser:Config@Secret123 -ks https://uat.m1xchange.com:8477/M1-BiddingPortal/qa
 curl -u configuser:Config@Secret123 -ks https://uat.m1xchange.com:8477/M1-DocumentService/dev
-curl -u configuser:Config@Secret123 -ks https://uat.m1xchange.com:8477/M1-DocumentService/dev
+curl -u configuser:Config@Secret123 -ks https://uat.m1xchange.com:8477/M1-DocumentService/uat
 ===========================================================================================================================
 grep -n uploadManageBulkInvoices portal-22-06-2026-0.log|tail -1|cut -d: -f1|xargs -I{} tail -n +{} portal-22-06-2026-0.log
 grep -n saveRiskRpRequest portal-08-05-2026-1.log|tail -1|cut -d: -f1|xargs -I{} tail -n +{} portal-08-05-2026-1.log|less

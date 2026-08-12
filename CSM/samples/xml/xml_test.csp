@@ -1,0 +1,11 @@
+package xml_test;
+
+import xml;
+
+function main(f) {
+  var n = new node(f);
+  var p = new xml::parser();
+  var root = p.parse(n.stream("rb")); 
+  if (root) std::out.put(root.toString());  
+  else std::out.put("error!");  
+}

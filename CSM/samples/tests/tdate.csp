@@ -1,0 +1,25 @@
+package tdate;
+
+function date_test() {
+  var d = new date ();
+  var today_is_leap = d.is_leap_year;
+  var today_day_of_week = d.day_of_week;
+  for(var y = d.year - 1; y >= 1024; y--)
+    {
+      d.year = y;
+      if( (today_is_leap == d.is_leap_year) && (today_day_of_week == d.day_of_week)) //break;
+        std::out.printf("twin year is %d\n", d.year );
+    }
+  //print ("twin year is ", d );
+}
+
+
+function main()
+{
+    try {
+      date_test();
+    }
+    catch(e) {
+      print("ERROR:" + e + "\n");
+    }
+}

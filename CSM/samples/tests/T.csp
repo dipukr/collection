@@ -1,0 +1,15 @@
+package t;
+
+function main()
+{
+  
+    var a = [0,1,2,3,4,5];
+    var b = [0,1,2,3,a[4],5];
+    print(a.length);
+    var i;
+    for(i = 0;i < a.length; i++) print(a[i]);
+    print("\n");
+    for(i = 0;i < b.length; i++) print(b[i]);
+    print("\n");
+    print([0,1,2,3,[11,12,13,14],5].length);
+}

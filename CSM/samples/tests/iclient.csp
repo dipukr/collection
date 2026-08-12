@@ -1,0 +1,18 @@
+package socket_test;
+
+function connector(conn_socket) {
+  var pipe = conn_socket.stream();
+	while(1) {
+		var msg = in.get('\n');
+		if(msg.length == 0) { out.printf("empty\n"); break; }
+		pipe.printf("%s\n",msg);
+	}
+}
+
+function main()
+{
+	var conn_socket = socket::connect("andrewf:5000");
+	if(!conn_socket) print("error!\n");
+       	else connector(conn_socket);
+}
+

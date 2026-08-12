@@ -1,0 +1,19 @@
+package switch_test;
+
+
+function main() {
+  var i = -1,a;
+  var j;
+  for(j = 0;j < 10000;j++)  
+  {
+	  switch(j % 4) 
+		{
+		  	case 0: a = "zero"; break;	 
+			case 1: a = "one"; break;
+			case 2: a = "two"; break;
+			default:a = "unknown"; break;	 
+
+		}
+  }
+  out.printf ( "%s\n", a );	
+}

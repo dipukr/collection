@@ -1,0 +1,207 @@
+//|
+//| til source to html converter
+//| author: Andrew Fedoniuk
+//|
+package csp2html;
+
+//--some-settings------------------------------
+//  colors
+const NUMBER_COLOR = "red";
+const KEYWORD_COLOR = "darkblue";
+const FUNCTION_COLOR = "purple";
+const COMMENT_COLOR = "green";
+const STRING_LIT_COLOR = "maroon";
+const OPERATOR_COLOR = "dimgray";
+const LINE_NO_COLOR = "gray";
+
+const TAB = "  "; // two chars tab
+//---------------------------------------------
+
+// streams
+var _in = null;
+var _out = null;
+
+var _line_no = 0;
+
+var _r_words = {
+  "class"   : true ,  "static"  : true ,  "if"      : true ,
+  "else"    : true ,  "while"   : true ,  "return"  : true ,
+  "for"     : true ,  "break"   : true ,  "continue": true ,
+  "do"      : true ,  "new"     : true ,  "null"    : true ,
+  "var"     : true ,  "function": true ,  "package" : true ,
+  "try"     : true ,  "catch"   : true ,  "throw"   : true ,
+  "property": true ,  "import"  : true ,  "is"      : true ,
+  "undefined":true ,  "$"       : true ,  "$$"      : true ,
+  "switch"  : true ,  "case"    : true ,  "default" : true ,
+  "@"       : true ,  "synchronized": true , "const"   : true,
+  "true"    : true,   "false" : true
+};
+
+var _r_delimeters = [
+    // 1    2    3    4
+      " ","\r","\n","\t",
+    //  5    6   7    8
+      '\"',"\'","(", ")",
+    //  9    10   
+      "/*","//",
+      "<<=",  "<=", "<<", "<",
+      ">>=",  ">=", ">>", ">",
+      "==", "=",
+      "!=", "!",
+      "&=", "&&", "&", 
+      "|=", "||", "|",
+      "+=", "++", "+",
+      "-=", "--", "-",
+      "*=", "*",
+      "/=", "/",
+      "%=", "%",
+      "^=", "^",
+      "::", ":",
+      "{", "}",
+      "[", "]",
+      ".", ",", ";" ];
+
+function escape(s) {
+  return s.replace('&',"&amp;",'<',"&lt;",'>',"&gt;",'"',"&quot;"); 
+  // '\'',"&apos;"
+}
+
+function emit_line_no() {
+  _out.printf("\n<FONT color='%s'>%3d| </FONT>",LINE_NO_COLOR,++_line_no);
+}
+function emit_number(tok) {
+  _out.printf("<FONT color='%s'>%s</FONT>",NUMBER_COLOR,tok);
+}
+function emit_keyword(tok) {
+  /*
+  out.printf("<FONT color='%s'>%s</FONT>",KEYWORD_COLOR,tok);
+  */
+  _out.printf("<FONT color='%s'><B>%s</B></FONT>",KEYWORD_COLOR,tok);
+}
+function emit_call(tok) {
+  _out.printf("<FONT color='%s'>%s</FONT>",FUNCTION_COLOR,tok);
+}
+function emit_plain_id(tok) {
+  _out.put(tok);
+}
+function emit_string(tok) {
+  _out.printf("<FONT color='%s'>&quot;%s&quot;</FONT>",STRING_LIT_COLOR,tok);
+}
+function emit_char(tok) {
+  _out.printf("<FONT color='%s'>\'%s\'</FONT>",STRING_LIT_COLOR,tok);
+}
+
+function emit_whitespace(idx) {
+  switch(idx)
+  {
+    case 1: _out.put(' ');  break;   
+    case 2: emit_line_no(); break;
+    case 3: break; // '\r'    
+    case 4: _out.put(TAB);  break;
+  }
+}
+
+function emit_operator(idx) {
+  _out.printf("<FONT color='%s'>%s</FONT>",OPERATOR_COLOR, escape(_r_delimeters[ idx - 1 ]) );
+}
+
+// string or char literal
+function parse_sc_literal(dlms) {
+  var r = ""; 
+  while(true) {
+    var tok = _in.get(dlms); 
+    if( tok == null ) break;
+    r += tok; 
+    if( _in.get_match == 2 ) break;
+    if( _in.get_match == 1 ) r += dlms[0]; 
+  }  
+  return escape(r);
+}
+
+function emit_c_comment() {
+  _out.printf("<FONT color='%s'>/*",COMMENT_COLOR);  
+  while( true ) 
+  {
+    var tok = _in.get("\n", "\r", "*/");
+    if( _in.get_match == 0 ) return;
+    if( _in.get_match == 1 ) 
+    {
+      _out.printf("</FONT>"); 
+      emit_line_no(); 
+      _out.printf("<FONT color='%s' >%s ",COMMENT_COLOR,escape(tok));  
+    }
+    else if( _in.get_match == 2 ) { _out.put(escape(tok)); }  
+    else if( _in.get_match == 3 ) 
+    {
+      _out.put(escape(tok));
+      break;
+    }
+  }
+  _out.printf("*/</FONT>");  
+}
+function emit_cpp_comment() {
+  var tok = _in.get('\n');
+  _out.printf("<FONT color='%s'>//%s</FONT>",COMMENT_COLOR,escape(tok));  
+  emit_line_no();
+}
+
+function parse() {
+  var tok;
+  while(true) {
+    tok = _in.get(_r_delimeters); 
+    if( is_null(tok) ) break; //eof
+        
+    if( tok.like("[0-9]*") ) emit_number(tok);
+    else if( _r_words.exist(tok) ) emit_keyword(tok);
+    else if( _in.get_match == 7 /* '(' */ ) emit_call(tok);
+    else if( tok ) emit_plain_id(tok);
+        
+    if( _in.get_match == 0) break; //this was last tok before eof
+    
+    if( _in.get_match <= 4 ) emit_whitespace(_in.get_match);
+    else if( _in.get_match == 5 /*string lit*/ ) emit_string( parse_sc_literal(["\\\"","\""]) );
+    else if( _in.get_match == 6 /*char lit*/ ) emit_char( parse_sc_literal(["\\\'","\'"]) );
+    else if( _in.get_match == 9 /* C comment */ ) emit_c_comment(); 
+    else if( _in.get_match == 10/* C++ comment */ ) emit_cpp_comment();
+    else emit_operator(_in.get_match);
+  }
+}
+
+function do_parse(nin)
+{
+  _line_no = 0;
+  out.printf("parsing '%s' ...",nin.name_extension);
+  _in = nin.stream("r");
+  if(!_in) out.printf("ERROR: cannot open '%s'\n",nin.path);
+  
+  var nout = new node(nin.path);
+  nout.extension = "htm";
+  _out = nout.stream("w");
+  if(!_out) out.printf("ERROR: cannot create '%s'\n",nout.path);
+  
+  _out.put("<HTML>\n");
+  _out.put("<HEAD>\n");
+  _out.put("<META NAME='GENERATOR' Content='TIL:til2html'>\n");  
+  _out.put("<LINK rel='stylesheet' type='text/css' href='codestyle.css'>\n");
+  _out.put("</HEAD>\n");
+  _out.put("<BODY>\n");
+  _out.printf("<P>plain text version:<A href=\'%s\'>%s</A></P>\n",nin.name_extension,nin.name_extension);
+  _out.put("<HR>\n<PRE>\n");
+  emit_line_no();
+  parse();
+  _out.put("</PRE></BODY></HTML>\n");
+  out.put("done\n");
+}
+
+function main(file_name_in) {
+  var nin = new node(file_name_in);
+  if( nin.is_folder ) 
+  {
+    var i, narray = nin.nodes("*.csp");
+    for(i = 0; i < narray.length; i++)
+      if( narray[i].is_file ) do_parse(narray[i]);
+  } 
+  else if(nin.is_file) do_parse(nin);
+  else out.printf("ERROR: cannot find '%s'\n",file_name_in);
+  
+}

@@ -1,0 +1,120 @@
+# Project: csmile
+# Makefile created by Dev-C++ 4.9.3.0
+
+CC   = g++.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = main.o vm/vm_interpret.o vm/compiler.o vm/cs_ext.o vm/cs_main.o vm/debug.o vm/mm.o vm/rtl.o vm/rtl_array.o vm/rtl_blob.o vm/rtl_date.o vm/rtl_file.o vm/rtl_map.o vm/rtl_regexp.o vm/rtl_socket.o vm/rtl_stream.o vm/rtl_string.o vm/scanner.o vm/streams.o vm/sym_table.o vm/things.o vm/threads.o vm/VM.o vm/archive.o sal/console.o sal/multfile.o sal/w32sock.o sal/winfile.o sal/wtask.o tool/cs_datetime.o tool/cs_regexp.o tool/cs_string.o tool/cs_url.o $(RES)
+LIBS =  -L"e:\Dev-C++\lib" -lws2_32 -mthreads
+INCS =  -I"e:\Dev-C++\include"  -I"e:\Dev-C++\include\g++-3"  -I"e:\Dev-C++\include"  -I"vm"  -I"sal"  -I"E:\c-smile\c-smile\tool" 
+BIN  = csmile.exe
+CFLAGS = $(INCS) -DCOMPILER -mthreads -fexceptions -g3
+
+.PHONY: clean
+
+all: csmile.exe
+
+clean:
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(OBJ) -o $(BIN) $(RES) $(LIBS) $(CFLAGS)
+
+main.o: main.cpp 
+	$(CC) -c main.cpp -o main.o $(CFLAGS)
+
+vm/vm_interpret.o: vm/vm_interpret.cpp 
+	$(CC) -c vm/vm_interpret.cpp -o vm/vm_interpret.o $(CFLAGS)
+
+vm/compiler.o: vm/compiler.cpp 
+	$(CC) -c vm/compiler.cpp -o vm/compiler.o $(CFLAGS)
+
+vm/cs_ext.o: vm/cs_ext.cpp 
+	$(CC) -c vm/cs_ext.cpp -o vm/cs_ext.o $(CFLAGS)
+
+vm/cs_main.o: vm/cs_main.cpp 
+	$(CC) -c vm/cs_main.cpp -o vm/cs_main.o $(CFLAGS)
+
+vm/debug.o: vm/debug.cpp 
+	$(CC) -c vm/debug.cpp -o vm/debug.o $(CFLAGS)
+
+vm/mm.o: vm/mm.cpp 
+	$(CC) -c vm/mm.cpp -o vm/mm.o $(CFLAGS)
+
+vm/rtl.o: vm/rtl.cpp 
+	$(CC) -c vm/rtl.cpp -o vm/rtl.o $(CFLAGS)
+
+vm/rtl_array.o: vm/rtl_array.cpp 
+	$(CC) -c vm/rtl_array.cpp -o vm/rtl_array.o $(CFLAGS)
+
+vm/rtl_blob.o: vm/rtl_blob.cpp 
+	$(CC) -c vm/rtl_blob.cpp -o vm/rtl_blob.o $(CFLAGS)
+
+vm/rtl_date.o: vm/rtl_date.cpp 
+	$(CC) -c vm/rtl_date.cpp -o vm/rtl_date.o $(CFLAGS)
+
+vm/rtl_file.o: vm/rtl_file.cpp 
+	$(CC) -c vm/rtl_file.cpp -o vm/rtl_file.o $(CFLAGS)
+
+vm/rtl_map.o: vm/rtl_map.cpp 
+	$(CC) -c vm/rtl_map.cpp -o vm/rtl_map.o $(CFLAGS)
+
+vm/rtl_regexp.o: vm/rtl_regexp.cpp 
+	$(CC) -c vm/rtl_regexp.cpp -o vm/rtl_regexp.o $(CFLAGS)
+
+vm/rtl_socket.o: vm/rtl_socket.cpp 
+	$(CC) -c vm/rtl_socket.cpp -o vm/rtl_socket.o $(CFLAGS)
+
+vm/rtl_stream.o: vm/rtl_stream.cpp 
+	$(CC) -c vm/rtl_stream.cpp -o vm/rtl_stream.o $(CFLAGS)
+
+vm/rtl_string.o: vm/rtl_string.cpp 
+	$(CC) -c vm/rtl_string.cpp -o vm/rtl_string.o $(CFLAGS)
+
+vm/scanner.o: vm/scanner.cpp 
+	$(CC) -c vm/scanner.cpp -o vm/scanner.o $(CFLAGS)
+
+vm/streams.o: vm/streams.cpp 
+	$(CC) -c vm/streams.cpp -o vm/streams.o $(CFLAGS)
+
+vm/sym_table.o: vm/sym_table.cpp 
+	$(CC) -c vm/sym_table.cpp -o vm/sym_table.o $(CFLAGS)
+
+vm/things.o: vm/things.cpp 
+	$(CC) -c vm/things.cpp -o vm/things.o $(CFLAGS)
+
+vm/threads.o: vm/threads.cpp 
+	$(CC) -c vm/threads.cpp -o vm/threads.o $(CFLAGS)
+
+vm/VM.o: vm/VM.cpp 
+	$(CC) -c vm/VM.cpp -o vm/VM.o $(CFLAGS)
+
+vm/archive.o: vm/archive.cpp 
+	$(CC) -c vm/archive.cpp -o vm/archive.o $(CFLAGS)
+
+sal/console.o: sal/console.cxx 
+	$(CC) -c sal/console.cxx -o sal/console.o $(CFLAGS)
+
+sal/multfile.o: sal/multfile.cxx 
+	$(CC) -c sal/multfile.cxx -o sal/multfile.o $(CFLAGS)
+
+sal/w32sock.o: sal/w32sock.cxx 
+	$(CC) -c sal/w32sock.cxx -o sal/w32sock.o $(CFLAGS)
+
+sal/winfile.o: sal/winfile.cxx 
+	$(CC) -c sal/winfile.cxx -o sal/winfile.o $(CFLAGS)
+
+sal/wtask.o: sal/wtask.cxx 
+	$(CC) -c sal/wtask.cxx -o sal/wtask.o $(CFLAGS)
+
+tool/cs_datetime.o: tool/cs_datetime.cpp 
+	$(CC) -c tool/cs_datetime.cpp -o tool/cs_datetime.o $(CFLAGS)
+
+tool/cs_regexp.o: tool/cs_regexp.cpp 
+	$(CC) -c tool/cs_regexp.cpp -o tool/cs_regexp.o $(CFLAGS)
+
+tool/cs_string.o: tool/cs_string.cpp 
+	$(CC) -c tool/cs_string.cpp -o tool/cs_string.o $(CFLAGS)
+
+tool/cs_url.o: tool/cs_url.cpp 
+	$(CC) -c tool/cs_url.cpp -o tool/cs_url.o $(CFLAGS)

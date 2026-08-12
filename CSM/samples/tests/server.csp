@@ -1,0 +1,22 @@
+package socket_test;
+
+function listener() {
+	var gatekeeper = new socket("localhost:5000");
+	var i=0;
+	var d;
+	for(i=0;i<1000;i++) {
+		var conn_socket = gatekeeper.accept();
+		if(!d) d = (new date()).time;
+		if(!conn_socket) print("error!\n");
+		var pipe = conn_socket.stream();
+		pipe.printf ("%s\n", d );
+	}
+	print( (new date()).time - d,"\n" );
+	
+}
+
+function main()
+{
+    listener();
+}
+

@@ -1,0 +1,58 @@
+package threads;
+
+
+var all = new array();      
+var   m = new mutex();
+
+
+// will cause garbage collection due to string allocations
+function thread_func(sign) {
+  var i, x = "hello";
+  for (i = 0; i < 1000; ++i) 
+  {
+        // will be suspended here during gc cycle somewhere in pluses
+	    x = x + " hello " + " goodbye ";
+	    // will be awakened after gc cycle
+	    print(sign);
+  }
+  print("*****");
+  synchronized(m) 
+  {  
+  	all[sign] = new thread(thread_func,sign);
+  }
+}
+
+// will not cause garbage collection. nothing allocating 
+// will be active even during gc cycle
+function nongc_thread_func() {
+  var i,x = 0;
+  for (i = 0; i < 1000; ++i) 
+  {
+	   x = x + 1;
+	   print("_");
+  }
+  print("/////");
+  new thread(nongc_thread_func);
+}
+
+
+function main()
+{
+	var i;
+	for (i = 0; i < 10; ++i) all.push(new thread(thread_func,i));
+	new thread(nongc_thread_func);
+	var w;
+	do  
+	{
+	  w = 0;
+	  synchronized(m) 
+	  {
+		  for (i = 0; i < all.length; ++i) 
+		  {        
+		    if(all[i].running) w = 1;
+		  }
+	  }
+	  print("-");
+	} while(w);
+}
+
