@@ -1,3 +1,4 @@
+google-chrome-stable --disable-features=GlobalMediaControls,MediaSessionService
 sudo dd bs=4M if=archlinux-2025.01.01-x86_64.iso of=/dev/sda conv=fsync oflag=direct status=progress
 mvn archetype:generate -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.1
 sqlite3 cookies.sqlite "SELECT host, name, value FROM moz_cookies;"

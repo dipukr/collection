@@ -1,5 +1,7 @@
 DHCP, ICMP, NAT, ARP, BGP, DNS, TCP, UDP, IP, HTTP, FTP, SMTP, IMAP, POP, VOIP, P2P, SNNP, AMQP, TLS, WebSockets, WebHooks
-=====================================================================================================================
+==========================================================================================================================
+Subnet Mask
+Default Gateway
 Monolith
 Client-server model
 Microservices
