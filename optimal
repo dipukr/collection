@@ -11,4 +11,4 @@ User thread local variable when possible.
 Use reader-writer lock when possible.
 Use optimistic lock when possible.
 Use caching for unchanging data.
-
+rg*z2d7^s$DzWgg
