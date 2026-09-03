@@ -1,0 +1,5 @@
+; saral/lang/ArrayIndexOutOfBoundsException
+.class public saral/lang/ArrayIndexOutOfBoundsException
+.super saral/lang/Throwable
+.source ArrayIndexOutOfBoundsException.sasm
+.end class

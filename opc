@@ -1,0 +1,34 @@
+nop
+push
+pop
+npush N
+npop N
+iconst_0
+iconst_1
+iconst_2
+lconst_0
+lconst_1
+lconst_2
+dconst_0
+dconst_1
+dconst_2
+iadd
+ladd
+dadd
+isub
+lsub
+dsub
+imul
+lmul
+dmul
+idiv
+ldiv
+ddiv
+imod
+lmod
+ineg
+lneg
+dneg
+jump OFFSET
+jif OFFSET
+jit OFFSET

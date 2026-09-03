@@ -1,0 +1,26 @@
+; for-style loop: print 1..5 then a newline.
+.class public Loop
+.super saral/lang/Object
+.source Loop.sasm
+
+.method public static main ([Lsaral/lang/String;)V
+  .stack 2
+  .locals 2
+  iconst 1
+  store 1            ; i = 1
+loop:
+  load 1
+  iconst 5
+  if_icmpgt end      ; while i <= 5
+  load 1
+  invokestatic saral/lang/SVM printInt (J)V
+  iconst 32
+  invokestatic saral/lang/SVM printChar (C)V
+  iinc 1 1           ; i++
+  goto loop
+end:
+  iconst 10
+  invokestatic saral/lang/SVM printChar (C)V
+  return
+.end method
+.end class

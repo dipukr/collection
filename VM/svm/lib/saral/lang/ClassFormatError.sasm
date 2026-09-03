@@ -1,0 +1,5 @@
+; saral/lang/ClassFormatError
+.class public saral/lang/ClassFormatError
+.super saral/lang/Throwable
+.source ClassFormatError.sasm
+.end class

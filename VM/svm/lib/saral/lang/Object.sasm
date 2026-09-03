@@ -1,0 +1,25 @@
+; saral/lang/Object - root of the class hierarchy
+.class public saral/lang/Object
+.source Object.sasm
+
+.method public <init> ()V
+  .stack 0
+  .locals 1
+  return
+.end method
+
+.method public native getClass ()Lsaral/lang/Class;
+.end method
+
+.method public native hashCode ()I
+.end method
+
+.method public native wait (J)V
+.end method
+
+.method public native notify ()V
+.end method
+
+.method public native notifyAll ()V
+.end method
+.end class

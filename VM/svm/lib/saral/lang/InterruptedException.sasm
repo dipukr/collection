@@ -1,0 +1,5 @@
+; saral/lang/InterruptedException
+.class public saral/lang/InterruptedException
+.super saral/lang/Throwable
+.source InterruptedException.sasm
+.end class

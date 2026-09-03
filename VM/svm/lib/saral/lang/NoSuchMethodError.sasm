@@ -1,0 +1,5 @@
+; saral/lang/NoSuchMethodError
+.class public saral/lang/NoSuchMethodError
+.super saral/lang/Throwable
+.source NoSuchMethodError.sasm
+.end class

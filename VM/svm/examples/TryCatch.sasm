@@ -1,0 +1,26 @@
+; try / catch / finally with a divide-by-zero.
+.class public TryCatch
+.super saral/lang/Object
+.source TryCatch.sasm
+
+.method public static main ([Lsaral/lang/String;)V
+  .stack 3
+  .locals 2
+  .catch saral/lang/ArithmeticException tryStart tryEnd handler
+tryStart:
+  iconst 10
+  iconst 0
+  idiv               ; throws ArithmeticException
+  store 1            ; (not reached)
+  goto finally
+tryEnd:
+handler:
+  store 1            ; pop the exception reference
+  ldc str "caught divide-by-zero\n"
+  invokestatic saral/lang/SVM printString (Lsaral/lang/String;)V
+finally:
+  ldc str "finally block ran\n"
+  invokestatic saral/lang/SVM printString (Lsaral/lang/String;)V
+  return
+.end method
+.end class

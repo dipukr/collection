@@ -1,0 +1,28 @@
+; saral/lang/Thread - subclass and override run(), then call start().
+.class public saral/lang/Thread
+.super saral/lang/Object
+.source Thread.sasm
+
+.method public <init> ()V
+  .stack 1
+  .locals 1
+  load 0
+  invokespecial saral/lang/Object <init> ()V
+  return
+.end method
+
+.method public native start ()V
+.end method
+
+.method public static native sleep (J)V
+.end method
+
+.method public static native yield ()V
+.end method
+
+.method public run ()V
+  .stack 0
+  .locals 1
+  return
+.end method
+.end class

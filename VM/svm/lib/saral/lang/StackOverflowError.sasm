@@ -1,0 +1,5 @@
+; saral/lang/StackOverflowError
+.class public saral/lang/StackOverflowError
+.super saral/lang/Throwable
+.source StackOverflowError.sasm
+.end class

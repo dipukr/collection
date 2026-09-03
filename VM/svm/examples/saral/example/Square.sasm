@@ -1,0 +1,29 @@
+.class public saral/example/Square
+.super saral/lang/Object
+.interface saral/example/Shape
+.source Square.sasm
+
+.field private side D
+
+.method public <init> (D)V
+  .stack 3
+  .locals 2
+  load 0
+  invokespecial saral/lang/Object <init> ()V
+  load 0
+  load 1
+  putfield saral/example/Square side D
+  return
+.end method
+
+.method public area ()D
+  .stack 2
+  .locals 1
+  load 0
+  getfield saral/example/Square side D
+  load 0
+  getfield saral/example/Square side D
+  dmul
+  ireturn
+.end method
+.end class

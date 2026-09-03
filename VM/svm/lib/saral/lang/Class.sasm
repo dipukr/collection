@@ -1,0 +1,15 @@
+; saral/lang/Class - runtime representation of a class.
+; Instances are created by the VM (allocClass), not by Saral code; the real
+; state lives in the C-level ClassBlock, so this type declares no fields.
+.class public final saral/lang/Class
+.super saral/lang/Object
+.source Class.sasm
+
+.method public <init> ()V
+  .stack 1
+  .locals 1
+  load 0
+  invokespecial saral/lang/Object <init> ()V
+  return
+.end method
+.end class

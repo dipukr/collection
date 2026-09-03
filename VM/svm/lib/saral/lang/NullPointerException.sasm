@@ -1,0 +1,5 @@
+; saral/lang/NullPointerException
+.class public saral/lang/NullPointerException
+.super saral/lang/Throwable
+.source NullPointerException.sasm
+.end class

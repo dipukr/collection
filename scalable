@@ -1,0 +1,2 @@
+Use one object in method param instead of many atomic parameters.
+Use list of objects instead of single object in function param or API payload.

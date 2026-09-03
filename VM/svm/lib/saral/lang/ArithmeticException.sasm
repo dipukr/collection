@@ -1,0 +1,5 @@
+; saral/lang/ArithmeticException
+.class public saral/lang/ArithmeticException
+.super saral/lang/Throwable
+.source ArithmeticException.sasm
+.end class

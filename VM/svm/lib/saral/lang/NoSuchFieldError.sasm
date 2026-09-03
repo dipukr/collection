@@ -1,0 +1,5 @@
+; saral/lang/NoSuchFieldError
+.class public saral/lang/NoSuchFieldError
+.super saral/lang/Throwable
+.source NoSuchFieldError.sasm
+.end class

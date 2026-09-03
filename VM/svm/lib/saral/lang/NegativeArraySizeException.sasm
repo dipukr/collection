@@ -1,0 +1,5 @@
+; saral/lang/NegativeArraySizeException
+.class public saral/lang/NegativeArraySizeException
+.super saral/lang/Throwable
+.source NegativeArraySizeException.sasm
+.end class

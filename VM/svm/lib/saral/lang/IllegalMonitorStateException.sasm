@@ -1,0 +1,5 @@
+; saral/lang/IllegalMonitorStateException
+.class public saral/lang/IllegalMonitorStateException
+.super saral/lang/Throwable
+.source IllegalMonitorStateException.sasm
+.end class

@@ -1,0 +1,31 @@
+.class public saral/example/Circle
+.super saral/lang/Object
+.interface saral/example/Shape
+.source Circle.sasm
+
+.field private r D
+
+.method public <init> (D)V
+  .stack 3
+  .locals 2
+  load 0
+  invokespecial saral/lang/Object <init> ()V
+  load 0
+  load 1
+  putfield saral/example/Circle r D
+  return
+.end method
+
+.method public area ()D
+  .stack 2
+  .locals 1
+  load 0
+  getfield saral/example/Circle r D
+  load 0
+  getfield saral/example/Circle r D
+  dmul
+  ldc num 3.14159265
+  dmul
+  ireturn
+.end method
+.end class

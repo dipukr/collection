@@ -1,0 +1,36 @@
+; saral/lang/Throwable - base of all exceptions.
+; Fields "message" and "backtrace" are used by the VM (excep.c).
+.class public saral/lang/Throwable
+.super saral/lang/Object
+.source Throwable.sasm
+
+.field private message Lsaral/lang/String;
+.field private backtrace [J
+
+.method public <init> ()V
+  .stack 1
+  .locals 1
+  load 0
+  invokespecial saral/lang/Object <init> ()V
+  return
+.end method
+
+.method public <init> (Lsaral/lang/String;)V
+  .stack 2
+  .locals 2
+  load 0
+  invokespecial saral/lang/Object <init> ()V
+  load 0
+  load 1
+  putfield saral/lang/Throwable message Lsaral/lang/String;
+  return
+.end method
+
+.method public getMessage ()Lsaral/lang/String;
+  .stack 1
+  .locals 1
+  load 0
+  getfield saral/lang/Throwable message Lsaral/lang/String;
+  ireturn
+.end method
+.end class

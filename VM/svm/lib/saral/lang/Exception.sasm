@@ -1,0 +1,5 @@
+; saral/lang/Exception
+.class public saral/lang/Exception
+.super saral/lang/Throwable
+.source Exception.sasm
+.end class
