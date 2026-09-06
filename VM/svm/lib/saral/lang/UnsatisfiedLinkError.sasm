@@ -1,5 +1,0 @@
-; saral/lang/UnsatisfiedLinkError
-.class public saral/lang/UnsatisfiedLinkError
-.super saral/lang/Throwable
-.source UnsatisfiedLinkError.sasm
-.end class

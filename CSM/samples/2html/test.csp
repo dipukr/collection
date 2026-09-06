@@ -1,3 +1,0 @@
-function emit_number(tok) {
-  _out.printf("<FONT color='%s'>%s</FONT>",NUMBER_COLOR,tok);
-}

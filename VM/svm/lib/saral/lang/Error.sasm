@@ -1,5 +1,0 @@
-; saral/lang/Error
-.class public saral/lang/Error
-.super saral/lang/Throwable
-.source Error.sasm
-.end class

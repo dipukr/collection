@@ -1,5 +1,0 @@
-; saral/lang/OutOfMemoryError
-.class public saral/lang/OutOfMemoryError
-.super saral/lang/Throwable
-.source OutOfMemoryError.sasm
-.end class

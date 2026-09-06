@@ -1,9 +1,0 @@
-
-function main() {
-
-  var a = new array ( 1, 2, 3 );
-  print ("length=", a.length, "\n" );
-  for ( var i=0; i < a.length; i++ )
-    print("a[",i,"]=",a[i],"\n");
-  
-}

@@ -1,7 +1,0 @@
-package helloworld;
-
-function main() 
-{
-  out.printf("Hello world!");
-  // std::out.printf("Hello world!");
-}

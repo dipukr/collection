@@ -1,5 +1,0 @@
-; saral/lang/NoClassDefFoundError
-.class public saral/lang/NoClassDefFoundError
-.super saral/lang/Throwable
-.source NoClassDefFoundError.sasm
-.end class

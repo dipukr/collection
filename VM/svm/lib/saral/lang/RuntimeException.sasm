@@ -1,5 +1,0 @@
-; saral/lang/RuntimeException
-.class public saral/lang/RuntimeException
-.super saral/lang/Throwable
-.source RuntimeException.sasm
-.end class

@@ -1,5 +1,0 @@
-; saral/lang/ClassCastException
-.class public saral/lang/ClassCastException
-.super saral/lang/Throwable
-.source ClassCastException.sasm
-.end class

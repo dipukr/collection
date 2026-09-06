@@ -1,8 +1,0 @@
-; An interface with one abstract method.
-.class public interface abstract saral/example/Shape
-.super saral/lang/Object
-.source Shape.sasm
-
-.method public abstract area ()D
-.end method
-.end class
