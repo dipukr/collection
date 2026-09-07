@@ -1,0 +1,724 @@
+<title>CQRS Design Pattern — Spring Boot Guide</title>
+<style>
+  :root{
+    --paper:#f4ecd8; --paper-edge:#e7dcc0; --card:#fbf6e9; --card2:#f1e8d0;
+    --ink:#3a3326; --ink-soft:#6b5f48; --muted:#8a7d62;
+    --accent:#9a3b2e; --accent2:#1f6f5c; --gold:#b9892f;
+    --border:#d9cba8; --code-bg:#1e1b17; --shadow:rgba(74,61,38,.14);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;
+       font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+       background:var(--paper);
+       background-image:radial-gradient(circle at 50% -10%,#fbf6e9 0%,var(--paper) 45%,var(--paper-edge) 100%);
+       background-attachment:fixed;
+       color:var(--ink);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+
+  header{position:relative;text-align:center;padding:54px 20px 46px;
+         background:linear-gradient(180deg,#fbf6e9,#f0e6cc);
+         border-bottom:1px solid var(--border);box-shadow:0 1px 0 #fff inset}
+  header::after{content:"";position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+                width:90px;height:3px;border-radius:3px;
+                background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  header h1{margin:0;font-size:2.4rem;letter-spacing:.5px;color:var(--accent);
+            font-weight:600;text-shadow:0 1px 0 #fff}
+  header p{margin:12px 0 0;color:var(--ink-soft);font-style:italic;font-size:1.05rem}
+
+  .wrap{max-width:1020px;margin:0 auto;padding:28px 20px 90px}
+
+  nav.toc{background:var(--card);border:1px solid var(--border);border-radius:10px;
+          padding:20px 24px;margin:26px 0;box-shadow:0 4px 18px var(--shadow)}
+  nav.toc h2{margin:0 0 12px;font-size:.95rem;color:var(--gold);text-transform:uppercase;
+             letter-spacing:.12em;font-weight:600}
+  nav.toc ul{margin:0;padding:0;list-style:none;display:grid;
+             grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:7px 22px}
+  nav.toc a{color:var(--ink);text-decoration:none;font-size:.92rem;
+            border-bottom:1px dotted transparent;transition:color .15s,border-color .15s}
+  nav.toc a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+  section{background:var(--card);border:1px solid var(--border);border-radius:10px;
+          padding:26px 30px;margin:22px 0;box-shadow:0 4px 18px var(--shadow)}
+  section h2{margin-top:0;color:var(--accent);font-size:1.5rem;font-weight:600;
+             border-bottom:2px solid var(--border);padding-bottom:12px;scroll-margin-top:16px}
+  h3{color:var(--accent2);margin:24px 0 8px;font-size:1.15rem;font-weight:600}
+  h4{color:var(--ink-soft);margin:18px 0 6px;font-size:1rem;font-weight:600;
+     font-family:Consolas,"SF Mono",monospace}
+  p{margin:10px 0}
+  p.note{color:var(--muted);margin:6px 0 14px;font-style:italic}
+
+  pre{background:var(--code-bg);border:1px solid #100e0b;border-radius:8px;
+      padding:14px 16px;overflow-x:auto;margin:12px 0;
+      box-shadow:0 3px 12px rgba(43,39,34,.25)}
+  code{font-family:Consolas,"SF Mono","Fira Code","Roboto Mono",monospace}
+  pre code{color:#e6e0d2;white-space:pre;font-size:12.5px;line-height:1.5}
+  :not(pre)>code{background:#efe4c9;padding:2px 7px;border-radius:5px;
+                 color:#8a3322;font-size:.82rem;border:1px solid #e3d4ac}
+  .file{font-family:Consolas,monospace;font-size:.78rem;color:var(--gold);
+        text-transform:none;letter-spacing:.02em;margin:16px 0 -4px;display:block;
+        border-left:3px solid var(--gold);padding-left:8px}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem;
+        background:var(--card);border-radius:3px;overflow:hidden;box-shadow:0 1px 0 #fff inset}
+  th,td{border:1px solid var(--border);padding:9px 13px;text-align:left;vertical-align:top}
+  th{background:var(--card2);color:var(--accent);font-weight:600}
+  tr:nth-child(even) td{background:rgba(155,59,46,.04)}
+
+  ul:not(nav ul){margin:8px 0 4px;padding-left:22px}
+  ul:not(nav ul) li{margin:5px 0}
+
+  .diagram{background:var(--code-bg);border-radius:8px;padding:18px 16px;margin:14px 0;
+           overflow-x:auto;box-shadow:0 3px 12px rgba(43,39,34,.25)}
+  .diagram pre{background:none;border:none;box-shadow:none;margin:0;padding:0}
+  .diagram pre code{color:#cfe8df;font-size:12px}
+
+  .pill{display:inline-block;font-family:Consolas,monospace;font-size:.72rem;
+        padding:2px 9px;border-radius:20px;margin-right:6px;font-weight:600}
+  .pill.cmd{background:#9a3b2e;color:#fbf6e9}
+  .pill.qry{background:#1f6f5c;color:#fbf6e9}
+
+  footer{text-align:center;color:var(--muted);font-size:.82rem;padding:34px 20px;font-style:italic}
+</style>
+
+<header>
+  <h1>CQRS Design Pattern</h1>
+  <p>Command Query Responsibility Segregation — a complete guide with Java &amp; Spring Boot</p>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>Contents</h2>
+  <ul>
+    <li><a href="#what">What is CQRS?</a></li>
+    <li><a href="#why">Why &amp; When to Use</a></li>
+    <li><a href="#tradeoffs">Benefits &amp; Trade-offs</a></li>
+    <li><a href="#arch">Architecture</a></li>
+    <li><a href="#example">The Example Domain</a></li>
+    <li><a href="#deps">Dependencies</a></li>
+    <li><a href="#models">Write &amp; Read Models</a></li>
+    <li><a href="#commands">Command Side</a></li>
+    <li><a href="#queries">Query Side</a></li>
+    <li><a href="#bus">Command/Query Bus</a></li>
+    <li><a href="#controller">REST Controller</a></li>
+    <li><a href="#sync">Syncing the Read Model</a></li>
+    <li><a href="#tips">Practical Tips</a></li>
+  </ul>
+</nav>
+
+<section id="what">
+  <h2>What is CQRS?</h2>
+  <p><b>CQRS</b> (Command Query Responsibility Segregation) separates the model that <i>changes</i>
+  state from the model that <i>reads</i> state. Instead of one model serving both reads and writes,
+  you build two:</p>
+  <ul>
+    <li><span class="pill cmd">COMMAND</span> The <b>write side</b> — handles intentions to change state
+        (<code>CreateProduct</code>, <code>ChangePrice</code>). Returns nothing (or just an id).
+        Enforces business rules and invariants.</li>
+    <li><span class="pill qry">QUERY</span> The <b>read side</b> — answers questions
+        (<code>GetProductById</code>, <code>SearchProducts</code>). Returns DTOs.
+        Has no side effects.</li>
+  </ul>
+  <p>It grows out of the <b>CQS</b> principle (Bertrand Meyer): <i>"a method should either change state
+  or return data, but never both."</i> CQRS applies that idea at the architectural level.</p>
+</section>
+
+<section id="why">
+  <h2>Why &amp; When to Use It</h2>
+  <p>A single model that serves both reads and writes tends to become a compromise — over-normalized
+  for queries, or littered with read concerns that pollute the domain. CQRS is worth it when:</p>
+  <ul>
+    <li>Read and write workloads have <b>very different shapes or scale</b> (e.g. 100:1 read/write ratio).</li>
+    <li>The query side needs <b>denormalized / pre-computed views</b> that don't match the write schema.</li>
+    <li>You're using <b>Event Sourcing</b> (CQRS is its natural companion).</li>
+    <li>Complex domains where <b>task-based commands</b> express intent better than CRUD.</li>
+  </ul>
+  <p class="note">Don't reach for CQRS on simple CRUD apps — the extra moving parts cost more than they
+  return. It shines in complex, high-scale, or collaborative domains.</p>
+</section>
+
+<section id="tradeoffs">
+  <h2>Benefits &amp; Trade-offs</h2>
+  <table>
+    <tr><th>Benefits</th><th>Trade-offs</th></tr>
+    <tr>
+      <td>Read &amp; write sides scale independently</td>
+      <td>More classes and indirection</td>
+    </tr>
+    <tr>
+      <td>Optimized read models (denormalized, fast)</td>
+      <td>Eventual consistency between models</td>
+    </tr>
+    <tr>
+      <td>Clear separation of concerns &amp; intent</td>
+      <td>Data duplication / sync logic</td>
+    </tr>
+    <tr>
+      <td>Easier to reason about business rules</td>
+      <td>Higher operational complexity</td>
+    </tr>
+  </table>
+</section>
+
+<section id="arch">
+  <h2>Architecture</h2>
+  <p>A request enters through a controller, which dispatches either a <b>command</b> or a <b>query</b>.
+  Each goes to its own handler and its own model. The two stores may be the same database (simplest)
+  or physically separate, kept in sync via events.</p>
+  <div class="diagram"><pre><code>                         ┌─────────────────────┐
+        write  ─────────▶ │   CommandController  │
+   (POST/PUT/DELETE)      └──────────┬──────────┘
+                                     │ dispatch
+                                     ▼
+                          ┌─────────────────────┐      ┌──────────────┐
+                          │   Command Handlers   │────▶ │  WRITE MODEL │
+                          │ (validate, mutate)   │      │ (normalized) │
+                          └──────────┬──────────┘      └──────┬───────┘
+                                     │ publishes event        │
+                                     ▼                        ▼
+                          ┌─────────────────────┐      ┌──────────────┐
+                          │   Event Listener     │────▶ │  READ MODEL  │
+                          │ (project to view)    │      │ (denormalized│
+                          └─────────────────────┘      │   /  fast)   │
+                                                        └──────┬───────┘
+                                     ┌──────────────────────── ┘
+                                     ▼
+        read   ─────────▶ ┌─────────────────────┐
+       (GET)              │    QueryController   │──▶ Query Handlers ──▶ DTOs
+                          └─────────────────────┘</code></pre></div>
+</section>
+
+<section id="example">
+  <h2>The Example Domain</h2>
+  <p>We'll build a small <b>Product Catalog</b> service. The write side stores a normalized
+  <code>Product</code> entity; the read side serves a denormalized <code>ProductView</code> optimized
+  for listing and search. We keep both in one database here for clarity, synced through an in-process
+  domain event.</p>
+  <p class="note">The full source below is a runnable Spring Boot 3.x skeleton (Java 17+). Package root:
+  <code>com.example.catalog</code>.</p>
+</section>
+
+<section id="deps">
+  <h2>Dependencies</h2>
+  <span class="file">pom.xml (excerpt)</span>
+<pre><code>&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+        &lt;artifactId&gt;h2&lt;/artifactId&gt;
+        &lt;scope&gt;runtime&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+        &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+        &lt;optional&gt;true&lt;/optional&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</section>
+
+<section id="models">
+  <h2>Write &amp; Read Models</h2>
+  <p>Two separate JPA entities, each tuned for its job. The write model is normalized and carries
+  behavior; the read model is a flat, query-friendly projection.</p>
+
+  <h3>Write Model — normalized, behavior-rich</h3>
+  <span class="file">domain/Product.java</span>
+<pre><code>package com.example.catalog.domain;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.math.BigDecimal;
+import java.time.Instant;
+
+@Entity
+@Table(name = "products")
+@Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Product {
+
+    @Id
+    private String id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String category;
+
+    @Column(nullable = false)
+    private BigDecimal price;
+
+    private int stock;
+
+    private Instant updatedAt;
+
+    public Product(String id, String name, String category,
+                   BigDecimal price, int stock) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        setPrice(price);          // funnel through invariant
+        this.stock = stock;
+        this.updatedAt = Instant.now();
+    }
+
+    /* ---- behavior: invariants live in the write model ---- */
+
+    public void changePrice(BigDecimal newPrice) {
+        setPrice(newPrice);
+        this.updatedAt = Instant.now();
+    }
+
+    public void adjustStock(int delta) {
+        if (this.stock + delta &lt; 0)
+            throw new IllegalArgumentException("Stock cannot go negative");
+        this.stock += delta;
+        this.updatedAt = Instant.now();
+    }
+
+    private void setPrice(BigDecimal price) {
+        if (price == null || price.signum() &lt; 0)
+            throw new IllegalArgumentException("Price must be &gt;= 0");
+        this.price = price;
+    }
+}</code></pre>
+
+  <h3>Read Model — denormalized projection</h3>
+  <span class="file">readmodel/ProductView.java</span>
+<pre><code>package com.example.catalog.readmodel;
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "product_view",
+       indexes = {
+           @Index(name = "idx_view_category", columnList = "category"),
+           @Index(name = "idx_view_name",     columnList = "name")
+       })
+@Getter @Setter @NoArgsConstructor
+public class ProductView {
+
+    @Id
+    private String id;
+    private String name;
+    private String category;
+    private BigDecimal price;
+    private int stock;
+
+    // a precomputed, query-friendly field that the write model
+    // would never store directly
+    private String displayLabel;     // e.g. "Laptop — Electronics ($999.00)"
+}</code></pre>
+
+  <h4>Repositories</h4>
+  <span class="file">domain/ProductRepository.java &nbsp;·&nbsp; readmodel/ProductViewRepository.java</span>
+<pre><code>package com.example.catalog.domain;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository&lt;Product, String&gt; { }
+
+// ---------------------------------------------------------------
+
+package com.example.catalog.readmodel;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface ProductViewRepository
+        extends JpaRepository&lt;ProductView, String&gt; {
+
+    List&lt;ProductView&gt; findByCategory(String category);
+
+    List&lt;ProductView&gt; findByNameContainingIgnoreCase(String fragment);
+}</code></pre>
+</section>
+
+<section id="commands">
+  <h2>Command Side <span class="pill cmd">WRITE</span></h2>
+  <p>Commands are immutable, intent-revealing records. Each has exactly one handler that loads the
+  aggregate, applies the change, persists it, and publishes a domain event.</p>
+
+  <h3>Command definitions</h3>
+  <span class="file">command/ProductCommands.java</span>
+<pre><code>package com.example.catalog.command;
+
+import jakarta.validation.constraints.*;
+import java.math.BigDecimal;
+
+/** Marker interface — every command implements it. */
+public interface Command { }
+
+public record CreateProductCommand(
+        @NotBlank String name,
+        @NotBlank String category,
+        @NotNull @PositiveOrZero BigDecimal price,
+        @PositiveOrZero int stock
+) implements Command { }
+
+public record ChangePriceCommand(
+        @NotBlank String productId,
+        @NotNull @PositiveOrZero BigDecimal newPrice
+) implements Command { }
+
+public record AdjustStockCommand(
+        @NotBlank String productId,
+        int delta
+) implements Command { }</code></pre>
+
+  <h3>Domain event (links write → read)</h3>
+  <span class="file">command/ProductChangedEvent.java</span>
+<pre><code>package com.example.catalog.command;
+
+import com.example.catalog.domain.Product;
+
+/** Published after any successful write so the read side can re-project. */
+public record ProductChangedEvent(Product product) { }</code></pre>
+
+  <h3>Command handlers</h3>
+  <span class="file">command/ProductCommandHandler.java</span>
+<pre><code>package com.example.catalog.command;
+
+import com.example.catalog.domain.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+public class ProductCommandHandler {
+
+    private final ProductRepository repository;
+    private final ApplicationEventPublisher events;
+
+    @Transactional
+    public String handle(CreateProductCommand cmd) {
+        Product product = new Product(
+                UUID.randomUUID().toString(),
+                cmd.name(), cmd.category(), cmd.price(), cmd.stock());
+        repository.save(product);
+        events.publishEvent(new ProductChangedEvent(product));
+        return product.getId();
+    }
+
+    @Transactional
+    public void handle(ChangePriceCommand cmd) {
+        Product product = load(cmd.productId());
+        product.changePrice(cmd.newPrice());
+        events.publishEvent(new ProductChangedEvent(product));
+    }
+
+    @Transactional
+    public void handle(AdjustStockCommand cmd) {
+        Product product = load(cmd.productId());
+        product.adjustStock(cmd.delta());
+        events.publishEvent(new ProductChangedEvent(product));
+    }
+
+    private Product load(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -&gt; new ProductNotFoundException(id));
+    }
+}</code></pre>
+  <span class="file">domain/ProductNotFoundException.java</span>
+<pre><code>package com.example.catalog.domain;
+
+public class ProductNotFoundException extends RuntimeException {
+    public ProductNotFoundException(String id) {
+        super("Product not found: " + id);
+    }
+}</code></pre>
+</section>
+
+<section id="queries">
+  <h2>Query Side <span class="pill qry">READ</span></h2>
+  <p>Queries return DTOs straight from the read model — no domain entities cross the boundary, and
+  there are no side effects. Note the <code>@Transactional(readOnly = true)</code>.</p>
+
+  <h3>Query &amp; DTO definitions</h3>
+  <span class="file">query/ProductQueries.java</span>
+<pre><code>package com.example.catalog.query;
+
+import java.math.BigDecimal;
+
+public interface Query { }
+
+public record GetProductByIdQuery(String id) implements Query { }
+public record FindByCategoryQuery(String category) implements Query { }
+public record SearchByNameQuery(String fragment)  implements Query { }
+
+/** Read DTO returned to clients — decoupled from JPA entities. */
+public record ProductDto(
+        String id,
+        String name,
+        String category,
+        BigDecimal price,
+        int stock,
+        String displayLabel
+) { }</code></pre>
+
+  <h3>Query handler</h3>
+  <span class="file">query/ProductQueryHandler.java</span>
+<pre><code>package com.example.catalog.query;
+
+import com.example.catalog.domain.ProductNotFoundException;
+import com.example.catalog.readmodel.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class ProductQueryHandler {
+
+    private final ProductViewRepository views;
+
+    public ProductDto handle(GetProductByIdQuery q) {
+        return views.findById(q.id())
+                .map(this::toDto)
+                .orElseThrow(() -&gt; new ProductNotFoundException(q.id()));
+    }
+
+    public List&lt;ProductDto&gt; handle(FindByCategoryQuery q) {
+        return views.findByCategory(q.category())
+                .stream().map(this::toDto).toList();
+    }
+
+    public List&lt;ProductDto&gt; handle(SearchByNameQuery q) {
+        return views.findByNameContainingIgnoreCase(q.fragment())
+                .stream().map(this::toDto).toList();
+    }
+
+    private ProductDto toDto(ProductView v) {
+        return new ProductDto(v.getId(), v.getName(), v.getCategory(),
+                v.getPrice(), v.getStock(), v.getDisplayLabel());
+    }
+}</code></pre>
+</section>
+
+<section id="bus">
+  <h2>Optional: A Simple Command/Query Bus</h2>
+  <p>For larger apps you can decouple controllers from handlers with a dispatcher (a "bus") that routes
+  each message to its registered handler. For a small service, calling the handlers directly (as in the
+  controller below) is perfectly fine. A minimal generic gateway:</p>
+  <span class="file">bus/Mediator.java</span>
+<pre><code>package com.example.catalog.bus;
+
+import com.example.catalog.command.*;
+import com.example.catalog.query.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import java.util.List;
+
+/**
+ * Thin facade so callers depend on one entry point instead of
+ * many handlers. Extend with a registry/reflection if you want
+ * fully generic dispatch.
+ */
+@Component
+@RequiredArgsConstructor
+public class Mediator {
+
+    private final ProductCommandHandler commands;
+    private final ProductQueryHandler   queries;
+
+    public String send(CreateProductCommand c) { return commands.handle(c); }
+    public void   send(ChangePriceCommand c)   { commands.handle(c); }
+    public void   send(AdjustStockCommand c)   { commands.handle(c); }
+
+    public ProductDto       ask(GetProductByIdQuery q) { return queries.handle(q); }
+    public List&lt;ProductDto&gt; ask(FindByCategoryQuery q) { return queries.handle(q); }
+    public List&lt;ProductDto&gt; ask(SearchByNameQuery q)   { return queries.handle(q); }
+}</code></pre>
+</section>
+
+<section id="controller">
+  <h2>REST Controller</h2>
+  <p>The controller is the thinnest possible layer: translate HTTP into a command or query, dispatch,
+  and return. Writes go through <code>POST/PUT</code>; reads through <code>GET</code>.</p>
+  <span class="file">api/ProductController.java</span>
+<pre><code>package com.example.catalog.api;
+
+import com.example.catalog.bus.Mediator;
+import com.example.catalog.command.*;
+import com.example.catalog.query.*;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import java.net.URI;
+import java.math.BigDecimal;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/products")
+@RequiredArgsConstructor
+public class ProductController {
+
+    private final Mediator mediator;
+
+    /* ---------------- WRITE (commands) ---------------- */
+
+    @PostMapping
+    public ResponseEntity&lt;Void&gt; create(@Valid @RequestBody CreateProductCommand cmd) {
+        String id = mediator.send(cmd);
+        return ResponseEntity.created(URI.create("/api/products/" + id)).build();
+    }
+
+    @PutMapping("/{id}/price")
+    public ResponseEntity&lt;Void&gt; changePrice(@PathVariable String id,
+                                            @RequestBody BigDecimal newPrice) {
+        mediator.send(new ChangePriceCommand(id, newPrice));
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/stock")
+    public ResponseEntity&lt;Void&gt; adjustStock(@PathVariable String id,
+                                            @RequestBody int delta) {
+        mediator.send(new AdjustStockCommand(id, delta));
+        return ResponseEntity.noContent().build();
+    }
+
+    /* ---------------- READ (queries) ------------------ */
+
+    @GetMapping("/{id}")
+    public ProductDto getById(@PathVariable String id) {
+        return mediator.ask(new GetProductByIdQuery(id));
+    }
+
+    @GetMapping
+    public List&lt;ProductDto&gt; list(@RequestParam(required = false) String category,
+                                @RequestParam(required = false) String search) {
+        if (category != null) return mediator.ask(new FindByCategoryQuery(category));
+        if (search   != null) return mediator.ask(new SearchByNameQuery(search));
+        return List.of();
+    }
+}</code></pre>
+
+  <h4>Exception handling</h4>
+  <span class="file">api/ApiExceptionHandler.java</span>
+<pre><code>package com.example.catalog.api;
+
+import com.example.catalog.domain.ProductNotFoundException;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+
+@RestControllerAdvice
+public class ApiExceptionHandler {
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity&lt;String&gt; notFound(ProductNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity&lt;String&gt; badRequest(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+}</code></pre>
+</section>
+
+<section id="sync">
+  <h2>Syncing the Read Model (Projection)</h2>
+  <p>This is the heart of CQRS: after every successful write, the read model must be updated. Here an
+  event listener rebuilds the <code>ProductView</code> from the changed aggregate. We use
+  <code>AFTER_COMMIT</code> so the projection only runs once the write transaction has safely committed.</p>
+  <span class="file">readmodel/ProductProjection.java</span>
+<pre><code>package com.example.catalog.readmodel;
+
+import com.example.catalog.command.ProductChangedEvent;
+import com.example.catalog.domain.Product;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.*;
+import org.springframework.transaction.event.TransactionalEventListener;
+import org.springframework.transaction.event.TransactionPhase;
+
+@Component
+@RequiredArgsConstructor
+public class ProductProjection {
+
+    private final ProductViewRepository views;
+
+    /**
+     * Runs after the write transaction commits, in its own transaction.
+     * In a distributed setup this listener would instead consume a
+     * message from Kafka/RabbitMQ and could live in a separate service.
+     */
+    @Async
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void on(ProductChangedEvent event) {
+        Product p = event.product();
+
+        ProductView view = views.findById(p.getId())
+                .orElseGet(ProductView::new);
+
+        view.setId(p.getId());
+        view.setName(p.getName());
+        view.setCategory(p.getCategory());
+        view.setPrice(p.getPrice());
+        view.setStock(p.getStock());
+        // precompute the denormalized field the read side serves
+        view.setDisplayLabel(
+            "%s — %s ($%s)".formatted(p.getName(), p.getCategory(), p.getPrice()));
+
+        views.save(view);
+    }
+}</code></pre>
+  <p class="note">Enable async listeners with <code>@EnableAsync</code> on a
+  <code>@Configuration</code> class (or the main application class).</p>
+  <span class="file">CatalogApplication.java</span>
+<pre><code>package com.example.catalog;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
+
+@EnableAsync
+@SpringBootApplication
+public class CatalogApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(CatalogApplication.class, args);
+    }
+}</code></pre>
+</section>
+
+<section id="tips">
+  <h2>Practical Tips</h2>
+  <ul>
+    <li><b>Start simple.</b> Begin with one database and in-process events (as above). Split stores
+        only when scale demands it.</li>
+    <li><b>Embrace eventual consistency.</b> The read model may lag the write model by milliseconds.
+        Design the UI/API to tolerate it (e.g. return the created id and let the client poll, or read
+        from the write side immediately after a write).</li>
+    <li><b>Commands return little.</b> Ideally <code>void</code> or just an id — not the full object.</li>
+    <li><b>Queries never mutate.</b> Keep them <code>readOnly</code> and side-effect free.</li>
+    <li><b>One handler per command.</b> Keeps responsibilities crisp and testable.</li>
+    <li><b>CQRS ≠ Event Sourcing.</b> They pair well but are independent. You can do CQRS with plain
+        JPA, as shown here.</li>
+    <li><b>For heavy lifting</b> consider the <code>Axon Framework</code>, which provides a command bus,
+        query bus, event store, and sagas out of the box.</li>
+  </ul>
+</section>
+
+<footer>
+  CQRS Design Pattern — Spring Boot reference note. Code targets Spring Boot 3.x / Java 17+.
+</footer>
+
+</div>
