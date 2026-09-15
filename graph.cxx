@@ -92,7 +92,7 @@ void breadth_first_search_shortest_path(vector<vector<int>> &graph, int start)
 	}
 }
 
-int main()
+void main()
 {
 	vector<vector<edge>> graph(6);
 	connect(graph, 0, 1, 1);

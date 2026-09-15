@@ -278,3 +278,42 @@ Cloud – AWS, GCP, Azure
 Java Versions – Java 8–21 features
 Design Principles – SOLID, Design Patterns, Clean Architecture
 Hamiltonian Monte Carlo
+1. Scalability
+
+2. Availability
+
+3. Reliability
+
+4. Fault Tolerance
+
+5. Load Balancing
+
+6. Caching
+
+7. Content Delivery Networks (CDNs)
+
+8. Database Design & Indexing
+
+9. Database Replication
+
+10. Database Sharding
+
+11. CAP Theorem
+
+12. Consistency Models
+
+13. Consistent Hashing
+
+14. Message Queues & Event-Driven Architecture
+
+15. Microservices & Service Communication
+
+16. API Design & API Gateways
+
+17. Rate Limiting & Throttling
+
+18. Distributed Transactions & Saga Pattern
+
+19. Observability, Monitoring & Logging
+
+20. Disaster Recovery & High Availability
