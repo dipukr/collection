@@ -5,10 +5,3 @@ Used strategy to calculate DSM amount based on selected CERC method.
 Used subquery in fetch data one go. Data access code inside for loop.
 Used multithreading for fetching data from both MySQL and MongoDB for DSM calculation.
 ======================================================================================
-Use connection pool when possible.
-Use thread pool when possible.
-User thread local variable when possible.
-Use reader-writer lock when possible.
-Use optimistic lock when possible.
-Use caching for unchanging data.
-rg*z2d7^s$DzWgg

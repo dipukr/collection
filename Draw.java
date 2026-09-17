@@ -26,6 +26,5 @@ void main()
 			int code = data[row][col] == 0 ? 32: 9608;
 			System.out.printf("%s%c%c", "\u001B[35m", code, code);
 		}
-		System.out.println();
 	}
 }

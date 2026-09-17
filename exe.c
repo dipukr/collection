@@ -58,9 +58,8 @@ void generate(const int argc, const char **argv)
 
 
 
-int main(int argc, const char **argv)
+void main(int argc, const char **argv)
 {
 	read();
 	generate();
-	return EXIT_SUCCESS;
 }

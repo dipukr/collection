@@ -1,3 +1,55 @@
+Task execution
+Shared resources
+Race conditions
+Deadlocks avoidance
+Livelocks detection
+Starvation prevention
+Multi-core utilization
+Data parallelism
+Task parallelism
+Fork-Join framework
+Stream API
+Parallel streams
+Thread creation
+Runnable interface
+Thread lifecycle
+Daemon threads
+Thread pools
+ExecutorService
+Synchronized keyword
+Volatile variables
+Atomic classes
+ThreadLocal usage
+Wait-Notify methods
+CountDownLatch
+ReentrantLock
+ReadWriteLock
+StampedLock
+Optimistic locking
+Pessimistic locking
+Spin locks
+Semaphore control
+Phaser coordination
+Exchanger data swap
+CompletableFuture async
+ForkJoinPool tasks
+Async annotation
+Scheduling tasks
+ThreadPoolTaskExecutor
+WebFlux reactive
+Coroutines support
+Immutable objects
+Thread safety
+Performance tuning
+Exception handling
+Testing concurrency
+Monitoring tools
+Memory Leaks
+Garbage Collection
+TaskExecutor configuration
+CyclicBarrier synchronization
+=============================
+
 DHCP, ICMP, NAT, ARP, BGP, DNS, TCP, UDP, IP, HTTP, FTP, SMTP, IMAP, POP, VOIP, P2P, SNNP, AMQP, TLS, WebSockets, WebHooks
 ==========================================================================================================================
 Subnet Mask
@@ -317,3 +369,4 @@ Hamiltonian Monte Carlo
 19. Observability, Monitoring & Logging
 
 20. Disaster Recovery & High Availability
+=========================================

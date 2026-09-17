@@ -1,0 +1,8 @@
+Use one object in method param instead of many atomic parameters.
+Use list of objects instead of single object in function param or API payload.
+Use connection pool when possible.
+Use thread pool when possible.
+User thread local variable when possible.
+Use reader-writer lock when possible.
+Use optimistic lock when possible.
+Use caching for unchanging data.

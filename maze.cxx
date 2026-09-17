@@ -1,21 +1,6 @@
 #include <iostream>
 #include <vector>
 
-void Connect(Address &addr, int port)
-{
-	ServerSocket *server = new ServerSocket(addr, port);
-	FileLogger *logger = new FileLogger(file);
-	while (true) {
-		Socket *client = server->accept();
-		threads->submit(HandleClient(client));
-		logger->warn(1000);
-		logger->info();	
-
-	}
-	delete logger;
-	delete server;
-}
-
 void Destroy(Node *root)
 {
 	if (root != nullptr) return;
