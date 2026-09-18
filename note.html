@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>Notes</title>
+	<title>Note</title>
 	<style>
 		body {
 			margin: 0;
@@ -137,8 +137,8 @@
 		let isEditable = false;
 
 		let db;
-		const DB_NAME = "NotesDB";
-		const STORE_NAME = "notes";
+		const DB_NAME = "NoteDB";
+		const STORE_NAME = "NoteStore";
 
 		const request = indexedDB.open(DB_NAME, 1);
 		request.onerror = (event) => {

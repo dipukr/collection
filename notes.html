@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>NOTES</title>
+	<title>Notes</title>
 	<style>
 		body {
 			margin: 0;
@@ -130,8 +130,8 @@
 		let isEditable = false;
 
 		let db;
-		const DB_NAME = "test";
-		const STORE_NAME = "notesdata";
+		const DB_NAME = "NotesDB";
+		const STORE_NAME = "NoteStore";
 
 		const JSONBIN_URL = "https://api.jsonbin.io/v3/b/6a2a667df5f4af5e29dd4977";
 		const MASTER_KEY = "$2a$10$yq..VL1qOd4lTSyiXKDA1uGonRMlhQf7F.qGR2UgSQ6u8wG6gIMf6";
@@ -263,7 +263,7 @@
 				const url = URL.createObjectURL(blob);
 				const a = document.createElement("a");
 				a.href = url;
-				a.download = "test.json";
+				a.download = "notes.json";
 				a.click();
 				URL.revokeObjectURL(url);
 			});
