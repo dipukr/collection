@@ -370,3 +370,41 @@ Hamiltonian Monte Carlo
 
 20. Disaster Recovery & High Availability
 =========================================
+Networking Basics
+Network Devices
+OSI Model
+TCP/IP Model
+MAC Addresses
+IP Addressing
+Subnetting
+ARP
+DNS
+DHCP
+TCP
+UDP
+Ports and Sockets
+Routing
+Switching
+VLANs
+NAT
+Firewalls
+VPNs
+Troubleshooting
+IP subnetting
+=====================
+Monotonic Stack
+Matrix Traversal
+=====================
+Client-server Architecture
+Microservices Architecture
+Monolith Architecture
+Microservices Architecture
+Event-Driven Architecture 
+Distributed Architecture
+==========================================================
+Search Autocomplete using prefix trees (Trie)
+Diff Tool to compare files line-by-line
+JSON Database to learn serialization and storage
+File Search Tool to learn recursion and indexing
+Cryptography
+

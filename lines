@@ -1,3 +1,28 @@
+Repository pattern: abstract data access.
+Service layer: business logic separation.
+Factory pattern: controlled object creation.
+Singleton: single instance management.
+Dependency injection: loose coupling.
+Middleware: request processing layers.
+Observer pattern: event subscriptions.
+Pub/Sub: decoupled communication.
+Circuit breaker: failure isolation.
+Retry pattern: handling transient failures.
+API gateway: centralized routing.
+BFF: backend for frontend needs.
+CQRS: separate reads and writes.
+Event sourcing: store state as events.
+Saga pattern: distributed transactions.
+Adapter pattern: interface compatibility.
+Decorator pattern: extend behavior.
+Facade pattern: simplify complex systems.
+Proxy pattern: control access.
+Rate limiting pattern: traffic control.
+Cache-aside: on-demand caching.
+Write-through cache: sync cache + DB.
+Bulkhead pattern: isolate failures.
+Strangler pattern: gradual migration.
+Idempotency pattern: safe repeated operations.
 Referential integrity = making sure that a reference from one table always points to a valid record in another table.
 Software architecture refers to the high-level structure of a software system.
 System Design is about designing the entire system — not just software — to meet scalability, reliability and performance requirements.

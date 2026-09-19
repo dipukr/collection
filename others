@@ -1,37 +1,128 @@
-Networking Basics
-Network Devices
-OSI Model
-TCP/IP Model
-MAC Addresses
-IP Addressing
-Subnetting
-ARP
+Scalability (QPS, Throughput, Latency, Storage)
+Reliability
+Availability
+Fault Tolerance
+Horizontal Scaling
+Vertical Scaling
+Autoscaling
+CAP Theorem
+Load Balancing
+Rate Limiting
+API Gateway
+Network Partitions
+Service Discovery
+Reverse Proxy
+Leader Election
+Gossip Protocol
+Distributed Locks
+Distributed Streaming
+Distributed Tracing
+Distributed Transactions (2PC, Saga Pattern)
+Distributed Data Processing
+Timeouts and Retries
+API Design
+Pagination (Offset vs Cursor)
+Encryption (SSL, TLS)
+Checksum
+Consensus Algorithms (Paxos, Raft)
+Content Delivery Networks (Architecture)
+Message Queues (Kafka, RabbitMQ, JMS)
+Pub/Sub System
+Consistency Models (Strong vs Eventual)
+Replication (Leader–Follower, Multi-leader)
+Alerting Systems
+Monitoring and Metrics (Prometheus, Grafana, Micrometer)
+Logging and Distributed Tracing (ELK Stack, Jaeger, Zipkin)
+Authentication and Authorization (OAuth, JWT, Sessions, Cookies)
+Observability (Logs, Metrics, Tracing, Monitoring, Alerting)
+Caching (Cache Stampede,Cache Invalidation, Edge Caching)
+Reliability Patterns (Retries, Idempotency, Backpressure, Circuit-Breakers)
+Security (Authentication, Authorization, XSS, SSRF, CORS, CSRF, SQL injection, Secrets Management)
+==================================================================================================
+Logical Replication vs Physical Replication
+Batch Processing vs Stream Processing 
+Stateless vs Stateful Design
+Async vs Sync Processing
+============================
+Software Design
+Software Architecture
+Distributed System
+System Design
+Client-server Architecture
+Event-driven Architecture
+Distributed System Architectures
+Monolith
+Modular Monolith
+Microservices
+CQRS Pattern
+SAGA Pattern
+Outbox Pattern
+Circuit-Breakers
+Bulkhead Isolation
+Service Mesh
+Sidecar
+Strangler Pattern
+Event Sourcing Pattern
+MVC (Model, View, Controller)
+=============================
+Vector DB
+Time-Series Databases
+SQL vs NoSQL trade-offs
+Database Design
+Database Replication
+Database Sharding Strategies
+Database Partitioning
+Database Transactions
+Database Indexing
+ACID
+BASE
+Normalization
+Denormalization
+Connection Pool
+Query Caching
+Query Optimization
+N+1 Query Problem
+Distributed Joins
+Materialized Views
+Data migration
+Schema evolution
+Schema registry
+Query planner
+Cost-based optimizer
+Deadlock
+Lock escalation
+Optimistic locking
+Pessimistic locking
+Isolation Levels
+Dirty read
+Phantom read
+Read skew
+Write skew
+Data skew
+Two-Phase Commit (2PC)
+Three-Phase Commit (3PC)
+Write-Ahead Logging (WAL)
+Change Data Capture (CDC)
+MVCC (Multi-Version Concurrency Control)
+========================================
+Consistent Hashing
+Count-Min Sketch
+Bloom Filters
+Merkle Tree
+Quadtree
+Trie
+LSM Trees 
+B-Trees 
+Compression
+===========
+HTTPS
 DNS
-DHCP
 TCP
 UDP
-Ports and Sockets
-Routing
-Switching
-VLANs
-NAT
-Firewalls
-VPNs
-Troubleshooting
-IP subnetting
-=====================
-Monotonic Stack
-Matrix Traversal
-=====================
-Client-server Architecture
-Microservices Architecture
-Monolith Architecture
-Microservices Architecture
-Event-Driven Architecture 
-Distributed Architecture
-==========================================================
-Search Autocomplete using prefix trees (Trie)
-Diff Tool to compare files line-by-line
-JSON Database to learn serialization and storage
-File Search Tool to learn recursion and indexing
-Cryptography
+WebSockets
+Webhooks
+=============
+False Sharing
+==================
+Query Optimization
+JVM Tuning
