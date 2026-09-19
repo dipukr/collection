@@ -31,12 +31,13 @@ Pub/Sub System
 Consistency Models (Strong vs Eventual)
 Replication (Leader–Follower, Multi-leader)
 Alerting Systems
+Data Pipelines
 Monitoring and Metrics (Prometheus, Grafana, Micrometer)
 Logging and Distributed Tracing (ELK Stack, Jaeger, Zipkin)
 Authentication and Authorization (OAuth, JWT, Sessions, Cookies)
 Observability (Logs, Metrics, Tracing, Monitoring, Alerting)
-Caching (Cache Stampede,Cache Invalidation, Edge Caching)
 Reliability Patterns (Retries, Idempotency, Backpressure, Circuit-Breakers)
+Caching (Strategies, Eviction Policies, Cache Stampede, Cache Invalidation, Edge Caching)
 Security (Authentication, Authorization, XSS, SSRF, CORS, CSRF, SQL injection, Secrets Management)
 ==================================================================================================
 Logical Replication vs Physical Replication
@@ -47,10 +48,11 @@ Async vs Sync Processing
 Software Design
 Software Architecture
 Distributed System
+Event-driven System
 System Design
 Client-server Architecture
 Event-driven Architecture
-Distributed System Architectures
+Distributed System Architecture
 Monolith
 Modular Monolith
 Microservices
@@ -74,6 +76,7 @@ Database Sharding Strategies
 Database Partitioning
 Database Transactions
 Database Indexing
+ORM and JPA
 ACID
 BASE
 Normalization
@@ -114,7 +117,17 @@ Trie
 LSM Trees 
 B-Trees 
 Compression
-===========
+Trie
+R-Tree
+B-Tree
+Skiplist
+SSTable
+Quadtree
+LSM Tree
+Suffix Tree
+Hash Table
+Inverted Index
+==============
 HTTPS
 DNS
 TCP
@@ -126,3 +139,59 @@ False Sharing
 ==================
 Query Optimization
 JVM Tuning
+Tail Latency Reduction
+=====================================
+𝐒𝐎𝐋𝐈𝐃: Better Object-Oriented Design
+𝐃𝐑𝐘: Avoid Repetition
+𝐊𝐈𝐒𝐒: Keep Things Simple
+𝐘𝐀𝐆𝐍𝐈: Don't Build Unnecessary Features
+𝐒𝐑𝐏: One Responsibility
+𝐎𝐩𝐞𝐧/𝐂𝐥𝐨𝐬𝐞𝐝: Extend Without Breaking
+𝐃𝐞𝐩𝐞𝐧𝐝𝐞𝐧𝐜𝐲 𝐈𝐧𝐯𝐞𝐫𝐬𝐢𝐨𝐧: Loose Coupling
+𝐂𝐨𝐦𝐩𝐨𝐬𝐢𝐭𝐢𝐨𝐧: Build Flexible Components
+𝐒𝐞𝐩𝐚𝐫𝐚𝐭𝐢𝐨𝐧 𝐨𝐟 𝐂𝐨𝐧𝐜𝐞𝐫𝐧𝐬: Cleaner Design
+𝐅𝐚𝐢𝐥 𝐅𝐚𝐬𝐭: Detect Problems Early
+𝐌𝐞𝐚𝐬𝐮𝐫𝐞 𝐅𝐢𝐫𝐬𝐭: Optimize What Actually Matters
+=============================================
+Reactive Programming
+Structured Concurrency
+======================
+Java Memory Model (JMM)
+Happens-before relationship
+Volatile visibility guarantees
+Instruction reordering
+Escape analysis
+False sharing
+CAS (Compare-And-Swap)
+ABA problem
+AQS internals
+ForkJoinPool
+Virtual threads
+Semaphores
+GC roots
+G1 GC 
+Object header layout
+Generics type erasure
+Bridge methods
+Double-checked locking 
+readResolve
+SerialVersionUID
+StampedLock optimistic reads
+NIO Selector internals
+DirectByteBuffer lifecycle
+ClassLoader delegation model
+JIT inlining heuristics
+Deoptimization
+@ Transactional proxy 
+CGLIB
+MethodHandles
+VarHandle
+TLAB 
+Sealed Classes
+Predicate
+Lock inflation
+Write barriers
+DispatcherServlet
+Stream short-circuiting
+Spliterator
+try-with-resources

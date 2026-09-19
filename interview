@@ -17,3 +17,16 @@ How does Netflix decide which edge server should serve a user request?
 What is the difference between packets and streams?
 Why are movies streamed instead of sent as a single large file?
 How does Netflix handle changing internet speed during playback?
+What are the indexes?
+What are the slow queries?
+What happens at 10× data?
+Are transactions small?
+Are constraints enforced?
+Is pagination efficient?
+What happens during locks?
+Are backups tested?
+Can migrations roll back?
+What happens when the DB is unavailable?
+Design a distributed job scheduling system that can execute millions of cron jobs reliably across multiple regions.
+How Do You Migrate 10TB of Data with Zero Downtime?
+What if the Load Balancer itself goes down?

@@ -1,0 +1,209 @@
+LeetCode Problem No:
+1 - Two Sum
+2 - Add Two Numbers
+9 - Palindrome Number
+19 - Remove Nth Node From End
+20 - Valid Parentheses
+21 - Merge Two sorted lists
+22 - Generate Parentheses
+23 - Merge k Sorted Lists
+24 - Swap Nodes in Pairs
+25 - Reverse Nodes in k-Group
+26 - Remove Duplicates from Sorted Array
+27 - Remove Element
+28 - Implement strStr()
+33 - Search in Rotated Sorted Array
+35 - Search Insert Position 
+36 - Valid Sudoku
+42 - Trapping Rain Water
+46 - Permutation (all permutations)
+47 - Permutations II (with duplicates)
+48 - Rotate Image
+50 - Pow(x, n)
+53 - Maximum Subarray
+54 - Spiral Matrix
+66 - Plus One
+70 - Climbing Stairs
+73 - Set Matrix Zeroes
+74 - Search a 2D matrix
+76 - Minimum Window Substring
+77 - Combinations (n choose k)
+79 - Word Search 
+84 - Largest Rectangle in Histogram
+88 - Merge Sorted Array
+103 - Binary Tree Zigzag Level Order
+104 - Maximum Depth of Binary Tree
+105 - Construct Binary Tree from Preorder and Inorder
+106 - Construct Binary Tree from Inorder and Postorder
+108 - Convert Sorted Array to BST
+112 - Path Sum
+113 - Path Sum II
+121 - Best time to buy and sell stock
+124 - Binary Tree Maximum Path Sum
+125 - Valid Palindrome
+127 - Word Ladder (Length)
+136 - Single Number
+142 - Linked List Cycle II (find start)
+150 - Evaluate Reverse Polish Notation
+152 - Maximum Product Subarray
+155 - Min Stack
+160 - Intersection of Two Linked Lists
+162 - Find Peak Element
+173 - Binary Search Tree Iterator
+189 - Rotate Array 
+198 - House Robber
+206 - Reverse Linked List
+210 - Topological Sort / Course Schedule (II)
+213 - House Robber II
+215 - Kth Largest Element in an Array
+217 - Contains Duplicate
+225 - Implement Stack using Queues
+231 - Power of Two 
+232 - Implement Queue using Stacks
+235 - Lowest Common Ancestor of BST
+236 - Lowest Common Ancestor of Binary Tree
+268 - Missing Number
+283 - Move Zeroes
+297 - Serialize and Deserialize Binary Tree
+344 - Reverse String
+347 - Top K Frequent Elements
+349 - Intersection of Two Arrays
+509 - Fibonacci Number
+973 - K Closest Points to Origin
+1464 - Maximum Product of Two Elements
+DSA Roadmap (Basic → Advanced) :
+
+1.Basics
+→ Time & Space Complexity
+→ Math Basics
+→ Bit Manipulation (Basics)
+
+2.Arrays & Strings
+→ Arrays
+→ Strings
+→ Two Pointers
+→ Sliding Window
+→ Prefix Sum
+→ Kadane’s Algorithm
+
+3.Searching & Sorting
+→ Basic Sorting
+→ Binary Search
+→ Binary Search on Answer
+→ Merge Sort
+→ Quick Sort
+→ Heap Sort
+
+4.Recursion & Backtracking
+→ Recursion Basics
+→ Subsets / Subsequences
+→ Permutations
+→ Backtracking (N-Queens, Sudoku)
+
+5.Hashing
+→ Hash Maps
+→ Frequency Counting
+→ Prefix Hashing
+→ Subarray / Substring Problems
+
+6.Linked List
+→ Singly Linked List
+→ Doubly Linked List
+→ Fast & Slow Pointer
+→ Cycle Detection
+→ Reverse / Merge Linked List
+
+7.Stack & Queue
+→ Stack
+→ Queue
+→ Deque
+→ Monotonic Stack
+→ Next Greater Element
+→ Expression Evaluation
+
+8.Greedy
+→ Activity Selection
+→ Interval Problems
+→ Job Scheduling
+→ Greedy with Sorting
+
+9.Binary Trees
+→ Tree Traversals
+→ Height / Depth
+→ Diameter
+→ Lowest Common Ancestor
+→ Tree Views
+
+10.Binary Search Trees
+→ BST Basics
+→ Insert / Delete
+→ Floor / Ceil
+→ Validate BST
+→ BST Problems
+
+11.Heaps
+→ Min Heap / Max Heap
+→ Priority Queue
+→ Kth Largest / Smallest
+→ Merge K Sorted Lists
+
+12.Graphs
+→ Graph Representation
+→ BFS / DFS
+→ Cycle Detection
+→ Topological Sort
+→ Shortest Path Algorithms
+→ Minimum Spanning Tree
+
+13.Dynamic Programming
+→ 1D DP
+→ 2D DP
+→ DP on Subsequences
+→ DP on Strings
+→ DP on Trees
+→ Space Optimization
+
+14.Advanced Topics
+→ Tries
+→ Disjoint Set (Union Find)
+→ Segment Tree
+→ Fenwick Tree
+→ String Algorithms (KMP, Z)
+============================================
+1. Data Structures:
+
+- Arrays
+- Linked Lists
+- Stacks
+- Queues
+- Trees (Binary Trees, Binary Search Trees)
+- Graphs
+- Hash Tables
+- Heaps (Priority Queues)
+- Hash Sets
+- Hash Maps
+- Trie
+- Segment Trees
+- Fenwick Trees (Binary Indexed Trees)
+- Disjoint-Set (Union-Find) Data Structure
+
+2. Algorithms:
+
+- Sorting Algorithms (e.g., QuickSort, MergeSort)
+- Searching Algorithms (e.g., Binary Search)
+- Breadth-First Search (BFS)
+- Depth-First Search (DFS)
+- Dynamic Programming
+- Greedy Algorithms
+- Shortest Path Algorithms (e.g., Dijkstra's Algorithm)
+- Minimum Spanning Tree Algorithms (e.g., Kruskal's Algorithm)
+- Topological Sorting
+- Divide and Conquer
+- Backtracking
+- Sliding Window Technique
+- Two-Pointer Technique
+- Bit Manipulation
+- Morris Traversal for Trees
+- KMP (Knuth-Morris-Pratt) Algorithm for Pattern Matching
+- Rabin-Karp Algorithm for String Matching
+- Floyd-Warshall Algorithm for All-Pairs Shortest Paths

@@ -56,3 +56,4 @@ Objects of a superclass should be replaceable with objects of a subclass without
 Cache invalidation is the process of removing or updating outdated data in a system's cache when the original source of truth changes.
 Performance is not just faster code, performance is architecture caching, async IO, efficient DB queries, rate limits, batching, pagination.
 You just don't optimize a function rather you optimize the flow.
+Sidecar: Multiple services need to share common logging, monitoring, and configuration without duplicating code.
