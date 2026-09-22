@@ -57,3 +57,14 @@ Cache invalidation is the process of removing or updating outdated data in a sys
 Performance is not just faster code, performance is architecture caching, async IO, efficient DB queries, rate limits, batching, pagination.
 You just don't optimize a function rather you optimize the flow.
 Sidecar: Multiple services need to share common logging, monitoring, and configuration without duplicating code.
+Event-Driven Architecture: Systems communicate by publishing and reacting to events instead of calling each other directly, improving decoupling and scalability.
+Saga Pattern: Manages distributed transactions by breaking them into steps with compensating actions instead of using a single ACID transaction.
+CQRS: Separates write operations (commands) from read operations (queries) to optimize scalability and performance independently.
+Event Sourcing: Stores state as a sequence of immutable events rather than current values, allowing replay, auditing, and rebuilding state.
+Circuit Breaker Pattern: Prevents cascading failures by stopping calls to an unhealthy service until it recovers.
+Distributed Tracing: Tracks a request as it flows through multiple services to debug latency, failures, and bottlenecks.
+CAP Theorem: In a distributed system, you can only guarantee two of three: Consistency, Availability, and Partition Tolerance.
+Idempotency: Ensures repeated requests produce the same result, critical for retries in unreliable networks.
+Data Sharding: Splits data across multiple databases or nodes to scale horizontally and reduce load on a single instance.
+API Gateway: Acts as a single entry point for clients, handling routing, auth, rate limiting, and aggregation.
+Favour composition over inheritance; use inheritance only when you need both code reuse and subtype polymorphism.

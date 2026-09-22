@@ -1,0 +1,20 @@
+<div class="section cmp">
+        <div class="section-title">Final Distinction</div>
+        <div class="section-content">
+            <table class="cmp-table">
+                <thead><tr><th>Pattern</th><th>Think</th></tr></thead>
+                <tbody>
+                    <tr><td>Adapter</td><td>"Make it compatible."</td></tr>
+                    <tr><td>Facade</td><td>"Make it simpler."</td></tr>
+                    <tr><td>Decorator</td><td>"Add behavior."</td></tr>
+                    <tr><td>Proxy</td><td>"Control access."</td></tr>
+                    <tr><td>Bridge</td><td>"Separate dimensions."</td></tr>
+                    <tr><td>Composite</td><td>"Treat part and whole uniformly."</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<div class="callout callout-note">
+        <p><strong>One-line definition:</strong> Adapter Pattern converts the interface of an existing class into another interface expected by the client, allowing otherwise incompatible classes to work together.</p>
+    </div>
