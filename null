@@ -1,20 +1,22 @@
-<div class="section cmp">
-        <div class="section-title">Final Distinction</div>
-        <div class="section-content">
-            <table class="cmp-table">
-                <thead><tr><th>Pattern</th><th>Think</th></tr></thead>
-                <tbody>
-                    <tr><td>Adapter</td><td>"Make it compatible."</td></tr>
-                    <tr><td>Facade</td><td>"Make it simpler."</td></tr>
-                    <tr><td>Decorator</td><td>"Add behavior."</td></tr>
-                    <tr><td>Proxy</td><td>"Control access."</td></tr>
-                    <tr><td>Bridge</td><td>"Separate dimensions."</td></tr>
-                    <tr><td>Composite</td><td>"Treat part and whole uniformly."</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-<div class="callout callout-note">
-        <p><strong>One-line definition:</strong> Adapter Pattern converts the interface of an existing class into another interface expected by the client, allowing otherwise incompatible classes to work together.</p>
-    </div>
+Replication, Fault-tolerance, Availability
+Partitioning = Scalability
+Replication = Fault-tolerance
+=============================
+A producer is a user application that sends messages.
+A queue is a buffer that stores messages.
+A consumer is a user application that receives messages.
+The Outbox pattern reliably publishes events by writing them to a database table in the same transaction as the business data.
+It solves the dual-write problem: updating a database and a message broker cannot be atomic on their own.
+A separate relay process reads the outbox table and publishes the events to the broker.
+This guarantees an event is published if and only if the business change was committed.
+======================================================================================================================================================
+SQL vs NoSQL
+Kafka vs RabbitMQ
+Synchronous vs Asynchronous Architecture
+Observability, Alterting System, Paxos, Raft, Consistency Models, Data Pipelines, Sudden Spikes, Timeouts, Retries, Idempotency, 
+TCP, UDP, IP, BGP, DNS, HTTPS, DNS, 
+======================================================================================================================================================
+Fanout Exchange: The received message is routed to all queues that are bound to the exchange.
+Topic Exchange: Messages are routed to one or many queues based on a match between a message routing key and the routing pattern.
+Example of Headers Exchange. Routes messages to queues that are bound using arguments (key and value) in the amq. headers attribute.
+A queue in RabbitMQ is an ordered collection of messages. Messages are enqueued and dequeued (delivered to consumers) in a FIFO manner.
