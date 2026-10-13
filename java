@@ -24,7 +24,7 @@ DirectByteBuffer lifecycle
 ClassLoader delegation model
 JIT inlining heuristics
 Deoptimization
-@Transactional proxy 
+Transactional proxy 
 CGLIB
 MethodHandles
 VarHandle

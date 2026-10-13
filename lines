@@ -1,28 +1,3 @@
-Repository pattern: abstract data access.
-Service layer: business logic separation.
-Factory pattern: controlled object creation.
-Singleton: single instance management.
-Dependency injection: loose coupling.
-Middleware: request processing layers.
-Observer pattern: event subscriptions.
-Pub/Sub: decoupled communication.
-Circuit breaker: failure isolation.
-Retry pattern: handling transient failures.
-API gateway: centralized routing.
-BFF: backend for frontend needs.
-CQRS: separate reads and writes.
-Event sourcing: store state as events.
-Saga pattern: distributed transactions.
-Adapter pattern: interface compatibility.
-Decorator pattern: extend behavior.
-Facade pattern: simplify complex systems.
-Proxy pattern: control access.
-Rate limiting pattern: traffic control.
-Cache-aside: on-demand caching.
-Write-through cache: sync cache + DB.
-Bulkhead pattern: isolate failures.
-Strangler pattern: gradual migration.
-Idempotency pattern: safe repeated operations.
 Referential integrity = making sure that a reference from one table always points to a valid record in another table.
 Software architecture refers to the high-level structure of a software system.
 System Design is about designing the entire system — not just software — to meet scalability, reliability and performance requirements.
@@ -57,7 +32,7 @@ Cache invalidation is the process of removing or updating outdated data in a sys
 Performance is not just faster code, performance is architecture caching, async IO, efficient DB queries, rate limits, batching, pagination.
 You just don't optimize a function rather you optimize the flow.
 Sidecar: Multiple services need to share common logging, monitoring, and configuration without duplicating code.
-Event-Driven Architecture: Systems communicate by publishing and reacting to events instead of calling each other directly, improving decoupling and scalability.
+EDA: Systems communicate by publishing and reacting to events instead of calling each other directly, improving decoupling and scalability.
 Saga Pattern: Manages distributed transactions by breaking them into steps with compensating actions instead of using a single ACID transaction.
 CQRS: Separates write operations (commands) from read operations (queries) to optimize scalability and performance independently.
 Event Sourcing: Stores state as a sequence of immutable events rather than current values, allowing replay, auditing, and rebuilding state.

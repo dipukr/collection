@@ -53,3 +53,46 @@ Available
 Fault-tolerant
 Resilient
 Performant
+=======================
+Replication, Fault-tolerance, Availability
+Partitioning = Scalability
+Replication = Fault-tolerance
+=============================
+A producer is a user application that sends messages.
+A queue is a buffer that stores messages.
+A consumer is a user application that receives messages.
+The Outbox pattern reliably publishes events by writing them to a database table in the same transaction as the business data.
+It solves the dual-write problem: updating a database and a message broker cannot be atomic on their own.
+A separate relay process reads the outbox table and publishes the events to the broker.
+This guarantees an event is published if and only if the business change was committed.
+Factory Method: Creates objects using a factory.
+Builder: Constructs complex objects step by step.
+======================================================================================================================================================
+SQL vs NoSQL
+Kafka vs RabbitMQ
+Synchronous vs Asynchronous Architecture
+TCP, UDP, IP, BGP, DNS, HTTPS, DNS, 
+Observability, Alterting System, Paxos, Raft, Consistency Models, Data Pipelines, Sudden Spikes, Timeouts, Retries, Idempotency, 
+===============================================================================================================================
+Outbox (Reliability Pattern)
+======================================================================================================================================================
+Fanout Exchange: The received message is routed to all queues that are bound to the exchange.
+Topic Exchange: Messages are routed to one or many queues based on a match between a message routing key and the routing pattern.
+Example of Headers Exchange. Routes messages to queues that are bound using arguments (key and value) in the amq. headers attribute.
+A queue in RabbitMQ is an ordered collection of messages. Messages are enqueued and dequeued (delivered to consumers) in a FIFO manner.
+A cascading failure in microservices happens when a failure or slowdown in one service causes dependent services to fail or slow down and that impact keeps spreading through the system.
+Template Method: it defines the overall algorithm. Algorithm steps can vary between sub-classes.
+================================================================================================
+JDBC — the java.sql API is the abstraction while each vendor Driver is the implementation, so the same code runs against any database.
+SLF4J — the logging facade is the abstraction bridged to concrete backends like Logback or Log4j chosen at deployment.
+Java AWT — Component classes delegate to peer objects (ComponentPeer) so widgets stay independent of the native windowing toolkit.
+Spring Resource — the Resource abstraction is bridged to implementations such as ClassPathResource, FileSystemResource and UrlResource.
+JCA / Java Cryptography — engine classes like MessageDigest and Cipher are bridged to pluggable provider implementations.
+Device drivers — the operating system exposes one device abstraction while each hardware vendor supplies its own driver implementation.
+TV and remote — a remote control (abstraction) works with many TV brands (implementations) that can be paired independently.
+When both an abstraction and its implementation should be extensible independently.
+When you want to avoid a permanent binding between abstraction and implementation.
+When a class has multiple orthogonal dimensions of variation.
+When inheritance would otherwise cause a class explosion.
+When you want to switch implementations at runtime.
+New remotes and new devices can be added independently without cross-multiplying classes.

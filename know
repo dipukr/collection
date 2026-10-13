@@ -1,44 +1,19 @@
-Logical Replication vs Physical Replication
-Batch Processing vs Stream Processing 
-Stateless vs Stateful Design
-Async vs Sync Processing
-=============================================
-Search Autocomplete using prefix trees (Trie)
-Diff Tool to compare files line-by-line
+======================================================================================================================================================
+Directed-acyclic graph, Interference graph, Liveness analysis, Graph coloring, Register allocation, Control flow graph, Three-address code
+Monotonic Stack, Matrix Traversal, Consistent Hashing, Count-Min Sketch, Bloom Filters, Merkle Tree, Quadtree, Trie, LSM Trees, B-Trees 
+Compression, Trie, R-Tree, B-Tree, SkipList, SSTable, QuadTree, LSM Tree, Suffix Tree, Hash Table, Chord, Kademelia, Inverted Index
+=====================================================================================================================================================
 JSON Database to learn serialization and storage
 File Search Tool to learn recursion and indexing
-================================================
+Search Autocomplete using prefix trees (Trie)
+Diff Tool to compare files line-by-line
+Annotation Processor
+===========================================
+Logical Replication vs Physical Replication
+Asynchronous vs Synchronous Processing
+Batch Processing vs Stream Processing 
+Stateless vs Stateful Design
+============================
 Dependency inversion
 Dependency injection
 Inversion of control
-======================
-Directed-acyclic graph
-Interference graph
-Liveness analysis
-Graph coloring
-Register allocation
-Control flow graph
-Three-address code
-Monotonic Stack
-Matrix Traversal
-Consistent Hashing
-Count-Min Sketch
-Bloom Filters
-Merkle Tree
-Quadtree
-Trie
-LSM Trees 
-B-Trees 
-Compression
-Trie
-R-Tree
-B-Tree
-Skiplist
-SSTable
-Quadtree
-LSM Tree
-Suffix Tree
-Hash Table
-Inverted Index
-Chord
-Kademelia
