@@ -8,13 +8,17 @@ Diff Tool to compare files line-by-line
 JSON Database to learn serialization and storage
 File Search Tool to learn recursion and indexing
 ================================================
+Dependency inversion
+Dependency injection
+Inversion of control
+======================
+Directed-acyclic graph
 Interference graph
 Liveness analysis
 Graph coloring
 Register allocation
 Control flow graph
 Three-address code
-Directed-acyclic graph
 Monotonic Stack
 Matrix Traversal
 Consistent Hashing

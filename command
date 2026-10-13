@@ -20,6 +20,7 @@ ghostty --fullscreen
 gnome-terminal --full-screen
 ghostty --fullscreen=true --theme=Ubuntu
 gnome-terminal --full-screen --show-menubar
+attrib +h +s .bash_history
 Set-PSReadLineKeyHandler -Key Tab -Function AcceptSuggestion
 =============================================================================
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
