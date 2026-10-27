@@ -96,3 +96,6 @@ When a class has multiple orthogonal dimensions of variation.
 When inheritance would otherwise cause a class explosion.
 When you want to switch implementations at runtime.
 New remotes and new devices can be added independently without cross-multiplying classes.
+=========================================================================================
+interface standardizes software components.
+same interface=same experience
