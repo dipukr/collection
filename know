@@ -1,3 +1,26 @@
+Above is the link to chatgpt answer about Idempotency.
+Add everything in the chat into Idempotency.html as-it-is.
+Implement algorithms from scratch.
+=============================================================================
+Explain in details with practical code examples about Visitor design pattern.
+==================================================
+Programming Languages: Java, Python, C, SQL, T-SQL
+Computer Science: Data Stuructures and Algorithms, Concurreny, Compiler Design
+Backend Frameworks: Spring Boot, Hibernate JPA, FastAPI, LangChain, LangGraph
+Software Architecture: Microservices, Event-Driven, CQRS, SAGA, Outbox,  
+Software Design: Object-oriented Design, Data-oriented Design, Design Patterns, Design Principles
+Software Architecture: Microservices Architecture and Patterns, Event-Driven Architecture, MVC, N-Tier
+System Design: Distributed Systems, Scalable Systems, Database Design, API Design, Performance Optimization
+Message Brokers: Apache Kafka and RabbitMQ
+Tools: Linux, Git, SVN, Docker, Maven, Jenkins, BitBucket
+Batch Processing
+Monitoring vs Observability
+Performance Tuning (Concurreny, Query, Design, Architecture)
+Thread Safety achieved through confinement, immutability, synchronization, or thread-safe libraries.
+Shared resources are data or objects accessed by multiple threads, such as memory, files or network connections.
+When multiple threads modify a shared resource at once, the outcome is non-deterministic.
+Concurrent access must be explicitly synchronized in a multi-threaded environment.
+Read-read sharing is safe, but read-write and write-write access needs protection.
 ======================================================================================================================================================
 Directed-acyclic graph, Interference graph, Liveness analysis, Graph coloring, Register allocation, Control flow graph, Three-address code
 Monotonic Stack, Matrix Traversal, Consistent Hashing, Count-Min Sketch, Bloom Filters, Merkle Tree, Quadtree, Trie, LSM Trees, B-Trees 
@@ -17,3 +40,52 @@ Stateless vs Stateful Design
 Dependency inversion
 Dependency injection
 Inversion of control
+=========================
+Event-Driven Architecture
+Aggregator
+Bulkhead
+=========================
+Content Delivery Networks
+Forward Proxy
+Reverse Proxy
+Authentication
+Autherization
+Availability
+Replication
+Reliability
+Security
+Observability
+Choreography
+Two-Phase Commit
+Event-Driven System
+Consistency Models
+Distributed Locks
+Distributed Processing
+Batch Processing
+Rate Limiters
+Load Balancers
+CAP Theorem
+ACID
+BASE
+Database Design
+Transaction
+Isolation Levels
+Normalization
+Sharding
+Partitioning
+Indexing
+Query Caching
+Query Optimization
+Write-Ahead Logs
+Connection Pools
+Asynchronous Programming
+Dining Philosophers
+Volatile
+Synchronized
+Starvation
+Monitoring Tools (jstack, jconsole, VisualVM, Java Flight Recorder and Micrometer metrics)
+Memory Leaks (Concurreny, JVM)
+
+
+
+

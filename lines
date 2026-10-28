@@ -43,3 +43,5 @@ Idempotency: Ensures repeated requests produce the same result, critical for ret
 Data Sharding: Splits data across multiple databases or nodes to scale horizontally and reduce load on a single instance.
 API Gateway: Acts as a single entry point for clients, handling routing, auth, rate limiting, and aggregation.
 Favour composition over inheritance; use inheritance only when you need both code reuse and subtype polymorphism.
+Completable future is a non-blocking asynchronous API that helps execute task asynchronously and process results using callback-style method.
+Asynchronous excution means: A task runs separately in the background without blocking the main thread.

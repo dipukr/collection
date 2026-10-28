@@ -96,3 +96,23 @@ When a class has multiple orthogonal dimensions of variation.
 When inheritance would otherwise cause a class explosion.
 When you want to switch implementations at runtime.
 New remotes and new devices can be added independently without cross-multiplying classes.
+=====================================================================================================================================================
+Algorithms can be swapped at runtime without changing the context.
+
+Encapsulated Details
+Isolates algorithm implementation details from the code that uses it.
+
+Removes Conditionals
+Replaces conditional logic for selecting behavior with polymorphism.
+
+Open/Closed Principle
+Follows the Open/Closed Principle, so new strategies add cleanly.
+
+More Classes
+Increases the number of objects and classes in the application.
+
+Client Awareness
+Clients must be aware of the differences to choose the right strategy.
+
+Possible Overkill
+Overkill if the algorithm rarely changes or has only one variant.
