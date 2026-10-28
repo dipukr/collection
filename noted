@@ -96,6 +96,7 @@ When a class has multiple orthogonal dimensions of variation.
 When inheritance would otherwise cause a class explosion.
 When you want to switch implementations at runtime.
 New remotes and new devices can be added independently without cross-multiplying classes.
+<<<<<<< HEAD
 =====================================================================================================================================================
 Algorithms can be swapped at runtime without changing the context.
 
@@ -116,3 +117,8 @@ Clients must be aware of the differences to choose the right strategy.
 
 Possible Overkill
 Overkill if the algorithm rarely changes or has only one variant.
+=======
+=========================================================================================
+interface standardizes software components.
+same interface=same experience
+>>>>>>> e495a1f31730ba29de1da4c518ea611face2705b
