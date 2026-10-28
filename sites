@@ -1,9 +1,11 @@
 www.state-machine.com/oop
 www.piotrduperas.com/posts/nan-boxing
 www.leonardschuetz.ch/blog/nan-boxing
+www.computerenhance.com/p/clean-code-horrible-performance
 www.dmitrysoshnikov.com/compilers/writing-a-memory-allocator
 www.dmitrysoshnikov.com/compilers/writing-a-mark-sweep-garbage-collector
-www.computerenhance.com/p/clean-code-horrible-performance
+========================================================================
+www.blog.jamesdbloom.com/JVMInternals.html
 www.coursera.cs.princeton.edu/algs4/assignments/8puzzle/specification.php
 www.cs.princeton.edu/courses/archive/spr10/cos226/assignments/8puzzle.html
 www.cs.princeton.edu/courses/archive/spr18/cos226/assignments/8puzzle/index.html
@@ -33,4 +35,3 @@ www.medium.com/@sandeep4.verma/system-design-scalable-url-shortener-service-like
 www.medium.com/@AlexanderObregon/java-memory-leaks-detection-and-prevention-25d1c09eaebe
 www.medium.com/@AlexanderObregon/implementing-a-distributed-hash-table-dht-in-java-a-scalable-fault-tolerant-data-storage-c02a7bed6c3
 www.github.com/resources/articles/what-is-software-architecture
-www.blog.jamesdbloom.com/JVMInternals.html
